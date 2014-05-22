@@ -1,9 +1,0 @@
----
-layout: post
-title: "又一个 Wuwenjie 站点"
-author: "wuwenjie"
-date: 2011-08-29 05:26
-comments: true
-categories: []
----
-<a title="http://wuwenjie.xp3.biz/" href="http://wuwenjie.xp3.biz/" target="_blank">http://wuwenjie.xp3.biz/</a>
