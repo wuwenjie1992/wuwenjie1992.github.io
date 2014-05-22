@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Chrome 快捷方式图标上开始显示用户头像"
+author: "wuwenjie"
+date: 2012-01-29 09:13
+comments: true
+categories: []
+---
+如果你打开了Chrome的多用户登录功能，那么在最新的Chrome Dev for Windows版里应该会看到如上图的变化：Chrome的快捷方式图标右下角出现了用户头像，且快捷方式名称也会在后面的括号里加入用户名，提示你点击这个图标直接登录的是该帐户的Chrome。
+
+至于如何让Chrome图标直接打开就是不同用户的帐户呢？也很简单 ，只需要在Chrome快捷方式后面加入以下定义即可：
+
+chrome.exe --user-data-dir="..\User Data\你的用户名" -first-run
+
+Windows 7和Vista的用户目录是：C:\Users\\AppData\Local\Google\Chrome\User Data
+
+Windows XP的用户名录是：C:\Documents and Settings\\Local Settings\Application Data\Google\Chrome\User Data
+
+[caption id="" align="alignleft" width="218" caption="Chrome 快捷方式图标上开始显示用户头像"]<a href="http://cnbeta.com/articles/170737.htm"><img title="Chrome 快捷方式图标上开始显示用户头像" src="http://img.cnbeta.com/newsimg/120129/11420701550613625.jpg" alt="Chrome 快捷方式图标上开始显示用户头像" width="218" height="169" /></a>[/caption]
+
+谷奥 Via <a title="http://chromestory.com/2012/01/chrome-user-profiles-now-complete-with-your-avatar/" href="http://chromestory.com/2012/01/chrome-user-profiles-now-complete-with-your-avatar/" target="_blank">Chrome Story</a>
