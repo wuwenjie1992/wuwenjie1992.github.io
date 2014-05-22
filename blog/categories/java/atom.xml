@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: java | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/java/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[android APP 古汉语常用字字典]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian/"/>
+    <updated>2014-02-14T00:15:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian</id>
+    <content type="html"><![CDATA[<h2>为什么有它</h2>
+
+<ul>
+<li>之前在做<a href="/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/">hello_luence</a>的时候，在网络上寻找文本类的文档做【被索引的文档】，得到字典文件</li>
+<li> 后来在看<a href="http://lib.ecit.edu.cn/guoxue/%E5%8F%B2%E9%83%A8/25%E5%8F%B2/%E9%9A%8B%E4%B9%A6/081.htm">隋书-东夷传</a>等时，有很多字不认识，不清楚意思，可以拿它做工具</li>
+<li>可以给别人用，离线的，有字典文件</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>它的样子</h2>
+
+<ul>
+<li>图标：商务印书馆 1998版 古汉语常用字字典 的<a href="http://img3.douban.com/lpic/s1856695.jpg">封面</a></li>
+<li>很亲切，大概初中时别人送我的就是这样的</li>
+<li>这也促使我对古汉语有了兴趣，但之后没有以前看得多了</li>
+<li>截图
+
+<ul>
+<li><img src="/images/Old_Chinese_Character_Dictionary_0.png" alt="Old_Chinese_Character_Dictionary" /></li>
+<li><img src="/images/Old_Chinese_Character_Dictionary_1.png" alt="Old_Chinese_Character_Dictionary" /></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>它的不足</h2>
+
+<ul>
+<li>字典的内容比较老</li>
+<li>使用<a href="http://developer.android.com/guide/topics/search/index.html">android search SearchView</a>的功能，但未完善</li>
+</ul>
+
+
+<h2>它在哪里</h2>
+
+<ul>
+<li> <a href="/archive/app/Old_Chinese_Character_Dictionary.apk">下载</a>：md5sum:bd0316cec74ad8849f59b859af7cd220</li>
+<li> 备注：所有资源来自网络</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs 2]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/10/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-yi-ge-shi-li-lucene-plus-nodejs-2/"/>
+    <updated>2013-10-06T22:09:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/10/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-yi-ge-shi-li-lucene-plus-nodejs-2</id>
+    <content type="html"><![CDATA[<h2>hello_luence 本地文本查找引擎的一个实例 lucene+nodejs 2</h2>
+
+<h3>接着<a href="http://wuwenjie.tk/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/">之前的文章</a></h3>
+
+<ul>
+<li>为了更好地使用luence搜索，我使用了nodejs 简单的建构了一个http服务端</li>
+<li>我主要参考了以下两篇文章，来写出一个nodejs的服务端</li>
+</ul>
+
+
+<!-- more -->
+
+
+<ul>
+<li><a href="http://www.nodebeginner.org/index-zh-cn.html">Node入门</a></li>
+<li><a href="http://cnodejs.org/topic/4f16442ccae1f4aa27001071">用NodeJS打造你的静态文件服务器</a></li>
+<li>nodejs 事件驱动的编程方式，与传统的编程思维，线性方式不一样，是值得注意的</li>
+<li>nodejs 有很好的<a href="http://www.nodejs.org/api/">API</a>，适合于开发web程序，方便、小巧、轻快</li>
+<li>两个比较好的http服务器例子</li>
+<li><a href="https://github.com/leapon/smallweb">smallweb</a> : A light-weight web server</li>
+<li><a href="https://github.com/JacksonTian/ping">ping</a> : 基于Node的Web开发框架</li>
+</ul>
+
+
+<h3>Show me the code</h3>
+
+<ul>
+<li><a href="https://github.com/wuwenjie1992/hello_luence"><code>hello_luence</code></a></li>
+<li>现在的样子</li>
+<li><img src="/images/hello_lucene_2.png" alt="hello_lucene_2" /></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[hello_luence 本地文本查找引擎的一个实例 lucene+nodejs]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/"/>
+    <updated>2013-09-06T21:11:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs</id>
+    <content type="html"><![CDATA[<h2>hello_luence 本地文本查找引擎的一个实例 lucene+nodejs</h2>
+
+<h3>开始</h3>
+
+<ul>
+<li>为什么会有它
+
+<ul>
+<li>我有的时候会想查一些书、文章当中的字，看看这个字到底是怎么用的。</li>
+<li>在网上找到一些html版的书的网站，当用wget抓下来之后，花了很长时间，内容很多，文件很多。</li>
+<li>当然在linux下，有很好的文本查找、处理的工具，比如使用以下命令。
+
+<ul>
+<li><code>find ./* | xargs grep OpenJDK</code></li>
+<li>作用：在当前目录下，找出其中含有<code>OpenJDK</code>的文本。</li>
+<li>解释：<code>find ./*</code> 列出当前目录下所有文件。
+
+<ul>
+<li><code>|</code>管道，将前面的<code>标准输出</code>导入到后面的<code>标准输入</code>。</li>
+<li><a href="http://zh.wikipedia.org/wiki/Xargs"><code>xargs</code></a> ,将<code>标准输入</code>分块给后面的命令，将参数列表转换成小块分段传递给其他命令。</li>
+<li><code>grep OpenJDK</code> ,<a href="http://zh.wikipedia.org/wiki/Grep">grep</a>匹配正则表达式的文本进行搜索，输出匹配或不匹配的行或文本。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>虽然方法简单但每次每个历遍，东西太多时间太长。</li>
+<li>有个<a href="http://lucene.apache.org/">lucene项目</a>,基于Java的全文索引工具包,虽不是搜索引擎，但开源搜索<a href="http://lucene.apache.org/solr/">Solr</a>、<a href="http://nutch.apache.org/">Nutch</a>均基于它。
+<!-- more -->
+
+<h3>尝试使用lucene</h3></li>
+<li>暑假之前借了本 <a href="http://www.manning.com/hatcher2/">Lucene IN ACTION</a>中文版,其实书已经很老了，但作为参考资料还是有作用的。</li>
+<li>在下载<code>Apache Lucene 4.3</code>（4.4已经available），<code>docs/core/index.html</code>是Lucene的核心API文档</li>
+<li>用 Eclipse 就可以导入<code>core/lucene-core-4.3.0.jar</code>和<code>analysis/common/lucene-analyzers-common-4.3.0.jar</code>等jar包</li>
+<li>Lucene 自带的Demo 在
+
+<ul>
+<li>docs/demo/src-html/org/apache/lucene/demo/IndexFiles.html</li>
+<li>docs/demo/src-html/org/apache/lucene/demo/SearchFiles.html 是很好的入门资料</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>学习Lucene的参考</h3>
+
+<ul>
+<li> <a href="http://zh.wikipedia.org/zh-cn/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95">倒排索引</a></li>
+<li> <code>Lucene API</code></li>
+<li> <a href="http://www.ibm.com/developerworks/cn/java/j-lo-lucene1/">实战 Lucene，第 1 部分: 初识 Lucene</a></li>
+<li> <a href="http://www.chedong.com/tech/lucene.html">Lucene：基于Java的全文检索引擎简介</a></li>
+<li> <a href="http://www.ibm.com/developerworks/cn/opensource/os-apache-lucenesearch/">使用 Apache Lucene 搜索文本</a></li>
+<li> <a href="http://www.ibm.com/developerworks/cn/java/wa-lucene/">深入 Lucene 索引机制</a></li>
+<li> <a href="http://approximation.iteye.com/blog/345885">Lucene中文分析器的中文分词准确性和性能比较</a></li>
+<li> <a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-lucene-pl/">Lucene Payload 的研究与应用</a></li>
+<li> <a href="http://www.matrix67.com/blog/archives/4212">漫话中文自动分词和语义识别（上）：中文分词算法</a></li>
+<li> 等等</li>
+</ul>
+
+
+<h3>使用lucene成果</h3>
+
+<ul>
+<li>建立索引，<a href="http://zh.wikipedia.org/wiki/%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a>
+
+<ul>
+<li>硬件信息</li>
+<li>CUP:  800MHz * 2  AMD Athlon&trade; II X2 240 Processor , <code>cat /proc/cpuinfo</code></li>
+<li>MEM: 1801072 kB , <code>cat /proc/meminfo</code></li>
+<li>SDA: Hitachi HDT721032SLA380 320 GB , <code>sudo smartctl -a /dev/sda</code></li>
+<li>系统和软件</li>
+<li>Linux 3.2.0-52-generic #78-Ubuntu SMP i686 athlon i386 GNU/Linux , <code>uname -a</code></li>
+<li><p>java version &ldquo;1.7.0_25&rdquo; , <code>java -version</code></p>
+
+<ul>
+<li><a href="http://openjdk.java.net/">OpenJDK</a> Runtime Environment (IcedTea 2.3.10) (7u25-2.3.10-1ubuntu0.12.04.2)</li>
+<li>OpenJDK Client VM (build 23.7-b01, mixed mode, sharing)</li>
+</ul>
+</li>
+<li><p>执行的命令 <code>time java -Xms512m -Xmx1024m -jar lucene.jar -AI /media/linux_lenovo/file /media/linux_lenovo/L_index</code></p></li>
+</ul>
+</li>
+<li>对象 10000个最终目标文件，平均30KB</li>
+<li><p>输出</p>
+
+<ul>
+<li> real 1m28.123s</li>
+<li> user 1m27.045s</li>
+<li> sys  0m3.392s</li>
+</ul>
+</li>
+<li><p>执行搜索</p>
+
+<ul>
+<li><code>time java -Xms512m -Xmx1024m -jar lucene.jar -SQPS /media/linux_lenovo/L_index 张飞* contents "";</code></li>
+<li>输出
+
+<ul>
+<li>real  0m0.521s</li>
+<li>user  0m0.604s</li>
+<li>sys   0m0.076s</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>更多</h3>
+
+<p><img src="/images/hello_lucene.png" alt="hello_lucene" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[getStock-终端下简单的实时股票信息(Sina API) &amp; 上证的自我分析和判断20130725-26]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/07/26/getstock-zhong-duan-xia-jian-dan-de-shi-shi-gu-piao-xin-xi-sina-api-and-shang-zheng-de-zi-wo-fen-xi-he-pan-duan-20130725-26/"/>
+    <updated>2013-07-26T12:35:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/07/26/getstock-zhong-duan-xia-jian-dan-de-shi-shi-gu-piao-xin-xi-sina-api-and-shang-zheng-de-zi-wo-fen-xi-he-pan-duan-20130725-26</id>
+    <content type="html"><![CDATA[<h2>getStock</h2>
+
+<ul>
+<li>终端下简单的实时股票信息</li>
+<li>以Java为工具实现，当然以<a href="www.wuhuixin.tk/blog/2013/05/05/Crude-oil-index-grep-android-floating-window-Service/" title="shell 实现原油指数抓取">SHELL</a>、Python等更容易实现</li>
+<li>使用<a href="www.xuech.net/simple/?t46.html" title="Sina股票数据接口">Sina API</a> ，数据的可靠性由Sina决定</li>
+<li>例如 <a href="http://hq.sinajs.cn/list=sh000001">http://hq.sinajs.cn/list=sh000001</a></li>
+</ul>
+
+
+<!-- more -->
+
+
+<ul>
+<li>github:<a href="https://github.com/wuwenjie1992/getStock">getStock</a></li>
+<li>缺点
+
+<ul>
+<li>太简单，但“<a href="http://zh.wikipedia.org/zh-cn/Unix%E5%93%B2%E5%AD%A6" title="UNIX哲学 壹">小即美</a>”，信息少，没功能</li>
+<li>没有GUI，没有k线，没有。。。</li>
+</ul>
+</li>
+<li>效果图
+  <img src="/images/getStock_sh600015.png" alt="getStock效果图" /></li>
+</ul>
+
+
+<hr />
+
+<h2>上证的自我分析和判断20130725-26</h2>
+
+<ul>
+<li>图一
+
+<ul>
+<li>说明：黄色的<a href="http://ta.mql4.com/cn/linestudies/linear_regression_channel" title="线性回归通道">回归通道</a>是我基本上在4月末5月初时画的</li>
+<li>就技术分析上说，大盘还未作出很明显的大幅反弹，仍是比较疲弱</li>
+<li>黄色的回归通道，下行趋势并未改变</li>
+<li>其走势也和基本面上宏观经济相一致
+
+<ul>
+<li>中国<a href="http://www.ftchinese.com/story/001051634?full=y" title="解读李克强的“微刺激”">7月汇丰制造业PMI</a>初值为47.7，不仅低于50荣枯值，近一年以来谷底</li>
+<li><a href="http://cn.wsj.com/gb/20130726/mkt143611.asp?source=UpFeature" title="精明投资者看空中国">经济增长“底线”7%言论</a>，也是印证了经济趋缓、动力不足的现实</li>
+</ul>
+</li>
+<li><img src="/images/sh000001_20130725.png" alt="sh000001_20130725" /></li>
+</ul>
+</li>
+<li>图二 实验性的算出回归通道压力线方程
+
+<ul>
+<li>以近期高点2444为第0天，如图第107天即为20130725</li>
+<li>可得两个点(0,2444);(107,2045) 2045即0725最高价</li>
+<li>易得y=-3.729x+2444</li>
+<li>使用
+
+<ul>
+<li>若大盘最高价连续数日突破该压力线，短期呈上升趋势</li>
+<li>可短期跟进，但应随时准备退出</li>
+<li>若大盘最低价触及支撑线，可考虑缓慢加仓（不可持有估值过高的股票）</li>
+</ul>
+</li>
+<li>结论
+
+<ul>
+<li>大盘或仍在通道内徘徊，但1917附近应有较大支撑，可静观其变</li>
+</ul>
+</li>
+<li><img src="/images/sh000001_20130725_2.png" alt="sh000001_20130725_2" /></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<h2>一张原油指数的技术分析图片</h2>
+
+<ul>
+<li>等了近两个月终于看到它有所回落</li>
+<li>因为110美元基本上已经触及历史高点</li>
+<li>1309合约也可以用回归通道表示</li>
+<li>预测
+
+<ul>
+<li>原油已转变趋势，近月会跌破99.667 即黄金分割线23.6%</li>
+<li>1310、1311合约价格也印证了这样的说法</li>
+<li>38.2%-50.0% 96.3-93.693 有一段时间的支撑</li>
+<li>谨慎行事，90美元是较好的价位</li>
+</ul>
+</li>
+<li><img src="/images/CLU3_1309_20130725.png" alt="CLU3_1309_20130725" /></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[64位Ubuntu下WTK无法启动]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/02/15/WTK-not-start-under-64bit-ubuntu/"/>
+    <updated>2012-02-15T14:06:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/02/15/WTK-not-start-under-64bit-ubuntu</id>
+    <content type="html"><![CDATA[<p>在64位系统下启动J2ME的模拟器时会报错：</p>
+
+<p>java.lang.UnsatisfiedLinkError:</p>
+
+<p>/home/xxx/WTK2.5.2/bin/sublime.so:</p>
+
+<p>/home/xxx/WTK2.5.2/bin/sublime.so:</p>
+
+<p>wrong ELF class: ELFCLASS32</p>
+
+<p>(Possible cause: architecture word width mismatch)</p>
+
+<p><a title="点击下载参考图片" href="http://www.21stp.com/cviudvinf.html" target="_blank">点击下载参考图片</a></p>
+
+<p>&nbsp;</p>
+
+<p>提示架构的问题，解决方案是安装一个32位的jre或jdk，</p>
+
+<p>如：jdk-7u3-linux-i586    可安装在，此目录一般为 /usr/lib/jvm/java&hellip;&hellip;/bin/</p>
+
+<p>sudo vi /bin/emulator</p>
+
+<p>将里javapathtowtk修改为新安装的32位jre或jdk的bin目录下，</p>
+
+<p>记得后面的斜线</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p><a href="http://hi.baidu.com/erdosjiang/">http://hi.baidu.com/erdosjiang/</a></p>
+
+<p>blog/item/4a8ee30907719ac363d986eb.html</p>
+]]></content>
+  </entry>
+  
+</feed>

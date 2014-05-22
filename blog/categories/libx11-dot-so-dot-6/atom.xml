@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: libX11.so.6 | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/libx11-dot-so-dot-6/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Eclipse 错误 libX11.so.6: 无法打开共享对象文件]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/04/04/Eclipse-Error-libX11-so-6-can-not-open-shared-object-file/"/>
+    <updated>2012-04-04T07:54:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/04/04/Eclipse-Error-libX11-so-6-can-not-open-shared-object-file</id>
+    <content type="html"><![CDATA[<p>java.lang.UnsatisfiedLinkError:
+/home/*******/libmawt.so        :
+libX11.so.6: 无法打开共享对象文件: 没有那个文件或目录</p>
+
+<p>使用LDD命令：查看包依赖
+ldd /home/*******/libmawt.so</p>
+
+<p>libX11.so.6     =&gt; not found
+libXrender.so.1 =&gt; not found
+libXtst.so.6    =&gt; not found
+libXi.so.6      =&gt; not found
+libjvm.so       =&gt; not found</p>
+
+<p><em><strong>其实只要用apt-get install</strong></em></p>
+
+<p><em><strong>sudo apt-get -f install #-f = &mdash;fix-missing</strong></em></p>
+
+<p><em><strong>以下一大堆废话</strong></em></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://packages.ubuntu.com">http://packages.ubuntu.com</a> 查找遗失的包</p>
+
+<p>Search the contents of packages</p>
+
+<p>packages that contain files whose names contain the keyword</p>
+
+<hr />
+
+<h2>libX11.so.6     =&gt; not found</h2>
+
+<p>1）Search   libx11</p>
+
+<p>/usr/lib/x86_64-linux-gnu/libX11.so.6</p>
+
+<p>其他与 libx11-6 有关的软件包</p>
+
+<p>multiarch-support
+Transitional package to ensure multiarch compatibility</p>
+
+<p>libc6 (&gt;= 2.4)
+Embedded GNU C Library: Shared libraries
+同时作为一个虚包由这些包填实: libc6-udeb</p>
+
+<p>libx11-data
+X11 client-side library</p>
+
+<p>libxcb1 (&gt;= 1.2)
+X C Binding</p>
+
+<p>libx11-6_1.4.4-2ubuntu1_i386.deb</p>
+
+<p>下载好用 sudo dpkg -i ***.deb   命令</p>
+
+<p>libx11-6:i386 依赖于 libxcb1 (&gt;= 1.2)；然而：
+未安装软件包 libxcb1:i386。</p>
+
+<p>2)Search libxcb1</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxcb1">http://packages.ubuntu.com/oneiric/libxcb1</a></p>
+
+<p>libxcb1:i386 依赖于 libxdmcp6；然而：
+未安装软件包 libxdmcp6:i386。</p>
+
+<p>3)libxdmcp6</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxdmcp6">http://packages.ubuntu.com/oneiric/libxdmcp6</a></p>
+
+<p>sudo dpkg -i libxdmcp6_1.1.0-3_i386.deb</p>
+
+<p>4)安装libxcb1</p>
+
+<p>sudo dpkg -i libxcb1_1.7-3_i386.deb</p>
+
+<p>libxcb1:i386 依赖于 libxau6；然而：
+未安装软件包 libxau6:i386。</p>
+
+<p>5）安装libxau6</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxau6">http://packages.ubuntu.com/oneiric/libxau6</a></p>
+
+<p>sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
+
+<p>6)安装libxcb1</p>
+
+<p>sudo dpkg -i libxcb1_1.7-3_i386.deb</p>
+
+<p>7)安装libX11.so
+sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
+
+<hr />
+
+<h2>libXrender.so.1 =&gt; not found</h2>
+
+<p>1)search</p>
+
+<p>/usr/lib/x86_64-linux-gnu/libXrender.so.1</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxrender1">http://packages.ubuntu.com/oneiric/libxrender1</a></p>
+
+<p>2)安装libxrender1     libxrender1_0.9.6-2_i386.deb</p>
+
+<p>sudo dpkg -i libxrender1_0.9.6-2_i386.deb</p>
+
+<hr />
+
+<h2>libXtst.so.6    =&gt; not found</h2>
+
+<p>1)search</p>
+
+<p>/usr/lib/libXtst.so.6.1.0</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxtst6">http://packages.ubuntu.com/oneiric/libxtst6</a></p>
+
+<p>sudo apt-get install libxext6</p>
+
+<p>ia32-libs : 依赖: lib32z1 但是它将不会被安装
+依赖: lib32stdc++6 但是它将不会被安装
+依赖: lib32asound2 但是它将不会被安装
+依赖: lib32ncurses5 但是它将不会被安装
+依赖: lib32ffi6 但是它将不会被安装
+依赖: lib32ncursesw5 但是它将不会被安装
+推荐: ia32-libs-multiarch</p>
+
+<p>sudo apt-get -f install</p>
+]]></content>
+  </entry>
+  
+</feed>

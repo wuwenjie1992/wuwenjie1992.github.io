@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /o
+
+Sitemap: http://www.wuwenjie.tk/sitemap.xml 

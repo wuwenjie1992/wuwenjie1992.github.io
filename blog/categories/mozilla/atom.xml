@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mozilla | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/mozilla/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[《Code Rush》（奔腾的代码）]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/03/03/Code-Rush/"/>
+    <updated>2012-03-03T04:54:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/03/03/Code-Rush</id>
+    <content type="html"><![CDATA[<p>这是一部讲述Netscape和Mozilla的故事的纪录片。</p>
+
+<p>Netscape是一家伟大的公司，</p>
+
+<p>它发明了img标签、cookie、ssl安全协议，</p>
+
+<p>当然还有如今HTML5时代的明星语言Javascript！</p>
+
+<p>但是由于众所周知的原因，它失败了。</p>
+
+<p>Netscape最终将浏览器代码开源，</p>
+
+<p>这个新项目就是Mozilla！</p>
+
+<p>摄制团队横跨了期间重要的几个时间点，</p>
+
+<p>整整跟踪了程序员们一年的时间，</p>
+
+<p>最终制成这部纪录片。</p>
+
+<p><a title="纪录片《Code Rush》" href="http://www.ruanyifeng.com/blog/2009/09/code_rush.html" target="_blank">著名科技博主阮一峰</a>曾经强烈推荐此片，</p>
+
+<p>他说：“如果你对软件业感兴趣，</p>
+
+<p>希望了解程序员的生活</p>
+
+<p>以及Mozilla项目的起源和创造它的人们，</p>
+
+<p>那么千万不要错过这部纪录片。</p>
+
+<p>我保证这是一部过目难忘的作品。”</p>
+
+<p>115网盘下载：<a href="http://115.com/file/bel9z9k2" target="_blank"><a href="http://115.com/file/bel9z9k2">http://115.com/file/bel9z9k2</a></a></p>
+
+<object width="480" height="400" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="src" value="http://www.tudou.com/v/hs6eBWvKS6M/&amp;rpid=77547687&amp;resourceId=77547687_05_05_99/v.swf" /><param name="allowscriptaccess" value="always" /><param name="allowfullscreen" value="true" /><param name="wmode" value="opaque" /><embed width="480" height="400" type="application/x-shockwave-flash" src="http://www.tudou.com/v/hs6eBWvKS6M/&amp;rpid=77547687&amp;resourceId=77547687_05_05_99/v.swf" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" /></object>
+
+]]></content>
+  </entry>
+  
+</feed>

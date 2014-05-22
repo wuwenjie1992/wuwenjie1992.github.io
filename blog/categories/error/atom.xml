@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: error | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/error/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GRUB error : invalid signature 的解决]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/08/31/grub-error-invalid-signature-de-jie-jue/"/>
+    <updated>2013-08-31T21:28:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/08/31/grub-error-invalid-signature-de-jie-jue</id>
+    <content type="html"><![CDATA[<h2>GRUB error : invalid signature 的解决</h2>
+
+<p>之前，有一次更新了内核还是其他什么东西，<br/>
+想进入win7，玩玩<a href="http://zh.wikipedia.org/wiki/%E5%85%A8%E8%BB%8D%E7%A0%B4%E6%95%B5%EF%BC%9A%E5%B9%95%E5%BA%9C%E5%B0%87%E8%BB%8D2">Total War: Shogun 2</a><br/>
+但是在选取win7选项之后，给我返回了</p>
+
+<h3>error: invalid signature</h3>
+
+<!-- more -->
+
+
+<p>在进入<a href="http://xubuntu.org/">Xubuntu</a>后，我就开始找解决方案</p>
+
+<p>发现只要修改一下/boot/grub/grub.cfg就可以了
+<code>sh
+sudo gedit /boot/grub/grub.cfg
+</code>
+将原来的“Windows 7&hellip;”替换为以下就完成重要一步了
+```sh
+menuentry &ldquo;Windows 7 (loader) (on /dev/sda1)&rdquo; &mdash;class windows &mdash;class os {</p>
+
+<pre><code>insmod part_msdos
+insmod ntfs
+set root='(hd0,msdos1)'
+search --no-floppy --fs-uuid --set=root AAAAAAAAAA
+chainloader +1
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>NOTICE</h3>
+
+<p>其中 AAAAAAAA 为Filesystem UUID，使用以下命令替换对应的UUID
+<code>sh
+blkid|grep sda1
+</code>
+blkid命令是‘定位/打印块设备属性’的作用</p>
+
+<h3>最后</h3>
+
+<p><code>sh
+sudo update-grub
+</code>
+打印出
+<code>
+Generating grub.cfg ...
+Found background image: /home/grub.png
+Found linux image: /boot/vmlinuz-3.2.0-52-generic
+Found initrd image: /boot/initrd.img-3.2.0-52-generic
+Found memtest86+ image: /boot/memtest86+.bin
+Found Windows 7 (loader) on /dev/sda1
+done
+</code>
+就完成了，可以去玩Shogun2了</p>
+
+<h2>MORE</h2>
+
+<ul>
+<li><a href="https://bbs.archlinux.org/viewtopic.php?id=153988">SOLVED Grub 2 gives Error: Invalid Signature</a></li>
+<li><a href="http://blog.missyi.com/page_468.html">Ubuntu和WIN7双系统解决方案</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

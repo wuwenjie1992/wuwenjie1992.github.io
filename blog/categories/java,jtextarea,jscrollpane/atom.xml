@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: java，JTextArea，JScrollpane | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/java,jtextarea,jscrollpane/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[JTextArea添加滚动条的简单实例]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/05/27/JTextArea-add-scrollbars-simple-example/"/>
+    <updated>2012-05-27T12:01:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/05/27/JTextArea-add-scrollbars-simple-example</id>
+    <content type="html"><![CDATA[<p>```java
+import java.awt.<em>;
+import java.awt.event.</em>;
+import javax.swing.*;</p>
+
+<p>public class gd2{</p>
+
+<p>public static void main(String[] args){</p>
+
+<p>JFrame f=new JFrame();
+JPanel p1=new JPanel();
+JTextArea t1=new JTextArea(35,25);</p>
+
+<p>p1.setLayout(new FlowLayout());</p>
+
+<p>t1.setLineWrap(true);</p>
+
+<p>p1.add(new JScrollPane(t1));
+//将JTextArea放入JScrollPane中，这样就能利用滚动的效果
+f.add(p1);
+f.pack();
+f.setVisible(true);</p>
+
+<p>f.addWindowListener(new WindowAdapter(){ public void windowClosing(WindowEvent e){ System.exit(0);} });
+}
+}
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

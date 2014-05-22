@@ -1,0 +1,1574 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="不知道为何
+登录了Xubuntu
+后
+发现为社么程序的外框都没有的 用得十分的不习惯 找谷神 一问 有了以下解决方法： 1）Alt + F2 2)输入 rm -rf ~/.cache/sessions 删除 缓存 3）运行 4）reboot 重启 5) 完成 MORE： Quick Fix &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/page/3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/13/Xfce-frame-gone/">Xfce 外框没了&#8211;解决</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-13T15:04:00+08:00" pubdate data-updated="true">Jul 13<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>不知道为何
+登录了Xubuntu
+后
+发现为社么程序的外框都没有的</p>
+
+<p>用得十分的不习惯</p>
+
+<p>找谷神 一问</p>
+
+<p>有了以下解决方法：</p>
+
+<p>1）Alt + F2</p>
+
+<p>2)输入  rm -rf ~/.cache/sessions</p>
+
+<p>删除 缓存</p>
+
+<p>3）运行</p>
+
+<p>4）reboot 重启</p>
+
+<p>5) 完成</p>
+
+<hr />
+
+<p>MORE：</p>
+
+<h1 id="Quick_Fix">Quick Fix</h1>
+
+
+<p>This requires you to log out and log in again.</p>
+
+<p>&nbsp;</p>
+
+<pre>    Alt+F2                           (run window)
+    rm -rf ~/.cache/sessions         (delete the Xfce4 saved sessions files for your user)
+    Click on "Run"                   (or hit the enter key)</pre>
+
+
+<p>Now you will log out and log in again. Make sure &ldquo;Save session for future logins&rdquo; is not checked.</p>
+
+<p>If the <strong>Quick Fix</strong> fails, please try the next method.</p>
+
+<p>&nbsp;</p>
+
+<p><a title="XubuntuPanels" href="https://help.ubuntu.com/community/XubuntuPanels" target="_blank">XubuntuPanels</a>
+<a title="xfce" href="https://threelegcat.wordpress.com/2012/05/28/%E8%A7%A3%E6%B1%BA-xubuntuxfceubuntu-studio-12-04-%E8%A6%96%E7%AA%97%E9%82%8A%E6%A1%86%E5%95%8F%E9%A1%8C/" target="_blank">解決 Xubuntu/Xfce/Ubuntu Studio 12.04 視窗邊框消失問題</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/06/xhuloo1_3_2/">开源小项目：xhuloo1.3.2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-06T09:28:00+08:00" pubdate data-updated="true">Jul 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>xhuloo作为学习ANDROID编程的DEMO，UI设计十分差（基本没有设计），但它可作为初学的演示，它简单十分，浅显易懂。没有实用价值，作为编程（API）的探究。</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>xhuloo1.3.2 release 增加新功能</p>
+
+<p>1）android id &mdash;&ndash;&gt;XhulooActivity_PHONE</p>
+
+<p>2) 自定义列表 &mdash;&mdash;&gt;XhulooActivity_weatherreport(发展为天气预报功能）</p>
+
+<p>3）震动 &mdash;&ndash;&gt;    XhulooActivity_MEM</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>发展方向：</p>
+
+<p>1）完善文件游览功能,BACK功能</p>
+
+<p>2）读取 设备的IP地址，等信息</p>
+
+<p>3）SERVICE后台功能</p>
+
+<p>4）天气预报</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>———</p>
+
+<p>project zip <a title="Xhuloo.zip" href="http://filemarkets.com/file/common/f9dea934/" target="_blank">here</a>     MD5：0bd2ce8fc97b79736728b49ab18f58d9</p>
+
+<p>apk : <a title="apk" href="http://filemarkets.com/file/common/33861aa3/" target="_blank">here</a>               MD5：e4b1ef927595b30a9214bb788aa3ccd7</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>XhulooActivity.java 的源代码
+<code lang="java">
+package wo.wocom.xwell;</p>
+
+<p>import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;</p>
+
+<p>public class XhulooActivity extends Activity {
+/<em>* Called when the activity is first created. </em>/</p>
+
+<p>private static final String TAG = &ldquo;XA_Xhuloo&rdquo;;
+//弹出框</p>
+
+<p>String mEditText01_s =null;</p>
+
+<p>/<em>重力感应参数</em>/
+float x,y,z;
+float currentAcceleration = 0;
+float maxAcceleration = 0;</p>
+
+<p>/<em>生命周期</em>/
+public void onCreate(Bundle savedInstanceState) {</p>
+
+<p>super.onCreate(savedInstanceState);
+setContentView(R.layout.main); //设置主布局</p>
+
+<p>Log.i(XhulooActivity.TAG, &ldquo;XA_start onCreate~~~&rdquo;);</p>
+
+<p>final TextView main_textview=(TextView) findViewById(R.id.main_textview);
+final Button ok_button = (Button) findViewById(R.id.widget40_button_OK);
+final EditText mEditText01 = (EditText) findViewById(R.id. myEditText);
+final CheckBox iAccept=(CheckBox)findViewById(R.id. CheckBox_Accept );
+final String[] data = {&ldquo;心怔煩亂敵若云&rdquo;,&ldquo;有炎百刃月無暈&rdquo;,&ldquo;靈威震怒鼓徹天&rdquo;,&ldquo;犀甲迸裂矣厥劍&rdquo;,&ldquo;永思故原遙難反&rdquo;,
+&ldquo;遠峙疊巒久無還&rdquo;,&ldquo;埋骨鬼雄血浸袍&rdquo;,&ldquo;藏懷青絲志誠傲&rdquo;,&ldquo;顧往舊徑櫻爛漫&rdquo;,&ldquo;逸鸞鳳鹮面桃然&rdquo;,&ldquo;雯華琉白馨而靨&rdquo;};</p>
+
+<p>/<em>按钮监听 </em>/
+ok_button.setOnClickListener(new Button.OnClickListener(){
+public void onClick(View v) {
+ok_button.setText(&ldquo;Hi,clicked&rdquo;);</p>
+
+<p>switch(v.getId()){
+case R.id.widget40_button_OK:</p>
+
+<p>mEditText01_s=mEditText01.getText().toString(); //获得文本编框的文字
+//toast
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:&rdquo;+mEditText01_s, Toast.LENGTH_LONG).show();
+break;</p>
+
+<p>default:
+break;
+}//switch
+}//onclick_end</p>
+
+<p>}
+);</p>
+
+<p>/<em> 设置EditText 用OnKeyListener 事件来启动 </em>/
+mEditText01.setOnKeyListener(new EditText.OnKeyListener(){
+public boolean onKey(View v, int keyCode, KeyEvent event) {</p>
+
+<p>if(mEditText01.getText().toString().length()!=0){ok_button.setText(mEditText01.getText().toString());}</p>
+
+<p>else{
+ok_button.setText(&ldquo;ok请提交&rdquo;);
+AlertDialog.Builder my_ADialog=new AlertDialog.Builder(XhulooActivity.this); ;
+/<em>设置标题</em>/
+my_ADialog.setTitle(&ldquo;XA_AlertDialog.Builder&rdquo;);
+/<em>设置显示消息</em>/
+my_ADialog.setMessage(&ldquo;请提交&rdquo;);
+/<em>设置不能取消</em>/
+my_ADialog.setCancelable(false);</p>
+
+<p>my_ADialog.setPositiveButton(&ldquo;退出Huloo;并访问官网&rdquo;,new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+XhulooActivity.this.finish();
+Uri uri=Uri.parse(&ldquo;<a href="http://www.wuwenjie.tk">http://www.wuwenjie.tk</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent);} });</p>
+
+<p>my_ADialog.setNegativeButton(&ldquo;取消&rdquo;, new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+dialog.cancel();
+}
+});
+/<em>显示</em>/
+my_ADialog.show();
+}</p>
+
+<p>return false;
+}//onkey_end
+}
+);//sokl_end</p>
+
+<p>/<em>图片 </em>/
+final ImageView mImageView = (ImageView) findViewById(R.id.imageView1);
+mImageView.setImageDrawable(getResources().getDrawable(R.drawable.action));</p>
+
+<p>/<em>选择监听 </em>/
+iAccept.setOnClickListener(new CheckBox.OnClickListener(){
+public void onClick(View v) {
+if(iAccept.isChecked()){
+main_textview.setText(&ldquo;checkbox checked&rdquo;);
+mImageView.setVisibility(View.VISIBLE);
+}
+else{main_textview.setText(getString(R.string.hello));
+mImageView.setVisibility(View.INVISIBLE);}
+} }
+);</p>
+
+<p>/<em>列表</em>/
+ListView lv = (ListView) findViewById(R.id.list1);
+ArrayAdapter adapter = new ArrayAdapter(
+this,android.R.layout.simple_list_item_1,data); //simple_list_item_1是系统本身有的布局
+lv.setAdapter(adapter);</p>
+
+<p>/<em>重力感应功能</em>/</p>
+
+<p>//获得重力感应硬件控制器
+SensorManager sm=(SensorManager) this.getSystemService(SENSOR_SERVICE);
+final Sensor sensor=sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);</p>
+
+<p>//添加重力感应侦听，并实现其方法，
+SensorEventListener sel=new SensorEventListener(){</p>
+
+<p>double calibration = SensorManager.STANDARD_GRAVITY;
+//系统设置的重力加速度标准值，设备在水平静止的情况下就承受这个压力，
+//所以默认Y轴方向的加速度值为STANDARD_GRAVITY
+public void onSensorChanged(SensorEvent se) {
+x=se.values[SensorManager.DATA_X];
+y=se.values[SensorManager.DATA_Y];
+z=se.values[SensorManager.DATA_Z];</p>
+
+<p>//计算三个方向的加速度
+double a =Math.round(Math.sqrt(Math.pow(x,2)+Math.pow(y,2) +Math.pow(z,2)));</p>
+
+<p>//消去原有的重力引起的压力
+currentAcceleration = Math.abs((float)(a-calibration));
+if (currentAcceleration &gt; maxAcceleration)
+maxAcceleration = currentAcceleration;</p>
+
+<p>TextView textView_sensor=(TextView) findViewById(R.id.textView_sensor);
+//设置显示文字
+textView_sensor.setText(&ldquo;重力感应:&rdquo;+&ldquo;\n&rdquo;+&ldquo;x=&rdquo;+x+&ldquo;\n&rdquo;+&ldquo;y=&rdquo;+y+&ldquo; &rdquo;+&ldquo;(int)z=&rdquo;+(int)z+&ldquo;\n&rdquo;
++&ldquo;maxA:&rdquo;+maxAcceleration+&ldquo;\n&rdquo;+&ldquo;current:&rdquo;+currentAcceleration+&ldquo;\n&rdquo;
++&ldquo;Name:&rdquo;+sensor.getName()+&ldquo; &rdquo;+&ldquo;Type:&rdquo;+sensor.getType()+&ldquo;\n&rdquo; //得到传感器信息
++&ldquo;Version:&rdquo;+sensor.getVersion()+&ldquo; &rdquo;+&ldquo;vendor:&rdquo;+sensor.getVendor()+&ldquo;\n&rdquo;
++&ldquo;MAXrange:&rdquo;+sensor.getMaximumRange()+&ldquo; &rdquo;+&ldquo;power:&rdquo;+sensor.getPower()+&ldquo;\n&rdquo;
++&ldquo;Resolution:&rdquo;+sensor.getResolution()+&ldquo;\n&rdquo;
+);</p>
+
+<p>}// onSensorChanged
+public void onAccuracyChanged(Sensor arg0, int arg1) { }
+};
+//注册Listener，SENSOR_DELAY_GAME为检测的精确度，
+sm.registerListener(sel, sensor,SensorManager.SENSOR_DELAY_GAME);</p>
+
+<p>}//oncreate end</p>
+
+<p>protected void onRestart() {
+super.onRestart();
+Log.i(TAG, &ldquo;XA_start onRestart&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onRestart&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onResume() {
+super.onResume();
+Log.i(TAG, &ldquo;XA_start onResume&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onResume&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onPause() {
+super.onPause();
+Log.i(TAG, &ldquo;XA_start onPause&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onPause&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onStop() {
+super.onStop();
+Log.i(TAG, &ldquo;XA_start onStop&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onStop&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onDestroy() {
+super.onDestroy();
+Log.i(TAG, &ldquo;XA_start onDestroy&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onDestroy&rdquo;, Toast.LENGTH_LONG).show();
+}</p>
+
+<p>/<em>菜单制作</em>/
+public boolean onCreateOptionsMenu(Menu menu) {
+/<em>
+*
+* add()方法的四个参数，依次是：
+*
+* 1、组别，如果不分组的话就写Menu.NONE,
+*
+* 2、Id，这个很重要，Android根据这个Id来确定不同的菜单
+*
+* 3、顺序，那个菜单现在在前面由这个参数的大小决定
+*
+* 4、文本，菜单的显示文本
+</em>/</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 1, 7, &ldquo;删除&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_delete);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 2, 2, &ldquo;保存&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_edit);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 3, 6, &ldquo;帮助&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_help);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 4, 1, &ldquo;添加&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_add);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 5, 4, &ldquo;详细&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_info_details);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 6, 3, &ldquo;myplaces&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_myplaces);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 7, 5, &ldquo;天气&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_today);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 8, 8, &ldquo;退出&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_revert);</p>
+
+<p>return true;</p>
+
+<p>}</p>
+
+<p>@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+switch (item.getItemId()) {</p>
+
+<p>case Menu.FIRST + 1:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_删除菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 2:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_保存菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 3:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_帮助：wewenjie.tk&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>AlertDialog.Builder my_ADialog=new AlertDialog.Builder(XhulooActivity.this);
+my_ADialog.setTitle(&ldquo;XA_AlertDialog&rdquo;); //设置标题
+my_ADialog.setMessage(&ldquo;帮助：访问wuwenjie.tk的项目页|访问GPL&rdquo;); //设置显示消息
+my_ADialog.setCancelable(true); //设置能取消</p>
+
+<p>my_ADialog.setPositiveButton(&ldquo;访问wwj&rdquo;,new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+Uri uri=Uri.parse(&ldquo;<a href="http://www.wuwenjie.tk">http://www.wuwenjie.tk</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent);} });</p>
+
+<p>my_ADialog.setNegativeButton(&ldquo;访问GPL&rdquo;, new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+Uri uri=Uri.parse(&ldquo;<a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent); }
+} );
+/<em>显示</em>/
+my_ADialog.show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 4:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_添加菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 5:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_详细菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 6:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_myplaces点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>/<em>跳转新界面activity </em>/
+Intent intent = new Intent(); //新建Intent意图
+intent.setClass(XhulooActivity.this, XhulooActivity_myplaces.class);
+//方便的调用名称为,返回一个Class对象
+Bundle mBundle = new Bundle();
+mBundle.putString(&ldquo;XA_Data&rdquo;, &ldquo;XA_data from X:&rdquo;+mEditText01_s);
+//加入数据 参数：key-Data value +mEditText01_s
+intent.putExtras(mBundle); //添加附加信息
+startActivityForResult(intent, 0); //跳转，此处的0 OR &gt;=0</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 7:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_天气菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>/<em>跳转新界面activity </em>/
+Intent intent01 = new Intent(); //新建Intent意图
+intent01.setClass(XhulooActivity.this, XhulooActivity_weatherreport.class);
+startActivityForResult(intent01, 0); //跳转，此处的0 OR &gt;=0</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 8:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_退出菜单点击&rdquo;, Toast.LENGTH_SHORT).show();
+Log.i(TAG, &ldquo;XhulooActivity.this.finish()&rdquo;);
+XhulooActivity.this.finish();</p>
+
+<p>break;</p>
+
+<p>}</p>
+
+<p>return false;</p>
+
+<p>}</p>
+
+<p>@Override
+public void onOptionsMenuClosed(Menu menu) {
+Toast.makeText(this, &ldquo;选项菜单关闭&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>@Override
+public boolean onPrepareOptionsMenu(Menu menu) {
+Toast.makeText(this,
+&ldquo;选项菜单显示前onPrepareOptionsMenu会被调用，可用来调整菜单&rdquo;,
+Toast.LENGTH_SHORT).show();</p>
+
+<p>// 如果返回false，此方法就把用户点击menu的动作给消费了，onCreateOptionsMenu方法将不会被调用
+return true;
+}</p>
+
+<p>/<em>处理返回值 startActivityForResult</em>/</p>
+
+<p>protected void onActivityResult
+(int requestCode, int resultCode, Intent data) {
+switch (resultCode) {
+//resultCode为回传的标记，回传的是RESULT_OK
+case RESULT_OK:
+Bundle b=data.getExtras();
+//data回传的Intent
+String str=b.getString(&ldquo;MP_msg&rdquo;);
+//str即为msg回传的值
+Toast.makeText(this, &ldquo;XA_str getString(\"msg\&rdquo;):&ldquo;+str+"b.toString:&rdquo;+b.toString(), Toast.LENGTH_LONG).show();
+Log.i(TAG, &ldquo;XA_onActivityResult:&mdash;&ndash;&rdquo;+&ldquo;XA_str getString(\"msg\&rdquo;):&ldquo;+str+&rdquo; b.toString:&ldquo;+b.toString());
+break;
+default:
+break;
+}
+}</p>
+
+<p>}</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/18/xhuloo1-3/">开源小项目：xhuloo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-18T19:39:00+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>xhuloo作为学习ANDROID编程的DEMO，UI设计十分差（基本没有设计），但它可作为初学的演示，它简单十分，浅显易懂。没有实用价值，作为编程（API）的探究。</p>
+
+<p>下面是几张EMULATER的演示图片：</p>
+
+<p>&nbsp;</p>
+
+<p>1.Application information</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/06/6e15a43a_smush_1.png"><img class="alignleft size-full wp-image-509" title="xhuloo_1.3_1" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/6e15a43a_smush_1.png" alt="" width="226" height="144" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>2.XhulooActivity</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/06/3aad1d08_smush_2.png"><img class="alignleft size-full wp-image-512" title="XhulooActivity" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/3aad1d08_smush_2.png" alt="" width="350" height="323" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>3.按钮监听响应</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/06/a4434acc_smush_3.png"><img class="alignleft size-full wp-image-515" title="a4434acc_smush_3" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/a4434acc_smush_3.png" alt="" width="236" height="384" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>4.XhulooActivity_myplaces</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/06/4.png"><img class="alignleft size-full wp-image-516" title="4" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/4.png" alt="" width="231" height="362" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>5.listview的监听响应</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/06/5.png"><img class="alignleft size-full wp-image-517" title="5" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/5.png" alt="" width="203" height="320" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>6.其他功能：activity之间的通信；RatingBar的监听响应；</p>
+
+<p>重力感应；等</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>发展方向：</p>
+
+<p>1）完善文件游览功能</p>
+
+<p>2）读取 设备的IP地址，手机号码等信息</p>
+
+<p>3）SERVICE后台功能</p>
+
+<p>4）第3个ACTIVITY</p>
+
+<p>5）减少图片大小</p>
+
+<hr />
+
+<p>project zip <a title="Xhuloo.zip" href="http://yunfile.com/file/common/b350f4bb/" target="_blank">here</a>     MD5：33af67ed45142c3270f0ab933ed24af5</p>
+
+<p>apk : <a title="apk" href="http://yunfile.com/file/common/5c388d91/" target="_blank">here</a>               MD5：946d6e199b35670769003a315876fa46</p>
+
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/16/Today-older-sister-get-married/">今天姐姐结婚</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-16T16:54:00+08:00" pubdate data-updated="true">Jun 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>不错，姐姐得到了幸福。</p>
+
+<p>而我，而我的幸福，寄托在个一我上，</p>
+
+<p>不知能坚持多久，觉得，</p>
+
+<p>每个人，终将得到自己的幸福。。。</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/06/f58d3a37_smush_屏幕截图+-+2012年06月16日+-+22时48分10秒.png"><img class="size-full wp-image-499" title="兰湖相拥" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/f58d3a37_smush_屏幕截图+-+2012年06月16日+-+22时48分10秒.png" alt="兰湖相拥" width="307" height="463" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>后记</p>
+
+<p>暗恋是一场没结果的纯真的闷骚。。。。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/10/mencoder-transcoding/">Mencoder转码</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-10T09:05:00+08:00" pubdate data-updated="true">Jun 10<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>mencoder [若干选项] 文件 [文件|URL|&ndash;] [-o 文件 | file://文件 | smb://[用户名:密码@]主机/文件路径]
+mencoder [若干选项] 文件1 [该文件专用的选项] [文件2] [该文件专用的选项]</p>
+
+<p>&nbsp;</p>
+
+<p>[caption id=&ldquo;attachment_487&rdquo; align=&ldquo;alignleft&rdquo; width=&ldquo;205&rdquo; caption=&ldquo;mplayer&rdquo;]<a href="http://www.mplayerhq.hu/design7/news.html"><img class="size-full wp-image-487" title="mplayer" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/left.jpg" alt="mplayer" width="205" height="449" /></a>[/caption]</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>实例 1：f4v&mdash;&ndash;&gt;mp4</p>
+
+<p>mencoder a.f4v -o a1.mp4 -oac mp3lame -lameopts cbr:br=128 -ovc x264 -x264encopts bitrate=440 -vf scale=480:320</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>解释:</p>
+
+<p>a.fv4是指输入的视频，要转换的视频。
+-o a1.avi 中的“-o”是指你要输出视频，输出视频名为a1.avi
+-oac 设置音频编码器。
+mp3lame 设置音频编码器为mp3lame，就是mp3
+-lameopts 设置mp3lamer的相关参数
+cbr:br=128 设置音频的码率为128。96、112、128、192、256、320Kbps
+-ovc 设置视频编码器。
+x264 设置视频编码器为x264。</p>
+
+<p>-x264encopts 设置x264的参数。
+bitrate=440 设置x264的视频的码率为440。
+-vf scale=480:320  设置视频的宽为480，高为320.( -vf scale=448:-3) -3是让mencoder来设置最佳宽度。</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>实例 2： flv&mdash;&ndash;&gt;mp3</p>
+
+<p>mencoder b.flv -o b.mp3 -ovc frameno -oac mp3lame -lameopts cbr:br=320 -of rawaudio -ss 1:30 -endpos 2:45</p>
+
+<hr />
+
+<p>解释:</p>
+
+<p>b.flv 输入源文件
+-o b.mp3 输出的目标文件名称
+-ovc frameno 不处理视频编码
+-oac mp3lame 输出的音频编码格式为mp3
+-lameopts cbr:br=320 音频附件选项，cbr(常量比特率)编码格式，音频码流为320bps
+-of rawaudio 输出文件为原始音频流
+-ss 1:30 音频截取的起始时间(表示从b.flv的第1分30秒开始截取)
+-endpos 2:45 预截取音频的长度(表示预截取的音频长度是2分45秒，可计算出其结束时间4:15)(-endpos 10mb 编码数据量为10M)</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>注：</p>
+
+<p>1）
+-of &lt;格式&gt;（用于 BETA 测试！）
+编码为指定的容器格式（默认值：AVI）
+-of lavf
+使用 libavformat 流合并器编码</p>
+
+<p>EX：mencoder a.f4v -o a1.mp4 -oac mp3lame -lameopts cbr:br=128 -ovc x264 -x264encopts bitrate=440 -vf scale=480:320 -of lavf</p>
+
+<p>2）安装<em> sudo apt</em>-get <em>install</em> mencoder</p>
+
+<hr />
+
+<p>参考：</p>
+
+<p>1）man mplayer        man mencoder</p>
+
+<p>2)<a href="http://baike.baidu.com/view/3353694.htm">http://baike.baidu.com/view/3353694.htm</a></p>
+
+<p>3)<a href="http://www.mplayerhq.hu/DOCS/HTML/zh_CN/mencoder.html">http://www.mplayerhq.hu/DOCS/HTML/zh_CN/mencoder.html</a></p>
+
+<p>4)<a href="http://www.mplayerhq.hu/DOCS/HTML/zh_CN/index.html">http://www.mplayerhq.hu/DOCS/HTML/zh_CN/index.html</a></p>
+
+<p>5)<a href="http://hi.baidu.com/hailoong/blog/item/545cfa17baefe4084b90a77c.html">http://hi.baidu.com/hailoong/blog/item/545cfa17baefe4084b90a77c.html</a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/27/JTextArea-add-scrollbars-simple-example/">JTextArea添加滚动条的简单实例</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-27T12:01:00+08:00" pubdate data-updated="true">May 27<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">gd2</span><span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">JFrame</span> <span class="n">f</span><span class="o">=</span><span class="k">new</span> <span class="n">JFrame</span><span class="o">();</span>
+</span><span class='line'><span class="n">JPanel</span> <span class="n">p1</span><span class="o">=</span><span class="k">new</span> <span class="n">JPanel</span><span class="o">();</span>
+</span><span class='line'><span class="n">JTextArea</span> <span class="n">t1</span><span class="o">=</span><span class="k">new</span> <span class="n">JTextArea</span><span class="o">(</span><span class="mi">35</span><span class="o">,</span><span class="mi">25</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p1</span><span class="o">.</span><span class="na">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="o">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">t1</span><span class="o">.</span><span class="na">setLineWrap</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">p1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">JScrollPane</span><span class="o">(</span><span class="n">t1</span><span class="o">));</span>
+</span><span class='line'><span class="c1">//将JTextArea放入JScrollPane中，这样就能利用滚动的效果</span>
+</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">p1</span><span class="o">);</span>
+</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="na">pack</span><span class="o">();</span>
+</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="na">addWindowListener</span><span class="o">(</span><span class="k">new</span> <span class="n">WindowAdapter</span><span class="o">(){</span> <span class="kd">public</span> <span class="kt">void</span> <span class="n">windowClosing</span><span class="o">(</span><span class="n">WindowEvent</span> <span class="n">e</span><span class="o">){</span> <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);}</span> <span class="o">});</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/11/5-8/">5.8</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-11T16:08:00+08:00" pubdate data-updated="true">May 11<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>心怔烦乱敌若云</p>
+
+<p>有炎百刃月无晕</p>
+
+<p>灵威震怒鼓彻天</p>
+
+<p>犀甲迸裂矣厥剑</p>
+
+<p>永思故原遥难反</p>
+
+<p>远峙叠峦久无还</p>
+
+<p>埋骨鬼雄血浸袍</p>
+
+<p>藏怀青丝志诚傲</p>
+
+<p>顾往旧径樱烂漫</p>
+
+<p>逸鸾凤鹮面桃然</p>
+
+<p>雯华琉白馨而靥</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/05/yh.jpg"><img class="size-full wp-image-472" title="樱花" src="http://www.wuwenjie.tk/wp-content/uploads/2012/05/yh.jpg" alt="樱花" width="700" height="466" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>心怔煩亂敵若云</p>
+
+<p>有炎百刃月無暈</p>
+
+<p>靈威震怒鼓徹天</p>
+
+<p>犀甲迸裂矣厥劍</p>
+
+<p>永思故原遙難反</p>
+
+<p>遠峙疊巒久無還</p>
+
+<p>埋骨鬼雄血浸袍</p>
+
+<p>藏懷青絲志誠傲</p>
+
+<p>顧往舊徑櫻爛漫</p>
+
+<p>逸鸞鳳鹮面桃然</p>
+
+<p>雯華琉白馨而靨</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/06/Eclipse-android-loading-picture-and-R.java-problem/">Eclipse Andriod 图片加载和R.java问题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-06T04:11:00+08:00" pubdate data-updated="true">May 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>关于图片加载：</p>
+
+<p>1)将图片拷贝到 当前PROJECT的res的drawable-*dpi目录下，可以每个都拷贝一下</p>
+
+<p>2)在PACKAGE   EXPLORER  找到对应的res目录，右键点击，refresh</p>
+
+<p>3)出现 所需图片</p>
+
+<p><a href="http://www.eclipse.org/"><img title="Eclipse" src="data:image/jpeg;base64,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" alt="Eclipse" width="200" height="200" /></a></p>
+
+<p>关于R.Java：</p>
+
+<p>1）它是自动生成的</p>
+
+<p>This class was automatically generated by the</p>
+
+<p>aapt tool from the resource data it found.</p>
+
+<p>It should not be modified by hand.</p>
+
+<p>2）出现问题可以 project&mdash;&gt;built automatically</p>
+
+<p>project&mdash;&gt;clean</p>
+
+<p>3)实在不行 可以 重新file &mdash;&gt;new&mdash;&gt;android Project</p>
+
+<p>不要直接黏贴，修改。。。</p>
+
+<p>&nbsp;</p>
+
+<p>注：以上方法仅供参考</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/30/windows-wubi-installation-root-disk/">Windowns wubi安装中的root.disk文件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-30T18:07:00+08:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>﻿如果出现了故障</p>
+
+<p>可以用linux启动盘启动</p>
+
+<p>把root.disk所在分区挂载</p>
+
+<p>然后这样：</p>
+
+<p>代码:
+sudo mount -o loop [root.disk路径]  [需要挂载到的路径]</p>
+
+<p>EX：sudo mount -o loop /media/软件/root.disk /mnt</p>
+
+<p>root.disk文件其实就是ubuntu的文件系统</p>
+
+<p>需要的文件没有丢失</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/20/2D-map-editor-Tiled-in-linux/">linux下的2D地图编辑器Tiled</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-20T16:56:00+08:00" pubdate data-updated="true">Apr 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a title="mapeditor.org" href="http://www.mapeditor.org/" target="_blank">Tiled Map Editor </a></p>
+
+<p>&nbsp;</p>
+
+<p>最近学习J2ME，</p>
+
+<p>弄弄看JAVA小游戏，</p>
+
+<p>做地图不方便，</p>
+
+<p>用它比较好</p>
+
+<p><img class="alignnone" title="tiled-qt-screenshot-3-thumb" src="http://images.mapeditor.org/tiled-qt-screenshot-3-thumb.png" alt="tiled-qt-screenshot-3-thumb" width="401" height="243" /></p>
+
+<p><img class="alignnone" title="tiled-qt-screenshot-4-thumb" src="http://images.mapeditor.org/tiled-qt-screenshot-4-thumb.png" alt="tiled-qt-screenshot-4-thumb" width="396" height="237" /></p>
+
+<p><img class="alignnone" title="tiled-java-thumb" src="http://images.mapeditor.org/tiled-java-thumb.png" alt="tiled-java-thumb" width="396" height="264" /></p>
+
+<p>&nbsp;</p>
+
+<h4><a title="sourceforge.net" href="http://sourceforge.net/projects/tiled/files/Tiled/0.7.2/tiled-0.7.2-bin.zip" target="_blank">Java Version DOWNLOAD</a></h4>
+
+
+<p>&nbsp;</p>
+
+<p>cd dist (if you have compiled Tiled yourself)
+java -jar tiled.jar</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; 老早的</a>
+    
+    <a href="/blog/archives">更多</a>
+    
+    <a class="next" href="/blog/page/2/">新的 &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian/">Android APP 古汉语常用字字典</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/html5-demo/">HTML5 Demo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-yi-ge-shi-li-lucene-plus-nodejs-2/">Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs 2</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>前证券经纪人:s1090414030081</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2014 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> <a>&</a>	<a href="http://www.000webhost.com/" target="_blank"><img src="http://www.000webhost.com/images/80x15_powered.gif" alt="Web Hosting" width="80" height="15" border="1" /></a>	</span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

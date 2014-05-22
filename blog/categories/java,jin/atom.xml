@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: java，jin | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/java,jin/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[近况+JNI Android NDK初识]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/09/01/Current-situation-JNI-Android-NDK-first-met/"/>
+    <updated>2012-09-01T19:11:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/09/01/Current-situation-JNI-Android-NDK-first-met</id>
+    <content type="html"><![CDATA[<p>最近（7月末-9月初），</p>
+
+<p>边学习，证券方面的知识</p>
+
+<p>（为了考一个证书，出来混饭吃（还是要干一行爱一行）），</p>
+
+<p>边搞SHELL和android application。</p>
+
+<p>也无聊看看多啦A梦，</p>
+
+<p>中间也出去玩过，</p>
+
+<!-- more -->
+
+
+<p>宝山和大宁国际（大悦城，南京路）。</p>
+
+<p>外公开刀也去了医院2。</p>
+
+<p>&nbsp;</p>
+
+<p>暑假过的一般，对了，</p>
+
+<p>明天有人就要去学校了，</p>
+
+<p>不知道还玩煮线吗，</p>
+
+<p>还是要搞搞正业，</p>
+
+<p>（没关系，嫁个好人家，万事不愁），</p>
+
+<p>今天梦到去家，不在，人寐，恐，出。</p>
+
+<p>&nbsp;</p>
+
+<p>下半年的打算，考C，6；读证券，去考出来。</p>
+
+<p>那人我stay here，见都难，其他都别说了，</p>
+
+<p>快了，人妻的头衔在等着你（4-5年）</p>
+
+<p>&nbsp;</p>
+
+<p>还有构思new诗，素材还在收集，</p>
+
+<p>还没抒发的适合情境。</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; CUT HERE &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<hr />
+
+<p>Java Native Interface
+<a title="ndk" href="http://developer.android.com/tools/sdk/ndk/index.html" target="_blank">Android NDK</a></p>
+
+<p>我的理解：</p>
+
+<p>为了使applicatin更为流畅，</p>
+
+<p>效率更高，借助C/C++，</p>
+
+<p>很多应用都有用，</p>
+
+<p>未来的一大发展方向吧，</p>
+
+<p>虚拟机存在，</p>
+
+<p>使用java</p>
+
+<p>对我这样的初学者友善，</p>
+
+<p>也可以向更底层发展。</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>A。下载NDK包，解压</p>
+
+<p><a href="http://dl.google.com/android/ndk/android-ndk-r8b-linux-x86.tar.bz2">android-ndk-r8b-linux-x86.tar.bz2</a></p>
+
+<hr />
+
+<p>B。PATH设置：</p>
+
+<p>1)在/home/用户名 下修改.bashrc</p>
+
+<p><tt>#~/.bashrc</tt>文件决定了交互shell的行为</p>
+
+<p>2)末尾添加</p>
+
+<p>PATH=$PATH:/home/用户名/android-ndk-r8b
+export PATH</p>
+
+<h1>当然你要解压到 /home/用户名 下</h1>
+
+<p>3)到其他目录 测试</p>
+
+<p>ndk-build 命令</p>
+
+<p>出错：成功</p>
+
+<p>Android NDK: Could not find application project directory !
+Android NDK: Please define the NDK_PROJECT_PATH variable to point to it.</p>
+
+<h2>/home/用户名/android-ndk-r8b/build/core/build-local.mk:130: *** Android NDK: Aborting    .  Stop.</h2>
+
+<p>C.Eclipse的设置</p>
+
+<p>project&mdash;&gt;properties&mdash;&gt;Builders&mdash;&ndash;&gt;new&mdash;&ndash;&gt;program
+&mdash;&ndash;&gt;location (*/android-ndk-r8b/ndk-build)
+&mdash;&ndash;&gt;working directory(${workspace_loc:/yorproject/jni})
+&mdash;&mdash;&gt;refresh  &mdash;specify resources</p>
+
+<p>参考：<a title="设置" href="http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml" target="_blank"><a href="http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml">http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml</a></a></p>
+
+<p><a title="os-androidndk/" href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html" target="_blank"><a href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html">http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html</a></a></p>
+
+<p>&nbsp;</p>
+
+<p>D。实践 New Project 主要（Android.mk&amp;&amp;ok.c）</p>
+
+<p>1）准备</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;MainActivity.java&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
+```java
+package tk.wuwenjie.jnidemo;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.app.Activity;</p>
+
+<p>public class MainActivity extends Activity {
+static String TAG=&ldquo;MainActivity&rdquo;;</p>
+
+<p>public void onCreate(Bundle savedInstanceState) {
+Log.i(TAG, &ldquo;MA_oncreate!!&rdquo;);
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+TextView textView = (TextView)findViewById(R.id.MA_tv);</p>
+
+<p>String myString =stringFromSo();//stringFromNDKJNI</p>
+
+<p>textView.setText(myString);</p>
+
+<p>printLOGI();
+}</p>
+
+<p>static{
+try{System.loadLibrary(&ldquo;ok&rdquo;); }
+catch(UnsatisfiedLinkError ule){
+Log.i(TAG,&ldquo;WARNING: Could not load lib!&rdquo;+ule.toString());
+}
+}</p>
+
+<p>public native String stringFromSo();</p>
+
+<p>public native void printLOGI();</p>
+
+<p>}
+```</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-activity_main.xml&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
+```xml
+&lt;RelativeLayout xmlns:android=&ldquo;<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>&rdquo;</p>
+
+<pre><code>xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent" &gt;
+
+&lt;TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:text="@string/hello_world"
+    android:id="@+id/MA_tv" /&gt;
+</code></pre>
+
+<p></RelativeLayout>
+```</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>2）在src的同级目录，创建目录（mkdir jni）</p>
+
+<p>进入 jni 创建(touch)</p>
+
+<p>Android.mk</p>
+
+<p>ok.c</p>
+
+<p>&mdash;&mdash;-Android.mk&mdash;&mdash;&mdash;&ndash;
+```bash
+LOCAL_PATH := $(call my-dir)</p>
+
+<p>include $(CLEAR_VARS)</p>
+
+<p>LOCAL_MODULE    := ok     #编译的目标对象
+LOCAL_LDLIBS    :=-L$(SYSROOT)/system/lib -llog        #编译指定额外库，"-lxxx"格式
+LOCAL_SRC_FILES := ok.c    #编译的源文件</p>
+
+<p>include $(BUILD_SHARED_LIBRARY)
+```</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;ok.c&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+```c</p>
+
+<h1>include &lt;stdio.h></h1>
+
+<h1>include &lt;string.h></h1>
+
+<h1>include &lt;jni.h></h1>
+
+<h1>define LOG_TAG &ldquo;TAG&rdquo; //自定义的变量，相当于logcat函数中的tag</h1>
+
+<h1>undef LOG</h1>
+
+<h1>include &lt;android/log.h></h1>
+
+<h1>define LOGI(&hellip;) ((void)<strong>android_log_print(ANDROID_LOG_INFO,LOG_TAG,</strong>VA_ARGS__))</h1>
+
+<p>jstring Java_tk_wuwenjie_jnidemo_MainActivity_stringFromSo( JNIEnv* env,jobject thiz ){</p>
+
+<p>   return (*env)&ndash;>NewStringUTF(env, &ldquo;well,i from jni!!!OKOKOKOKOKOKOKO&rdquo;);</p>
+
+<p>}//tk.wuwenjie.jnidemo包名  MainActivity类名 stringFromSo函数名</p>
+
+<p>void  Java_tk_wuwenjie_jnidemo_MainActivity_printLOGI(JNIEnv * env, jobject jobj){</p>
+
+<p> LOGI(&ldquo;LOGI\n&rdquo;);
+}
+```</p>
+
+<p>&mdash;&mdash;&mdash;-ndk-build 编译&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+
+<p>:~/workspace/Sayok/jni$ ndk-build
+Compile thumb  : ok &lt;= ok.c
+SharedLibrary  : libok.so
+Install        : libok.so =&gt; libs/armeabi/libok.so</p>
+
+<p>出现了 libs/armeabi/libok.so</p>
+
+<p><img class="alignnone" src="http://pic.qndown.com/img/common/8538924c/" alt="" width="142" height="137" /></p>
+
+<p>&nbsp;</p>
+
+<p>3）run 就可以了</p>
+
+<p><img title="logcat" src="http://pic.qndown.com/img/common/217be66a/" alt="" width="491" height="47" /></p>
+
+<p>&nbsp;</p>
+
+<p><img title="效果" src="http://pic.qndown.com/img/common/116cfe3f/" alt="" width="244" height="419" /> 效果</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>MORE:</p>
+
+<p>1)project file<a title="Sayok" href=" http://filemarkets.com/file/common/81252e98/" target="_blank">【Sayok20120902.tar.gz】</a>
+<a href="http://filemarkets.com/file/common/81252e98/">http://filemarkets.com/file/common/81252e98/</a></p>
+
+<p>MD5：efa15676d843b4d21edac12b5c035c02</p>
+
+<p>2)</p>
+
+<p>/home/用户名/android-ndk-r8b/docs</p>
+
+<p>/home/用户名/android-ndk-r8b/samples</p>
+
+<p><a href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/index.html">http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/index.html</a></p>
+
+<p><a href="http://blog.devdiv.com/android-jni%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B.html">http://blog.devdiv.com/android-jni%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B.html</a></p>
+
+<p><a href="http://www.cnblogs.com/shadox/archive/2011/12/02/2272564.html">http://www.cnblogs.com/shadox/archive/2011/12/02/2272564.html</a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]></content>
+  </entry>
+  
+</feed>

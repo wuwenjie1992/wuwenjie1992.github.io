@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: website | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/website/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[如何在WordPress中安装 Google Analytics 数据分析]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2011/11/25/%25e5%25a6%2582%25e4%25bd%2595%25e5%259c%25a8wordpress%25e4%25b8%25ad%25e5%25ae%2589%25e8%25a3%2585-google-analytics-%25e6%2595%25b0%25e6%258d%25ae%25e5%2588%2586%25e6%259e%2590/"/>
+    <updated>2011-11-25T18:09:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2011/11/25/%e5%a6%82%e4%bd%95%e5%9c%a8wordpress%e4%b8%ad%e5%ae%89%e8%a3%85-google-analytics-%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90</id>
+    <content type="html"><![CDATA[<p>强大的网站数据分析可以说是任何一个成功网站必不可少的一个关键因素。分析流量是了解访客最佳的方式，而 Google Analytics数据分析可称得上是最好的免费网站分析工具。在这篇文章里，我将与大家分析下Google Analytics强大在哪里，以及教大家如何在WordPress博客中安装 Google Analytics。</p>
+
+<p>Google Analytics的重要性</p>
+
+<p>通过Google analytics，你可以追踪:</p>
+
+<p>谁访问了你的网站</p>
+
+<p>此部分数据包括了访客的地理位置，访客使用何种浏览器访问您的网站以及其他更多内容，如：屏幕分辨率、JavaScript支持、 Flash支持、语言等等。</p>
+
+<p>这些数据非常实用，可以在多个方面帮助你：例如，在自定义设计时，你可以使用用户数据来确保您的站点与受众是兼容的。如果大多数用户不支持Flash，那么你应该尽量避免使用flash元素。如果大部分用户使用的屏幕分辨率是1280，那么应该保证你的设计与它兼容。</p>
+
+<p>访客在你的网站上做了什么</p>
+
+<p>你可以追中用户都在网站上那些地方停留了，他们在你的网站上停留了多久，跳出率如何，通过分析这些信息，你可以降低用户跳出率提高页面浏览的深度。</p>
+
+<p>他们何时访问你的网站</p>
+
+<p>通过观察站点上一天流量的高峰时刻，你可以挑选最佳的发布文章时间。如果碰上时区差别的，你可以使用定时发布功能来避免作息时间冲突。</p>
+
+<p>他们从哪里到达你的站点</p>
+
+<p>这部分数据的分析将会告知你用户从哪里来到你的站点: 搜索引擎、直接链接还是其他站点的引荐链接。它会显示每一个来源访客的百分比。Google analytics 还分别对这些分类还有更细的分析。就拿搜索引擎分类来说，它会告诉你哪一个搜索引擎获得的流量最多，谷歌、雅虎还是微软的必应。 它也会显示用户使用最为频繁的搜索词，这样可以帮助你提高该关键字的排名 。站点引荐链接这部分也会告知你哪个站点合作的效果最佳。假设从Twitter上获得的引荐最多，那么你就非常有必要再Twitter上花费些功夫，为Twitter受众提供些比较好的内容，让用户觉得他们有受到 特别的招待。如果从外部网站上获得的流量比较多，你可以考虑跟那个站点搞个合作关系 (交换链接之类的)。</p>
+
+<p>他们与你网站的互动如何</p>
+
+<p>通过Google analytics，你可以了解用户跟你网站内容的互动性如何。它会显示用户点击网站上链接的比例等等。通过观察用户的互动性，你可以依据用户的兴趣在内容上下功夫做些改善。</p>
+
+<p>通过以上几个问题的分析，你就可以将重心花在适合自己网站的策略上，效果不好的策略就不用花太多精力。
+注册Google Analytics</p>
+
+<p>说了这么多，你可能也想问到底怎么样使用谷歌数据分析工具呢？首先，你需要访问 Google Analytics 注册页面.注册一个 Google Analytics账户。</p>
+
+<p>进入注册页面以后，你会看到如下图所示的一个页面，如果你已经有gmail账户，你可以直接用邮箱账户注册，没有的朋友就先注册一个谷歌账户。</p>
+
+<p>用邮箱账户注册完之后，你会看到下图所示，在这里你就可以注册google analytics。</p>
+
+<p>接着就是输入你的站点信息， 表格内容都非常清楚， 输入你的网站URL地址，账户名（任何账户） 国家和时区。</p>
+
+<p>第四步，你需要输入联系信息。</p>
+
+<p>第五步， 同意服务协议条款。</p>
+
+<p>第六步，你就会获得需要粘贴在你站点的代码。 这也是注册中最为关键的部分，复制并粘贴这个代码到记事本或HTML编辑器中，并不要关闭下面的窗口。</p>
+
+<p>如何在WordPress中安装 Google Analytics</p>
+
+<p>有三种方法可以在WordPress中安装Google analytics：直接粘贴代码、修改functions.php文件和插件。</p>
+
+<p>直接粘贴代码</p>
+
+<p>直接复制第六步的代码并将其粘贴到主题 footer.php文件标签的前面。</p>
+
+<p>修改Functions.php</p>
+
+<p>在主题 functions.php 文件加入下面的代码，也不要忘记粘贴上面第六步获得的Google Analytics代码。</p>
+
+<!--?php add_action('wp_footer', 'add_googleanalytics'); function add_googleanalytics() { ?-->
+
+
+<p>// 在这里粘贴第六步获得的代码</p>
+
+<!--?php } ?-->
+
+
+<p>插件</p>
+
+<p>有非常多插件都可以实现在站点中加入Google Analytics数据分析工具，我这里推荐以下两款:</p>
+
+<p>Google Analytics for WordPress由Joost de Valk制作
+Google Analyticator 由 Ronald Heft制作</p>
+
+<p>完成Google Analytics的安装以后，你可以返回到第六步的页面点击保存，完成。接着你就会进入到你的网站数据分析页面。</p>
+
+<p>你会发现状态栏下方有个黄色的感叹号，这是说明谷歌还没有认识到你已经在你的站点添加谷歌分析，大概还需要12 – 24之后谷歌才会提供数据分析报告。</p>
+
+<p>谷歌分析工具是每个博客都必不可少的， 如果你希望能够随时对自己的博客流量做分析，那么现在就行动吧。</p>
+
+<p>more &mdash;&mdash;<a title=" 如何在WordPress中安装 Google Analytics 数据分析" href="http://www.wordpress.la/How%20to%20Install%20Google%20Analytics%20in%20WordPress.html" target="_blank"><a href="http://www.wordpress.la/How%20to%20Install%20Google%20Analytics%20in%20WordPress.html">http://www.wordpress.la/How%20to%20Install%20Google%20Analytics%20in%20WordPress.html</a></a></p>
+
+<p><a title="http://www.wpbeginner.com/beginners-guide/how-to-install-google-analytics-in-wordpress/" href="http://www.wpbeginner.com/beginners-guide/how-to-install-google-analytics-in-wordpress/" target="_blank"><a href="http://www.wpbeginner.com/beginners-guide/how-to-install-google-analytics-in-wordpress/">http://www.wpbeginner.com/beginners-guide/how-to-install-google-analytics-in-wordpress/</a></a></p>
+
+<p>&nbsp;</p>
+]]></content>
+  </entry>
+  
+</feed>

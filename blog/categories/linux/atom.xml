@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Linux 下帝国时代： 0 A.D]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/04/02/Linux-AgeOfEmpires-0+A.D/"/>
+    <updated>2012-04-02T11:15:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/04/02/Linux-AgeOfEmpires-0 A.D</id>
+    <content type="html"><![CDATA[<p>0 A.d 是一款类似帝国时代的开源即时战略游戏。
+这个游戏以公元前 500 年至公元 500 年之间为背景，包括了六个独特的种族文明。</p>
+
+<p>特色：3D，画面古典，建筑可换角度，英文</p>
+
+<p><img class="alignnone" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/0_A.D._logo.png/250px-0_A.D._logo.png" alt="" width="250" height="118" /></p>
+
+<p><img class="alignnone" src="http://iloveubuntu.net/pictures_me/0ad%208%201.jpg" alt="" width="721" height="567" /></p>
+
+<p>&nbsp;</p>
+
+<p><img class="alignnone" src="http://www.muylinux.com/wp-content/uploads/2011/03/0AD-alpha4.jpg" alt="" width="689" height="604" /></p>
+
+<p><img class="alignnone" src="http://www.wildfiregames.com/~art/cheezy/screens/whizbang_screenshot.jpg" alt="" width="693" height="768" /></p>
+
+<p>&nbsp;</p>
+
+<p><img class="alignnone" src="http://upload.wikimedia.org/wikipedia/en/1/1b/Iberian_desert_colony_1680x1050.jpg" alt="" width="726" height="642" /></p>
+
+<p>&nbsp;</p>
+
+<p><img class="alignnone" src="http://game-server-hosting.net/wp-content/uploads/2008/12/44%200%20AD.jpg" alt="" width="800" height="600" /></p>
+
+<p>在 Ubuntu 下的安装方法：</p>
+
+<pre><code>sudo add-apt-repository ppa:wfg/0ad 
+sudo apt-get update 
+sudo apt-get install 0ad</code></pre>
+
+
+<p><a href="http://releases.wildfiregames.com/0ad-r09530-alpha-unix-data.tar.gz" target="_blank">源代码下载</a></p>
+
+<p><a href="http://wildfiregames.com/0ad/">http://wildfiregames.com/0ad/</a></p>
+
+<p><a href="http://zh.wikipedia.org/wiki/0_A.D.">http://zh.wikipedia.org/wiki/0_A.D.</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《Unix文件系统结构标准》]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/03/03/Standard-Unix-file-system-structure/"/>
+    <updated>2012-03-03T05:03:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/03/03/Standard-Unix-file-system-structure</id>
+    <content type="html"><![CDATA[<p>Filesystem Hierarchy Standard</p>
+
+<p><a title="Filesystem Hierarchy Standard" href="http://www.pathname.com/fhs/pub/fhs-2.3.html" target="_blank">《Unix文件系统结构标准》</a></p>
+
+<p><a title="a_history_of_unix_directory_structure" href="http://www.ruanyifeng.com/blog/2012/02/a_history_of_unix_directory_structure.html" target="_blank">Unix目录结构的来历</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[开源“visio”软件dia]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/01/29/visio-dia/"/>
+    <updated>2012-01-29T10:08:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/01/29/visio-dia</id>
+    <content type="html"><![CDATA[<ul>
+ <li>
+<h1>开源“visio”软件dia</h1>
+<div></div>
+<div></div>
+<strong>开源项目主页</strong>：<a href="http://projects.gnome.org/dia/">http://projects.gnome.org/dia/</a>
+
+Dia是一款足够可以和win下office visio向媲美的软件管理和建模工具，
+是基于GTK的图形绘制程序，适用于Linux, Unix和Windows，以 GPL 许可发布。
+DIA是一个身材只有10MB的免费软件，代替visio基本没问题，是最好的300款免费软件之一。
+不过，一些苛刻的用户认为Dia很多地方 不太好用，但无论如何，它是综合性能最高的免费解决方案。
+
+DIA最新版本：version 0.96.1 (29/3 2007)</li>
+ <li>The latest bleeding edge version can be found in the Gnome SVN tree.<img title="" src="http://www.ourunix.org/upload/dialogo.jpg" alt="" />
+
+安装：sudo apt-get install dia</li>
+ <li>http://www.ourunix.org/post/274.html</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

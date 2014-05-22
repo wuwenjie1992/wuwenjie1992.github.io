@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: xfce，error | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/xfce,error/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Xfce 外框没了--解决]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/07/13/Xfce-frame-gone/"/>
+    <updated>2012-07-13T15:04:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/07/13/Xfce-frame-gone</id>
+    <content type="html"><![CDATA[<p>不知道为何
+登录了Xubuntu
+后
+发现为社么程序的外框都没有的</p>
+
+<p>用得十分的不习惯</p>
+
+<p>找谷神 一问</p>
+
+<p>有了以下解决方法：</p>
+
+<p>1）Alt + F2</p>
+
+<p>2)输入  rm -rf ~/.cache/sessions</p>
+
+<p>删除 缓存</p>
+
+<p>3）运行</p>
+
+<p>4）reboot 重启</p>
+
+<p>5) 完成</p>
+
+<hr />
+
+<p>MORE：</p>
+
+<h1 id="Quick_Fix">Quick Fix</h1>
+
+
+<p>This requires you to log out and log in again.</p>
+
+<p>&nbsp;</p>
+
+<pre>    Alt+F2                           (run window)
+    rm -rf ~/.cache/sessions         (delete the Xfce4 saved sessions files for your user)
+    Click on "Run"                   (or hit the enter key)</pre>
+
+
+<p>Now you will log out and log in again. Make sure &ldquo;Save session for future logins&rdquo; is not checked.</p>
+
+<p>If the <strong>Quick Fix</strong> fails, please try the next method.</p>
+
+<p>&nbsp;</p>
+
+<p><a title="XubuntuPanels" href="https://help.ubuntu.com/community/XubuntuPanels" target="_blank">XubuntuPanels</a>
+<a title="xfce" href="https://threelegcat.wordpress.com/2012/05/28/%E8%A7%A3%E6%B1%BA-xubuntuxfceubuntu-studio-12-04-%E8%A6%96%E7%AA%97%E9%82%8A%E6%A1%86%E5%95%8F%E9%A1%8C/" target="_blank">解決 Xubuntu/Xfce/Ubuntu Studio 12.04 視窗邊框消失問題</a></p>
+]]></content>
+  </entry>
+  
+</feed>

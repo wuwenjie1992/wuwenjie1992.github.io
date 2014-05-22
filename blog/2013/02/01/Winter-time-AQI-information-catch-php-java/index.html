@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>冬天的这段时间+AQI信息的抓取（php+java) - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="2012年末和13年年初， 这段日子不好。 发生人生大变故。 &nbsp; 第一，大爹grandfa的过世， 亲人病故，让我看淡、看清人生， 也看轻了第二件事， 我的方向找到了方向， 而我失去了方向。 &nbsp; 无所谓，成长=磨练+打击； 人生起起落落， 我已经看到了， 自己的低谷底部。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2013/02/01/Winter-time-AQI-information-catch-php-java">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">冬天的这段时间+AQI信息的抓取（php+java)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-01T11:46:00+08:00" pubdate data-updated="true">Feb 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>2012年末和13年年初，</p>
+
+<p>这段日子不好。</p>
+
+<p>发生人生大变故。</p>
+
+<!-- more -->
+
+
+<p>&nbsp;</p>
+
+<p>第一，大爹grandfa的过世，</p>
+
+<p>亲人病故，让我看淡、看清人生，</p>
+
+<p>也看轻了第二件事，</p>
+
+<p>我的方向找到了方向，</p>
+
+<p>而我失去了方向。</p>
+
+<p>&nbsp;</p>
+
+<p>无所谓，成长=磨练+打击；</p>
+
+<p>人生起起落落，</p>
+
+<p>我已经看到了，</p>
+
+<p>自己的低谷底部。</p>
+
+<p>充满希望还能前进。</p>
+
+<hr />
+
+<p><strong>AQI信息的抓取（php+java)</strong></p>
+
+<p><strong>一、什么是AQI</strong></p>
+
+<p><a title="空气污染指数" href="https://zh.wikipedia.org/wiki/%E7%A9%BA%E6%B0%A3%E6%B1%A1%E6%9F%93%E6%8C%87%E6%95%B8" target="_blank">AQI</a>,<a title="空气质量指数：baidu" href="http://baike.baidu.com/view/3251379.htm" target="_blank">空气质量指数</a>,</p>
+
+<p>反映空气质量的指标。</p>
+
+<p>（更多信息，点击链接）</p>
+
+<p>其中，最为重要的是PM2.5，</p>
+
+<p>之前，冬天前就有，</p>
+
+<p><a title="美国驻上海总领事馆空气质量监测站 " href="http://shanghai-ch.usembassy-china.org.cn/airmonitor.html" target="_blank">米国的PM2.5</a>的预报，</p>
+
+<p>也不当一回事，但冬天到了，</p>
+
+<p>雾霾情况就愈发严重，</p>
+
+<p>我才刚意识到空气污染的现状。</p>
+
+<p>在股市之中，</p>
+
+<p>也开始炒起了“<a href="http://finance.ifeng.com/stock/roll/20130129/7617419.shtml" target="_blank">环保概念股</a>”。</p>
+
+<p>相关链接<a href="http://finance.eastmoney.com/news/1353,20130201271557065.html" target="_blank"> 1</a> <a href="http://stock.eastmoney.com/news/1406,20130131271410936.html" target="_blank">2</a> <a href="http://stock.eastmoney.com/news/1406,20130130271079896.html" target="_blank">3</a> <a href="http://finance.eastmoney.com/news/1350,20130130271044553.html" target="_blank">4</a> <a href="http://www.semc.gov.cn/home/index.aspx" target="_blank">5</a></p>
+
+<p>&nbsp;</p>
+
+<p><strong>二、如何得到AQI</strong></p>
+
+<p>上海：<a href="http://www.semc.gov.cn/home/index.aspx" target="_blank">上海市环境监测中心</a></p>
+
+<p><a href="https://twitter.com/CGShanghaiAir" target="_blank">CGShanghaiAir</a></p>
+
+<p>北京：<a href="https://twitter.com/BeijingAir" target="_blank">BeijingAir</a></p>
+
+<p>&nbsp;</p>
+
+<p><strong>三、代码</strong></p>
+
+<p>以上海环境监测中心的网页上的数据为原始数据资料，</p>
+
+<p>利用php抓取有用信息，因为原始网页包含太多无用信息，</p>
+
+<p>android客户端，在网络不通畅情况下，速度太慢，</p>
+
+<p>获取信息及处理所需时间太长，导致体验下降。</p>
+
+<p>&nbsp;</p>
+
+<p>相关代码：<a title="github" href="https://github.com/wuwenjie1992/Xhullo/blob/master/src/wo/wocom/xwell/XA_AirQuality.java" target="_blank">XA_AirQuality.java</a></p>
+
+<p>相关php代码于最后的注释内</p>
+
+<p>（format 过，排版有问题）</p>
+
+<p>&nbsp;</p>
+
+<p><strong>四、效果</strong></p>
+
+<p>简单的代码，简单的效果。。。</p>
+
+<p><a href="http://www.wuwenjie.tk/2013/02/01/%e5%86%ac%e5%a4%a9%e7%9a%84%e8%bf%99%e6%ae%b5%e4%ba%8baoi_php_java/device-2013-02-01-193536/" rel="attachment wp-att-608"><img class="size-full wp-image-608" title="AQI效果1" src="http://www.wuwenjie.tk/wp-content/uploads/2013/02/device-2013-02-01-193536.png" alt="AQI效果1" width="320" height="480" /></a> AQI效果1</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://www.wuwenjie.tk/2013/02/01/%e5%86%ac%e5%a4%a9%e7%9a%84%e8%bf%99%e6%ae%b5%e4%ba%8baoi_php_java/device-2013-02-01-193554/" rel="attachment wp-att-609"><img class="size-full wp-image-609" title="AQI效果2" src="http://www.wuwenjie.tk/wp-content/uploads/2013/02/device-2013-02-01-193554.png" alt="AQI效果2" width="320" height="480" /></a> AQI效果2</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-01T11:46:00+08:00" pubdate data-updated="true">Feb 1<span>st</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2013/02/01/Winter-time-AQI-information-catch-php-java/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2013/02/01/Winter-time-AQI-information-catch-php-java/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/25/My-Oct-doing/" title="Previous Post: 我的十月在干嘛">&laquo; 我的十月在干嘛</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/23/Mar-AssaultCube-cross-platform-FPS-game-Linux-platforms-like-CS-game/" title="Next Post: 三月&&AssaultCube-跨平台的FPS游戏-Linux平台上的类CS游戏">三月&&AssaultCube-跨平台的FPS游戏-Linux平台上的类CS游戏 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian/">Android APP 古汉语常用字字典</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/html5-demo/">HTML5 Demo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-yi-ge-shi-li-lucene-plus-nodejs-2/">Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs 2</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>前证券经纪人:s1090414030081</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2014 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> <a>&</a>	<a href="http://www.000webhost.com/" target="_blank"><img src="http://www.000webhost.com/images/80x15_powered.gif" alt="Web Hosting" width="80" height="15" border="1" /></a>	</span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

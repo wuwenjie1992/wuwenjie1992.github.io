@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: WTK | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/wtk/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[64位Ubuntu下WTK无法启动]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/02/15/WTK-not-start-under-64bit-ubuntu/"/>
+    <updated>2012-02-15T14:06:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/02/15/WTK-not-start-under-64bit-ubuntu</id>
+    <content type="html"><![CDATA[<p>在64位系统下启动J2ME的模拟器时会报错：</p>
+
+<p>java.lang.UnsatisfiedLinkError:</p>
+
+<p>/home/xxx/WTK2.5.2/bin/sublime.so:</p>
+
+<p>/home/xxx/WTK2.5.2/bin/sublime.so:</p>
+
+<p>wrong ELF class: ELFCLASS32</p>
+
+<p>(Possible cause: architecture word width mismatch)</p>
+
+<p><a title="点击下载参考图片" href="http://www.21stp.com/cviudvinf.html" target="_blank">点击下载参考图片</a></p>
+
+<p>&nbsp;</p>
+
+<p>提示架构的问题，解决方案是安装一个32位的jre或jdk，</p>
+
+<p>如：jdk-7u3-linux-i586    可安装在，此目录一般为 /usr/lib/jvm/java&hellip;&hellip;/bin/</p>
+
+<p>sudo vi /bin/emulator</p>
+
+<p>将里javapathtowtk修改为新安装的32位jre或jdk的bin目录下，</p>
+
+<p>记得后面的斜线</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p><a href="http://hi.baidu.com/erdosjiang/">http://hi.baidu.com/erdosjiang/</a></p>
+
+<p>blog/item/4a8ee30907719ac363d986eb.html</p>
+]]></content>
+  </entry>
+  
+</feed>

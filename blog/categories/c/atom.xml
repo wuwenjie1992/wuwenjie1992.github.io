@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: c | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/c/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[gnuplot绘图工具简单使用和simple cat]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/06/29/gnuplothui-tu-gong-ju-jian-dan-shi-yong-he-simple-cat/"/>
+    <updated>2013-06-29T20:10:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/06/29/gnuplothui-tu-gong-ju-jian-dan-shi-yong-he-simple-cat</id>
+    <content type="html"><![CDATA[<h1>gnuplot绘图工具简单使用</h1>
+
+<h2>安装</h2>
+
+<ul>
+<li>sudo apt-get install gnuplot</li>
+</ul>
+
+
+<h2>使用</h2>
+
+<ul>
+<li>$ gnuplot</li>
+<li>使用实例:<a href="http://www.ibm.com/developerworks/cn/linux/l-gnuplot/">gnuplot 让您的数据可视化</a></li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>我的实例</h2>
+
+<ul>
+<li>画<a href="http://quote.eastmoney.com/sh600600.html">600600青岛啤酒</a>走势图和5日<a href="http://zh.wikipedia.org/zh/%E7%A7%BB%E5%8B%95%E5%B9%B3%E5%9D%87">简单移动平均线</a>
+
+<ul>
+<li>600600青岛啤酒的<a href="https://mega.co.nz/#!F4AFjaDA!S0qSqRGszmWqQdA6fQUBsl-C0bJhJtXAvvnOwEjWGAo">日线资料(19930827-20130628)</a>从<a href="http://www.qianlong.com.cn/">钱龙</a>下载</li>
+<li>用<a href="https://projects.gnome.org/gnumeric/">Gnumeric</a>或<a href="http://community.wps.cn/download/">Kingsoft Spreadsheet</a>打开并另存为<a href="http://zh.wikipedia.org/wiki/CSV">CSV格式</a></li>
+<li>型如
+
+<pre><code>  * 时间,涨跌,幅度%,开盘,最高,最低,收盘,成交量,成交额
+  * 1993/08/27,+0.00,+0.00,15,15.3,13.45,14,168226,24084
+  * 1993/08/30,-0.74,-5.29,13.7,13.7,13.17,13.26,32937,4442
+  * 1993/08/31,-0.36,-2.71,13.18,13.37,12.8,12.9,31062,4051
+</code></pre>
+
+<p>  删除第一行，600600.csv</p></li>
+<li>使用cut截取 时间
+
+<ul>
+<li><code>shell
+  cut -d , -f 1,7 600600.csv &gt;600600.txt
+</code></li>
+<li>型如
+
+<pre><code>  * 1993/08/27,14
+  * 1993/08/30,13.26
+  * 1993/08/31,12.9
+  * 1993/09/01,12.92
+</code></pre></li>
+</ul>
+</li>
+<li><p>使用SHELL生成移动平均线数据文本600600ma5.txt
+```bash
+      #!/bin/sh
+      #MA 5
+      #
+      I=1;
+      FileTime=&ldquo;&rdquo;;
+      FileNum=0;
+      OUT=0;
+      NA=0;
+      NB=0;
+      NC=0;
+      ND=0; #前四天数值
+      NE=0;</p>
+
+<pre><code>  while read list
+  do
+      FileNum=`echo $list |cut -d , -f 2 `;   #截取
+      FileTime="`echo $list |cut -d , -f 1 `";
+
+      if [  $(($I%5)) -eq 1 ] # =
+          then 
+          NA=$FileNum;
+      elif [  $(($I%5)) -eq 2 ]
+          then 
+          NB=$FileNum;
+      elif [  $(($I%5)) -eq 3 ]
+          then 
+          NC=$FileNum;
+      elif [  $(($I%5)) -eq 4 ]
+          then 
+          ND=$FileNum;
+      elif [  $(($I%5)) -eq 0 ]
+          then 
+          NE=$FileNum;
+      fi
+
+      if [ $I -ge 5 ]
+          then    
+          OUT=`awk ' BEGIN { print ('$NA'+'$NB'+'$NC'+'$ND'+'$NE')/5 }'`;
+          echo "$FileTime,$OUT" &gt;&gt; 600600ma5.txt
+      fi
+
+      I=$(($I+1));
+  done &lt;600600.txt
+</code></pre>
+
+<p>```</p>
+
+<pre><code>* 型如(600600ma5.txt)
+        * 1993/09/02,13.22
+        * 1993/09/03,13.036
+        * 1993/09/06,13
+        * 1993/09/07,12.94
+        * 1993/09/08,12.806
+</code></pre>
+
+<ul>
+<li>编写600600.gunplot脚本画出图像</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>```bash</p>
+
+<pre><code>            set datafile separator "," #设置数据文件分割符为,
+            set xdata time          #设置x数据为时间类型
+            set timefmt "%Y/%m/%d"  #设置时间格式 
+
+            set grid    #设置网格
+
+            set title '600600 青岛啤酒' #设置标题
+            set xlabel '时间'       #设置X轴名称
+            set ylabel '收盘价'     #设置y轴名称
+
+            plot "./600600.txt" using 1:2 \
+            title '600600' \
+            with lines #points
+            #使用600600.txt的1、2列画线，名称为600600，
+
+            #set terminal png
+            #set output "output2.png"
+
+            replot "./600600ma5.txt" using 1:2 \
+            title 'MA5'    \
+            with lines#points
+            #添加一条使用600600ma5.txt,即移动平均线数据，的线，名称为MA5
+
+            #pause 10   # help pause 保持窗口
+</code></pre>
+
+<p>```</p>
+
+<ul>
+<li>使用gnuplot批处理模式运行600600.gunplot
+              gnuplot> load &ldquo;./600600.gunplot&rdquo;
+
+<ul>
+<li>效果
+
+<ul>
+<li><img src="/images/600600&amp;MA5_withlinespoints.png" alt="600600&amp;MA5_withlinespoints" /></li>
+<li><img src="/images/600600&amp;MA5_withlines.png" alt="600600&amp;MA5_withlines" /></li>
+<li><img src="/images/600600scale.png" alt="600600scale" /></li>
+<li><img src="/images/600600&amp;MA5_withlinespoints0629.png" alt="600600&amp;MA5_withlinespoints0629" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<hr />
+
+<h1>simple Cat</h1>
+
+<p>```c</p>
+
+<h1>include &lt;stdio.h></h1>
+
+<h1>include &lt;sys/stat.h></h1>
+
+<h1>include &lt;malloc.h></h1>
+
+<h1>include &lt;stdlib.h></h1>
+
+<p>int main(int argc, char *argv[])
+{</p>
+
+<pre><code>FILE *fp;
+int i, j, k = 1;
+char a[] = "";
+
+
+for (i = 0; i &lt; argc &amp;&amp; argv[i + 1] != NULL; i++)
+{
+    printf("\nargv[%d] is: %s\n", i + 1, argv[i + 1]);
+
+    fp = fopen(argv[i + 1], "r");
+
+    k = getFSSystemCall(argv[i + 1]);
+    printf("FileSize:%d\n", k);
+
+    // 请求动态内存
+    char *a_p = a;
+    a_p = (char *)malloc(sizeof(char) * k);
+    if (a_p == NULL)
+    {
+        puts("malloc null");
+        return 1;
+    }
+
+
+    if (fp == NULL)
+    {
+        printf("\e[1;31mNO SUCH FILE\e[0m\n\n");
+        printInfo();
+        return 1;
+    }
+    //size_t fread ( void   *buffer,  size_t size,  size_t count,  FILE *stream) ;
+    //返回值：实际读取的元素个数.如果返回值与count不相同,则可能文件结尾或发生错误.
+    for (j = 0; fread(a_p + j, sizeof(char), 1, fp) == 1; j++)
+    {
+        fseek(fp, j + 1, 0);
+        printf("%c", *(a_p + j));
+    }
+
+    fclose(fp);
+    // 释放
+    free(a_p);
+}
+return 0;
+</code></pre>
+
+<p>}</p>
+
+<p>int getFileSize(FILE * fps)
+{</p>
+
+<pre><code>fseek(fps, 0L, SEEK_END);
+int size = ftell(fps);
+// &lt;stdio.h&gt; long ftell( FILE *s )
+// 返回s当前的文件位置
+// 错误返回-1
+return size;
+</code></pre>
+
+<p>}</p>
+
+<p>// include &lt;sys/stat.h>
+int getFSSystemCall(char *strFileName)
+{</p>
+
+<pre><code>struct stat temp;
+stat(strFileName, &amp;temp);
+return temp.st_size;
+</code></pre>
+
+<p>}</p>
+
+<p>printInfo()
+{</p>
+
+<pre><code>printf("\e[1;33m1cat:simple cat Ver:0.0.3 20130528\e[0m\n");
+printf("\e[1;33mAuthor:wuwenjie.tk\e[0m\n");
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[近况+JNI Android NDK初识]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/09/01/Current-situation-JNI-Android-NDK-first-met/"/>
+    <updated>2012-09-01T19:11:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/09/01/Current-situation-JNI-Android-NDK-first-met</id>
+    <content type="html"><![CDATA[<p>最近（7月末-9月初），</p>
+
+<p>边学习，证券方面的知识</p>
+
+<p>（为了考一个证书，出来混饭吃（还是要干一行爱一行）），</p>
+
+<p>边搞SHELL和android application。</p>
+
+<p>也无聊看看多啦A梦，</p>
+
+<p>中间也出去玩过，</p>
+
+<!-- more -->
+
+
+<p>宝山和大宁国际（大悦城，南京路）。</p>
+
+<p>外公开刀也去了医院2。</p>
+
+<p>&nbsp;</p>
+
+<p>暑假过的一般，对了，</p>
+
+<p>明天有人就要去学校了，</p>
+
+<p>不知道还玩煮线吗，</p>
+
+<p>还是要搞搞正业，</p>
+
+<p>（没关系，嫁个好人家，万事不愁），</p>
+
+<p>今天梦到去家，不在，人寐，恐，出。</p>
+
+<p>&nbsp;</p>
+
+<p>下半年的打算，考C，6；读证券，去考出来。</p>
+
+<p>那人我stay here，见都难，其他都别说了，</p>
+
+<p>快了，人妻的头衔在等着你（4-5年）</p>
+
+<p>&nbsp;</p>
+
+<p>还有构思new诗，素材还在收集，</p>
+
+<p>还没抒发的适合情境。</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; CUT HERE &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<hr />
+
+<p>Java Native Interface
+<a title="ndk" href="http://developer.android.com/tools/sdk/ndk/index.html" target="_blank">Android NDK</a></p>
+
+<p>我的理解：</p>
+
+<p>为了使applicatin更为流畅，</p>
+
+<p>效率更高，借助C/C++，</p>
+
+<p>很多应用都有用，</p>
+
+<p>未来的一大发展方向吧，</p>
+
+<p>虚拟机存在，</p>
+
+<p>使用java</p>
+
+<p>对我这样的初学者友善，</p>
+
+<p>也可以向更底层发展。</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>A。下载NDK包，解压</p>
+
+<p><a href="http://dl.google.com/android/ndk/android-ndk-r8b-linux-x86.tar.bz2">android-ndk-r8b-linux-x86.tar.bz2</a></p>
+
+<hr />
+
+<p>B。PATH设置：</p>
+
+<p>1)在/home/用户名 下修改.bashrc</p>
+
+<p><tt>#~/.bashrc</tt>文件决定了交互shell的行为</p>
+
+<p>2)末尾添加</p>
+
+<p>PATH=$PATH:/home/用户名/android-ndk-r8b
+export PATH</p>
+
+<h1>当然你要解压到 /home/用户名 下</h1>
+
+<p>3)到其他目录 测试</p>
+
+<p>ndk-build 命令</p>
+
+<p>出错：成功</p>
+
+<p>Android NDK: Could not find application project directory !
+Android NDK: Please define the NDK_PROJECT_PATH variable to point to it.</p>
+
+<h2>/home/用户名/android-ndk-r8b/build/core/build-local.mk:130: *** Android NDK: Aborting    .  Stop.</h2>
+
+<p>C.Eclipse的设置</p>
+
+<p>project&mdash;&gt;properties&mdash;&gt;Builders&mdash;&ndash;&gt;new&mdash;&ndash;&gt;program
+&mdash;&ndash;&gt;location (*/android-ndk-r8b/ndk-build)
+&mdash;&ndash;&gt;working directory(${workspace_loc:/yorproject/jni})
+&mdash;&mdash;&gt;refresh  &mdash;specify resources</p>
+
+<p>参考：<a title="设置" href="http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml" target="_blank"><a href="http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml">http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml</a></a></p>
+
+<p><a title="os-androidndk/" href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html" target="_blank"><a href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html">http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html</a></a></p>
+
+<p>&nbsp;</p>
+
+<p>D。实践 New Project 主要（Android.mk&amp;&amp;ok.c）</p>
+
+<p>1）准备</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;MainActivity.java&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
+```java
+package tk.wuwenjie.jnidemo;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.app.Activity;</p>
+
+<p>public class MainActivity extends Activity {
+static String TAG=&ldquo;MainActivity&rdquo;;</p>
+
+<p>public void onCreate(Bundle savedInstanceState) {
+Log.i(TAG, &ldquo;MA_oncreate!!&rdquo;);
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+TextView textView = (TextView)findViewById(R.id.MA_tv);</p>
+
+<p>String myString =stringFromSo();//stringFromNDKJNI</p>
+
+<p>textView.setText(myString);</p>
+
+<p>printLOGI();
+}</p>
+
+<p>static{
+try{System.loadLibrary(&ldquo;ok&rdquo;); }
+catch(UnsatisfiedLinkError ule){
+Log.i(TAG,&ldquo;WARNING: Could not load lib!&rdquo;+ule.toString());
+}
+}</p>
+
+<p>public native String stringFromSo();</p>
+
+<p>public native void printLOGI();</p>
+
+<p>}
+```</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-activity_main.xml&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
+```xml
+&lt;RelativeLayout xmlns:android=&ldquo;<a href="http://schemas.android.com/apk/res/android">http://schemas.android.com/apk/res/android</a>&rdquo;</p>
+
+<pre><code>xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent" &gt;
+
+&lt;TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:text="@string/hello_world"
+    android:id="@+id/MA_tv" /&gt;
+</code></pre>
+
+<p></RelativeLayout>
+```</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>2）在src的同级目录，创建目录（mkdir jni）</p>
+
+<p>进入 jni 创建(touch)</p>
+
+<p>Android.mk</p>
+
+<p>ok.c</p>
+
+<p>&mdash;&mdash;-Android.mk&mdash;&mdash;&mdash;&ndash;
+```bash
+LOCAL_PATH := $(call my-dir)</p>
+
+<p>include $(CLEAR_VARS)</p>
+
+<p>LOCAL_MODULE    := ok     #编译的目标对象
+LOCAL_LDLIBS    :=-L$(SYSROOT)/system/lib -llog        #编译指定额外库，"-lxxx"格式
+LOCAL_SRC_FILES := ok.c    #编译的源文件</p>
+
+<p>include $(BUILD_SHARED_LIBRARY)
+```</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;ok.c&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+```c</p>
+
+<h1>include &lt;stdio.h></h1>
+
+<h1>include &lt;string.h></h1>
+
+<h1>include &lt;jni.h></h1>
+
+<h1>define LOG_TAG &ldquo;TAG&rdquo; //自定义的变量，相当于logcat函数中的tag</h1>
+
+<h1>undef LOG</h1>
+
+<h1>include &lt;android/log.h></h1>
+
+<h1>define LOGI(&hellip;) ((void)<strong>android_log_print(ANDROID_LOG_INFO,LOG_TAG,</strong>VA_ARGS__))</h1>
+
+<p>jstring Java_tk_wuwenjie_jnidemo_MainActivity_stringFromSo( JNIEnv* env,jobject thiz ){</p>
+
+<p>   return (*env)&ndash;>NewStringUTF(env, &ldquo;well,i from jni!!!OKOKOKOKOKOKOKO&rdquo;);</p>
+
+<p>}//tk.wuwenjie.jnidemo包名  MainActivity类名 stringFromSo函数名</p>
+
+<p>void  Java_tk_wuwenjie_jnidemo_MainActivity_printLOGI(JNIEnv * env, jobject jobj){</p>
+
+<p> LOGI(&ldquo;LOGI\n&rdquo;);
+}
+```</p>
+
+<p>&mdash;&mdash;&mdash;-ndk-build 编译&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+
+<p>:~/workspace/Sayok/jni$ ndk-build
+Compile thumb  : ok &lt;= ok.c
+SharedLibrary  : libok.so
+Install        : libok.so =&gt; libs/armeabi/libok.so</p>
+
+<p>出现了 libs/armeabi/libok.so</p>
+
+<p><img class="alignnone" src="http://pic.qndown.com/img/common/8538924c/" alt="" width="142" height="137" /></p>
+
+<p>&nbsp;</p>
+
+<p>3）run 就可以了</p>
+
+<p><img title="logcat" src="http://pic.qndown.com/img/common/217be66a/" alt="" width="491" height="47" /></p>
+
+<p>&nbsp;</p>
+
+<p><img title="效果" src="http://pic.qndown.com/img/common/116cfe3f/" alt="" width="244" height="419" /> 效果</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>MORE:</p>
+
+<p>1)project file<a title="Sayok" href=" http://filemarkets.com/file/common/81252e98/" target="_blank">【Sayok20120902.tar.gz】</a>
+<a href="http://filemarkets.com/file/common/81252e98/">http://filemarkets.com/file/common/81252e98/</a></p>
+
+<p>MD5：efa15676d843b4d21edac12b5c035c02</p>
+
+<p>2)</p>
+
+<p>/home/用户名/android-ndk-r8b/docs</p>
+
+<p>/home/用户名/android-ndk-r8b/samples</p>
+
+<p><a href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/index.html">http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/index.html</a></p>
+
+<p><a href="http://blog.devdiv.com/android-jni%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B.html">http://blog.devdiv.com/android-jni%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B.html</a></p>
+
+<p><a href="http://www.cnblogs.com/shadox/archive/2011/12/02/2272564.html">http://www.cnblogs.com/shadox/archive/2011/12/02/2272564.html</a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]></content>
+  </entry>
+  
+</feed>

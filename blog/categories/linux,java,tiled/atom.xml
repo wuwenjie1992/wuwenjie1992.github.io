@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux，java，tiled | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/linux,java,tiled/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[linux下的2D地图编辑器Tiled]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/04/20/2D-map-editor-Tiled-in-linux/"/>
+    <updated>2012-04-20T16:56:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/04/20/2D-map-editor-Tiled-in-linux</id>
+    <content type="html"><![CDATA[<p><a title="mapeditor.org" href="http://www.mapeditor.org/" target="_blank">Tiled Map Editor </a></p>
+
+<p>&nbsp;</p>
+
+<p>最近学习J2ME，</p>
+
+<p>弄弄看JAVA小游戏，</p>
+
+<p>做地图不方便，</p>
+
+<p>用它比较好</p>
+
+<p><img class="alignnone" title="tiled-qt-screenshot-3-thumb" src="http://images.mapeditor.org/tiled-qt-screenshot-3-thumb.png" alt="tiled-qt-screenshot-3-thumb" width="401" height="243" /></p>
+
+<p><img class="alignnone" title="tiled-qt-screenshot-4-thumb" src="http://images.mapeditor.org/tiled-qt-screenshot-4-thumb.png" alt="tiled-qt-screenshot-4-thumb" width="396" height="237" /></p>
+
+<p><img class="alignnone" title="tiled-java-thumb" src="http://images.mapeditor.org/tiled-java-thumb.png" alt="tiled-java-thumb" width="396" height="264" /></p>
+
+<p>&nbsp;</p>
+
+<h4><a title="sourceforge.net" href="http://sourceforge.net/projects/tiled/files/Tiled/0.7.2/tiled-0.7.2-bin.zip" target="_blank">Java Version DOWNLOAD</a></h4>
+
+
+<p>&nbsp;</p>
+
+<p>cd dist (if you have compiled Tiled yourself)
+java -jar tiled.jar</p>
+]]></content>
+  </entry>
+  
+</feed>

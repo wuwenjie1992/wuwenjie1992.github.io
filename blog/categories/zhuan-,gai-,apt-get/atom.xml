@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 转，改，apt-get | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/zhuan-,gai-,apt-get/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[【改】十分钟的极简操作系统]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/07/26/minimalist-operating-system/"/>
+    <updated>2012-07-26T12:05:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/07/26/minimalist-operating-system</id>
+    <content type="html"><![CDATA[<p>1)准备 nasm ,VirtualBox</p>
+
+<p>sudo apt-get install nasm</p>
+
+<p>sudo apt-get install virtualbox</p>
+
+<p>====================================</p>
+
+<p>2)编译boot0.0.1.asm</p>
+
+<hr />
+
+<p>%ifdef  <em>BOOT_DEBUG</em>
+org  0100h        ; 调试状态, 做成 .COM 文件, 可调试
+%else
+org  07c00h        ; BIOS 将把 Boot Sector 加载到 0:7C00 处
+%endif</p>
+
+<p>mov    ax, cs
+mov    ds, ax
+mov    es, ax
+call    DispStr        ; 调用显示字符串例程
+jmp    $        ; 无限循环
+DispStr:
+mov    ax, BootMessage
+mov    bp, ax        ; ES:BP = 串地址
+mov    cx, 17        ; CX = 串长度
+mov    ax, 01301h    ; AH = 13,  AL = 01h
+mov    bx, 000ch    ; 页号为0(BH = 0) 黑底红字(BL = 0Ch,高亮)
+mov    dl, 0
+int    10h        ; int 10h
+ret
+BootMessage:        db    &ldquo;Ohhhh,wuwenjie!!!&rdquo;
+times     510-($&ndash;$$)    db    0 ; 填充剩下的空间，使生成的二进制代码恰好为512字节
+dw     0xaa55              ; 结束标志</p>
+
+<hr />
+
+<p>2.2）利用nasn 编译</p>
+
+<p>nasm boot0.0.1.asm -o boot0.0.1.bin
+2.3）dd if=boot0.0.1.bin of=myos0.0.1.img bs=512 count=1</p>
+
+<p>生成img文件</p>
+
+<p>&nbsp;</p>
+
+<p>==================================================</p>
+
+<p>3）VirtualBox检验极简OS</p>
+
+<p>步骤：</p>
+
+<p>&nbsp;</p>
+
+<p>新建&mdash;&gt;下一步&mdash;&gt;名称（myos0.0.1)other other/unknown</p>
+
+<p>&nbsp;</p>
+
+<p>&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步</p>
+
+<p>&nbsp;</p>
+
+<p>&mdash;&gt;创建&mdash;&gt;创建&mdash;&gt;设置&mdash;&gt;存储&mdash;&ndash;&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>添加软盘控制器（启动顺序默认软驱开始）&mdash;&gt;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时55分47秒.png"><img class="alignleft  wp-image-556" title="添加软盘控制器" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时55分47秒.png" alt="" width="408" height="352" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>添加虚拟软驱&mdash;&ndash;&gt;选择磁盘&mdash;&gt;选择刚刚生成的myos0.0.1.img&mdash;&gt;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时57分43秒1.png"><img class="alignleft size-full wp-image-558" title="添加虚拟软驱" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时57分43秒1.png" alt="" width="204" height="22" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>打开&mdash;&gt;确定&mdash;&ndash;&gt;启动</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-15时02分33秒.png"><img title="成功画面" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-15时02分33秒.png" alt="" width="511" height="194" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>====================================================</p>
+
+<p>4）参考</p>
+
+<p>1.[于渊]一个操作系统的实现</p>
+
+<p>2.<a title="boot.asm" href="https://github.com/yyu/osfs01/blob/master/boot.asm" target="_blank"><a href="https://github.com/yyu/osfs01/blob/master/boot.asm">https://github.com/yyu/osfs01/blob/master/boot.asm</a></a></p>
+
+<p>3.<a title="还在建设中（2012.7.26）" href="http://osfromscratch.org" target="_blank"><a href="http://osfromscratch.org">http://osfromscratch.org</a></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]></content>
+  </entry>
+  
+</feed>

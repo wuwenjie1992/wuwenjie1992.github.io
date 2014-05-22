@@ -1,0 +1,673 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>近况+JNI Android NDK初识 - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="最近（7月末-9月初）， 边学习，证券方面的知识 （为了考一个证书，出来混饭吃（还是要干一行爱一行））， 边搞SHELL和android application。 也无聊看看多啦A梦， 中间也出去玩过， 宝山和大宁国际（大悦城，南京路）。 外公开刀也去了医院2。 &nbsp; 暑假过的一般，对了 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2012/09/01/Current-situation-JNI-Android-NDK-first-met">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">近况+JNI Android NDK初识</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-01T19:11:00+08:00" pubdate data-updated="true">Sep 1<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>最近（7月末-9月初），</p>
+
+<p>边学习，证券方面的知识</p>
+
+<p>（为了考一个证书，出来混饭吃（还是要干一行爱一行）），</p>
+
+<p>边搞SHELL和android application。</p>
+
+<p>也无聊看看多啦A梦，</p>
+
+<p>中间也出去玩过，</p>
+
+<!-- more -->
+
+
+<p>宝山和大宁国际（大悦城，南京路）。</p>
+
+<p>外公开刀也去了医院2。</p>
+
+<p>&nbsp;</p>
+
+<p>暑假过的一般，对了，</p>
+
+<p>明天有人就要去学校了，</p>
+
+<p>不知道还玩煮线吗，</p>
+
+<p>还是要搞搞正业，</p>
+
+<p>（没关系，嫁个好人家，万事不愁），</p>
+
+<p>今天梦到去家，不在，人寐，恐，出。</p>
+
+<p>&nbsp;</p>
+
+<p>下半年的打算，考C，6；读证券，去考出来。</p>
+
+<p>那人我stay here，见都难，其他都别说了，</p>
+
+<p>快了，人妻的头衔在等着你（4-5年）</p>
+
+<p>&nbsp;</p>
+
+<p>还有构思new诗，素材还在收集，</p>
+
+<p>还没抒发的适合情境。</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; CUT HERE &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<hr />
+
+<p>Java Native Interface
+<a title="ndk" href="http://developer.android.com/tools/sdk/ndk/index.html" target="_blank">Android NDK</a></p>
+
+<p>我的理解：</p>
+
+<p>为了使applicatin更为流畅，</p>
+
+<p>效率更高，借助C/C++，</p>
+
+<p>很多应用都有用，</p>
+
+<p>未来的一大发展方向吧，</p>
+
+<p>虚拟机存在，</p>
+
+<p>使用java</p>
+
+<p>对我这样的初学者友善，</p>
+
+<p>也可以向更底层发展。</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>A。下载NDK包，解压</p>
+
+<p><a href="http://dl.google.com/android/ndk/android-ndk-r8b-linux-x86.tar.bz2">android-ndk-r8b-linux-x86.tar.bz2</a></p>
+
+<hr />
+
+<p>B。PATH设置：</p>
+
+<p>1)在/home/用户名 下修改.bashrc</p>
+
+<p><tt>#~/.bashrc</tt>文件决定了交互shell的行为</p>
+
+<p>2)末尾添加</p>
+
+<p>PATH=$PATH:/home/用户名/android-ndk-r8b
+export PATH</p>
+
+<h1>当然你要解压到 /home/用户名 下</h1>
+
+<p>3)到其他目录 测试</p>
+
+<p>ndk-build 命令</p>
+
+<p>出错：成功</p>
+
+<p>Android NDK: Could not find application project directory !
+Android NDK: Please define the NDK_PROJECT_PATH variable to point to it.</p>
+
+<h2>/home/用户名/android-ndk-r8b/build/core/build-local.mk:130: *** Android NDK: Aborting    .  Stop.</h2>
+
+<p>C.Eclipse的设置</p>
+
+<p>project&mdash;&gt;properties&mdash;&gt;Builders&mdash;&ndash;&gt;new&mdash;&ndash;&gt;program
+&mdash;&ndash;&gt;location (*/android-ndk-r8b/ndk-build)
+&mdash;&ndash;&gt;working directory(${workspace_loc:/yorproject/jni})
+&mdash;&mdash;&gt;refresh  &mdash;specify resources</p>
+
+<p>参考：<a title="设置" href="http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml" target="_blank"><a href="http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml">http://www.360doc.com/content/11/0223/17/2734308_95473676.shtml</a></a></p>
+
+<p><a title="os-androidndk/" href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html" target="_blank"><a href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html">http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/section6.html</a></a></p>
+
+<p>&nbsp;</p>
+
+<p>D。实践 New Project 主要（Android.mk&amp;&amp;ok.c）</p>
+
+<p>1）准备</p>
+
+<p>&mdash;&mdash;&mdash;&mdash;MainActivity.java&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">tk</span><span class="o">.</span><span class="na">wuwenjie</span><span class="o">.</span><span class="na">jnidemo</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">android.util.Log</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">android.widget.TextView</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+</span><span class='line'><span class="kd">static</span> <span class="n">String</span> <span class="n">TAG</span><span class="o">=</span><span class="s">&quot;MainActivity&quot;</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'><span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;MA_oncreate!!&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+</span><span class='line'><span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+</span><span class='line'><span class="n">TextView</span> <span class="n">textView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">MA_tv</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">String</span> <span class="n">myString</span> <span class="o">=</span><span class="n">stringFromSo</span><span class="o">();</span><span class="c1">//stringFromNDKJNI</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">textView</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">myString</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">printLOGI</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">static</span><span class="o">{</span>
+</span><span class='line'><span class="k">try</span><span class="o">{</span><span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;ok&quot;</span><span class="o">);</span> <span class="o">}</span>
+</span><span class='line'><span class="k">catch</span><span class="o">(</span><span class="n">UnsatisfiedLinkError</span> <span class="n">ule</span><span class="o">){</span>
+</span><span class='line'><span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span><span class="s">&quot;WARNING: Could not load lib!&quot;</span><span class="o">+</span><span class="n">ule</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">native</span> <span class="n">String</span> <span class="nf">stringFromSo</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">printLOGI</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-activity_main.xml&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;RelativeLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+</span><span class='line'>    <span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
+</span><span class='line'>    <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+</span><span class='line'>    <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;TextView</span>
+</span><span class='line'>        <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+</span><span class='line'>        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+</span><span class='line'>        <span class="na">android:layout_centerHorizontal=</span><span class="s">&quot;true&quot;</span>
+</span><span class='line'>        <span class="na">android:layout_centerVertical=</span><span class="s">&quot;true&quot;</span>
+</span><span class='line'>        <span class="na">android:text=</span><span class="s">&quot;@string/hello_world&quot;</span>
+</span><span class='line'>        <span class="na">android:id=</span><span class="s">&quot;@+id/MA_tv&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/RelativeLayout&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>2）在src的同级目录，创建目录（mkdir jni）</p>
+
+<p>进入 jni 创建(touch)</p>
+
+<p>Android.mk</p>
+
+<p>ok.c</p>
+
+<p>&mdash;&mdash;-Android.mk&mdash;&mdash;&mdash;&ndash;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>LOCAL_PATH :<span class="o">=</span> <span class="k">$(</span>call my-dir<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'>include <span class="k">$(</span>CLEAR_VARS<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'>LOCAL_MODULE    :<span class="o">=</span> ok     <span class="c">#编译的目标对象</span>
+</span><span class='line'>LOCAL_LDLIBS    :<span class="o">=</span>-L<span class="k">$(</span>SYSROOT<span class="k">)</span>/system/lib -llog        <span class="c">#编译指定额外库，&quot;-lxxx&quot;格式</span>
+</span><span class='line'>LOCAL_SRC_FILES :<span class="o">=</span> ok.c    <span class="c">#编译的源文件</span>
+</span><span class='line'>
+</span><span class='line'>include <span class="k">$(</span>BUILD_SHARED_LIBRARY<span class="k">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&mdash;&mdash;&mdash;&mdash;ok.c&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;string.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;jni.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#define LOG_TAG &quot;TAG&quot; </span><span class="c1">//自定义的变量，相当于logcat函数中的tag</span>
+</span><span class='line'><span class="cp">#undef LOG</span>
+</span><span class='line'><span class="cp">#include &lt;android/log.h&gt;</span>
+</span><span class='line'><span class="cp">#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__))</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">jstring</span> <span class="nf">Java_tk_wuwenjie_jnidemo_MainActivity_stringFromSo</span><span class="p">(</span> <span class="n">JNIEnv</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span><span class="n">jobject</span> <span class="n">thiz</span> <span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">env</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s">&quot;well,i from jni!!!OKOKOKOKOKOKOKO&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span><span class="c1">//tk.wuwenjie.jnidemo包名  MainActivity类名 stringFromSo函数名</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span>  <span class="nf">Java_tk_wuwenjie_jnidemo_MainActivity_printLOGI</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">jobj</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'> <span class="n">LOGI</span><span class="p">(</span><span class="s">&quot;LOGI</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&mdash;&mdash;&mdash;-ndk-build 编译&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</p>
+
+<p>:~/workspace/Sayok/jni$ ndk-build
+Compile thumb  : ok &lt;= ok.c
+SharedLibrary  : libok.so
+Install        : libok.so =&gt; libs/armeabi/libok.so</p>
+
+<p>出现了 libs/armeabi/libok.so</p>
+
+<p><img class="alignnone" src="http://pic.qndown.com/img/common/8538924c/" alt="" width="142" height="137" /></p>
+
+<p>&nbsp;</p>
+
+<p>3）run 就可以了</p>
+
+<p><img title="logcat" src="http://pic.qndown.com/img/common/217be66a/" alt="" width="491" height="47" /></p>
+
+<p>&nbsp;</p>
+
+<p><img title="效果" src="http://pic.qndown.com/img/common/116cfe3f/" alt="" width="244" height="419" /> 效果</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>MORE:</p>
+
+<p>1)project file<a title="Sayok" href=" http://filemarkets.com/file/common/81252e98/" target="_blank">【Sayok20120902.tar.gz】</a>
+<a href="http://filemarkets.com/file/common/81252e98/">http://filemarkets.com/file/common/81252e98/</a></p>
+
+<p>MD5：efa15676d843b4d21edac12b5c035c02</p>
+
+<p>2)</p>
+
+<p>/home/用户名/android-ndk-r8b/docs</p>
+
+<p>/home/用户名/android-ndk-r8b/samples</p>
+
+<p><a href="http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/index.html">http://www.ibm.com/developerworks/cn/opensource/tutorials/os-androidndk/index.html</a></p>
+
+<p><a href="http://blog.devdiv.com/android-jni%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B.html">http://blog.devdiv.com/android-jni%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B.html</a></p>
+
+<p><a href="http://www.cnblogs.com/shadox/archive/2011/12/02/2272564.html">http://www.cnblogs.com/shadox/archive/2011/12/02/2272564.html</a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-01T19:11:00+08:00" pubdate data-updated="true">Sep 1<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/android/'>android</a>, <a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/java,jin/'>java，jin</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2012/09/01/Current-situation-JNI-Android-NDK-first-met/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2012/09/01/Current-situation-JNI-Android-NDK-first-met/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/08/12/Shanghai-Municipal-Library/" title="Previous Post: 旧上海图书馆（上海市立图书馆）偶遇">&laquo; 旧上海图书馆（上海市立图书馆）偶遇</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/09/13/c4droid-cc-compiler-android/" title="Next Post: C4droid (C/C++ compiler) Android上的C/C++的IDE和编译器">C4droid (C/C++ compiler) Android上的C/C++的IDE和编译器 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian/">Android APP 古汉语常用字字典</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/html5-demo/">HTML5 Demo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-yi-ge-shi-li-lucene-plus-nodejs-2/">Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs 2</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>前证券经纪人:s1090414030081</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2014 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> <a>&</a>	<a href="http://www.000webhost.com/" target="_blank"><img src="http://www.000webhost.com/images/80x15_powered.gif" alt="Web Hosting" width="80" height="15" border="1" /></a>	</span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

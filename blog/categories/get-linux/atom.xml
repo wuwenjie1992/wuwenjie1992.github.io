@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Get Linux | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/get-linux/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Get Linux 0.1发布 帮助Windows用户认识Linux]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/01/06/get-linux-0-1%25e5%258f%2591%25e5%25b8%2583-%25e5%25b8%25ae%25e5%258a%25a9windows%25e7%2594%25a8%25e6%2588%25b7%25e8%25ae%25a4%25e8%25af%2586linux/"/>
+    <updated>2012-01-06T06:46:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/01/06/get-linux-0-1%e5%8f%91%e5%b8%83-%e5%b8%ae%e5%8a%a9windows%e7%94%a8%e6%88%b7%e8%ae%a4%e8%af%86linux</id>
+    <content type="html"><![CDATA[<p><a title="http://www.downloadcrew.com/article/26552-get_linux" href="http://www.downloadcrew.com/article/26552-get_linux" target="_blank">Get Linux</a>是一个小型的Windows工具，它可以帮助用户找出多达100种Linux发行版的下载和安装方法，使用非常简单，只需要在列表中找到自己中意的版本然后选择32还是64位就可以开始下载了，同时这款软件还会提供不同Linux的图像和视频，帮助用户转移到Linux平台。</p>
+
+<h1 id="articleTitle"><a title="download" href="http://sourceforge.net/projects/getlinux/files/Get%20Linux.zip/download" target="_blank">Get Linux 0.1</a></h1>
+
+]]></content>
+  </entry>
+  
+</feed>

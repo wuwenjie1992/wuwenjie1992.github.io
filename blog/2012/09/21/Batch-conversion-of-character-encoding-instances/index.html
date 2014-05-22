@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>批量转换字符编码的实例（iconv） - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="前言 借的书里光盘有C代码， 可也抄来看看， 但中文说明乱码。 行如：// 68ÎªÎÕÊÖÏûÏ¢µÄ¹Ì¶š³€¶È 而且文件较多， 以 .c|.h结尾， 手动改的话就太笨了， 发挥linux shell的优势的时候来了。 &nbsp; 代码 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2012/09/21/Batch-conversion-of-character-encoding-instances">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">批量转换字符编码的实例（iconv）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-21T10:47:00+08:00" pubdate data-updated="true">Sep 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em><strong>前言</strong></em></p>
+
+<p>借的书里光盘有C代码，</p>
+
+<p>可也抄来看看，</p>
+
+<p>但中文说明乱码。</p>
+
+<p>行如：// 68ÎªÎÕÊÖÏûÏ¢µÄ¹Ì¶š³€¶È</p>
+
+<p>而且文件较多，</p>
+
+<p>以 .c|.h结尾，</p>
+
+<p>手动改的话就太笨了，</p>
+
+<!-- more -->
+
+
+<p>发挥linux shell的优势的时候来了。</p>
+
+<p>&nbsp;</p>
+
+<p>代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'><span class="c">#iconv2</span>
+</span><span class='line'><span class="c">#批量转换字符编码</span>
+</span><span class='line'>
+</span><span class='line'> ls -al | awk <span class="s1">&#39;/.c|h/{print $9 &gt;&quot;l.txt&quot;}&#39;</span>
+</span><span class='line'>   <span class="c">#将LS出来的结果，管道到，用AWK找到第九列中为.c或.h的文件，输出到L.txt</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">while </span><span class="nb">read  </span>list <span class="c">#读取（read）l.txt，将read的结果命名为 list</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">do</span>
+</span><span class='line'><span class="k">      </span><span class="nb">echo</span> <span class="nv">$list</span>;   <span class="c">#显示list的neir</span>
+</span><span class='line'>      iconv -f  gb18030  -t  utf-8  <span class="nv">$list</span>  &gt; <span class="nv">$list</span>.new;
+</span><span class='line'>                 <span class="c">#将list的编码从gb18030改为utf8，输入list.new中</span>
+</span><span class='line'>     rm <span class="nv">$list</span>;   <span class="c">#删除list文件（未转码的）</span>
+</span><span class='line'>     mv <span class="nv">$list</span>.new <span class="nv">$list</span>;   <span class="c">#将list.new文件重命名为list</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">done</span> &lt; l.txt <span class="c">#从l.txt输入</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>rm l.txt;rm iconv2.sh;  <span class="c">#删除l.txt与iconv2.sh</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&nbsp;</p>
+
+<p>&nbsp;
+注意：chmod u+x iconv2.sh 执行：./iconv2.sh</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-21T10:47:00+08:00" pubdate data-updated="true">Sep 21<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/read/'>read</a>, <a class='category' href='/blog/categories/shell,bash,iconv,awk/'>shell，bash，iconv，awk</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/13/c4droid-cc-compiler-android/" title="Previous Post: C4droid (C/C++ compiler) Android上的C/C++的IDE和编译器">&laquo; C4droid (C/C++ compiler) Android上的C/C++的IDE和编译器</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/10/25/My-Oct-doing/" title="Next Post: 我的十月在干嘛">我的十月在干嘛 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian/">Android APP 古汉语常用字字典</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/html5-demo/">HTML5 Demo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-yi-ge-shi-li-lucene-plus-nodejs-2/">Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs 2</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>前证券经纪人:s1090414030081</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2014 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> <a>&</a>	<a href="http://www.000webhost.com/" target="_blank"><img src="http://www.000webhost.com/images/80x15_powered.gif" alt="Web Hosting" width="80" height="15" border="1" /></a>	</span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

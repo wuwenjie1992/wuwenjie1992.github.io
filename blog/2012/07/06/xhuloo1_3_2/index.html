@@ -1,0 +1,745 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>开源小项目：xhuloo1.3.2 - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="xhuloo作为学习ANDROID编程的DEMO，UI设计十分差（基本没有设计），但它可作为初学的演示，它简单十分，浅显易懂。没有实用价值，作为编程（API）的探究。 &nbsp; xhuloo1.3.2 release 增加新功能 1）android id &mdash;&ndash;&gt; &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2012/07/06/xhuloo1_3_2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">开源小项目：xhuloo1.3.2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-06T09:28:00+08:00" pubdate data-updated="true">Jul 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>xhuloo作为学习ANDROID编程的DEMO，UI设计十分差（基本没有设计），但它可作为初学的演示，它简单十分，浅显易懂。没有实用价值，作为编程（API）的探究。</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>xhuloo1.3.2 release 增加新功能</p>
+
+<p>1）android id &mdash;&ndash;&gt;XhulooActivity_PHONE</p>
+
+<p>2) 自定义列表 &mdash;&mdash;&gt;XhulooActivity_weatherreport(发展为天气预报功能）</p>
+
+<p>3）震动 &mdash;&ndash;&gt;    XhulooActivity_MEM</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>发展方向：</p>
+
+<p>1）完善文件游览功能,BACK功能</p>
+
+<p>2）读取 设备的IP地址，等信息</p>
+
+<p>3）SERVICE后台功能</p>
+
+<p>4）天气预报</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>———</p>
+
+<p>project zip <a title="Xhuloo.zip" href="http://filemarkets.com/file/common/f9dea934/" target="_blank">here</a>     MD5：0bd2ce8fc97b79736728b49ab18f58d9</p>
+
+<p>apk : <a title="apk" href="http://filemarkets.com/file/common/33861aa3/" target="_blank">here</a>               MD5：e4b1ef927595b30a9214bb788aa3ccd7</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>XhulooActivity.java 的源代码
+<code lang="java">
+package wo.wocom.xwell;</p>
+
+<p>import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;</p>
+
+<p>public class XhulooActivity extends Activity {
+/<em>* Called when the activity is first created. </em>/</p>
+
+<p>private static final String TAG = &ldquo;XA_Xhuloo&rdquo;;
+//弹出框</p>
+
+<p>String mEditText01_s =null;</p>
+
+<p>/<em>重力感应参数</em>/
+float x,y,z;
+float currentAcceleration = 0;
+float maxAcceleration = 0;</p>
+
+<p>/<em>生命周期</em>/
+public void onCreate(Bundle savedInstanceState) {</p>
+
+<p>super.onCreate(savedInstanceState);
+setContentView(R.layout.main); //设置主布局</p>
+
+<p>Log.i(XhulooActivity.TAG, &ldquo;XA_start onCreate~~~&rdquo;);</p>
+
+<p>final TextView main_textview=(TextView) findViewById(R.id.main_textview);
+final Button ok_button = (Button) findViewById(R.id.widget40_button_OK);
+final EditText mEditText01 = (EditText) findViewById(R.id. myEditText);
+final CheckBox iAccept=(CheckBox)findViewById(R.id. CheckBox_Accept );
+final String[] data = {&ldquo;心怔煩亂敵若云&rdquo;,&ldquo;有炎百刃月無暈&rdquo;,&ldquo;靈威震怒鼓徹天&rdquo;,&ldquo;犀甲迸裂矣厥劍&rdquo;,&ldquo;永思故原遙難反&rdquo;,
+&ldquo;遠峙疊巒久無還&rdquo;,&ldquo;埋骨鬼雄血浸袍&rdquo;,&ldquo;藏懷青絲志誠傲&rdquo;,&ldquo;顧往舊徑櫻爛漫&rdquo;,&ldquo;逸鸞鳳鹮面桃然&rdquo;,&ldquo;雯華琉白馨而靨&rdquo;};</p>
+
+<p>/<em>按钮监听 </em>/
+ok_button.setOnClickListener(new Button.OnClickListener(){
+public void onClick(View v) {
+ok_button.setText(&ldquo;Hi,clicked&rdquo;);</p>
+
+<p>switch(v.getId()){
+case R.id.widget40_button_OK:</p>
+
+<p>mEditText01_s=mEditText01.getText().toString(); //获得文本编框的文字
+//toast
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:&rdquo;+mEditText01_s, Toast.LENGTH_LONG).show();
+break;</p>
+
+<p>default:
+break;
+}//switch
+}//onclick_end</p>
+
+<p>}
+);</p>
+
+<p>/<em> 设置EditText 用OnKeyListener 事件来启动 </em>/
+mEditText01.setOnKeyListener(new EditText.OnKeyListener(){
+public boolean onKey(View v, int keyCode, KeyEvent event) {</p>
+
+<p>if(mEditText01.getText().toString().length()!=0){ok_button.setText(mEditText01.getText().toString());}</p>
+
+<p>else{
+ok_button.setText(&ldquo;ok请提交&rdquo;);
+AlertDialog.Builder my_ADialog=new AlertDialog.Builder(XhulooActivity.this); ;
+/<em>设置标题</em>/
+my_ADialog.setTitle(&ldquo;XA_AlertDialog.Builder&rdquo;);
+/<em>设置显示消息</em>/
+my_ADialog.setMessage(&ldquo;请提交&rdquo;);
+/<em>设置不能取消</em>/
+my_ADialog.setCancelable(false);</p>
+
+<p>my_ADialog.setPositiveButton(&ldquo;退出Huloo;并访问官网&rdquo;,new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+XhulooActivity.this.finish();
+Uri uri=Uri.parse(&ldquo;<a href="http://www.wuwenjie.tk">http://www.wuwenjie.tk</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent);} });</p>
+
+<p>my_ADialog.setNegativeButton(&ldquo;取消&rdquo;, new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+dialog.cancel();
+}
+});
+/<em>显示</em>/
+my_ADialog.show();
+}</p>
+
+<p>return false;
+}//onkey_end
+}
+);//sokl_end</p>
+
+<p>/<em>图片 </em>/
+final ImageView mImageView = (ImageView) findViewById(R.id.imageView1);
+mImageView.setImageDrawable(getResources().getDrawable(R.drawable.action));</p>
+
+<p>/<em>选择监听 </em>/
+iAccept.setOnClickListener(new CheckBox.OnClickListener(){
+public void onClick(View v) {
+if(iAccept.isChecked()){
+main_textview.setText(&ldquo;checkbox checked&rdquo;);
+mImageView.setVisibility(View.VISIBLE);
+}
+else{main_textview.setText(getString(R.string.hello));
+mImageView.setVisibility(View.INVISIBLE);}
+} }
+);</p>
+
+<p>/<em>列表</em>/
+ListView lv = (ListView) findViewById(R.id.list1);
+ArrayAdapter adapter = new ArrayAdapter(
+this,android.R.layout.simple_list_item_1,data); //simple_list_item_1是系统本身有的布局
+lv.setAdapter(adapter);</p>
+
+<p>/<em>重力感应功能</em>/</p>
+
+<p>//获得重力感应硬件控制器
+SensorManager sm=(SensorManager) this.getSystemService(SENSOR_SERVICE);
+final Sensor sensor=sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);</p>
+
+<p>//添加重力感应侦听，并实现其方法，
+SensorEventListener sel=new SensorEventListener(){</p>
+
+<p>double calibration = SensorManager.STANDARD_GRAVITY;
+//系统设置的重力加速度标准值，设备在水平静止的情况下就承受这个压力，
+//所以默认Y轴方向的加速度值为STANDARD_GRAVITY
+public void onSensorChanged(SensorEvent se) {
+x=se.values[SensorManager.DATA_X];
+y=se.values[SensorManager.DATA_Y];
+z=se.values[SensorManager.DATA_Z];</p>
+
+<p>//计算三个方向的加速度
+double a =Math.round(Math.sqrt(Math.pow(x,2)+Math.pow(y,2) +Math.pow(z,2)));</p>
+
+<p>//消去原有的重力引起的压力
+currentAcceleration = Math.abs((float)(a-calibration));
+if (currentAcceleration &gt; maxAcceleration)
+maxAcceleration = currentAcceleration;</p>
+
+<p>TextView textView_sensor=(TextView) findViewById(R.id.textView_sensor);
+//设置显示文字
+textView_sensor.setText(&ldquo;重力感应:&rdquo;+&ldquo;\n&rdquo;+&ldquo;x=&rdquo;+x+&ldquo;\n&rdquo;+&ldquo;y=&rdquo;+y+&ldquo; &rdquo;+&ldquo;(int)z=&rdquo;+(int)z+&ldquo;\n&rdquo;
++&ldquo;maxA:&rdquo;+maxAcceleration+&ldquo;\n&rdquo;+&ldquo;current:&rdquo;+currentAcceleration+&ldquo;\n&rdquo;
++&ldquo;Name:&rdquo;+sensor.getName()+&ldquo; &rdquo;+&ldquo;Type:&rdquo;+sensor.getType()+&ldquo;\n&rdquo; //得到传感器信息
++&ldquo;Version:&rdquo;+sensor.getVersion()+&ldquo; &rdquo;+&ldquo;vendor:&rdquo;+sensor.getVendor()+&ldquo;\n&rdquo;
++&ldquo;MAXrange:&rdquo;+sensor.getMaximumRange()+&ldquo; &rdquo;+&ldquo;power:&rdquo;+sensor.getPower()+&ldquo;\n&rdquo;
++&ldquo;Resolution:&rdquo;+sensor.getResolution()+&ldquo;\n&rdquo;
+);</p>
+
+<p>}// onSensorChanged
+public void onAccuracyChanged(Sensor arg0, int arg1) { }
+};
+//注册Listener，SENSOR_DELAY_GAME为检测的精确度，
+sm.registerListener(sel, sensor,SensorManager.SENSOR_DELAY_GAME);</p>
+
+<p>}//oncreate end</p>
+
+<p>protected void onRestart() {
+super.onRestart();
+Log.i(TAG, &ldquo;XA_start onRestart&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onRestart&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onResume() {
+super.onResume();
+Log.i(TAG, &ldquo;XA_start onResume&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onResume&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onPause() {
+super.onPause();
+Log.i(TAG, &ldquo;XA_start onPause&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onPause&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onStop() {
+super.onStop();
+Log.i(TAG, &ldquo;XA_start onStop&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onStop&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onDestroy() {
+super.onDestroy();
+Log.i(TAG, &ldquo;XA_start onDestroy&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onDestroy&rdquo;, Toast.LENGTH_LONG).show();
+}</p>
+
+<p>/<em>菜单制作</em>/
+public boolean onCreateOptionsMenu(Menu menu) {
+/<em>
+*
+* add()方法的四个参数，依次是：
+*
+* 1、组别，如果不分组的话就写Menu.NONE,
+*
+* 2、Id，这个很重要，Android根据这个Id来确定不同的菜单
+*
+* 3、顺序，那个菜单现在在前面由这个参数的大小决定
+*
+* 4、文本，菜单的显示文本
+</em>/</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 1, 7, &ldquo;删除&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_delete);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 2, 2, &ldquo;保存&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_edit);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 3, 6, &ldquo;帮助&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_help);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 4, 1, &ldquo;添加&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_add);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 5, 4, &ldquo;详细&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_info_details);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 6, 3, &ldquo;myplaces&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_myplaces);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 7, 5, &ldquo;天气&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_today);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 8, 8, &ldquo;退出&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_revert);</p>
+
+<p>return true;</p>
+
+<p>}</p>
+
+<p>@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+switch (item.getItemId()) {</p>
+
+<p>case Menu.FIRST + 1:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_删除菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 2:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_保存菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 3:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_帮助：wewenjie.tk&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>AlertDialog.Builder my_ADialog=new AlertDialog.Builder(XhulooActivity.this);
+my_ADialog.setTitle(&ldquo;XA_AlertDialog&rdquo;); //设置标题
+my_ADialog.setMessage(&ldquo;帮助：访问wuwenjie.tk的项目页|访问GPL&rdquo;); //设置显示消息
+my_ADialog.setCancelable(true); //设置能取消</p>
+
+<p>my_ADialog.setPositiveButton(&ldquo;访问wwj&rdquo;,new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+Uri uri=Uri.parse(&ldquo;<a href="http://www.wuwenjie.tk">http://www.wuwenjie.tk</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent);} });</p>
+
+<p>my_ADialog.setNegativeButton(&ldquo;访问GPL&rdquo;, new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+Uri uri=Uri.parse(&ldquo;<a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent); }
+} );
+/<em>显示</em>/
+my_ADialog.show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 4:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_添加菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 5:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_详细菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 6:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_myplaces点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>/<em>跳转新界面activity </em>/
+Intent intent = new Intent(); //新建Intent意图
+intent.setClass(XhulooActivity.this, XhulooActivity_myplaces.class);
+//方便的调用名称为,返回一个Class对象
+Bundle mBundle = new Bundle();
+mBundle.putString(&ldquo;XA_Data&rdquo;, &ldquo;XA_data from X:&rdquo;+mEditText01_s);
+//加入数据 参数：key-Data value +mEditText01_s
+intent.putExtras(mBundle); //添加附加信息
+startActivityForResult(intent, 0); //跳转，此处的0 OR &gt;=0</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 7:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_天气菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>/<em>跳转新界面activity </em>/
+Intent intent01 = new Intent(); //新建Intent意图
+intent01.setClass(XhulooActivity.this, XhulooActivity_weatherreport.class);
+startActivityForResult(intent01, 0); //跳转，此处的0 OR &gt;=0</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 8:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_退出菜单点击&rdquo;, Toast.LENGTH_SHORT).show();
+Log.i(TAG, &ldquo;XhulooActivity.this.finish()&rdquo;);
+XhulooActivity.this.finish();</p>
+
+<p>break;</p>
+
+<p>}</p>
+
+<p>return false;</p>
+
+<p>}</p>
+
+<p>@Override
+public void onOptionsMenuClosed(Menu menu) {
+Toast.makeText(this, &ldquo;选项菜单关闭&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>@Override
+public boolean onPrepareOptionsMenu(Menu menu) {
+Toast.makeText(this,
+&ldquo;选项菜单显示前onPrepareOptionsMenu会被调用，可用来调整菜单&rdquo;,
+Toast.LENGTH_SHORT).show();</p>
+
+<p>// 如果返回false，此方法就把用户点击menu的动作给消费了，onCreateOptionsMenu方法将不会被调用
+return true;
+}</p>
+
+<p>/<em>处理返回值 startActivityForResult</em>/</p>
+
+<p>protected void onActivityResult
+(int requestCode, int resultCode, Intent data) {
+switch (resultCode) {
+//resultCode为回传的标记，回传的是RESULT_OK
+case RESULT_OK:
+Bundle b=data.getExtras();
+//data回传的Intent
+String str=b.getString(&ldquo;MP_msg&rdquo;);
+//str即为msg回传的值
+Toast.makeText(this, &ldquo;XA_str getString(\"msg\&rdquo;):&ldquo;+str+"b.toString:&rdquo;+b.toString(), Toast.LENGTH_LONG).show();
+Log.i(TAG, &ldquo;XA_onActivityResult:&mdash;&ndash;&rdquo;+&ldquo;XA_str getString(\"msg\&rdquo;):&ldquo;+str+&rdquo; b.toString:&ldquo;+b.toString());
+break;
+default:
+break;
+}
+}</p>
+
+<p>}</code></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-06T09:28:00+08:00" pubdate data-updated="true">Jul 6<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2012/07/06/xhuloo1_3_2/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2012/07/06/xhuloo1_3_2/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/06/18/xhuloo1-3/" title="Previous Post: 开源小项目：xhuloo">&laquo; 开源小项目：xhuloo</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/07/13/Xfce-frame-gone/" title="Next Post: Xfce 外框没了--解决">Xfce 外框没了--解决 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian/">Android APP 古汉语常用字字典</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/html5-demo/">HTML5 Demo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-yi-ge-shi-li-lucene-plus-nodejs-2/">Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs 2</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>前证券经纪人:s1090414030081</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2014 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> <a>&</a>	<a href="http://www.000webhost.com/" target="_blank"><img src="http://www.000webhost.com/images/80x15_powered.gif" alt="Web Hosting" width="80" height="15" border="1" /></a>	</span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

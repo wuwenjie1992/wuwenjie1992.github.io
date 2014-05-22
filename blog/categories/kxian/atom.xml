@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: K线 | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/kxian/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[白银指数AGL9-20140330技术分析]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/"/>
+    <updated>2014-03-30T16:45:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
+
+<ul>
+<li>最近贵金属投资很热，黄金、白银、黄金期货、白银T+D等等</li>
+<li>去年末的时候，去过一家贵金属公司面试，多是电话销售，邀约客户</li>
+<li>后来没有回音，我想就算了，其他机会还有很多</li>
+<li>过年时候在家看<a href="http://price.zhjtong.com/1_ying_740_500.png">工行现货白银</a>，天天盯着，但出手很少，只在除夕建了满仓</li>
+<li>出于谨慎，在它达到前期<a href="http://wiki.mbalib.com/wiki/%E8%82%A1%E7%A5%A8%E7%AE%B1%E7%90%86%E8%AE%BA">箱体</a>上时，全部抛出，赚了一点，但后面的一半没拿住</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>经验教训</h2>
+
+<ul>
+<li>白银价格突破时伴随着成交量的放大，这样的上升应该短期是可持续的</li>
+<li>如下图所示</li>
+<li><img src="/images/silver20140328.png" alt="白银指数20140328" /></li>
+</ul>
+
+
+<h2>一张图预测白银指数后市</h2>
+
+<ul>
+<li><img src="/images/AGL9-20140330.jpg" alt="AGL9-20130330" /></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[getStock-终端下简单的实时股票信息(Sina API) &amp; 上证的自我分析和判断20130725-26]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/07/26/getstock-zhong-duan-xia-jian-dan-de-shi-shi-gu-piao-xin-xi-sina-api-and-shang-zheng-de-zi-wo-fen-xi-he-pan-duan-20130725-26/"/>
+    <updated>2013-07-26T12:35:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/07/26/getstock-zhong-duan-xia-jian-dan-de-shi-shi-gu-piao-xin-xi-sina-api-and-shang-zheng-de-zi-wo-fen-xi-he-pan-duan-20130725-26</id>
+    <content type="html"><![CDATA[<h2>getStock</h2>
+
+<ul>
+<li>终端下简单的实时股票信息</li>
+<li>以Java为工具实现，当然以<a href="www.wuhuixin.tk/blog/2013/05/05/Crude-oil-index-grep-android-floating-window-Service/" title="shell 实现原油指数抓取">SHELL</a>、Python等更容易实现</li>
+<li>使用<a href="www.xuech.net/simple/?t46.html" title="Sina股票数据接口">Sina API</a> ，数据的可靠性由Sina决定</li>
+<li>例如 <a href="http://hq.sinajs.cn/list=sh000001">http://hq.sinajs.cn/list=sh000001</a></li>
+</ul>
+
+
+<!-- more -->
+
+
+<ul>
+<li>github:<a href="https://github.com/wuwenjie1992/getStock">getStock</a></li>
+<li>缺点
+
+<ul>
+<li>太简单，但“<a href="http://zh.wikipedia.org/zh-cn/Unix%E5%93%B2%E5%AD%A6" title="UNIX哲学 壹">小即美</a>”，信息少，没功能</li>
+<li>没有GUI，没有k线，没有。。。</li>
+</ul>
+</li>
+<li>效果图
+  <img src="/images/getStock_sh600015.png" alt="getStock效果图" /></li>
+</ul>
+
+
+<hr />
+
+<h2>上证的自我分析和判断20130725-26</h2>
+
+<ul>
+<li>图一
+
+<ul>
+<li>说明：黄色的<a href="http://ta.mql4.com/cn/linestudies/linear_regression_channel" title="线性回归通道">回归通道</a>是我基本上在4月末5月初时画的</li>
+<li>就技术分析上说，大盘还未作出很明显的大幅反弹，仍是比较疲弱</li>
+<li>黄色的回归通道，下行趋势并未改变</li>
+<li>其走势也和基本面上宏观经济相一致
+
+<ul>
+<li>中国<a href="http://www.ftchinese.com/story/001051634?full=y" title="解读李克强的“微刺激”">7月汇丰制造业PMI</a>初值为47.7，不仅低于50荣枯值，近一年以来谷底</li>
+<li><a href="http://cn.wsj.com/gb/20130726/mkt143611.asp?source=UpFeature" title="精明投资者看空中国">经济增长“底线”7%言论</a>，也是印证了经济趋缓、动力不足的现实</li>
+</ul>
+</li>
+<li><img src="/images/sh000001_20130725.png" alt="sh000001_20130725" /></li>
+</ul>
+</li>
+<li>图二 实验性的算出回归通道压力线方程
+
+<ul>
+<li>以近期高点2444为第0天，如图第107天即为20130725</li>
+<li>可得两个点(0,2444);(107,2045) 2045即0725最高价</li>
+<li>易得y=-3.729x+2444</li>
+<li>使用
+
+<ul>
+<li>若大盘最高价连续数日突破该压力线，短期呈上升趋势</li>
+<li>可短期跟进，但应随时准备退出</li>
+<li>若大盘最低价触及支撑线，可考虑缓慢加仓（不可持有估值过高的股票）</li>
+</ul>
+</li>
+<li>结论
+
+<ul>
+<li>大盘或仍在通道内徘徊，但1917附近应有较大支撑，可静观其变</li>
+</ul>
+</li>
+<li><img src="/images/sh000001_20130725_2.png" alt="sh000001_20130725_2" /></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<h2>一张原油指数的技术分析图片</h2>
+
+<ul>
+<li>等了近两个月终于看到它有所回落</li>
+<li>因为110美元基本上已经触及历史高点</li>
+<li>1309合约也可以用回归通道表示</li>
+<li>预测
+
+<ul>
+<li>原油已转变趋势，近月会跌破99.667 即黄金分割线23.6%</li>
+<li>1310、1311合约价格也印证了这样的说法</li>
+<li>38.2%-50.0% 96.3-93.693 有一段时间的支撑</li>
+<li>谨慎行事，90美元是较好的价位</li>
+</ul>
+</li>
+<li><img src="/images/CLU3_1309_20130725.png" alt="CLU3_1309_20130725" /></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用octopress了]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/05/31/shi-yong-octopressliao/"/>
+    <updated>2013-05-31T23:32:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/05/31/shi-yong-octopressliao</id>
+    <content type="html"><![CDATA[<h2>在wordpress被攻击之后转向<a href="http://octopress.org/">octopress</a></h2>
+
+<ul>
+<li>octopress 的静态特性，对个人blog比较好</li>
+<li>markdown 语法，写文章方便，干净清晰</li>
+</ul>
+
+
+<h2>账户原油K线</h2>
+
+<!-- more -->
+
+
+<ul>
+<li><p>宏观部分影响因素</p>
+
+<ul>
+<li>美国经济复苏的预计
+
+<ul>
+<li>美联储政策对美元走势的影响</li>
+<li>各经济指标的表现的预计
+
+<ul>
+<li><a href="http://data.eastmoney.com/cjsj/foreign_0_2.html">非农就业人数</a></li>
+<li>失业率</li>
+<li>GDP、等等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>世界范围内的经济复苏的预计
+
+<ul>
+<li>欧元区经济复苏情况</li>
+<li>中国经济发展预计
+
+<ul>
+<li><a href="http://data.eastmoney.com/cjsj/cpi.html">CPI</a></li>
+<li>PPI、GDP</li>
+<li>PMI、等等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>行业部分影响因素</p>
+
+<ul>
+<li>原油库存 <a href="http://www.eia.gov/">美国能源信息署(EIA)</a></li>
+<li>原油需求 淡季旺季</li>
+<li>地缘政治 中东局势、石油主产区政治局势等</li>
+<li>欧佩克当月原油日均产量</li>
+<li>炼厂开工率</li>
+</ul>
+</li>
+<li><p>技术影响因素</p>
+
+<ul>
+<li><img src="/images/cln31307-20130601-2.png" alt="cln31307-20130601-2" /></li>
+<li>说明
+
+<ul>
+<li> 20130601 Virtualbox Win-XP 大智慧</li>
+<li> 总体上看是很漂亮的<a href="http://wiki.mbalib.com/wiki/%E5%A4%B4%E8%82%A9%E5%BA%95">头肩底</a>
+
+<ul>
+<li> 有明显交易量的配合</li>
+<li> 突破了0.618的93.613$颈线</li>
+<li> 下行通道已经打开</li>
+</ul>
+</li>
+<li> 注意0.382的90.779$的支撑位</li>
+<li> 画周期线 以7天为一个周期</li>
+<li> 趋势上看在近1-2周也许会调整到位</li>
+<li> 近5周亦可看作<a href="http://wiki.mbalib.com/wiki/M%E5%A4%B4">M头</a></li>
+<li> <a href="http://i.troll.ws/8387b765.png">察看大图</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>结论</h2>
+
+<ul>
+<li>近期突破90$概率大</li>
+<li>未来两周在90$-94$附近震荡</li>
+<li>美元货币政策及其经济预期对1307价格影响增大</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

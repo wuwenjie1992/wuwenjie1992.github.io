@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>如何修改Mac地址 - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="一、MAC地址的用途 　　MAC地址在网卡中是固定的，每张网卡的MAC地址都不一样。网卡在制作过程中，厂家会在它的EPROM里面烧录上一组数字，这组数字，每张网卡都各不相同，这就是网卡的MAC(物理)地址。 　　由于MAC地址的唯一性，因此它主要用来识别网络中用户的身份。 例如ADSL上网时， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2011/08/30/%25e5%25a6%2582%25e4%25bd%2595%25e4%25bf%25ae%25e6%2594%25b9mac%25e5%259c%25b0%25e5%259d%2580">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">如何修改Mac地址</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-30T10:55:00+08:00" pubdate data-updated="true">Aug 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>一、MAC地址的用途  　　MAC地址在网卡中是固定的，每张网卡的MAC地址都不一样。网卡在制作过程中，厂家会在它的EPROM里面烧录上一组数字，这组数字，每张网卡都各不相同，这就是网卡的MAC(物理)地址。  　　由于MAC地址的唯一性，因此它主要用来识别网络中用户的身份。</p>
+
+<p>例如ADSL上网时，电信用它来记费，确认是你上的网;在校园网中，MAC地址也可以用来识别用户。对于校园网的正式用户，其MAC地址会登记在服务器端，假如你是非法用户，服务器中就没有你的网卡MAC地址，这样当你试图连上网时，服务器就会立刻认出你、阻止你连上网络。</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>二、MAC地址是可以修改的  　　有些场合，例如冒充网络中的正式用户，就需要修改你的网卡MAC。要修改MAC地址，你可以通过硬件的方法实现，即利用网卡厂家提供的修改程序来烧录网卡的EEPROM，这样做虽然可行，但是风险很大、操作也复杂，即使你很有经验，也难免在操作中出现错误。  　　其实你完全没必要用烧录方法、修改网卡中的MAC地址。要知道windows安装的时候，会自动从网卡中读入MAC地址，把它存放在注册表中以备后用。当数据在网络中传输时，从网卡发出的数据包中要求有一个源MAC地址，这个MAC地址就是从注册表中读取的(并非从网卡中读取的)，因此只要你修改了注册表中的MAC地址，就相当于改了网卡EEPROM中的MAC地址，两者实际效果是完全相同的! 　　三、修改注册表中MAC的方法</p>
+
+<p>1、使用软件修改  　　推荐一个工具，k-mac，很好用，又小又方便，叫做mac地址修改器，</p>
+
+<p>如果是Windows2000/XP的用户，则可以使用免费MAC地址修改软件SMAC。运行SMAC后，窗口中的列表框列出计算机上正处于工作状 态的网卡。选定要修改的网卡后，在列表框下方的六个输入框中输入新的MAC地址后，点击右侧的“Update  MAC(修改MAC地址)”，即可完成MAC地址的修改。</p>
+
+<p>修改MAC地址的工具有很多，但大多数都只适用于Windows 2000/XP，笔者在这里推荐用“超级兔子魔法设置”，因为不但简单易用，而且在Windows 9x系统中使用同样有效。</p>
+
+<p>修改完成后，就要使设置生效，一般的办法是重新启动系统。还有一种简单的办法不需要重新启动系统，在“设备管理器”中，选定网络适配器图标，点 击鼠标右键，选择“禁用”(请注意操作后，状态栏是否已显示为“禁用”)。然后再右键单击选定的网络适配器，在右键菜单中选择“启用”。这样就能使修改后 的设置生效。</p>
+
+<p>2、在网卡属性中修改  　　如果你的网卡采用了RealTek公司的RTL8139芯片，就可以在网卡属性中修改MAC，这样注册表中的MAC地址也会一同改变，方法如下:  　　在Win2003/XP/2000中，点击菜单“开始”/设置/控制面板，双击“系统”，点击“硬件”/设备管理器，在设备管理器中展开“网络适配器”，右击要修改MAC地址的网卡，选择“属性”;点击“高级”选项卡，在“属性”下，选择点击Network Address项目，在右侧“值”的下方，输入你要指定的MAC地址值(例如020202020202)，注意要连续输入12个数字或字母，重新启动电脑后，修改即可生效。至于Win98下的MAC修改方法，与以上方法类似。     　　如果修改之后，在Win2003/XP/2000下，你又想把注册表中的MAC地址恢复成原样，可以选择“Network Address”项，将右边的值选择为“不存在”，再重新启动即可;在Win98下是选择“没有显示”。</p>
+
+<p>3、在注册表中修改  　　对于非RTL8139芯片的网卡，你可以直接修改注册表中的MAC，注意:修改注册表前，要先备份注册表。</p>
+
+<p>(1)WinXP　　点击“开始”/运行，输入regedit打开注册表，定位到HKEY_LOCAL_MACHINE\ SYSTEM\CurrentControlSet\Control\Class{4D36E972-E325-11CE-BFC1-08002BE10318} \0000、0001、0002等主键下，查找DriverDesc的内容，了解网卡使用了哪个主键(例如0001)，如果主键下有params项，则该主键也是网卡所使用的;</p>
+
+<p>例如网卡使用了0001主键，因此我们就选中它，在其右边建一个字符串项(名为NetworkAddress)，双击该串，输入你指定的MAC地址值(注意应该是12位的连续数字或字母，其间没有-号);在0001下的NDI\ params中添加一项子键(名为NetworkAddress)，选择该子键，在其右边添加名为default的字符串，键值为修改后的MAC地址，与上面的数值相同;修改后重启生效。</p>
+
+<p>当找到正确的网卡后，点击下拉式菜单“编辑/新建/字符串”，串的名称为“Networkaddress”，在新建的 “Networkaddress”串名称上双击鼠标就可以输入数值了。输入你想指定的新的MAC地址值。新的MAC地址应该是一个12位的十六进制数字或 字母，其间没有“-”，类似“000000000000”的这样的数值(注意，在Windows XP中具体键值的位置稍有不同，大家可通过查找功能来寻找)。</p>
+
+<p>在“NetworkAddress”下继续添加一个名为“ParamDesc”的字串值，它将作为“NetworkAddress”项的描述，数值可以取为“MAC Address”。再把它的内容修改为你想设定的内容。如图所示。</p>
+
+<p>这样，我们就成功地修改了网卡的MAC地址，重新启动计算机即可。</p>
+
+<p>&nbsp;</p>
+
+<p>4、linux系统  　　如果你的系统是linux，想修改系统中的MAC地址(例如改为020202020202)，操作方法是:用#ifconfig eth0 down先把网卡禁用，否则会报告系统忙，无法更改;然后再用ifconfig eth0 hw ether 020202020202即可。</p>
+
+<p>如果你想永久修改系统中的MAC地址，可以这样操作:在/etc/rc.d/rc.local中加入以下三行(也可在/etc/init.d/network中添加以下三行)  　　ifconfig eth0 down  　　ifconfig eth0 hw ether 020202020202  　　ifconfig eth0 up</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>四、MAC地址改好了吗?  　　如果你想知道系统中的MAC地址是否修改成功了，可以这样操作:重启电脑(不是必要的)，在命令提示符下，输入IPconfig/all命令，于是Physical Address右边就会显示一个地址，你检查一下即可得知MAC是否修改成功了。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-30T10:55:00+08:00" pubdate data-updated="true">Aug 30<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2011/08/30/%25e5%25a6%2582%25e4%25bd%2595%25e4%25bf%25ae%25e6%2594%25b9mac%25e5%259c%25b0%25e5%259d%2580/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2011/08/30/%25e5%25a6%2582%25e4%25bd%2595%25e4%25bf%25ae%25e6%2594%25b9mac%25e5%259c%25b0%25e5%259d%2580/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/08/29/%25e5%258f%2588%25e4%25b8%2580%25e4%25b8%25aa-wuwenjie-%25e7%25ab%2599%25e7%2582%25b9/" title="Previous Post: 又一个 Wuwenjie 站点">&laquo; 又一个 Wuwenjie 站点</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/09/04/%25e6%2598%258e%25e5%25a4%25a9%25e5%258e%25bb%25e5%25ad%25a6%25e6%25a0%25a1/" title="Next Post: 明天去学校">明天去学校 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian/">Android APP 古汉语常用字字典</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/html5-demo/">HTML5 Demo</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-yi-ge-shi-li-lucene-plus-nodejs-2/">Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs 2</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>前证券经纪人:s1090414030081</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2014 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> <a>&</a>	<a href="http://www.000webhost.com/" target="_blank"><img src="http://www.000webhost.com/images/80x15_powered.gif" alt="Web Hosting" width="80" height="15" border="1" /></a>	</span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

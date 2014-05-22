@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Stock | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/stock/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[getStock-终端下简单的实时股票信息(Sina API) &amp; 上证的自我分析和判断20130725-26]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/07/26/getstock-zhong-duan-xia-jian-dan-de-shi-shi-gu-piao-xin-xi-sina-api-and-shang-zheng-de-zi-wo-fen-xi-he-pan-duan-20130725-26/"/>
+    <updated>2013-07-26T12:35:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/07/26/getstock-zhong-duan-xia-jian-dan-de-shi-shi-gu-piao-xin-xi-sina-api-and-shang-zheng-de-zi-wo-fen-xi-he-pan-duan-20130725-26</id>
+    <content type="html"><![CDATA[<h2>getStock</h2>
+
+<ul>
+<li>终端下简单的实时股票信息</li>
+<li>以Java为工具实现，当然以<a href="www.wuhuixin.tk/blog/2013/05/05/Crude-oil-index-grep-android-floating-window-Service/" title="shell 实现原油指数抓取">SHELL</a>、Python等更容易实现</li>
+<li>使用<a href="www.xuech.net/simple/?t46.html" title="Sina股票数据接口">Sina API</a> ，数据的可靠性由Sina决定</li>
+<li>例如 <a href="http://hq.sinajs.cn/list=sh000001">http://hq.sinajs.cn/list=sh000001</a></li>
+</ul>
+
+
+<!-- more -->
+
+
+<ul>
+<li>github:<a href="https://github.com/wuwenjie1992/getStock">getStock</a></li>
+<li>缺点
+
+<ul>
+<li>太简单，但“<a href="http://zh.wikipedia.org/zh-cn/Unix%E5%93%B2%E5%AD%A6" title="UNIX哲学 壹">小即美</a>”，信息少，没功能</li>
+<li>没有GUI，没有k线，没有。。。</li>
+</ul>
+</li>
+<li>效果图
+  <img src="/images/getStock_sh600015.png" alt="getStock效果图" /></li>
+</ul>
+
+
+<hr />
+
+<h2>上证的自我分析和判断20130725-26</h2>
+
+<ul>
+<li>图一
+
+<ul>
+<li>说明：黄色的<a href="http://ta.mql4.com/cn/linestudies/linear_regression_channel" title="线性回归通道">回归通道</a>是我基本上在4月末5月初时画的</li>
+<li>就技术分析上说，大盘还未作出很明显的大幅反弹，仍是比较疲弱</li>
+<li>黄色的回归通道，下行趋势并未改变</li>
+<li>其走势也和基本面上宏观经济相一致
+
+<ul>
+<li>中国<a href="http://www.ftchinese.com/story/001051634?full=y" title="解读李克强的“微刺激”">7月汇丰制造业PMI</a>初值为47.7，不仅低于50荣枯值，近一年以来谷底</li>
+<li><a href="http://cn.wsj.com/gb/20130726/mkt143611.asp?source=UpFeature" title="精明投资者看空中国">经济增长“底线”7%言论</a>，也是印证了经济趋缓、动力不足的现实</li>
+</ul>
+</li>
+<li><img src="/images/sh000001_20130725.png" alt="sh000001_20130725" /></li>
+</ul>
+</li>
+<li>图二 实验性的算出回归通道压力线方程
+
+<ul>
+<li>以近期高点2444为第0天，如图第107天即为20130725</li>
+<li>可得两个点(0,2444);(107,2045) 2045即0725最高价</li>
+<li>易得y=-3.729x+2444</li>
+<li>使用
+
+<ul>
+<li>若大盘最高价连续数日突破该压力线，短期呈上升趋势</li>
+<li>可短期跟进，但应随时准备退出</li>
+<li>若大盘最低价触及支撑线，可考虑缓慢加仓（不可持有估值过高的股票）</li>
+</ul>
+</li>
+<li>结论
+
+<ul>
+<li>大盘或仍在通道内徘徊，但1917附近应有较大支撑，可静观其变</li>
+</ul>
+</li>
+<li><img src="/images/sh000001_20130725_2.png" alt="sh000001_20130725_2" /></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<h2>一张原油指数的技术分析图片</h2>
+
+<ul>
+<li>等了近两个月终于看到它有所回落</li>
+<li>因为110美元基本上已经触及历史高点</li>
+<li>1309合约也可以用回归通道表示</li>
+<li>预测
+
+<ul>
+<li>原油已转变趋势，近月会跌破99.667 即黄金分割线23.6%</li>
+<li>1310、1311合约价格也印证了这样的说法</li>
+<li>38.2%-50.0% 96.3-93.693 有一段时间的支撑</li>
+<li>谨慎行事，90美元是较好的价位</li>
+</ul>
+</li>
+<li><img src="/images/CLU3_1309_20130725.png" alt="CLU3_1309_20130725" /></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

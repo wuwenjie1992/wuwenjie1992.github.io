@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: read | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/read/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[批量转换字符编码的实例（iconv）]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/"/>
+    <updated>2012-09-21T10:47:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2012/09/21/Batch-conversion-of-character-encoding-instances</id>
+    <content type="html"><![CDATA[<p><em><strong>前言</strong></em></p>
+
+<p>借的书里光盘有C代码，</p>
+
+<p>可也抄来看看，</p>
+
+<p>但中文说明乱码。</p>
+
+<p>行如：// 68ÎªÎÕÊÖÏûÏ¢µÄ¹Ì¶š³€¶È</p>
+
+<p>而且文件较多，</p>
+
+<p>以 .c|.h结尾，</p>
+
+<p>手动改的话就太笨了，</p>
+
+<!-- more -->
+
+
+<p>发挥linux shell的优势的时候来了。</p>
+
+<p>&nbsp;</p>
+
+<p>代码
+```bash</p>
+
+<h1>!/bin/sh</h1>
+
+<h1>iconv2</h1>
+
+<h1>批量转换字符编码</h1>
+
+<p> ls -al | awk &lsquo;/.c|h/{print $9 >&ldquo;l.txt&rdquo;}&rsquo;
+   #将LS出来的结果，管道到，用AWK找到第九列中为.c或.h的文件，输出到L.txt</p>
+
+<p>  while read  list #读取（read）l.txt，将read的结果命名为 list</p>
+
+<pre><code>do
+  echo $list;   #显示list的neir
+  iconv -f  gb18030  -t  utf-8  $list  &gt; $list.new;
+             #将list的编码从gb18030改为utf8，输入list.new中
+ rm $list;   #删除list文件（未转码的）
+ mv $list.new $list;   #将list.new文件重命名为list
+
+done &lt; l.txt #从l.txt输入
+</code></pre>
+
+<p>rm l.txt;rm iconv2.sh;  #删除l.txt与iconv2.sh
+```</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;
+注意：chmod u+x iconv2.sh 执行：./iconv2.sh</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: js | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/js/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2014-05-13T23:14:58+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[HTML5 demo]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2013/11/17/html5-demo/"/>
+    <updated>2013-11-17T13:40:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2013/11/17/html5-demo</id>
+    <content type="html"><![CDATA[<h2>Html5 Demo</h2>
+
+<ul>
+<li>无意之中看到了名为<a href="http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/">How to make a simple HTML5 Canvas game</a>的文章</li>
+<li>产生了好奇之心，想在手机上玩玩看</li>
+<li>fork 了 <a href="https://github.com/lostdecade/simple_canvas_game">simple_canvas_game</a>的代码</li>
+<li><a href="https://github.com/wuwenjie1992/simple_canvas_game/commit/222ef5c710273bf9c7a0bb695ee08c388e7427b8">修改新增</a>了部分代码，能够在触屏上运行</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>效果图</h2>
+
+<p><img src="/images/html5_demo.png" alt="html5_game" /></p>
+
+<h2>无聊的吐槽</h2>
+
+<ul>
+<li>大四了，在找工作了</li>
+<li>投了很多简历了，51job、银行、券商</li>
+<li>金融行业本科很难<code>混</code>，还是个二本</li>
+<li>希望顺利找到工作</li>
+<li>先就业在择业吧</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
