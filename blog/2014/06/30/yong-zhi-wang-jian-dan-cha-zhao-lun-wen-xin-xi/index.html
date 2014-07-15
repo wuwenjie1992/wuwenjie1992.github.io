@@ -1,0 +1,968 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>用知网简单查找论文信息 - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="功能 通过用户输入的关键词查找相关论文信息
+利用CNKI知网的多个学位论文数据库，查找论文
+返回与关键词相似的论文信息包括： 相似的论文题目
+作者信息
+论文性质
+论文来源
+论文发表时间
+论文下载次数
+论文相似句子 使用 编译 1
+javac GETcnki.java 执行 1
+java &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2014/06/30/yong-zhi-wang-jian-dan-cha-zhao-lun-wen-xin-xi">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">用知网简单查找论文信息</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-30T17:50:00+08:00" pubdate data-updated="true">Jun 30<span>th</span>, 2014</time>
+        
+        
+          | <a href="#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<h1>功能</h1>
+
+<ul>
+<li>通过用户输入的关键词查找相关论文信息</li>
+<li>利用<a href="http://www.cnki.com.cn/">CNKI</a>知网的多个学位论文数据库，查找论文</li>
+<li>返回与关键词相似的论文信息包括：
+
+<ul>
+<li>相似的论文题目</li>
+<li>作者信息</li>
+<li>论文性质</li>
+<li>论文来源</li>
+<li>论文发表时间</li>
+<li>论文下载次数</li>
+<li>论文相似句子</li>
+</ul>
+</li>
+</ul>
+
+
+<h1>使用</h1>
+
+<ul>
+<li>编译</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>javac GETcnki.java
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>执行</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>java GETcnki 内幕交易 实证分析 <span class="s2">&quot;Rezaul Kabir&quot;</span> 阿姆斯特丹
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>效果</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>正在通过CNKI查找内容相似的论文。。。
+</span><span class='line'>关键词：内幕交易 实证分析 Rezaul Kabir 阿姆斯特丹
+</span><span class='line'>
+</span><span class='line'>0:股票市场失灵与政府行为选择  宋玉臣 博士
+</span><span class='line'>吉林大学 2006-10-01 下载频次:1311
+</span><span class='line'>句子1：其次，实证分析方面，对宏观内幕交易和微观内幕交易分别进行了实证研究。
+</span><span class='line'>句子2：Rezaul Kabir和Theo Vermaelen（1996）对荷兰阿姆斯特丹股票市场进行的实证分析，通过检验年报公布前两个月的股票流动性来检验内幕交易对股票价格的影响，结论是认为该市场存在内幕交易并支持政府限制内幕交易；         
+</span><span class='line'>
+</span><span class='line'>1:我国股票市场内幕交易的实证研究  刘晓明 硕士
+</span><span class='line'>暨南大学 2008-05-01 下载频次:597
+</span><span class='line'>句子1：暨南大学硕士论文我国股票市场内幕交易的实证研究5内幕交易案例分析及原因分析按内幕交易的主体，可以将内幕人分为证券内幕信息的知情人员(第一内幕人)，从内幕信息知情人员获得内幕信息的第二内幕人和非法获取内幕信息的人。
+</span><span class='line'>句子2：李心丹(2007)通过建立内幕交易行为动机结构模型，实证分析了影响内幕交易行为发生的多种因素，指出高额的期望收益和跟风攀比心态的存在极大的强化了内幕交易主体从事内幕交易的倾向，而实施内幕交易引发的内疚感、导致社会声誉的受损、被查处的力度和被惩罚的力度，特别是查处力度与惩罚力度，在相当程度上弱化了内幕主体实施内幕交易的行为倾向。            
+</span><span class='line'>
+</span><span class='line'>2:股票市场内幕交易及量价波动的实证研究  陈婧 硕士
+</span><span class='line'>南京理工大学 2007-06-01 下载频次:535
+</span><span class='line'>句子1：Rezaul Kabir和Theovermaelen(1996)对荷兰阿姆斯特丹股票市场进行的实证分析，通过检验禁止内幕交易后股票流动性来检验其对股票市场的影响，发现限制内幕交易减少了股票的流动性(用交易量衡量流动性)，同时还发现市南京理工大学硕士学位论文股票市场内幕交易及量价波动的实证研究场对利好消息的反应速度减慢。
+</span><span class='line'>句子2：8.3进一步研究方向尽管本文对内幕交易进行了比较全面、细致的实证分析，但是有关内幕交易的研究仍然有待深入。           
+</span><span class='line'>
+</span><span class='line'>3:我国证券市场内幕交易对投资者利益影响的实证分析  张宇 硕士
+</span><span class='line'>西南大学 2011-04-05 下载频次:240
+</span><span class='line'>句子1：西南大学硕士学位论文第5章内幕交易实证分析第5章内幕交易实证分析上一章已经大致介绍了运用事件研究法的步骤，本章就以西南证券(印0369)为例，进行实验研究分析。
+</span><span class='line'>句子2：Theovermaelen(1996)对荷兰阿姆斯特丹股票市场进行了股票流动性与内幕交易的关系进行了实证分析，通过检验禁_l卜内幕交易后股票流动性来检验其对股票市场的影响发现，当内幕交易被限制了股票的流动性减少了，此时市场对利好消息的反应速度也减慢。           
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>java 代码</h1>
+
+<ul>
+<li>说明：主要是要保存第一次的<a href="https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE">GET请求</a>的<a href="http://zh.wikipedia.org/wiki/Cookie">COOKIES</a>，用于设置于第二个GET请求</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.DataOutputStream</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.FileReader</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.UnsupportedEncodingException</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.lang.Integer</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.net.URLEncoder</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.regex.Matcher</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.regex.Pattern</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GETcnki</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">readContentFromGet</span><span class="o">(</span><span class="n">String</span> <span class="n">GET_URL</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">lines</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">URL</span> <span class="n">cnkiURL</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">cnkiURL</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">GET_URL</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">MalformedURLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">readContentFromGet</span><span class="o">(</span><span class="n">GET_URL</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">cookies</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// 打开连接，URL.openConnection函数会根据URL的类型，</span>
+</span><span class='line'>        <span class="c1">// 返回不同的URLConnection子类的对象，URL是http,返回HttpURLConnection</span>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">HttpURLConnection</span> <span class="n">connection</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">cnkiURL</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">connection</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&quot;User-Agent&quot;</span><span class="o">,</span>
+</span><span class='line'>                <span class="s">&quot;Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:29.0) Gecko/20100101 Firefox/29.0&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">connection</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
+</span><span class='line'>            <span class="cm">/*</span>
+</span><span class='line'><span class="cm">            String headerName = null;</span>
+</span><span class='line'><span class="cm">            for (int i = 1; (headerName = connection.getHeaderFieldKey(i)) != null;</span>
+</span><span class='line'><span class="cm">                    i++) {</span>
+</span><span class='line'><span class="cm">                System.out.println(headerName + &quot;:&quot; + connection.getHeaderField(i));</span>
+</span><span class='line'><span class="cm">            }</span>
+</span><span class='line'><span class="cm">            */</span>
+</span><span class='line'>            <span class="n">cookies</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">getHeaderFields</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;Set-Cookie&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span>
+</span><span class='line'>                        <span class="n">connection</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">(),</span> <span class="s">&quot;utf-8&quot;</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">while</span> <span class="o">((</span><span class="n">lines</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">lines</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">connection</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//System.out.println(&quot;----------\n&quot;+response);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">readContentFromGet</span><span class="o">(</span><span class="n">GET_URL</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//---------------------------</span>
+</span><span class='line'>        <span class="n">URL</span> <span class="n">cnkiURL2</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">cnkiURL2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span>
+</span><span class='line'>                    <span class="s">&quot;http://epub.cnki.net/KNS/brief/brief.aspx?pagename=&quot;</span> <span class="o">+</span>
+</span><span class='line'>                    <span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">MalformedURLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">readContentFromGet</span><span class="o">(</span><span class="n">GET_URL</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">StringBuffer</span> <span class="n">response2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">cnkiURL2</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">con</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&quot;User-Agent&quot;</span><span class="o">,</span>
+</span><span class='line'>                <span class="s">&quot;Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:29.0) Gecko/20100101 Firefox/29.0&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">con</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&quot;Referer&quot;</span><span class="o">,</span>
+</span><span class='line'>                <span class="s">&quot;http://epub.cnki.net/KNS/brief/result.aspx?dbprefix=CDMD&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">String</span> <span class="n">newcookies</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">cookie</span> <span class="o">:</span> <span class="n">cookies</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">newcookies</span> <span class="o">+=</span> <span class="o">(</span><span class="n">cookie</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">cookie</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="s">&quot;;&quot;</span><span class="o">))</span> <span class="o">+</span> <span class="s">&quot;;&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">//System.out.println(&quot;newcookies:&quot; + newcookies);</span>
+</span><span class='line'>            <span class="c1">//ASP.NET_SessionId=oaxxoh3bazgbhcuei5aharzk; LID=; SID_kns=120113</span>
+</span><span class='line'>            <span class="n">con</span><span class="o">.</span><span class="na">addRequestProperty</span><span class="o">(</span><span class="s">&quot;Cookie&quot;</span><span class="o">,</span> <span class="n">newcookies</span><span class="o">);</span>
+</span><span class='line'>            <span class="cm">/*</span>
+</span><span class='line'><span class="cm">            for (String header : con.getRequestProperties().keySet()) {</span>
+</span><span class='line'><span class="cm">            if (header != null) {</span>
+</span><span class='line'><span class="cm">            for (String value : con.getRequestProperties().get(header)) {</span>
+</span><span class='line'><span class="cm">                System.out.println(header + &quot;:&quot; + value);</span>
+</span><span class='line'><span class="cm">            }</span>
+</span><span class='line'><span class="cm">            }</span>
+</span><span class='line'><span class="cm">            }</span>
+</span><span class='line'><span class="cm">            */</span>
+</span><span class='line'>            <span class="n">con</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">BufferedReader</span> <span class="n">reader2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span>
+</span><span class='line'>                        <span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">(),</span> <span class="s">&quot;utf-8&quot;</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">while</span> <span class="o">((</span><span class="n">lines</span> <span class="o">=</span> <span class="n">reader2</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">response2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">lines</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">reader2</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">con</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">readContentFromGet</span><span class="o">(</span><span class="n">GET_URL</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">String</span> <span class="n">info</span> <span class="o">=</span> <span class="n">response2</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//句子&amp;nbsp;1([\s\S]+?)句子来</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sentences</span> <span class="o">=</span> <span class="n">GETcnki</span><span class="o">.</span><span class="na">StrMatch</span><span class="o">(</span><span class="n">info</span><span class="o">,</span>
+</span><span class='line'>                <span class="s">&quot;句子&amp;nbsp;1([\\s\\S]+?)句子来&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">sentences</span><span class="o">.</span><span class="na">size</span><span class="o">();</span><span class="n">i</span><span class="o">++){</span>
+</span><span class='line'>          <span class="c1">//去除标签</span>
+</span><span class='line'>          <span class="n">sentences</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">i</span><span class="o">,</span><span class="n">sentences</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;&lt;[^&gt;]*&gt;&quot;</span><span class="o">,</span><span class="s">&quot;&quot;</span><span class="o">));</span>
+</span><span class='line'>          
+</span><span class='line'>          <span class="c1">//分段</span>
+</span><span class='line'>          <span class="n">Matcher</span> <span class="n">mat</span> <span class="o">=</span>
+</span><span class='line'>              <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&quot;句子&amp;nbsp;&quot;</span><span class="o">).</span><span class="na">matcher</span><span class="o">(</span><span class="n">sentences</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+</span><span class='line'>          <span class="k">while</span> <span class="o">(</span><span class="n">mat</span><span class="o">.</span><span class="na">find</span><span class="o">())</span>
+</span><span class='line'>              <span class="n">sentences</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">i</span><span class="o">,</span>
+</span><span class='line'>                  <span class="n">sentences</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;句子&amp;nbsp;&quot;</span><span class="o">,</span><span class="s">&quot;\n句子&quot;</span><span class="o">));</span>
+</span><span class='line'>                  
+</span><span class='line'>          <span class="n">sentences</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">i</span><span class="o">,</span><span class="s">&quot;句子1&quot;</span><span class="o">+</span><span class="n">sentences</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+</span><span class='line'>          
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span><span class='line'>        <span class="c1">//har\(&#39;(.+?)&#39;</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">titles</span> <span class="o">=</span> <span class="n">GETcnki</span><span class="o">.</span><span class="na">StrMatch</span><span class="o">(</span><span class="n">info</span><span class="o">,</span> <span class="s">&quot;har\\(&#39;(.+?)&#39;&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="c1">//作者.+?&quot;&gt;(.+?)&lt;</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">auhtors</span> <span class="o">=</span> <span class="n">GETcnki</span><span class="o">.</span><span class="na">StrMatch</span><span class="o">(</span><span class="n">info</span><span class="o">,</span> <span class="s">&quot;作者.+?\&quot;&gt;(.+?)&lt;&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="c1">//文献来源.+?&quot;&gt;(.+?)&lt;</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">literatures</span> <span class="o">=</span> <span class="n">GETcnki</span><span class="o">.</span><span class="na">StrMatch</span><span class="o">(</span><span class="n">info</span><span class="o">,</span> <span class="s">&quot;文献来源.+?\&quot;&gt;(.+?)&lt;&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="c1">//en.{2}发表时间.+?&gt;(.+?\b)&lt;</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">dates</span> <span class="o">=</span> <span class="n">GETcnki</span><span class="o">.</span><span class="na">StrMatch</span><span class="o">(</span><span class="n">info</span><span class="o">,</span> <span class="s">&quot;en.{2}发表时间.+?&gt;(.+?\\b)&lt;&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="c1">//下载频次.+?&gt;([\d]*)</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">downloadfrequencys</span> <span class="o">=</span>
+</span><span class='line'>                        <span class="n">GETcnki</span><span class="o">.</span><span class="na">StrMatch</span><span class="o">(</span><span class="n">info</span><span class="o">,</span><span class="s">&quot;下载频次.+?&gt;([\\d]*)&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="c1">//来源库.+?&gt;(.+?)[\s]+?&lt;</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">databases</span> <span class="o">=</span>
+</span><span class='line'>                        <span class="n">GETcnki</span><span class="o">.</span><span class="na">StrMatch</span><span class="o">(</span><span class="n">info</span><span class="o">,</span><span class="s">&quot;来源库.+?&gt;(.+?)[\\s]+?&lt;&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>         <span class="k">for</span><span class="o">(</span><span class="n">i</span> <span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">sentences</span><span class="o">.</span><span class="na">size</span><span class="o">();</span><span class="n">i</span><span class="o">++){</span>
+</span><span class='line'>           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">titles</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+</span><span class='line'>              <span class="o">+</span><span class="s">&quot;  &quot;</span><span class="o">+</span><span class="n">auhtors</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)+</span><span class="s">&quot; &quot;</span><span class="o">+</span><span class="n">databases</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+</span><span class='line'>              <span class="o">+</span><span class="s">&quot;\n&quot;</span><span class="o">+</span><span class="n">literatures</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)+</span><span class="s">&quot; &quot;</span><span class="o">+</span><span class="n">dates</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+</span><span class='line'>              <span class="o">+</span><span class="s">&quot; 下载频次:&quot;</span><span class="o">+</span><span class="n">downloadfrequencys</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)+</span><span class="s">&quot;\n&quot;</span><span class="o">+</span><span class="n">sentences</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)+</span><span class="s">&quot;\n&quot;</span><span class="o">);</span>
+</span><span class='line'>       <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">StrMatch</span><span class="o">(</span><span class="n">String</span> <span class="n">raw</span><span class="o">,</span> <span class="n">String</span> <span class="n">regex</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Pattern</span> <span class="n">pat</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="n">regex</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">Matcher</span> <span class="n">mat</span> <span class="o">=</span> <span class="n">pat</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">raw</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">mat</span><span class="o">.</span><span class="na">find</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">//System.out.println(&quot;---\n&quot;+mat.group(1)+&quot;---\n&quot;);</span>
+</span><span class='line'>            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">mat</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">while</span> <span class="o">(</span><span class="n">mat</span><span class="o">.</span><span class="na">find</span><span class="o">())</span>
+</span><span class='line'>                <span class="c1">//System.out.println(&quot;---\n&quot;+mat.group(1)+&quot;---\n&quot;);</span>
+</span><span class='line'>                <span class="c1">//捕获组是从 1 开始从左到右的索引</span>
+</span><span class='line'>                <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">mat</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">encodeURIComponent</span><span class="o">(</span><span class="n">String</span> <span class="n">component</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">result</span> <span class="o">=</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">component</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">)</span>
+</span><span class='line'>                               <span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;\\%28&quot;</span><span class="o">,</span> <span class="s">&quot;(&quot;</span><span class="o">).</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;\\%29&quot;</span><span class="o">,</span> <span class="s">&quot;)&quot;</span><span class="o">)</span>
+</span><span class='line'>                               <span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;\\+&quot;</span><span class="o">,</span> <span class="s">&quot;%20&quot;</span><span class="o">).</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;\\%27&quot;</span><span class="o">,</span> <span class="s">&quot;&#39;&quot;</span><span class="o">)</span>
+</span><span class='line'>                               <span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;\\%21&quot;</span><span class="o">,</span> <span class="s">&quot;!&quot;</span><span class="o">).</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;\\%7E&quot;</span><span class="o">,</span> <span class="s">&quot;~&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">result</span> <span class="o">=</span> <span class="n">component</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">String</span><span class="o">[]</span> <span class="n">s</span><span class="o">={</span><span class="s">&quot;&quot;</span><span class="o">,</span><span class="s">&quot;&quot;</span><span class="o">,</span><span class="s">&quot;&quot;</span><span class="o">,</span><span class="s">&quot;&quot;</span><span class="o">};</span>
+</span><span class='line'>      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;正在通过CNKI查找内容相似的论文。。。\n关键词：&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">if</span><span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">length</span> <span class="o">!=</span> <span class="mi">4</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;请输入四个字符串!&quot;</span><span class="o">);</span>
+</span><span class='line'>          <span class="k">return</span> <span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span> <span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+</span><span class='line'>          <span class="k">if</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">){</span>
+</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;\n请不要输入空字符串!&quot;</span><span class="o">);</span>
+</span><span class='line'>              <span class="k">return</span> <span class="o">;</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>          <span class="n">s</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">encodeURIComponent</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="s">&quot; &quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">String</span> <span class="n">GET_URL</span> <span class="o">=</span> <span class="s">&quot;http://epub.cnki.net/KNS/request/SearchHandler.ashx?&quot;</span> <span class="o">+</span>
+</span><span class='line'>            <span class="s">&quot;action=&amp;NaviCode=*&amp;ua=1.21&amp;PageName=ASP.brief_result_aspx&amp;DbPrefix=CDMD&quot;</span> <span class="o">+</span>
+</span><span class='line'>            <span class="s">&quot;&amp;DbCatalog=中国优秀博硕士学位论文全文数据库&quot;</span> <span class="o">+</span> <span class="s">&quot;&amp;ConfigFile=CDMD.xml&quot;</span> <span class="o">+</span>
+</span><span class='line'>            <span class="s">&quot;&amp;db_opt=中国优秀博硕士学位论文全文数据库&quot;</span> <span class="o">+</span>
+</span><span class='line'>            <span class="s">&quot;&amp;db_value=中国博士学位论文全文数据库,中国优秀硕士学位论文全文数据库&quot;</span> <span class="o">+</span>
+</span><span class='line'>            <span class="s">&quot;&amp;sen_1_sel=%2FNEAR%2020&amp;sen_1_value1=&quot;</span> <span class="o">+</span> <span class="n">s</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot;&amp;sen_1_value2=&quot;</span> <span class="o">+</span>
+</span><span class='line'>            <span class="n">s</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot;&amp;sen_2_sel=%2FSEN%2020&amp;sen_2_value1=&quot;</span> <span class="o">+</span> <span class="n">s</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">+</span>
+</span><span class='line'>            <span class="s">&quot;&amp;sen_2_value2=&quot;</span> <span class="o">+</span> <span class="n">s</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot;&amp;sen_2_logical=and&quot;</span> <span class="o">+</span>
+</span><span class='line'>            <span class="s">&quot;&amp;his=0&amp;issen=1&amp;__=Mon%20Jun%2009%202014%2022%3A15%3A59%20GMT%2B0800%20(CST)&quot;</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="cm">/*ConfigFile        CDMD.xml</span>
+</span><span class='line'><span class="cm">        DbCatalog        中国优秀博硕士学位论文全文数据库</span>
+</span><span class='line'><span class="cm">        DbPrefix        CDMD</span>
+</span><span class='line'><span class="cm">        NaviCode        *</span>
+</span><span class='line'><span class="cm">        PageName        ASP.brief_result_aspx</span>
+</span><span class='line'><span class="cm">        __        Tue Jun 10 2014 12:08:21 GMT+0800 (CST)</span>
+</span><span class='line'><span class="cm">        action</span>
+</span><span class='line'><span class="cm">        db_opt        中国优秀博硕士学位论文全文数据库</span>
+</span><span class='line'><span class="cm">        db_value        中国博士学位论文全文数据库,中国优秀硕士学位论文全文数据库</span>
+</span><span class='line'><span class="cm">        his        0</span>
+</span><span class='line'><span class="cm">        issen        1</span>
+</span><span class='line'><span class="cm">        sen_1_sel        /NEAR 20</span>
+</span><span class='line'><span class="cm">        sen_1_value1        信息</span>
+</span><span class='line'><span class="cm">        sen_1_value2        某种程度</span>
+</span><span class='line'><span class="cm">        sen_2_logical        and</span>
+</span><span class='line'><span class="cm">        sen_2_sel        /SEN 20</span>
+</span><span class='line'><span class="cm">        sen_2_value1        证券市场</span>
+</span><span class='line'><span class="cm">        sen_2_value2        最具敏感性</span>
+</span><span class='line'><span class="cm">        ua        1.21</span>
+</span><span class='line'><span class="cm">        */</span>
+</span><span class='line'>        <span class="n">GETcnki</span> <span class="n">gs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GETcnki</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">gs</span><span class="o">.</span><span class="na">readContentFromGet</span><span class="o">(</span><span class="n">GET_URL</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-30T17:50:00+08:00" pubdate data-updated="true">Jun 30<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/lun-wen/'>论文</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2014/06/30/yong-zhi-wang-jian-dan-cha-zhao-lun-wen-xin-xi/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2014/06/30/yong-zhi-wang-jian-dan-cha-zhao-lun-wen-xin-xi/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/" title="Previous Post: 嵊州四日访亲记-14-05-03">&laquo; 嵊州四日访亲记-14-05-03</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/06/30/yong-zhi-wang-jian-dan-cha-zhao-lun-wen-xin-xi/">用知网简单查找论文信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/14/android-app-gu-yi-yu-chang-yong-zi-zi-dian/">Android APP 古汉语常用字字典</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/html5-demo/">HTML5 Demo</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>前证券经纪人:s1090414030081</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70">
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"wuwenjie"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2014 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
