@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>改进的超买超卖指标w-power - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="前言 在金融交易活动中，投机者多数时候以获取短期超额收益为目的
+交易中，对时机的准确把握是及其关键的，决定了投资中短期的盈利
+许多工具有助于时机的把握，比如技术分析中的K线、图形线形、道氏理论、波浪理论等等
+而技术指标也多如牛毛，比如MA,MACD,KDJ,RSI,BIAS,BOLL,PSY, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2014/08/31/gai-jin-de-chao-mai-chao-mai-zhi-biao-w-power">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">改进的超买超卖指标w-power</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-31T20:35:00+08:00" pubdate data-updated="true">Aug 31<span>st</span>, 2014</time>
+        
+        
+          | <a href="#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>前言</h2>
+
+<ul>
+<li>在金融交易活动中，投机者多数时候以获取短期<a href="http://zh.wikipedia.org/wiki/%E8%A9%B9%E6%A3%AE%E9%98%BF%E5%B0%94%E6%B3%95">超额收益</a>为目的</li>
+<li>交易中，对时机的准确把握是及其关键的，决定了投资中短期的盈利</li>
+<li>许多工具有助于时机的把握，比如<a href="http://zh.wikipedia.org/wiki/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90">技术分析</a>中的<a href="http://zh.wikipedia.org/wiki/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90">K线</a>、图形线形、道氏理论、波浪理论等等</li>
+<li>而技术指标也多如牛毛，比如MA,MACD,KDJ,RSI,BIAS,BOLL,PSY,BBI等等</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>w-power的诞生</h2>
+
+<ul>
+<li>命名</li>
+<li>w意为wuwenjie</li>
+<li>power意为有力量的指标，因为指标将成交量糅合进价格指标</li>
+<li>设计初衷及灵感</li>
+<li>在没有完善的市场认识和强大的基本面分析的支撑下，个人投资者是及其盲目的</li>
+<li>很有可能成为一个<a href="http://wiki.mbalib.com/wiki/%E5%99%AA%E5%A3%B0%E4%BA%A4%E6%98%93%E8%80%85">噪音交易者</a>，对市场的运行从而产生<a href="http://baike.baidu.com/view/56921.htm">空中阁楼</a>的幻觉</li>
+<li>而股市名言：“股市中什么都可以骗人，唯有量是真实的”，是指标设计的灵感</li>
+<li>大多数的指标只考量价格，而鲜有将量价同时考虑，初衷是为了增强指标的可信度。</li>
+</ul>
+
+
+<h2>w-power的公式</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>VO:=MA(VOL,N);
+</span><span class='line'>MAGIC_VOL:=MA(VO/LLV(VO,M),M);
+</span><span class='line'>C_BBI:=(MA(CLOSE,3)+MA(CLOSE,6)+MA(CLOSE,12))/3;
+</span><span class='line'>H_BBI:=(MA(HIGH,3)+MA(HIGH,6)+MA(HIGH,12))/3;
+</span><span class='line'>L_BBI:=(MA(LOW,3)+MA(LOW,6)+MA(LOW,12))/3;
+</span><span class='line'>
+</span><span class='line'>MAGIC_CP_BBI:(C_BBI-LLV(L_BBI,M))/(HHV(H_BBI,M)-LLV(L_BBI,M));
+</span><span class='line'>
+</span><span class='line'>POWER:MAGIC_CP_BBI*MAGIC_VOL;
+</span><span class='line'>POWER_BBI:=(MA(POWER,3)+MA(POWER,6)+MA(POWER,12)+MA(POWER,24))/4;
+</span><span class='line'>
+</span><span class='line'>POWER_BBI_AD:POWER_BBI+1.809*STD(POWER_BBI,M);
+</span><span class='line'>POWER_BBI_DE:POWER_BBI-2.191*STD(POWER_BBI,M);
+</span><span class='line'>
+</span><span class='line'>DRAWTEXT(CROSS(POWER,POWER_BBI_AD),POWER,&#39;B&#39;),COLORGREEN,LINETHICK3;
+</span><span class='line'>DRAWTEXT(CROSS(POWER_BBI_AD,POWER),POWER,&#39;S&#39;),COLORRED,LINETHICK3;
+</span><span class='line'>
+</span><span class='line'>HI:FINDHIGH(POWER,0,R,1);
+</span><span class='line'>LO:FINDLOW(POWER,0,R,1);
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>参数 N 15 M 3 R 30</p></li>
+<li><p>解释</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>VO赋值:成交量(手)的N日简单移动平均
+</span><span class='line'>MAGIC_VOL赋值:VO/M日内VO的最低值的M日简单移动平均
+</span><span class='line'>C_BBI赋值:(收盘价的3日简单移动平均+收盘价的6日简单移动平均+收盘价的12日简单移动平均)/3
+</span><span class='line'>H_BBI赋值:(最高价的3日简单移动平均+最高价的6日简单移动平均+最高价的12日简单移动平均)/3
+</span><span class='line'>L_BBI赋值:(最低价的3日简单移动平均+最低价的6日简单移动平均+最低价的12日简单移动平均)/3
+</span><span class='line'>输出MAGIC_CP_BBI:(C_BBI-M日内L_BBI的最低值)/(M日内H_BBI的最高值-M日内L_BBI的最低值)
+</span><span class='line'>输出POWER:MAGIC_CP_BBI*MAGIC_VOL
+</span><span class='line'>POWER_BBI赋值:(POWER的3日简单移动平均+POWER的6日简单移动平均+POWER的12日简单移动平均+POWER的24日简单移动平均)/4
+</span><span class='line'>输出POWER_BBI_AD:POWER_BBI+1.809*POWER_BBI的M日估算标准差
+</span><span class='line'>输出POWER_BBI_DE:POWER_BBI-2.191*POWER_BBI的M日估算标准差
+</span><span class='line'>当满足条件POWER上穿POWER_BBI_AD时,在POWER位置书写文字,画绿色,线宽为3
+</span><span class='line'>当满足条件POWER_BBI_AD上穿POWER时,在POWER位置书写文字,画红色,线宽为3
+</span><span class='line'>输出HI:POWER在0日前的R天内第1个最高价
+</span><span class='line'>输出LO:POWER在0日前的R天内第1个最低价
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>用法</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>1.与KDJ指标类似，指标太高，可能价格被高估；指标太低可能被低估
+</span><span class='line'>2.BS点只是作为参考，近几个周期如果频繁出现BS点，可能说明价格正在进行一定区间的震荡整理，行情将会在之后出现
+</span><span class='line'>3.建议使用的方法，对指标图形作趋势线，分析较为准确。
+</span><span class='line'>3.2 以射线连接多个周期的波峰，作为压力线，指标运行到压力线，可能承压下行。支撑线亦如此。
+</span><span class='line'>4.最高线HI，与最低线LO两者之间的关系，也可以作为判断价格走势的标准
+</span><span class='line'>4.2 HI不变时，LO下降，价格快速下降，寻找短期底部
+</span><span class='line'>4.3 LO不变时，Hi上升，价格快速上升，冲击短期高点
+</span><span class='line'>4.4 依照以上规律，可以找出很多相似的规律
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>w-power的效果</h2>
+
+<ul>
+<li><img src="/images/silver20140805.png" alt="silver-w-powre1" /></li>
+<li><img src="/images/silver20140817.png" alt="silver-w-power2" /></li>
+<li><img src="/images/silver20140830.png" alt="silver-w-power3" /></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-31T20:35:00+08:00" pubdate data-updated="true">Aug 31<span>st</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/stock/'>Stock</a>, <a class='category' href='/blog/categories/share/'>share</a>, <a class='category' href='/blog/categories/ji-zhu-fen-xi/'>技术分析</a>, <a class='category' href='/blog/categories/zhi-biao/'>指标</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2014/08/31/gai-jin-de-chao-mai-chao-mai-zhi-biao-w-power/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2014/08/31/gai-jin-de-chao-mai-chao-mai-zhi-biao-w-power/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/31/2014nian-de-7yue/" title="Previous Post: 2014年的7月">&laquo; 2014年的7月</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/31/gai-jin-de-chao-mai-chao-mai-zhi-biao-w-power/">改进的超买超卖指标w-power</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/31/2014nian-de-7yue/">2014年的7月</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/30/yong-zhi-wang-jian-dan-cha-zhao-lun-wen-xin-xi/">用知网简单查找论文信息</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>前证券经纪人:s1090414030081</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70">
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"wuwenjie"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2014 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
