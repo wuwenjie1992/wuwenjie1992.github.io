@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | 吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2014-08-31T21:55:38+08:00</updated>
+  <updated>2014-10-05T20:42:22+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[关于自行翻译bbpress的要点]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian/"/>
+    <updated>2014-09-30T18:59:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian</id>
+    <content type="html"><![CDATA[<h2>what is bbpress</h2>
+
+<ul>
+<li>bbpress 是一款由<a href="https://cn.wordpress.org/">WordPress</a>(zh_CN)的创作者编写的论坛软件</li>
+</ul>
+
+
+<!--more-->
+
+
+<ul>
+<li>它是作为一个WordPress的插件，先安装wp，然后你可以在<a href="https://bbpress.org/download/">此下载</a>它</li>
+<li>它的理念</li>
+<li>开源，直到永远！</li>
+<li>更少的代码</li>
+<li>代码是诗</li>
+<li>简约是一种功能</li>
+<li>造就优秀用户体验，最重要的是速度和安全性</li>
+</ul>
+
+
+<h2>bbpress localization</h2>
+
+<ul>
+<li>bbpress的默认语言是英语</li>
+<li>本地化可以使用wp-content/plugins/bbpress/languages/bbpress.pot的文件进行翻译</li>
+<li>.pot文件是<a href="https://zh.wikipedia.org/wiki/Gettext#.E5.BC.80.E5.8F.91">xgettext</a>程序从源代码生成的</li>
+<li>.po文件作为源代码中需翻译内容的模板</li>
+</ul>
+
+
+<h2>how to translate</h2>
+
+<ul>
+<li>将.pot文件另存为.po文件</li>
+<li>重命名，bbpress-zh_CN.po文件</li>
+<li>在msgstr中填写翻译后的文字</li>
+<li>型如
+<code>text
+  #. Author of the plugin/theme
+  msgid "The bbPress Community"
+  msgstr "bbPress的社区"
+</code></li>
+<li>在翻译完毕之后，使用msgfmt命令</li>
+<li>msgfmt bbpress-zh_CN.po -o bbpress-zh_CN.mo</li>
+<li>如果没有错误后，即可生成.mo文件</li>
+<li>最后将bbpress-zh_CN.po bbpress-zh_CN.mo <a href="http://codex.bbpress.org/bbpress-in-your-language/">上传</a>到wp-content/languages/plugins目录下</li>
+</ul>
+
+
+<h2>The effect</h2>
+
+<ul>
+<li>你可以访问这个仅经过翻译的原生bbpress站点，<a href="http://www.wuhuixin.tk/forums/">论坛</a></li>
+<li>此站点并未完全翻译完成，可能会中英同时出现</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs 2]]></title>
@@ -546,213 +611,6 @@ printf("\e[1;33mAuthor:wuwenjie.tk\e[0m\n");
 
 <p>}
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[原油指数抓取+android浮动窗口Service]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2013/05/05/Crude-oil-index-grep-android-floating-window-Service/"/>
-    <updated>2013-05-05T10:02:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2013/05/05/Crude-oil-index-grep-android-floating-window-Service</id>
-    <content type="html"><![CDATA[<h1>1.原油指数抓取</h1>
-
-
-<p>1.0 背景</p>
-
-<p>ICBC工商银行推出的<a title="账户原油" href="http://www.icbc.com.cn/ICBC/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E4%BA%A7%E5%93%81%E6%9C%8D%E5%8A%A1/%E6%8A%95%E8%B5%84%E4%BA%A4%E6%98%93%E7%B1%BB%E4%BA%A7%E5%93%81/%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9/default.htm" target="_blank">账户原油</a>，</p>
-
-<!-- more -->
-
-
-<p>以人民币交易是按照</p>
-
-<p><span id="MyFreeTemplateUserControl"><a title="NYMEX" href="http://zh.wikipedia.org/wiki/%E7%B4%90%E7%B4%84%E5%95%86%E5%93%81%E6%9C%9F%E8%B2%A8%E4%BA%A4%E6%98%93%E6%89%80" target="_blank">纽约商业交易所</a>（NYMEX）</span></p>
-
-<p><span id="MyFreeTemplateUserControl"><a title="西得克萨斯中间基原油" href="http://zh.wikipedia.org/wiki/%E8%A5%BF%E5%BE%97%E5%85%8B%E8%90%A8%E6%96%AF%E4%B8%AD%E9%97%B4%E5%9F%BA%E5%8E%9F%E6%B2%B9" target="_blank">西德克萨斯轻质低硫原油</a>期货合约（WTI）价格报价，</span></p>
-
-<p><span id="MyFreeTemplateUserControl">以及账户国际原油参考洲际交易所（ICE）</span></p>
-
-<p><span id="MyFreeTemplateUserControl"><a title="搜索/北海布伦特原油" href="http://zh.wikipedia.org/wiki/Special:%E6%90%9C%E7%B4%A2/%E5%8C%97%E6%B5%B7%E5%B8%83%E4%BC%A6%E7%89%B9%E5%8E%9F%E6%B2%B9" target="_blank">布伦特原油</a>期货合约（Brent）价格报价</span></p>
-
-<p><span id="MyFreeTemplateUserControl">和综合考虑人民币与美元汇率报价的。</span></p>
-
-<p>1.1 SHELL实现</p>
-
-<p>&nbsp;</p>
-
-<p>```bash</p>
-
-<h1>!/bin/sh</h1>
-
-<p>#</p>
-
-<h1>抓取 wap.eastmoney.com 原油指数</h1>
-
-<h1>最新价</h1>
-
-<p>latestprice=&ldquo;&rdquo;;</p>
-
-<h1>涨跌值</h1>
-
-<p>Pricevalue=&ldquo;&rdquo;;</p>
-
-<h1>涨跌幅</h1>
-
-<p>risingAndfalling=&ldquo;&rdquo;;</p>
-
-<h1>今开盘</h1>
-
-<p>openingQuotation=&ldquo;&rdquo;;</p>
-
-<h1>最高价</h1>
-
-<p>ceilingprice=&ldquo;&rdquo;;</p>
-
-<h1>最低价</h1>
-
-<p>bottomprice=&ldquo;&rdquo;;</p>
-
-<h1>昨收盘</h1>
-
-<p>closingQuotation=&ldquo;&rdquo;;</p>
-
-<h1>交易时间</h1>
-
-<p>exchangehour=&ldquo;&rdquo;;</p>
-
-<h1>分时图URL</h1>
-
-<p>timeLine=&ldquo;&rdquo;;</p>
-
-<h1>K线图</h1>
-
-<p>KChart=&ldquo;&rdquo;;</p>
-
-<h1>获得html</h1>
-
-<p>wget -O conc.html -q &mdash;user-agent=&ldquo;Mobile Safari/534.30&rdquo; &mdash;no-cookies \
-&mdash;referer=&ldquo;<a href="http://wap.eastmoney.com/Futures.aspx">http://wap.eastmoney.com/Futures.aspx</a>&rdquo; \
-<a href="http://wap.eastmoney.com/FuturesInfo.aspx?c=CONC">http://wap.eastmoney.com/FuturesInfo.aspx?c=CONC</a></p>
-
-<h1>最新价：.{7}(.{4,5})</h1>
-
-<p>latestprice=&ldquo;<code>grep -o '最新价：.\{7\}\(.\{4,5\}\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"")'</code>&rdquo;</p>
-
-<h1>gsub(r,s,t) 在字符串t中，用s替换和正则r匹配所有字符串 返回替换的个数。如果没有给出t，缺省为$0</h1>
-
-<h1>涨跌值：.{45}(.{3,5}[0-9])</h1>
-
-<p>Pricevalue=&ldquo;<code>grep -o '涨跌值：.\{45\}\(.\{3,5\}[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"")'</code>&rdquo;</p>
-
-<h1>涨跌幅：.{45}(.{4,5}%)</h1>
-
-<p>risingAndfalling=&ldquo;<code>grep -o '涨跌幅：.\{45\}\(.\{4,5\}%\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"")'</code>&rdquo;</p>
-
-<h1>今开盘：.{7}(.{3,5}[0-9])</h1>
-
-<p>openingQuotation=&ldquo;<code>grep -o '今开盘：.\{7\}\(.\{3,5\}[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"")'</code>&rdquo;</p>
-
-<h1>最高价：.{7}(.{4,5}[0-9])</h1>
-
-<p>ceilingprice=&ldquo;<code>grep -o '最高价：.\{7\}\(.\{4,5\}[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"")'</code>&rdquo;</p>
-
-<h1>最低价：.{7}(.{4,5}[0-9])</h1>
-
-<p>bottomprice=&ldquo;<code>grep -o '最低价：.\{7\}\(.\{4,5\}[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"")'</code>&rdquo;</p>
-
-<h1>昨收盘：.{7}(.{4,5}[0-9])</h1>
-
-<p>closingQuotation=&ldquo;<code>grep -o '昨收盘：.\{7\}\(.\{4,5\}[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"")'</code>&rdquo;</p>
-
-<h1>交易时间：.{7}(.{19})</h1>
-
-<p>exchangehour=&ldquo;<code>grep -o '交易时间：.\{7\}\(.\{19\}\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"")'</code>&rdquo;</p>
-
-<h1>分时图.<em>(ht.</em>)K</h1>
-
-<p>timeLine=&ldquo;<code>grep -o '分时图.*\(ht.*\)K' conc.html|\
-grep -o '\(http.*0\)'|awk 'gsub(/amp;/,"")'</code>&rdquo;</p>
-
-<h1>获得分时图</h1>
-
-<p>wget -O timeline.png -q &mdash;user-agent=&ldquo;Mobile Safari/534.30&rdquo; &mdash;no-cookies \
-&mdash;referer=&ldquo;<a href="http://wap.eastmoney.com/Futures.aspx">http://wap.eastmoney.com/Futures.aspx</a>&rdquo; $timeLine</p>
-
-<h1>获得k线图 K线图.<em>(ht.</em>C0)</h1>
-
-<p>KChart=&ldquo;<code>grep -o 'K线图.*\(ht.*C0\)' conc.html|\
-grep -o '\(http.*0\)'|awk 'gsub(/amp;/,"")'</code>&rdquo;;</p>
-
-<p>wget -O KChart.png -q &mdash;user-agent=&ldquo;Mobile Safari/534.30&rdquo; &mdash;no-cookies \
-&mdash;referer=&ldquo;<a href="http://wap.eastmoney.com/Futures.aspx">http://wap.eastmoney.com/Futures.aspx</a>&rdquo; $KChart</p>
-
-<p>echo $latestprice
-echo $Pricevalue
-echo $risingAndfalling
-echo $openingQuotation
-echo $ceilingprice
-echo $bottomprice
-echo $closingQuotation
-echo $exchangehour</p>
-
-<h1>echo $timeLine</h1>
-
-<h1>echo $KChart</h1>
-
-<p>tPicPath=&ldquo;<code>pwd</code>&rdquo;&ldquo;/timeline.png&rdquo;;
-KPicPath=&ldquo;<code>pwd</code>&rdquo;&ldquo;/KChart.png&rdquo;;</p>
-
-<p>notify-send -t 20000 -i $tPicPath  &ldquo;$latestprice $Pricevalue&rdquo; &ldquo; $risingAndfalling $openingQuotation \
-$ceilingpric $bottomprice $closingQuotation $exchangehour&rdquo;
-```
-注：grep 的正则表达式也许不准(在网页的改变下）</p>
-
-<p>1.2 效果</p>
-
-<p><img alt="效果" src="http://i.troll.ws/c914df5d.png" width="499" height="103" /></p>
-
-<p>more:
-<a href="http://www.icbc.com.cn/ICBC/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E4%BA%A7%E5%93%81%E6%9C%8D%E5%8A%A1/%E6%8A%95%E8%B5%84%E4%BA%A4%E6%98%93%E7%B1%BB%E4%BA%A7%E5%93%81/%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9/default.htm" target="_blank">账户原油</a>
-<a href="http://www.icbc.com.cn/icbc/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E5%AD%A6%E8%8B%91/%E7%83%AD%E7%82%B9%E9%97%AE%E7%AD%94/%E4%B8%AD%E5%9B%BD%E5%B7%A5%E5%95%86%E9%93%B6%E8%A1%8C%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9%E4%B8%9A%E5%8A%A1%E7%9F%A5%E8%AF%86%E9%97%AE%E7%AD%941.htm" target="_blank">中国工商银行账户原油业务知识问答</a>
-<strong>2.android浮动窗口Service</strong></p>
-
-<p><a title="FloatView.java" href="https://github.com/wuwenjie1992/Xhullo/blob/master/src/wo/wocom/xwell/view/FloatView.java" target="_blank">FloatView.java</a></p>
-
-<p><a title="SV_FloateViewService" href="https://github.com/wuwenjie1992/Xhullo/blob/master/src/wo/wocom/xwell/service/SV_FloateViewService.java" target="_blank">SV_FloateViewService.java</a></p>
-
-<p>```java
-ComponentName component = new ComponentName
-(this,wo.wocom.xwell.service.SV_FloateViewService.class);</code></p>
-
-<p>// 组件名称，intent会根据component</p>
-
-<p>// name启动一个组件（activity,service,contentProvider）</p>
-
-<p>Intent mIntent01 = new Intent();</p>
-
-<p>mIntent01.setComponent(component);</p>
-
-<p>startService(mIntent01);
-```</p>
-
-<p>效果：</p>
-
-<p><img alt="浮动窗口" src="http://i.troll.ws/ab5bef34.png" width="320" height="480" /></p>
-
-<p>注：该版除屏幕外其他按键不能工作，</p>
-
-<p>原因LayoutParams相关参数的设置（可能导致）</p>
-
-<p>LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH</p>
-
-<h2>&nbsp;</h2>
-
-<p>更新：</p>
-
-<p>添加WindowManager.LayoutParams.flags的设置LayoutParams.FLAG_NOT_FOCUSABLE</p>
-
-<p>//FLAG_NOT_FOCUSABLE Constant Value: 8 (0x00000008)不聚焦 可使实体按键反应//Window flag: this window won&rsquo;t ever get key input focus,
-//so the user can not send key or other button events to it.</p>
 ]]></content>
   </entry>
   

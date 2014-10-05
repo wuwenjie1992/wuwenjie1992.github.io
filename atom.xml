@@ -4,7 +4,7 @@
   <title><![CDATA[吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2014-08-31T21:55:38+08:00</updated>
+  <updated>2014-10-05T20:42:22+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,79 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[关于自行翻译bbpress的要点]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian/"/>
+    <updated>2014-09-30T18:59:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian</id>
+    <content type="html"><![CDATA[<h2>what is bbpress</h2>
+
+<ul>
+<li>bbpress 是一款由<a href="https://cn.wordpress.org/">WordPress</a>(zh_CN)的创作者编写的论坛软件</li>
+</ul>
+
+
+<!--more-->
+
+
+<ul>
+<li>它是作为一个WordPress的插件，先安装wp，然后你可以在<a href="https://bbpress.org/download/">此下载</a>它</li>
+<li>它的理念</li>
+<li>开源，直到永远！</li>
+<li>更少的代码</li>
+<li>代码是诗</li>
+<li>简约是一种功能</li>
+<li>造就优秀用户体验，最重要的是速度和安全性</li>
+</ul>
+
+
+<h2>bbpress localization</h2>
+
+<ul>
+<li>bbpress的默认语言是英语</li>
+<li>本地化可以使用wp-content/plugins/bbpress/languages/bbpress.pot的文件进行翻译</li>
+<li>.pot文件是<a href="https://zh.wikipedia.org/wiki/Gettext#.E5.BC.80.E5.8F.91">xgettext</a>程序从源代码生成的</li>
+<li>.po文件作为源代码中需翻译内容的模板</li>
+</ul>
+
+
+<h2>how to translate</h2>
+
+<ul>
+<li>将.pot文件另存为.po文件</li>
+<li>重命名，bbpress-zh_CN.po文件</li>
+<li>在msgstr中填写翻译后的文字</li>
+<li>型如</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>#. Author of the plugin/theme
+</span><span class='line'>msgid &quot;The bbPress Community&quot;
+</span><span class='line'>msgstr &quot;bbPress的社区&quot;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在翻译完毕之后，使用msgfmt命令</li>
+<li>msgfmt bbpress-zh_CN.po -o bbpress-zh_CN.mo</li>
+<li>如果没有错误后，即可生成.mo文件</li>
+<li>最后将bbpress-zh_CN.po bbpress-zh_CN.mo <a href="http://codex.bbpress.org/bbpress-in-your-language/">上传</a>到wp-content/languages/plugins目录下</li>
+</ul>
+
+
+<h2>The effect</h2>
+
+<ul>
+<li>你可以访问这个仅经过翻译的原生bbpress站点，<a href="http://www.wuhuixin.tk/forums/">论坛</a></li>
+<li>此站点并未完全翻译完成，可能会中英同时出现</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[改进的超买超卖指标w-power]]></title>
@@ -2614,60 +2687,6 @@ linux 上 搞C&amp;shell 可以学学C++</p>
 
 <p>&nbsp;
 注意：chmod u+x iconv2.sh 执行：./iconv2.sh</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[C4droid (C/C++ compiler) Android上的C/C++的IDE和编译器]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2012/09/13/c4droid-cc-compiler-android/"/>
-    <updated>2012-09-13T17:53:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2012/09/13/c4droid-cc-compiler-android</id>
-    <content type="html"><![CDATA[<p>C4droid is a simple C/C++ IDE + C/C++ compiler for Android with Makefile support.
-C4droid already has almost full C language support,
-so you don&rsquo;t need to wait when it will be added.</p>
-
-<p>&nbsp;</p>
-
-<p>C4droid 是一个android上的，提供Makefile支持的，</p>
-
-<p>简单的C/C++的IDE和C/C++的编译器。
-C4droid 已经几乎完全支持C语言，</p>
-
-<p>所以当它被编译时你已不需要等待。</p>
-
-<!-- more -->
-
-
-<p>&nbsp;</p>
-
-<p>注意：C++的支持</p>
-
-<p>To get C++ support you need:
-0) Enough internal memory OR root rights.
-1) Install GCC plugin (C4droid will ask you to install it).
-2) Select G++ compiler in C4droid preferences.
-3<em>) Use iostream, not iostream.h
-4</em>) Add &ldquo;using namespace std;&rdquo; to your program (before int main)</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p><a href="http://www.iapktop.com/c4droid-cc-compiler-3-56-2.html"><img class="alignnone" title="C4droid" src="http://www.apktops.com/wp-content/uploads/2012/03/C4droid-1.jpg" alt="C4droid" width="307" height="512" /></a></p>
-
-<p><a href="http://www.iapktop.com/c4droid-cc-compiler-3-56-2.html"><img class="alignnone" src="http://www.apktops.com/wp-content/uploads/2012/03/C4droid-3.jpg" alt="" width="307" height="512" /></a></p>
-
-<p><a href="http://www.iapktop.com/c4droid-cc-compiler-3-56-2.html"><img class="alignnone" src="http://www.apktops.com/wp-content/uploads/2012/03/C4droid-2.jpg" alt="" width="307" height="512" /></a></p>
-
-<p>&mdash;&mdash;&mdash;&mdash;&mdash;-more&mdash;&mdash;&mdash;&mdash;</p>
-
-<p><a title="说明" href="https://play.google.com/store/apps/details?id=com.n0n3m4.droidc#%E8%AF%B4%E6%98%8E" target="_blank">Google play的说明</a></p>
-
-<p><a title="com.n0n3m4.droidc" href="https://play.google.com/store/apps/details?id=com.n0n3m4.droidc" target="_blank">Google Play 地址</a></p>
-
-<p><a title="iapktop" href="http://www.iapktop.com/c4droid-cc-compiler-3-56-2.html" target="_blank">第三方地址</a>1</p>
-
-<p><a title="http://filemarkets.com/file/common/cf2a4991/" href="http://filemarkets.com/file/common/cf2a4991/" target="_blank">第三方地址2</a></p>
 ]]></content>
   </entry>
   
