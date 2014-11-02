@@ -9,7 +9,7 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="方式一：利用DNS服务器进行DDOS攻击 正常的DNS服务器递 归查询过程可能被利用成DDOS攻击。假设攻击者已知被攻击机器的IP地址，然后攻击者使用该地址作为发送解析命令的源地址。这样当使用DNS服务器递归 查询后，DNS服务器响应给最初用户，而这个用户正是被攻击者。 &hellip;">
+  <meta name="description" content="连接：mysql -h主机地址 -u用户名 －p用户密码 （注:u与root可以不用加空格，其它也一样） 断开：exit （回车） 创建授权：grant select on 数据库.* to 用户名@登录主机 identified by \&ldquo;密码\&rdquo; 修改密码： &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +82,141 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/03/mysql-cmd-command-MySQL-C-data-structures-SQL/">[转]mysql Cmd命令 MySQLCC++数据结构SQL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-03T02:14:00+08:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2011</time>
+        
+        
+          | <a href="/blog/2011/07/03/mysql-cmd-command-MySQL-C-data-structures-SQL/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.wuwenjie.tk/wp-content/uploads/2011/07/start_mysql.gif"><img class="size-full wp-image-72" title="start_mysql" src="http://www.wuwenjie.tk/wp-content/uploads/2011/07/start_mysql.gif" alt="start_mysql" width="498" height="234" /></a></p>
+
+<p>连接：mysql -h主机地址 -u用户名 －p用户密码 （注:u与root可以不用加空格，其它也一样）</p>
+
+<p>断开：exit （回车）</p>
+
+<p>创建授权：grant select on 数据库.* to 用户名@登录主机 identified by \&ldquo;密码\&rdquo;</p>
+
+<p>修改密码：mysqladmin -u用户名 -p旧密码 password 新密码</p>
+
+<p>删除授权: revoke select,insert,update,delete om <em>.</em> from test2@localhost;</p>
+
+<p>显示数据库：show databases;</p>
+
+<p>显示数据表：show tables;</p>
+
+<p>显示表结构：describe 表名;</p>
+
+<p>创建库：create database 库名;</p>
+
+<p>删除库：drop database 库名;</p>
+
+<p>使用库：use 库名;</p>
+
+<p>创建表：create table 表名 (字段设定列表);</p>
+
+<p>删除表：drop table 表名;</p>
+
+<p>修改表：alter table t1 rename t2</p>
+
+<p>查询表：select * from 表名;</p>
+
+<p>清空表：delete from 表名;</p>
+
+<p>备份表: mysqlbinmysqldump -h(ip) -uroot -p(password) databasename tablename &gt; tablename.sql</p>
+
+<p>恢复表: mysqlbinmysql -h(ip) -uroot -p(password) databasename tablename &lt; tablename.sql（操作前先把原来表删除） 增加列：ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT,ADD INDEX &copy;; 修改列：ALTER TABLE t2 MODIFY a TINYINT NOT NULL, CHANGE b c CHAR(20); 删除列：ALTER TABLE t2 DROP COLUMN c; 备份数据库：mysql\bin\mysqldump -h(ip) -uroot -p(password) databasename &gt; database.sql</p>
+
+<p>恢复数据库：mysql\bin\mysql -h(ip) -uroot -p(password) databasename &lt; database.sql 复制数据库：mysql\bin\mysqldump &mdash;all-databases &gt; all-databases.sql</p>
+
+<p>修复数据库：mysqlcheck -A -o -uroot -p54safer</p>
+
+<p>文本数据导入： load data local infile \&ldquo;文件名\&rdquo; into table 表名;</p>
+
+<p>数据导入导出：mysql\bin\mysqlimport database tables.txt</p>
+
+<p>执行sql文件：source 路径+文件（用“/”）2009-07-21</p>
+
+<p>mysql cmd命令</p>
+
+<p>MySQLCC++数据结构SQL</p>
+
+<p>连接：mysql -h主机地址 -u用户名 －p用户密码 （注:u与root可以不用加空格，其它也一样）</p>
+
+<p>断开：exit （回车）</p>
+
+<p>创建授权：grant select on 数据库.* to 用户名@登录主机 identified by \&ldquo;密码\&rdquo;</p>
+
+<p>修改密码：mysqladmin -u用户名 -p旧密码 password 新密码</p>
+
+<p>删除授权: revoke select,insert,update,delete om <em>.</em> from test2@localhost;</p>
+
+<p>显示数据库：show databases;</p>
+
+<p>显示数据表：show tables;</p>
+
+<p>显示表结构：describe 表名;</p>
+
+<p>创建库：create database 库名;</p>
+
+<p>删除库：drop database 库名;</p>
+
+<p>使用库：use 库名;</p>
+
+<p>创建表：create table 表名 (字段设定列表);</p>
+
+<p>删除表：drop table 表名;</p>
+
+<p>修改表：alter table t1 rename t2</p>
+
+<p>查询表：select * from 表名;</p>
+
+<p>清空表：delete from 表名;</p>
+
+<p>备份表: mysqlbinmysqldump -h(ip) -uroot -p(password) databasename tablename &gt; tablename.sql</p>
+
+<p>恢复表: mysqlbinmysql -h(ip) -uroot -p(password) databasename tablename &lt; tablename.sql（操作前先把原来表删除） 增加列：ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT,ADD INDEX &copy;; 修改列：ALTER TABLE t2 MODIFY a TINYINT NOT NULL, CHANGE b c CHAR(20); 删除列：ALTER TABLE t2 DROP COLUMN c; 备份数据库：mysql\bin\mysqldump -h(ip) -uroot -p(password) databasename &gt; database.sql</p>
+
+<p>恢复数据库：mysql\bin\mysql -h(ip) -uroot -p(password) databasename &lt; database.sql 复制数据库：mysql\bin\mysqldump &mdash;all-databases &gt; all-databases.sql</p>
+
+<p>修复数据库：mysqlcheck -A -o -uroot -p54safer</p>
+
+<p>文本数据导入： load data local infile \&ldquo;文件名\&rdquo; into table 表名;</p>
+
+<p>数据导入导出：mysql\bin\mysqlimport database tables.txt</p>
+
+<p>执行sql文件：source 路径+文件（用“/”）</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -384,6 +519,10 @@ Version mini(迷你型) [150x20] ：FLASH <wbr>MP3播放器&mdash;DewPlayer[图�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">[改]阿里的雄心:只对小微的世界感兴趣&#8211; 蚂蚁金服的成立</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian/">关于自行翻译bbpress的要点</a>
       </li>
     
@@ -397,10 +536,6 @@ Version mini(迷你型) [150x20] ：FLASH <wbr>MP3播放器&mdash;DewPlayer[图�
     
       <li class="post">
         <a href="/blog/2014/06/30/yong-zhi-wang-jian-dan-cha-zhao-lun-wen-xin-xi/">用知网简单查找论文信息</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
       </li>
     
   </ul>
@@ -445,10 +580,12 @@ Version mini(迷你型) [150x20] ：FLASH <wbr>MP3播放器&mdash;DewPlayer[图�
 <li>使用Linux（80%),Win7/xp(20%）</li>
 <li>喜欢js、java、Shell，粗通证券、技术分析</li>
 <li>用工商银行投资AgT+D</li>
-<li>前证券经纪人:s1090414030081</li>
+<li>2014.4:证券经纪人:s1090414030081</li>
+<li>2014.8.11:CMBCC</li>
 <li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
 <li><a href="https://github.com/wuwenjie1992">Github</a></li>
 <li><a href="/GnuPG">GnuPG</a></li>
+<li><a href="http://wuhuinxin.tk">Other Website</a></li>
 </p>
 </section>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="（与题无关） 《贵妃醉酒》又名《百花亭》， 源于清乾隆时花部地方戏《醉杨妃》的京剧剧目， 是梅派代表剧目。 写的是唐明皇宠妃杨玉环与明皇约在百花亭赴筵， 久候明皇不至 ，原来他早已转驾西宫。 贵妃羞怒交加， 万端愁绪无以排遣， 遂命高力士、裴力士添杯奉盏， 饮致大醉， 怅然返宫。 &hellip;">
+  <meta name="description" content="在64位系统下启动J2ME的模拟器时会报错： java.lang.UnsatisfiedLinkError: /home/xxx/WTK2.5.2/bin/sublime.so: /home/xxx/WTK2.5.2/bin/sublime.so: wrong ELF class: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +82,81 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/15/WTK-not-start-under-64bit-ubuntu/">64位Ubuntu下WTK无法启动</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-15T14:06:00+08:00" pubdate data-updated="true">Feb 15<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/02/15/WTK-not-start-under-64bit-ubuntu/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在64位系统下启动J2ME的模拟器时会报错：</p>
+
+<p>java.lang.UnsatisfiedLinkError:</p>
+
+<p>/home/xxx/WTK2.5.2/bin/sublime.so:</p>
+
+<p>/home/xxx/WTK2.5.2/bin/sublime.so:</p>
+
+<p>wrong ELF class: ELFCLASS32</p>
+
+<p>(Possible cause: architecture word width mismatch)</p>
+
+<p><a title="点击下载参考图片" href="http://www.21stp.com/cviudvinf.html" target="_blank">点击下载参考图片</a></p>
+
+<p>&nbsp;</p>
+
+<p>提示架构的问题，解决方案是安装一个32位的jre或jdk，</p>
+
+<p>如：jdk-7u3-linux-i586    可安装在，此目录一般为 /usr/lib/jvm/java&hellip;&hellip;/bin/</p>
+
+<p>sudo vi /bin/emulator</p>
+
+<p>将里javapathtowtk修改为新安装的32位jre或jdk的bin目录下，</p>
+
+<p>记得后面的斜线</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p><a href="http://hi.baidu.com/erdosjiang/">http://hi.baidu.com/erdosjiang/</a></p>
+
+<p>blog/item/4a8ee30907719ac363d986eb.html</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -865,45 +940,6 @@ o     others     所有其他用户</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/25/%25e4%25b8%258b%25e7%25a4%25bc%25e6%258b%259c%25e8%2580%2583%25e8%25af%2595%25e5%2595%258a/">下礼拜考试啊</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-25T05:32:00+08:00" pubdate data-updated="true">Dec 25<span>th</span>, 2011</time>
-        
-        
-          | <a href="/blog/2011/12/25/%25e4%25b8%258b%25e7%25a4%25bc%25e6%258b%259c%25e8%2580%2583%25e8%25af%2595%25e5%2595%258a/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>下礼拜考试，考完。寒假想学java和保险学，不能忘了。。。。。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; 老早的</a>
@@ -921,6 +957,10 @@ o     others     所有其他用户</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">[改]阿里的雄心:只对小微的世界感兴趣&#8211; 蚂蚁金服的成立</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian/">关于自行翻译bbpress的要点</a>
       </li>
     
@@ -934,10 +974,6 @@ o     others     所有其他用户</p>
     
       <li class="post">
         <a href="/blog/2014/06/30/yong-zhi-wang-jian-dan-cha-zhao-lun-wen-xin-xi/">用知网简单查找论文信息</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
       </li>
     
   </ul>
@@ -982,10 +1018,12 @@ o     others     所有其他用户</p>
 <li>使用Linux（80%),Win7/xp(20%）</li>
 <li>喜欢js、java、Shell，粗通证券、技术分析</li>
 <li>用工商银行投资AgT+D</li>
-<li>前证券经纪人:s1090414030081</li>
+<li>2014.4:证券经纪人:s1090414030081</li>
+<li>2014.8.11:CMBCC</li>
 <li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
 <li><a href="https://github.com/wuwenjie1992">Github</a></li>
 <li><a href="/GnuPG">GnuPG</a></li>
+<li><a href="http://wuhuinxin.tk">Other Website</a></li>
 </p>
 </section>
 

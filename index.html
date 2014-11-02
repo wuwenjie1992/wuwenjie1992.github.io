@@ -9,7 +9,9 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="what is bbpress bbpress 是一款由WordPress(zh_CN)的创作者编写的论坛软件 ">
+  <meta name="description" content="序 阿里一直走在互联网金融的前列，而现在阿里帝国也做出了一个重要的决定，整合它与金融相关的业务，成立蚂蚁金服。
+蚂蚁金服包括支付宝、支付宝钱包、余额宝、招财宝、蚂蚁小贷和网商银行(筹)、开放的信用平台等。
+让我拭目以待蚂蚁金服给传统金融业带来的变革，未来的金融业必定是更快捷、更方便、更人性化的！ ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +84,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">[改]阿里的雄心:只对小微的世界感兴趣&#8211; 蚂蚁金服的成立</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-31T12:15:00+08:00" pubdate data-updated="true">Oct 31<span>st</span>, 2014</time>
+        
+        
+          | <a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>序</h2>
+
+<ul>
+<li>阿里一直走在<a href="http://wiki.mbalib.com/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D">互联网金融</a>的前列，而现在阿里帝国也做出了一个重要的决定，整合它与金融相关的业务，成立蚂蚁金服。</li>
+<li>蚂蚁金服包括支付宝、支付宝钱包、余额宝、招财宝、蚂蚁小贷和网商银行(筹)、开放的信用平台等。</li>
+<li>让我拭目以待蚂蚁金服给传统金融业带来的变革，未来的金融业必定是更快捷、更方便、更人性化的！</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -523,75 +576,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/">Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-06T21:11:00+08:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
-        
-        
-          | <a href="/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>hello_luence 本地文本查找引擎的一个实例 lucene+nodejs</h2>
-
-<h3>开始</h3>
-
-<ul>
-<li>为什么会有它
-
-<ul>
-<li>我有的时候会想查一些书、文章当中的字，看看这个字到底是怎么用的。</li>
-<li>在网上找到一些html版的书的网站，当用wget抓下来之后，花了很长时间，内容很多，文件很多。</li>
-<li>当然在linux下，有很好的文本查找、处理的工具，比如使用以下命令。
-
-<ul>
-<li><code>find ./* | xargs grep OpenJDK</code></li>
-<li>作用：在当前目录下，找出其中含有<code>OpenJDK</code>的文本。</li>
-<li>解释：<code>find ./*</code> 列出当前目录下所有文件。
-
-<ul>
-<li><code>|</code>管道，将前面的<code>标准输出</code>导入到后面的<code>标准输入</code>。</li>
-<li><a href="http://zh.wikipedia.org/wiki/Xargs"><code>xargs</code></a> ,将<code>标准输入</code>分块给后面的命令，将参数列表转换成小块分段传递给其他命令。</li>
-<li><code>grep OpenJDK</code> ,<a href="http://zh.wikipedia.org/wiki/Grep">grep</a>匹配正则表达式的文本进行搜索，输出匹配或不匹配的行或文本。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>虽然方法简单但每次每个历遍，东西太多时间太长。</li>
-<li>有个<a href="http://lucene.apache.org/">lucene项目</a>,基于Java的全文索引工具包,虽不是搜索引擎，但开源搜索<a href="http://lucene.apache.org/solr/">Solr</a>、<a href="http://nutch.apache.org/">Nutch</a>均基于它。
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; 老早的</a>
@@ -607,6 +591,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">[改]阿里的雄心:只对小微的世界感兴趣&#8211; 蚂蚁金服的成立</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian/">关于自行翻译bbpress的要点</a>
       </li>
     
@@ -620,10 +608,6 @@
     
       <li class="post">
         <a href="/blog/2014/06/30/yong-zhi-wang-jian-dan-cha-zhao-lun-wen-xin-xi/">用知网简单查找论文信息</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a>
       </li>
     
   </ul>
@@ -668,10 +652,12 @@
 <li>使用Linux（80%),Win7/xp(20%）</li>
 <li>喜欢js、java、Shell，粗通证券、技术分析</li>
 <li>用工商银行投资AgT+D</li>
-<li>前证券经纪人:s1090414030081</li>
+<li>2014.4:证券经纪人:s1090414030081</li>
+<li>2014.8.11:CMBCC</li>
 <li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
 <li><a href="https://github.com/wuwenjie1992">Github</a></li>
 <li><a href="/GnuPG">GnuPG</a></li>
+<li><a href="http://wuhuinxin.tk">Other Website</a></li>
 </p>
 </section>
 
