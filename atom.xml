@@ -4,7 +4,7 @@
   <title><![CDATA[吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2014-12-14T13:16:00+08:00</updated>
+  <updated>2014-12-28T17:16:27+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,49 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[白银指数AGL9-20141228技术分析-AGt+d]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2014/12/28/bai-yin-zhi-shu-agl9-20141228ji-zhu-fen-xi-agt-plus-d/"/>
+    <updated>2014-12-28T16:35:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2014/12/28/bai-yin-zhi-shu-agl9-20141228ji-zhu-fen-xi-agt-plus-d</id>
+    <content type="html"><![CDATA[<h2>宏观背景</h2>
+
+<ul>
+<li>最近全球市场风气云涌，看原油、黄金的大跌就可略知一二</li>
+<li>在美联储退出QE、美国经济复苏显现的大背景下，美元升值不可避免</li>
+</ul>
+
+
+<!-- more -->
+
+
+<ul>
+<li>全球货币美元的走强，导致包括原油、金银、矿产等其他大宗商品暴跌</li>
+<li>以中国为代表的新兴市场济增长放缓、需求降低，也是市场下跌原因之一</li>
+</ul>
+
+
+<h2>宏观趋势预测</h2>
+
+<ul>
+<li>据多家主流金融媒体预测，美联储加息预计在15年6月，明显不利于贵金属</li>
+<li>预计15年相当长的时期内，贵金属处于底部震荡整理之中</li>
+</ul>
+
+
+<h2>多图技术分析</h2>
+
+<ul>
+<li>中短期白银在底部受到支撑，可能会寻求技术性修正，需得到多个指标的确认</li>
+<li>如下图
+<img src="http://www.wuwenjie.tk/images/20141227-ag-vol.jpg" alt="白银指数20141227-vol" />
+<img src="http://www.wuwenjie.tk/images/20141227-ag-W-POWER.jpg" alt="白银指数20141227-w-power" />
+<img src="http://www.wuwenjie.tk/images/20141227-ag-W-MA-RSI.jpg" alt="白银指数20141227-w-ma-rsi" /></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[日暮-The sunset]]></title>
@@ -2547,122 +2590,6 @@ sudo apt-get install libsdl1.2debian-all libsdl-image1.2 zlib1g libogg0 libvorbi
 <p><a href="http://page2.yunfile.com/file/common/4441d847/">http://page2.yunfile.com/file/common/4441d847/</a></p>
 
 <p><a href="http://down.tech.sina.com.cn/content/42971.html">http://down.tech.sina.com.cn/content/42971.html</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[冬天的这段时间+AQI信息的抓取（php+java)]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2013/02/01/Winter-time-AQI-information-catch-php-java/"/>
-    <updated>2013-02-01T11:46:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2013/02/01/Winter-time-AQI-information-catch-php-java</id>
-    <content type="html"><![CDATA[<p>2012年末和13年年初，</p>
-
-<p>这段日子不好。</p>
-
-<p>发生人生大变故。</p>
-
-<!-- more -->
-
-
-<p>&nbsp;</p>
-
-<p>第一，大爹grandfa的过世，</p>
-
-<p>亲人病故，让我看淡、看清人生，</p>
-
-<p>也看轻了第二件事，</p>
-
-<p>我的方向找到了方向，</p>
-
-<p>而我失去了方向。</p>
-
-<p>&nbsp;</p>
-
-<p>无所谓，成长=磨练+打击；</p>
-
-<p>人生起起落落，</p>
-
-<p>我已经看到了，</p>
-
-<p>自己的低谷底部。</p>
-
-<p>充满希望还能前进。</p>
-
-<hr />
-
-<p><strong>AQI信息的抓取（php+java)</strong></p>
-
-<p><strong>一、什么是AQI</strong></p>
-
-<p><a title="空气污染指数" href="https://zh.wikipedia.org/wiki/%E7%A9%BA%E6%B0%A3%E6%B1%A1%E6%9F%93%E6%8C%87%E6%95%B8" target="_blank">AQI</a>,<a title="空气质量指数：baidu" href="http://baike.baidu.com/view/3251379.htm" target="_blank">空气质量指数</a>,</p>
-
-<p>反映空气质量的指标。</p>
-
-<p>（更多信息，点击链接）</p>
-
-<p>其中，最为重要的是PM2.5，</p>
-
-<p>之前，冬天前就有，</p>
-
-<p><a title="美国驻上海总领事馆空气质量监测站 " href="http://shanghai-ch.usembassy-china.org.cn/airmonitor.html" target="_blank">米国的PM2.5</a>的预报，</p>
-
-<p>也不当一回事，但冬天到了，</p>
-
-<p>雾霾情况就愈发严重，</p>
-
-<p>我才刚意识到空气污染的现状。</p>
-
-<p>在股市之中，</p>
-
-<p>也开始炒起了“<a href="http://finance.ifeng.com/stock/roll/20130129/7617419.shtml" target="_blank">环保概念股</a>”。</p>
-
-<p>相关链接<a href="http://finance.eastmoney.com/news/1353,20130201271557065.html" target="_blank"> 1</a> <a href="http://stock.eastmoney.com/news/1406,20130131271410936.html" target="_blank">2</a> <a href="http://stock.eastmoney.com/news/1406,20130130271079896.html" target="_blank">3</a> <a href="http://finance.eastmoney.com/news/1350,20130130271044553.html" target="_blank">4</a> <a href="http://www.semc.gov.cn/home/index.aspx" target="_blank">5</a></p>
-
-<p>&nbsp;</p>
-
-<p><strong>二、如何得到AQI</strong></p>
-
-<p>上海：<a href="http://www.semc.gov.cn/home/index.aspx" target="_blank">上海市环境监测中心</a></p>
-
-<p><a href="https://twitter.com/CGShanghaiAir" target="_blank">CGShanghaiAir</a></p>
-
-<p>北京：<a href="https://twitter.com/BeijingAir" target="_blank">BeijingAir</a></p>
-
-<p>&nbsp;</p>
-
-<p><strong>三、代码</strong></p>
-
-<p>以上海环境监测中心的网页上的数据为原始数据资料，</p>
-
-<p>利用php抓取有用信息，因为原始网页包含太多无用信息，</p>
-
-<p>android客户端，在网络不通畅情况下，速度太慢，</p>
-
-<p>获取信息及处理所需时间太长，导致体验下降。</p>
-
-<p>&nbsp;</p>
-
-<p>相关代码：<a title="github" href="https://github.com/wuwenjie1992/Xhullo/blob/master/src/wo/wocom/xwell/XA_AirQuality.java" target="_blank">XA_AirQuality.java</a></p>
-
-<p>相关php代码于最后的注释内</p>
-
-<p>（format 过，排版有问题）</p>
-
-<p>&nbsp;</p>
-
-<p><strong>四、效果</strong></p>
-
-<p>简单的代码，简单的效果。。。</p>
-
-<p><a href="http://www.wuwenjie.tk/2013/02/01/%e5%86%ac%e5%a4%a9%e7%9a%84%e8%bf%99%e6%ae%b5%e4%ba%8baoi_php_java/device-2013-02-01-193536/" rel="attachment wp-att-608"><img class="size-full wp-image-608" title="AQI效果1" src="http://www.wuwenjie.tk/wp-content/uploads/2013/02/device-2013-02-01-193536.png" alt="AQI效果1" width="320" height="480" /></a> AQI效果1</p>
-
-<p>&nbsp;</p>
-
-<p><a href="http://www.wuwenjie.tk/2013/02/01/%e5%86%ac%e5%a4%a9%e7%9a%84%e8%bf%99%e6%ae%b5%e4%ba%8baoi_php_java/device-2013-02-01-193554/" rel="attachment wp-att-609"><img class="size-full wp-image-609" title="AQI效果2" src="http://www.wuwenjie.tk/wp-content/uploads/2013/02/device-2013-02-01-193554.png" alt="AQI效果2" width="320" height="480" /></a> AQI效果2</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
 ]]></content>
   </entry>
   
