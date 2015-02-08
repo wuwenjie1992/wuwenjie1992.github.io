@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[改]SAS-安装与简介 - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="前言 SAS 是数据挖掘界的巨无霸,几十年的发展业务遍布全球各行各业。
+其在官网上介绍的客户案例,有招行（包括Credit Card）、工商、交通、广发等等。
+它是“邪恶的”商业软件，那我为什么还要用它呢？ * 使用简单，只要data步、proc步、options（选项）等即可，不需自己实现算法 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2015/01/31/gai-sas-an-zhuang-yu-jian-jie">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+  <!--<script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>-->
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[改]SAS-安装与简介</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-31T15:43:00+08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2015</time>
+        
+        
+          | <a href="#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>前言</h2>
+
+<ul>
+<li>SAS 是<a href="http://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98">数据挖掘</a>界的巨无霸,几十年的发展业务遍布全球各行各业。</li>
+<li>其在官网上介绍的<a href="http://www.sas.com/zh_cn/customers.html#--">客户案例</a>,有招行（包括Credit Card）、工商、交通、广发等等。</li>
+<li>它是“邪恶的”商业软件，那我为什么还要用它呢？</li>
+</ul>
+
+
+<!-- more -->
+
+
+<pre><code>* 使用简单，只要data步、proc步、options（选项）等即可，不需自己实现算法。
+* 方法全，基本上囊括了大部分计量统计、数据挖掘方面的方法。
+</code></pre>
+
+<ul>
+<li>问题：当你挖掘得深了以后，发现SAS会是你成长上的<a href="http://zh.wikipedia.org/zh/%E6%A1%8E%E6%A2%8F">桎梏</a>（zhì ɡù）。
+
+<ul>
+<li>因为算法的实现都被包裹起来了，你只能做参数的改动，无法改进算法。</li>
+<li>SAS的简单语法也给做复杂项目，带来了很多麻烦。</li>
+</ul>
+</li>
+<li>解决方案：以SAS作为入门级的工具 &ndash;> 进阶后可使用<a href="http://www.r-project.org/">R</a> &ndash;> 高级后使用编程语言。</li>
+</ul>
+
+
+<h2>下载</h2>
+
+<ul>
+<li>google搜索 ： SAS.9.2多国语言版.iso site:pan.baidu.com</li>
+<li>约3GB，3,188,455,424字节。</li>
+<li>用不了google搜索？ 可以使用<a href="https://github.com/lenbo-ma/gso">gso</a>,它是基于nodejs的开源google搜索代理服务。</li>
+<li>可用列表 &ndash;> <a href="https://github.com/lenbo-ma/gso/wiki/%E5%8F%AF%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%88%97%E8%A1%A8">点这里</a></li>
+</ul>
+
+
+<h2>安装</h2>
+
+<ul>
+<li>下载后，解压SAS.9.2多国语言版.iso (md5sum:41b1b1098837d9a0cafb73fc8781055e)</li>
+<li>搜索：SAS9.2多国语言版安装破解图解，<a href="http://wenku.baidu.com/view/f358faedba0d4a7302763ad4.html">破解教程</a>。</li>
+<li>重要步骤：
+
+<ul>
+<li>将系统时间调整到2009年1月1日，适合于SID文件的时间，否则会被识别为过期。</li>
+<li>替换sashost.dll文件，在你的安装路径\SASFoundation\9.2下。</li>
+<li>破解完成后即可改回时间。</li>
+</ul>
+</li>
+<li>破解文件：SID文件、sashost.dll (md5sum:a82df493b9faeb7bd261728345e413d1)</li>
+<li>下载 &ndash;> <a href="/images/SAS9.2.zip">点这里</a></li>
+</ul>
+
+
+<h2>简介</h2>
+
+<iframe src ="/images/SAS教程.pdf" width="800" height="1000">
+<p>你的浏览器不支持iframes！</p>
+</iframe>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-31T15:43:00+08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/data-mining/'>Data mining</a>, <a class='category' href='/blog/categories/sas/'>SAS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2015/01/31/gai-sas-an-zhuang-yu-jian-jie/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2015/01/31/gai-sas-an-zhuang-yu-jian-jie/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/28/bai-yin-zhi-shu-agl9-20141228ji-zhu-fen-xi-agt-plus-d/" title="Previous Post: 白银指数AGL9-20141228技术分析-AGt+d">&laquo; 白银指数AGL9-20141228技术分析-AGt+d</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/31/gai-sas-an-zhuang-yu-jian-jie/">[改]SAS-安装与简介</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/28/bai-yin-zhi-shu-agl9-20141228ji-zhu-fen-xi-agt-plus-d/">白银指数AGL9-20141228技术分析-AGt+d</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/30/ri-mu-the-sunset/">日暮-the Sunset</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">[改]阿里的雄心:只对小微的世界感兴趣-- 蚂蚁金服的成立</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian/">关于自行翻译bbpress的要点</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://troll.ws/">troll.ws</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>2014.4:证券经纪人:s1090414030081</li>
+<li>2014.8.11:CMBCC</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+<li><a href="http://wuhuinxin.tk">Other Website</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70">
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"wuwenjie"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2015 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
