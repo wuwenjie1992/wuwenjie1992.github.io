@@ -9,11 +9,8 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="Workrave is a program that assists in
-the recovery and prevention of
-Repetitive Strain Injury (RSI).
-The program frequently alerts
-you to take micro- &hellip;">
+  <meta name="description" content="在 Linux 下肯定要经常和命令行打交道，Linux 下的命令有无数，想知道自己经常用的命令 Top 10 是哪些吗？
+实现起来很简单，把下面的这一长串命令粘进终端，执行就可以看到结果： history | awk &#8216;{CMD[$2]++ ;count++ ;}END { for ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +85,55 @@ you to take micro- &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/26/%25e4%25bd%25a0%25e6%259c%2580%25e5%25b8%25b8%25e7%2594%25a8%25e7%259a%2584-10-%25e6%259d%25a1%25e5%2591%25bd%25e4%25bb%25a4%25e6%2598%25af%25e4%25bb%2580%25e4%25b9%2588%25ef%25bc%259f/">你最常用的 命令是什么？</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-26T07:59:00+08:00" pubdate data-updated="true">Nov 26<span>th</span>, 2011</time>
+        
+        
+          | <a href="/blog/2011/11/26/%25e4%25bd%25a0%25e6%259c%2580%25e5%25b8%25b8%25e7%2594%25a8%25e7%259a%2584-10-%25e6%259d%25a1%25e5%2591%25bd%25e4%25bb%25a4%25e6%2598%25af%25e4%25bb%2580%25e4%25b9%2588%25ef%25bc%259f/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在 Linux 下肯定要经常和命令行打交道，Linux 下的命令有无数，想知道自己经常用的命令 Top 10 是哪些吗？
+实现起来很简单，把下面的这一长串命令粘进终端，执行就可以看到结果：</p>
+
+<div>
+<div>history | awk &#8216;{CMD[$2]++  ;count++  ;}END { for (a in CMD)print CMD[a] &#8221; &#8221; CMD[a]/count*100 &#8220;% &#8221; a;}&#8217; | grep -v &#8220;./&#8221; | column -c3 -s &#8221; &#8221; -t | sort -nr | nl |  head -n10</div>
+</div>
+
+
+<p>原理也很简单，用 awk 统计 history 中的命令部分出现的次数，去掉 “./&ldquo; 这样不算命令的情况，最后排序输出，列出前 10 个。</p>
+
+<p><code>history | sed &ldquo;s#^\s+[0-9]+\s+##g&rdquo; | grep -oP &ldquo;(?&lt;=^|\|)\w+&rdquo;|sort |uniq -c| sort -k1,1nr -k2</code></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -727,48 +773,6 @@ http://opera.im/archives/opera-mini-6-5-and-opera-mobile-11-5-for-android-releas
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/06/%25e5%25ae%2589%25e8%25a3%2585%25e6%2581%25a2%25e5%25a4%258dgoogle%25e5%2585%25a8%25e6%259c%258d%25e5%258a%25a1%25e8%25a7%25a3%25e5%2586%25b3market%25e5%25bc%2582%25e5%25b8%25b8%25e7%25bb%2588%25e6%25ad%25a2/">安装/恢复Google全服务(解决Market异常终止)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-06T06:01:00+08:00" pubdate data-updated="true">Oct 6<span>th</span>, 2011</time>
-        
-        
-          | <a href="/blog/2011/10/06/%25e5%25ae%2589%25e8%25a3%2585%25e6%2581%25a2%25e5%25a4%258dgoogle%25e5%2585%25a8%25e6%259c%258d%25e5%258a%25a1%25e8%25a7%25a3%25e5%2586%25b3market%25e5%25bc%2582%25e5%25b8%25b8%25e7%25bb%2588%25e6%25ad%25a2/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>转载
-玉落箫音</p>
-
-<p><a title="玉落箫音" href="http://webappbox.org/log/1854.html" target="_blank"><a href="http://webappbox.org/log/1854.html">http://webappbox.org/log/1854.html</a></a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; 老早的</a>
@@ -786,6 +790,10 @@ http://opera.im/archives/opera-mini-6-5-and-opera-mobile-11-5-for-android-releas
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">[改]Java Native Interface 播放MP3</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/31/gai-sas-an-zhuang-yu-jian-jie/">[改]SAS-安装与简介</a>
       </li>
     
@@ -799,10 +807,6 @@ http://opera.im/archives/opera-mini-6-5-and-opera-mobile-11-5-for-android-releas
     
       <li class="post">
         <a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">[改]阿里的雄心:只对小微的世界感兴趣&#8211; 蚂蚁金服的成立</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/30/guan-yu-zi-xing-fan-yi-bbpressde-yao-dian/">关于自行翻译bbpress的要点</a>
       </li>
     
   </ul>
@@ -819,16 +823,17 @@ http://opera.im/archives/opera-mini-6-5-and-opera-mobile-11-5-for-android-releas
 <section>
   <h1>tool</h1>
   <ul id="tool">
+	<li><a href="http://pan.baidu.com">百度云</a></li>
   	<li><a href="http://whoer.net/extended">whoer</a></li>
 	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
 	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
-	<li><a href="http://pan.baidu.com">百度云</a></li>
 	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
 	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
 	<li><a href="http://tool.oschina.net/">在线工具</a></li>
-	<li><a href="http://troll.ws/">troll.ws</a></li>
 	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
 	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+	<li><a href="http://www.virscan.org/">在线扫毒</a></li>
+	
   	</ul>
 </section>
 <section>
