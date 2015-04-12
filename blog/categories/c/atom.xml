@@ -4,7 +4,7 @@
   <title><![CDATA[Category: c | 吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/blog/categories/c/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-03-01T16:40:22+08:00</updated>
+  <updated>2015-04-12T20:07:04+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,264 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[改]Gstreamer 播放MP4 并 添加文字水印 ]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/"/>
+    <updated>2015-03-31T17:58:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin</id>
+    <content type="html"><![CDATA[<h2>提要</h2>
+
+<ul>
+<li>之前已经写过<a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">JNI播放mp3</a>的文章，使用<a href="http://zh.wikipedia.org/wiki/GStreamer">Gstreamer</a>流式多媒体框架。</li>
+<li>这次直接使用C播放MP4文件，文件对应解码器使用<a href="http://linux-wiki.cn/wiki/zh-hans/%E8%A7%86%E9%A2%91/%E7%85%A7%E7%89%87%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E6%8B%8D%E7%85%A7%E4%BF%A1%E6%81%AF">ffmpeg -i 视频文件</a>命令察看。</li>
+</ul>
+
+
+<h2>要点</h2>
+
+<ul>
+<li>使用动态方法链接音频、视频的接收垫片。</li>
+<li>使用gst_element_seek函数循环播放文件，本用来跳转播放。</li>
+<li>使用textoverlay组件为视频添加文字水印。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>概览</h2>
+
+<p>```text</p>
+
+<pre><code>                                test-pipline
+</code></pre>
+
+<hr />
+
+<pre><code>                      [sink_pad] &gt;
+                        &gt; videoqueue -&gt; textoverlay -&gt; video-decoder -&gt; video-output
+</code></pre>
+
+<p>file-source &ndash;> demuxer &ndash;></p>
+
+<pre><code>                      [sink_pad] &gt;
+                        &gt; audioqueue -&gt; audio-decoder -&gt; audio-output
+</code></pre>
+
+<hr />
+
+<p>```</p>
+
+<h2>code</h2>
+
+<p>```c</p>
+
+<h1>include &lt;gst/gst.h></h1>
+
+<h1>include &lt;glib.h></h1>
+
+<p>/<em>
+ * 编译：
+ * gcc gst_mp4.c -o gst_mp4 $(pkg-config &mdash;cflags &mdash;libs gstreamer-0.10)
+ *
+ * 运行：
+ * ./gst_mp4 test.mp4
+ *
+ * 测试：
+ * gst-launch-0.10 filesrc location=&ldquo;/test.mp4&rdquo; ! qtdemux name=qtdemuxer \
+ * qtdemuxer. ! queue ! ffdec_h264! \
+ * textoverlay deltax= 20 deltay= 20 font-desc=&ldquo;Sans Bold 8&rdquo; text=&ldquo;wuwnjie.tk&rdquo; \
+ * halign = &ldquo;left&rdquo; shaded-background = &ldquo;TRUE&rdquo; valign=&ldquo;top&rdquo; wrap-mode=&ldquo;char&rdquo; \
+ * xpad = &ldquo;20&rdquo; ypad = &ldquo;20&rdquo; ! autovideosink \
+ * qtdemuxer. ! queue ! ffdec_aac ! autoaudiosink
+ *
+ * 参考：
+ * blog.csdn.net/mengyy_linux/article/details/13261935
+ *
+ * stackoverflow.com/questions/16006142/
+ * playing-avi-file-with-gstreamer-sdk-in-windows
+ *
+ * gstreamer-devel.966125.n4.nabble.com/
+ * GStreamer-C-Code-to-play-video-td3715064.html
+ *
+ * stackoverflow.com/questions/12902574/
+ * using-textoverlay-and-timeoverlay-together
+ *
+ * gstreamer.freedesktop.org/data/doc/gstreamer/0.10.1/
+ * gst-plugins-base-plugins/html/gst-plugins-base-plugins-textoverlay.html
+ * </em>/</p>
+
+<p>GstElement <em>pipeline,</em>source,*demuxer,</p>
+
+<pre><code>    *queue,*textoverlay,*decoder,*sink,
+    *Audioqueue,*Audiodecoder,*Audiosink; 
+</code></pre>
+
+<p>static gboolean bus_call(GstBus <em>bus,GstMessage </em>msg,gpointer data){</p>
+
+<pre><code>GMainLoop *loop = (GMainLoop *)data;
+
+switch(GST_MESSAGE_TYPE(msg)){
+
+case GST_MESSAGE_EOS:
+
+g_print("播放结束，尝试重播,Ctrl+c 结束!\n");
+/*在播放结束后，尝试重播*/
+if (!gst_element_seek(pipeline,
+        1.0,GST_FORMAT_TIME,GST_SEEK_FLAG_FLUSH,
+        GST_SEEK_TYPE_SET, 0,//2 seconds (in nanoseconds)
+        GST_SEEK_TYPE_NONE,GST_CLOCK_TIME_NONE)) {
+            g_print("重播失败，准备退出!\n");
+            g_main_loop_quit(loop);
+    }
+gst_element_set_state (pipeline,GST_STATE_PLAYING);
+    break;
+case GST_MESSAGE_ERROR: {
+    gchar   *debug;
+    GError  *error;
+    gst_message_parse_error(msg,&amp;error,&amp;debug);
+    g_free(debug);
+    g_printerr("错误: %s\n",error-&gt;message);
+    g_error_free(error);
+    g_main_loop_quit(loop);
+    break;
+}
+default:
+    break;
+}
+return(TRUE);
+</code></pre>
+
+<p>}</p>
+
+<p>static void on_pad_added(GstElement <em>element,GstPad </em>pad,gpointer data){</p>
+
+<pre><code>char video[9]="video_00"; //char audio[9]="audio_00";
+
+gchar *new_pad_name = GST_PAD_NAME(pad); 
+
+g_print("收到来自'%s'的新垫片'%s'\n",GST_ELEMENT_NAME (element),
+        new_pad_name);
+
+GstPad *audio_sink_pad ,*video_sink_pad;
+video_sink_pad = gst_element_get_static_pad(queue,"sink"); 
+audio_sink_pad = gst_element_get_static_pad(Audioqueue,"sink");  
+
+if(!strncmp(new_pad_name,video)){
+    g_print("链接%s垫片\n",new_pad_name);  
+    gst_pad_link(pad,video_sink_pad);
+}else{
+    g_print("链接%s垫片\n",new_pad_name);  
+    gst_pad_link(pad,audio_sink_pad); 
+}
+
+gst_object_unref(video_sink_pad);
+gst_object_unref(audio_sink_pad);
+</code></pre>
+
+<p>}</p>
+
+<p>int main(int argc,char *argv[]){</p>
+
+<pre><code>GMainLoop *loop;
+GstBus *bus;
+gst_init(&amp;argc,&amp;argv);
+loop = g_main_loop_new(NULL,FALSE);
+
+if (argc != 2)
+{
+    g_printerr("用法: %s &lt;mp4 filename&gt;\n",argv[0]);
+    return(-1);
+}
+
+//创建用来容纳元件的新管道
+pipeline = gst_pipeline_new("test-pipeline");
+
+//生成用于读取硬盘数据的元件
+source   = gst_element_factory_make("filesrc","file-source");
+
+//流分离器
+demuxer  = gst_element_factory_make("qtdemux","demuxer");
+
+//队列元件 同步输出设备，播放视频、音频流，双线程可以独立运行并达到更好的同步效果。
+queue = gst_element_factory_make("queue","videoqueue");
+
+//向视频添加文字
+textoverlay = gst_element_factory_make("textoverlay","textoverlay");
+
+//视频解码器 GStreamer encountered a general stream error 
+//GStreamer 遇到了常规流错误 ffdec_h264 ffdec_mpeg4
+decoder  = gst_element_factory_make("ffdec_h264","video-decoder");
+
+//视频回放元件
+sink = gst_element_factory_make("autovideosink","video-output");
+
+//队列元件
+Audioqueue = gst_element_factory_make("queue","audioqueue");
+
+//音频解码器
+Audiodecoder = gst_element_factory_make("ffdec_aac","audio-decoder");
+
+//音频回放元件
+Audiosink = gst_element_factory_make("autoaudiosink","audio-output");
+
+if (!pipeline || !source || !demuxer || !queue || !decoder 
+    || !textoverlay || !sink || !Audioqueue || !Audiodecoder 
+    || !Audiosink){
+        g_printerr("有某一元件无法创建，退出！\n");
+        return(-1);
+}
+
+//设置 source的location 参数 文件地址
+g_object_set(G_OBJECT(source),"location",argv[1],NULL);
+
+//得到 管道的消息总线
+bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline));
+gst_bus_add_watch(bus,bus_call,loop); //添加消息监视器
+gst_object_unref(bus);
+
+//添加元件
+gst_bin_add_many(GST_BIN(pipeline),
+          source,demuxer,queue,decoder,textoverlay,sink,
+          Audioqueue,Audiodecoder,Audiosink,NULL);
+
+//分别链接元件
+gst_element_link(source,demuxer);
+gst_element_link_many(queue,decoder,textoverlay,sink,NULL);
+gst_element_link_many(Audioqueue,Audiodecoder,Audiosink,NULL);
+
+//按照不同的流，动态链接不同的接收衬垫 sink pad
+g_signal_connect(demuxer,"pad-added",G_CALLBACK(on_pad_added),NULL);
+
+//设置视频文字
+g_object_set(G_OBJECT(textoverlay),"text","wuwenjie.tk",NULL); //文字
+g_object_set(G_OBJECT(textoverlay),"deltax",20,NULL);   //x轴方向
+g_object_set(G_OBJECT(textoverlay),"deltay",20,NULL);   //y轴方向
+g_object_set(G_OBJECT(textoverlay),"font-desc","Sans Bold 8",NULL);//字体
+g_object_set(G_OBJECT(textoverlay),"halign","left",NULL);   //水平对齐方向
+g_object_set(G_OBJECT(textoverlay),"shaded-background",TRUE,NULL);  //背景
+g_object_set(G_OBJECT(textoverlay),"valign","top",NULL);    //竖直方向
+g_object_set(G_OBJECT(textoverlay),"wrap-mode","word",NULL);//绘制文本
+g_object_set(G_OBJECT(textoverlay),"xpad",20,NULL); //水平
+g_object_set(G_OBJECT(textoverlay),"ypad",20,NULL); //竖直
+
+//开始播放
+g_print("开始播放 %s\n",argv[1]);
+gst_element_set_state(pipeline,GST_STATE_PLAYING);
+g_main_loop_run(loop);
+
+//停止管道处理流程
+gst_element_set_state(pipeline,GST_STATE_NULL);
+//释放占用的资源
+gst_object_unref(GST_OBJECT(pipeline));
+return(0);
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[改]Java Native Interface 播放MP3 ]]></title>

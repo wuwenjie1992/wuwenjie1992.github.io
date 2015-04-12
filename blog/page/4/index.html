@@ -9,7 +9,10 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="xhuloo作为学习ANDROID编程的DEMO，UI设计十分差（基本没有设计），但它可作为初学的演示，它简单十分，浅显易懂。没有实用价值，作为编程（API）的探究。 &nbsp; xhuloo1.3.2 release 增加新功能 1）android id &mdash;&ndash;&gt; &hellip;">
+  <meta name="description" content="不知道为何
+登录了Xubuntu
+后
+发现为社么程序的外框都没有的 用得十分的不习惯 找谷神 一问 有了以下解决方法： 1）Alt + F2 2)输入 rm -rf ~/.cache/sessions 删除 缓存 3）运行 4）reboot 重启 5) 完成 MORE： Quick Fix &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +87,91 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/13/Xfce-frame-gone/">Xfce 外框没了&#8211;解决</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-13T15:04:00+08:00" pubdate data-updated="true">Jul 13<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/07/13/Xfce-frame-gone/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>不知道为何
+登录了Xubuntu
+后
+发现为社么程序的外框都没有的</p>
+
+<p>用得十分的不习惯</p>
+
+<p>找谷神 一问</p>
+
+<p>有了以下解决方法：</p>
+
+<p>1）Alt + F2</p>
+
+<p>2)输入  rm -rf ~/.cache/sessions</p>
+
+<p>删除 缓存</p>
+
+<p>3）运行</p>
+
+<p>4）reboot 重启</p>
+
+<p>5) 完成</p>
+
+<hr />
+
+<p>MORE：</p>
+
+<h1 id="Quick_Fix">Quick Fix</h1>
+
+
+<p>This requires you to log out and log in again.</p>
+
+<p>&nbsp;</p>
+
+<pre>    Alt+F2                           (run window)
+    rm -rf ~/.cache/sessions         (delete the Xfce4 saved sessions files for your user)
+    Click on "Run"                   (or hit the enter key)</pre>
+
+
+<p>Now you will log out and log in again. Make sure &ldquo;Save session for future logins&rdquo; is not checked.</p>
+
+<p>If the <strong>Quick Fix</strong> fails, please try the next method.</p>
+
+<p>&nbsp;</p>
+
+<p><a title="XubuntuPanels" href="https://help.ubuntu.com/community/XubuntuPanels" target="_blank">XubuntuPanels</a>
+<a title="xfce" href="https://threelegcat.wordpress.com/2012/05/28/%E8%A7%A3%E6%B1%BA-xubuntuxfceubuntu-studio-12-04-%E8%A6%96%E7%AA%97%E9%82%8A%E6%A1%86%E5%95%8F%E9%A1%8C/" target="_blank">解決 Xubuntu/Xfce/Ubuntu Studio 12.04 視窗邊框消失問題</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1362,173 +1450,6 @@ java -jar tiled.jar</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/04/Eclipse-Error-libX11-so-6-can-not-open-shared-object-file/">Eclipse 错误 libX11.so.6: 无法打开共享对象文件</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-04T07:54:00+08:00" pubdate data-updated="true">Apr 4<span>th</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/04/04/Eclipse-Error-libX11-so-6-can-not-open-shared-object-file/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>java.lang.UnsatisfiedLinkError:
-/home/*******/libmawt.so        :
-libX11.so.6: 无法打开共享对象文件: 没有那个文件或目录</p>
-
-<p>使用LDD命令：查看包依赖
-ldd /home/*******/libmawt.so</p>
-
-<p>libX11.so.6     =&gt; not found
-libXrender.so.1 =&gt; not found
-libXtst.so.6    =&gt; not found
-libXi.so.6      =&gt; not found
-libjvm.so       =&gt; not found</p>
-
-<p><em><strong>其实只要用apt-get install</strong></em></p>
-
-<p><em><strong>sudo apt-get -f install #-f = &mdash;fix-missing</strong></em></p>
-
-<p><em><strong>以下一大堆废话</strong></em></p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p><a href="http://packages.ubuntu.com">http://packages.ubuntu.com</a> 查找遗失的包</p>
-
-<p>Search the contents of packages</p>
-
-<p>packages that contain files whose names contain the keyword</p>
-
-<hr />
-
-<h2>libX11.so.6     =&gt; not found</h2>
-
-<p>1）Search   libx11</p>
-
-<p>/usr/lib/x86_64-linux-gnu/libX11.so.6</p>
-
-<p>其他与 libx11-6 有关的软件包</p>
-
-<p>multiarch-support
-Transitional package to ensure multiarch compatibility</p>
-
-<p>libc6 (&gt;= 2.4)
-Embedded GNU C Library: Shared libraries
-同时作为一个虚包由这些包填实: libc6-udeb</p>
-
-<p>libx11-data
-X11 client-side library</p>
-
-<p>libxcb1 (&gt;= 1.2)
-X C Binding</p>
-
-<p>libx11-6_1.4.4-2ubuntu1_i386.deb</p>
-
-<p>下载好用 sudo dpkg -i ***.deb   命令</p>
-
-<p>libx11-6:i386 依赖于 libxcb1 (&gt;= 1.2)；然而：
-未安装软件包 libxcb1:i386。</p>
-
-<p>2)Search libxcb1</p>
-
-<p><a href="http://packages.ubuntu.com/oneiric/libxcb1">http://packages.ubuntu.com/oneiric/libxcb1</a></p>
-
-<p>libxcb1:i386 依赖于 libxdmcp6；然而：
-未安装软件包 libxdmcp6:i386。</p>
-
-<p>3)libxdmcp6</p>
-
-<p><a href="http://packages.ubuntu.com/oneiric/libxdmcp6">http://packages.ubuntu.com/oneiric/libxdmcp6</a></p>
-
-<p>sudo dpkg -i libxdmcp6_1.1.0-3_i386.deb</p>
-
-<p>4)安装libxcb1</p>
-
-<p>sudo dpkg -i libxcb1_1.7-3_i386.deb</p>
-
-<p>libxcb1:i386 依赖于 libxau6；然而：
-未安装软件包 libxau6:i386。</p>
-
-<p>5）安装libxau6</p>
-
-<p><a href="http://packages.ubuntu.com/oneiric/libxau6">http://packages.ubuntu.com/oneiric/libxau6</a></p>
-
-<p>sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
-
-<p>6)安装libxcb1</p>
-
-<p>sudo dpkg -i libxcb1_1.7-3_i386.deb</p>
-
-<p>7)安装libX11.so
-sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
-
-<hr />
-
-<h2>libXrender.so.1 =&gt; not found</h2>
-
-<p>1)search</p>
-
-<p>/usr/lib/x86_64-linux-gnu/libXrender.so.1</p>
-
-<p><a href="http://packages.ubuntu.com/oneiric/libxrender1">http://packages.ubuntu.com/oneiric/libxrender1</a></p>
-
-<p>2)安装libxrender1     libxrender1_0.9.6-2_i386.deb</p>
-
-<p>sudo dpkg -i libxrender1_0.9.6-2_i386.deb</p>
-
-<hr />
-
-<h2>libXtst.so.6    =&gt; not found</h2>
-
-<p>1)search</p>
-
-<p>/usr/lib/libXtst.so.6.1.0</p>
-
-<p><a href="http://packages.ubuntu.com/oneiric/libxtst6">http://packages.ubuntu.com/oneiric/libxtst6</a></p>
-
-<p>sudo apt-get install libxext6</p>
-
-<p>ia32-libs : 依赖: lib32z1 但是它将不会被安装
-依赖: lib32stdc++6 但是它将不会被安装
-依赖: lib32asound2 但是它将不会被安装
-依赖: lib32ncurses5 但是它将不会被安装
-依赖: lib32ffi6 但是它将不会被安装
-依赖: lib32ncursesw5 但是它将不会被安装
-推荐: ia32-libs-multiarch</p>
-
-<p>sudo apt-get -f install</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; 老早的</a>
@@ -1546,6 +1467,10 @@ sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">[改]Gstreamer 播放MP4 并 添加文字水印</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">[改]Java Native Interface 播放MP3</a>
       </li>
     
@@ -1559,10 +1484,6 @@ sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
     
       <li class="post">
         <a href="/blog/2014/11/30/ri-mu-the-sunset/">日暮-the Sunset</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">[改]阿里的雄心:只对小微的世界感兴趣&#8211; 蚂蚁金服的成立</a>
       </li>
     
   </ul>

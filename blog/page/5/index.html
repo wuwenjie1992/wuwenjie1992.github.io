@@ -9,8 +9,10 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="0 A.d 是一款类似帝国时代的开源即时战略游戏。
-这个游戏以公元前 500 年至公元 500 年之间为背景，包括了六个独特的种族文明。 特色：3D，画面古典，建筑可换角度，英文 &nbsp; &nbsp; &nbsp; 在 Ubuntu 下的安装方法： sudo add-apt- &hellip;">
+  <meta name="description" content="java.lang.UnsatisfiedLinkError:
+/home/*******/libmawt.so :
+libX11.so.6: 无法打开共享对象文件: 没有那个文件或目录 使用LDD命令：查看包依赖
+ldd /home/*******/libmawt.so libX11.so.6 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +87,173 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/04/Eclipse-Error-libX11-so-6-can-not-open-shared-object-file/">Eclipse 错误 libX11.so.6: 无法打开共享对象文件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-04T07:54:00+08:00" pubdate data-updated="true">Apr 4<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/04/04/Eclipse-Error-libX11-so-6-can-not-open-shared-object-file/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>java.lang.UnsatisfiedLinkError:
+/home/*******/libmawt.so        :
+libX11.so.6: 无法打开共享对象文件: 没有那个文件或目录</p>
+
+<p>使用LDD命令：查看包依赖
+ldd /home/*******/libmawt.so</p>
+
+<p>libX11.so.6     =&gt; not found
+libXrender.so.1 =&gt; not found
+libXtst.so.6    =&gt; not found
+libXi.so.6      =&gt; not found
+libjvm.so       =&gt; not found</p>
+
+<p><em><strong>其实只要用apt-get install</strong></em></p>
+
+<p><em><strong>sudo apt-get -f install #-f = &mdash;fix-missing</strong></em></p>
+
+<p><em><strong>以下一大堆废话</strong></em></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://packages.ubuntu.com">http://packages.ubuntu.com</a> 查找遗失的包</p>
+
+<p>Search the contents of packages</p>
+
+<p>packages that contain files whose names contain the keyword</p>
+
+<hr />
+
+<h2>libX11.so.6     =&gt; not found</h2>
+
+<p>1）Search   libx11</p>
+
+<p>/usr/lib/x86_64-linux-gnu/libX11.so.6</p>
+
+<p>其他与 libx11-6 有关的软件包</p>
+
+<p>multiarch-support
+Transitional package to ensure multiarch compatibility</p>
+
+<p>libc6 (&gt;= 2.4)
+Embedded GNU C Library: Shared libraries
+同时作为一个虚包由这些包填实: libc6-udeb</p>
+
+<p>libx11-data
+X11 client-side library</p>
+
+<p>libxcb1 (&gt;= 1.2)
+X C Binding</p>
+
+<p>libx11-6_1.4.4-2ubuntu1_i386.deb</p>
+
+<p>下载好用 sudo dpkg -i ***.deb   命令</p>
+
+<p>libx11-6:i386 依赖于 libxcb1 (&gt;= 1.2)；然而：
+未安装软件包 libxcb1:i386。</p>
+
+<p>2)Search libxcb1</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxcb1">http://packages.ubuntu.com/oneiric/libxcb1</a></p>
+
+<p>libxcb1:i386 依赖于 libxdmcp6；然而：
+未安装软件包 libxdmcp6:i386。</p>
+
+<p>3)libxdmcp6</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxdmcp6">http://packages.ubuntu.com/oneiric/libxdmcp6</a></p>
+
+<p>sudo dpkg -i libxdmcp6_1.1.0-3_i386.deb</p>
+
+<p>4)安装libxcb1</p>
+
+<p>sudo dpkg -i libxcb1_1.7-3_i386.deb</p>
+
+<p>libxcb1:i386 依赖于 libxau6；然而：
+未安装软件包 libxau6:i386。</p>
+
+<p>5）安装libxau6</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxau6">http://packages.ubuntu.com/oneiric/libxau6</a></p>
+
+<p>sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
+
+<p>6)安装libxcb1</p>
+
+<p>sudo dpkg -i libxcb1_1.7-3_i386.deb</p>
+
+<p>7)安装libX11.so
+sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
+
+<hr />
+
+<h2>libXrender.so.1 =&gt; not found</h2>
+
+<p>1)search</p>
+
+<p>/usr/lib/x86_64-linux-gnu/libXrender.so.1</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxrender1">http://packages.ubuntu.com/oneiric/libxrender1</a></p>
+
+<p>2)安装libxrender1     libxrender1_0.9.6-2_i386.deb</p>
+
+<p>sudo dpkg -i libxrender1_0.9.6-2_i386.deb</p>
+
+<hr />
+
+<h2>libXtst.so.6    =&gt; not found</h2>
+
+<p>1)search</p>
+
+<p>/usr/lib/libXtst.so.6.1.0</p>
+
+<p><a href="http://packages.ubuntu.com/oneiric/libxtst6">http://packages.ubuntu.com/oneiric/libxtst6</a></p>
+
+<p>sudo apt-get install libxext6</p>
+
+<p>ia32-libs : 依赖: lib32z1 但是它将不会被安装
+依赖: lib32stdc++6 但是它将不会被安装
+依赖: lib32asound2 但是它将不会被安装
+依赖: lib32ncurses5 但是它将不会被安装
+依赖: lib32ffi6 但是它将不会被安装
+依赖: lib32ncursesw5 但是它将不会被安装
+推荐: ia32-libs-multiarch</p>
+
+<p>sudo apt-get -f install</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -802,55 +971,6 @@ DIA最新版本：version 0.96.1 (29/3 2007)</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/21/%25e4%25bf%25a1%25e4%25bb%25b0%25e5%2592%258c%25e5%25a9%259a%25e5%25a7%25bb%25e4%25b9%258b%25e4%25ba%2589/">信仰和婚姻之争</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-21T05:22:00+08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/01/21/%25e4%25bf%25a1%25e4%25bb%25b0%25e5%2592%258c%25e5%25a9%259a%25e5%25a7%25bb%25e4%25b9%258b%25e4%25ba%2589/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天家中的信仰和婚姻之争。</p>
-
-<p>是婚姻重要，还是被很多人认为的无用的信重要。</p>
-
-<p>其实体现的是当今的很多中国人，鲜有信仰，或则他们根本只以钱权为信仰。</p>
-
-<p>我想这是很可怕的。</p>
-
-<p>信仰究竟设么？</p>
-
-<p>我的信仰一定不是钱权，但我可能会为此而徒劳一生。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; 老早的</a>
@@ -868,6 +988,10 @@ DIA最新版本：version 0.96.1 (29/3 2007)</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">[改]Gstreamer 播放MP4 并 添加文字水印</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">[改]Java Native Interface 播放MP3</a>
       </li>
     
@@ -881,10 +1005,6 @@ DIA最新版本：version 0.96.1 (29/3 2007)</li>
     
       <li class="post">
         <a href="/blog/2014/11/30/ri-mu-the-sunset/">日暮-the Sunset</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/31/gai-a-li-de-xiong-xin-zhi-dui-xiao-wei-de-shi-jie-gan-xing-qu-ma-yi-jin-fu-de-cheng-li/">[改]阿里的雄心:只对小微的世界感兴趣&#8211; 蚂蚁金服的成立</a>
       </li>
     
   </ul>

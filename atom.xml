@@ -4,7 +4,7 @@
   <title><![CDATA[吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-03-01T16:40:22+08:00</updated>
+  <updated>2015-04-12T20:07:04+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,447 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[改]Gstreamer 播放MP4 并 添加文字水印 ]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/"/>
+    <updated>2015-03-31T17:58:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin</id>
+    <content type="html"><![CDATA[<h2>提要</h2>
+
+<ul>
+<li>之前已经写过<a href="http://www.wuwenjie.tk/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">JNI播放mp3</a>的文章，使用<a href="http://zh.wikipedia.org/wiki/GStreamer">Gstreamer</a>流式多媒体框架。</li>
+<li>这次直接使用C播放MP4文件，文件对应解码器使用<a href="http://linux-wiki.cn/wiki/zh-hans/%E8%A7%86%E9%A2%91/%E7%85%A7%E7%89%87%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E6%8B%8D%E7%85%A7%E4%BF%A1%E6%81%AF">ffmpeg -i 视频文件</a>命令察看。</li>
+</ul>
+
+
+<h2>要点</h2>
+
+<ul>
+<li>使用动态方法链接音频、视频的接收垫片。</li>
+<li>使用gst_element_seek函数循环播放文件，本用来跳转播放。</li>
+<li>使用textoverlay组件为视频添加文字水印。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>概览</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>                                test-pipline
+</span><span class='line'>----------------------------------------------------------------------------------------
+</span><span class='line'>                      [sink_pad] &gt;
+</span><span class='line'>                        &gt; videoqueue -&gt; textoverlay -&gt; video-decoder -&gt; video-output
+</span><span class='line'>file-source -&gt; demuxer -&gt;
+</span><span class='line'>                      [sink_pad] &gt;
+</span><span class='line'>                        &gt; audioqueue -&gt; audio-decoder -&gt; audio-output
+</span><span class='line'>
+</span><span class='line'>----------------------------------------------------------------------------------------
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>code</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;gst/gst.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;glib.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/* </span>
+</span><span class='line'><span class="cm"> * 编译：</span>
+</span><span class='line'><span class="cm"> * gcc gst_mp4.c -o gst_mp4 $(pkg-config --cflags --libs gstreamer-0.10) </span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * 运行：</span>
+</span><span class='line'><span class="cm"> * ./gst_mp4 test.mp4</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * 测试：</span>
+</span><span class='line'><span class="cm"> * gst-launch-0.10 filesrc location=&quot;/test.mp4&quot; ! qtdemux name=qtdemuxer \</span>
+</span><span class='line'><span class="cm"> * qtdemuxer. ! queue ! ffdec_h264! \</span>
+</span><span class='line'><span class="cm"> * textoverlay deltax= 20 deltay= 20 font-desc=&quot;Sans Bold 8&quot; text=&quot;wuwnjie.tk&quot; \</span>
+</span><span class='line'><span class="cm"> * halign = &quot;left&quot; shaded-background = &quot;TRUE&quot; valign=&quot;top&quot; wrap-mode=&quot;char&quot; \</span>
+</span><span class='line'><span class="cm"> * xpad = &quot;20&quot; ypad = &quot;20&quot; ! autovideosink \</span>
+</span><span class='line'><span class="cm"> * qtdemuxer. ! queue ! ffdec_aac ! autoaudiosink</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * 参考：</span>
+</span><span class='line'><span class="cm"> * blog.csdn.net/mengyy_linux/article/details/13261935</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * stackoverflow.com/questions/16006142/</span>
+</span><span class='line'><span class="cm"> * playing-avi-file-with-gstreamer-sdk-in-windows</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * gstreamer-devel.966125.n4.nabble.com/</span>
+</span><span class='line'><span class="cm"> * GStreamer-C-Code-to-play-video-td3715064.html</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * stackoverflow.com/questions/12902574/</span>
+</span><span class='line'><span class="cm"> * using-textoverlay-and-timeoverlay-together</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * gstreamer.freedesktop.org/data/doc/gstreamer/0.10.1/</span>
+</span><span class='line'><span class="cm"> * gst-plugins-base-plugins/html/gst-plugins-base-plugins-textoverlay.html</span>
+</span><span class='line'><span class="cm"> * */</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">GstElement</span> <span class="o">*</span><span class="n">pipeline</span><span class="p">,</span><span class="o">*</span><span class="n">source</span><span class="p">,</span><span class="o">*</span><span class="n">demuxer</span><span class="p">,</span>
+</span><span class='line'>      <span class="o">*</span><span class="n">queue</span><span class="p">,</span><span class="o">*</span><span class="n">textoverlay</span><span class="p">,</span><span class="o">*</span><span class="n">decoder</span><span class="p">,</span><span class="o">*</span><span class="n">sink</span><span class="p">,</span>
+</span><span class='line'>      <span class="o">*</span><span class="n">Audioqueue</span><span class="p">,</span><span class="o">*</span><span class="n">Audiodecoder</span><span class="p">,</span><span class="o">*</span><span class="n">Audiosink</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">static</span> <span class="n">gboolean</span> <span class="nf">bus_call</span><span class="p">(</span><span class="n">GstBus</span> <span class="o">*</span><span class="n">bus</span><span class="p">,</span><span class="n">GstMessage</span> <span class="o">*</span><span class="n">msg</span><span class="p">,</span><span class="n">gpointer</span> <span class="n">data</span><span class="p">){</span>
+</span><span class='line'>  <span class="n">GMainLoop</span> <span class="o">*</span><span class="n">loop</span> <span class="o">=</span> <span class="p">(</span><span class="n">GMainLoop</span> <span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">switch</span><span class="p">(</span><span class="n">GST_MESSAGE_TYPE</span><span class="p">(</span><span class="n">msg</span><span class="p">)){</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">case</span> <span class="n">GST_MESSAGE_EOS</span>:
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">g_print</span><span class="p">(</span><span class="s">&quot;播放结束，尝试重播,Ctrl+c 结束!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="cm">/*在播放结束后，尝试重播*/</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">gst_element_seek</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span>
+</span><span class='line'>          <span class="mf">1.0</span><span class="p">,</span><span class="n">GST_FORMAT_TIME</span><span class="p">,</span><span class="n">GST_SEEK_FLAG_FLUSH</span><span class="p">,</span>
+</span><span class='line'>          <span class="n">GST_SEEK_TYPE_SET</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="c1">//2 seconds (in nanoseconds)</span>
+</span><span class='line'>          <span class="n">GST_SEEK_TYPE_NONE</span><span class="p">,</span><span class="n">GST_CLOCK_TIME_NONE</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>              <span class="n">g_print</span><span class="p">(</span><span class="s">&quot;重播失败，准备退出!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>              <span class="n">g_main_loop_quit</span><span class="p">(</span><span class="n">loop</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="n">gst_element_set_state</span> <span class="p">(</span><span class="n">pipeline</span><span class="p">,</span><span class="n">GST_STATE_PLAYING</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">GST_MESSAGE_ERROR</span>: <span class="p">{</span>
+</span><span class='line'>      <span class="n">gchar</span>    <span class="o">*</span><span class="n">debug</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">GError</span>   <span class="o">*</span><span class="n">error</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">gst_message_parse_error</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="o">&amp;</span><span class="n">error</span><span class="p">,</span><span class="o">&amp;</span><span class="n">debug</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">g_free</span><span class="p">(</span><span class="n">debug</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">g_printerr</span><span class="p">(</span><span class="s">&quot;错误: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">error</span><span class="o">-&gt;</span><span class="n">message</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">g_error_free</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">g_main_loop_quit</span><span class="p">(</span><span class="n">loop</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="nl">default:</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span><span class="p">(</span><span class="n">TRUE</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">static</span> <span class="kt">void</span> <span class="nf">on_pad_added</span><span class="p">(</span><span class="n">GstElement</span> <span class="o">*</span><span class="n">element</span><span class="p">,</span><span class="n">GstPad</span> <span class="o">*</span><span class="n">pad</span><span class="p">,</span><span class="n">gpointer</span> <span class="n">data</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kt">char</span> <span class="n">video</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">=</span><span class="s">&quot;video_00&quot;</span><span class="p">;</span> <span class="c1">//char audio[9]=&quot;audio_00&quot;;</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">gchar</span> <span class="o">*</span><span class="n">new_pad_name</span> <span class="o">=</span> <span class="n">GST_PAD_NAME</span><span class="p">(</span><span class="n">pad</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">g_print</span><span class="p">(</span><span class="s">&quot;收到来自&#39;%s&#39;的新垫片&#39;%s&#39;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">GST_ELEMENT_NAME</span> <span class="p">(</span><span class="n">element</span><span class="p">),</span>
+</span><span class='line'>          <span class="n">new_pad_name</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">GstPad</span> <span class="o">*</span><span class="n">audio_sink_pad</span> <span class="p">,</span><span class="o">*</span><span class="n">video_sink_pad</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">video_sink_pad</span> <span class="o">=</span> <span class="n">gst_element_get_static_pad</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span><span class="s">&quot;sink&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">audio_sink_pad</span> <span class="o">=</span> <span class="n">gst_element_get_static_pad</span><span class="p">(</span><span class="n">Audioqueue</span><span class="p">,</span><span class="s">&quot;sink&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">new_pad_name</span><span class="p">,</span><span class="n">video</span><span class="p">)){</span>
+</span><span class='line'>      <span class="n">g_print</span><span class="p">(</span><span class="s">&quot;链接%s垫片</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">new_pad_name</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">gst_pad_link</span><span class="p">(</span><span class="n">pad</span><span class="p">,</span><span class="n">video_sink_pad</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>      <span class="n">g_print</span><span class="p">(</span><span class="s">&quot;链接%s垫片</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">new_pad_name</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">gst_pad_link</span><span class="p">(</span><span class="n">pad</span><span class="p">,</span><span class="n">audio_sink_pad</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">gst_object_unref</span><span class="p">(</span><span class="n">video_sink_pad</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">gst_object_unref</span><span class="p">(</span><span class="n">audio_sink_pad</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span><span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]){</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">GMainLoop</span> <span class="o">*</span><span class="n">loop</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">GstBus</span> <span class="o">*</span><span class="n">bus</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">gst_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="o">&amp;</span><span class="n">argv</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">loop</span> <span class="o">=</span> <span class="n">g_main_loop_new</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="n">FALSE</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">g_printerr</span><span class="p">(</span><span class="s">&quot;用法: %s &lt;mp4 filename&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span class='line'>      <span class="k">return</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//创建用来容纳元件的新管道</span>
+</span><span class='line'>  <span class="n">pipeline</span> <span class="o">=</span> <span class="n">gst_pipeline_new</span><span class="p">(</span><span class="s">&quot;test-pipeline&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//生成用于读取硬盘数据的元件</span>
+</span><span class='line'>  <span class="n">source</span>   <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;filesrc&quot;</span><span class="p">,</span><span class="s">&quot;file-source&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//流分离器</span>
+</span><span class='line'>  <span class="n">demuxer</span>  <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;qtdemux&quot;</span><span class="p">,</span><span class="s">&quot;demuxer&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//队列元件 同步输出设备，播放视频、音频流，双线程可以独立运行并达到更好的同步效果。</span>
+</span><span class='line'>  <span class="n">queue</span> <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;queue&quot;</span><span class="p">,</span><span class="s">&quot;videoqueue&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//向视频添加文字</span>
+</span><span class='line'>  <span class="n">textoverlay</span> <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;textoverlay&quot;</span><span class="p">,</span><span class="s">&quot;textoverlay&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//视频解码器 GStreamer encountered a general stream error </span>
+</span><span class='line'>  <span class="c1">//GStreamer 遇到了常规流错误 ffdec_h264 ffdec_mpeg4</span>
+</span><span class='line'>  <span class="n">decoder</span>  <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;ffdec_h264&quot;</span><span class="p">,</span><span class="s">&quot;video-decoder&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//视频回放元件</span>
+</span><span class='line'>  <span class="n">sink</span> <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;autovideosink&quot;</span><span class="p">,</span><span class="s">&quot;video-output&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//队列元件</span>
+</span><span class='line'>  <span class="n">Audioqueue</span> <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;queue&quot;</span><span class="p">,</span><span class="s">&quot;audioqueue&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//音频解码器</span>
+</span><span class='line'>  <span class="n">Audiodecoder</span> <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;ffdec_aac&quot;</span><span class="p">,</span><span class="s">&quot;audio-decoder&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//音频回放元件</span>
+</span><span class='line'>  <span class="n">Audiosink</span> <span class="o">=</span> <span class="n">gst_element_factory_make</span><span class="p">(</span><span class="s">&quot;autoaudiosink&quot;</span><span class="p">,</span><span class="s">&quot;audio-output&quot;</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pipeline</span> <span class="o">||</span> <span class="o">!</span><span class="n">source</span> <span class="o">||</span> <span class="o">!</span><span class="n">demuxer</span> <span class="o">||</span> <span class="o">!</span><span class="n">queue</span> <span class="o">||</span> <span class="o">!</span><span class="n">decoder</span>
+</span><span class='line'>      <span class="o">||</span> <span class="o">!</span><span class="n">textoverlay</span> <span class="o">||</span> <span class="o">!</span><span class="n">sink</span> <span class="o">||</span> <span class="o">!</span><span class="n">Audioqueue</span> <span class="o">||</span> <span class="o">!</span><span class="n">Audiodecoder</span>
+</span><span class='line'>      <span class="o">||</span> <span class="o">!</span><span class="n">Audiosink</span><span class="p">){</span>
+</span><span class='line'>          <span class="n">g_printerr</span><span class="p">(</span><span class="s">&quot;有某一元件无法创建，退出！</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">return</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//设置 source的location 参数 文件地址</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">source</span><span class="p">),</span><span class="s">&quot;location&quot;</span><span class="p">,</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//得到 管道的消息总线</span>
+</span><span class='line'>  <span class="n">bus</span> <span class="o">=</span> <span class="n">gst_pipeline_get_bus</span><span class="p">(</span><span class="n">GST_PIPELINE</span><span class="p">(</span><span class="n">pipeline</span><span class="p">));</span>
+</span><span class='line'>  <span class="n">gst_bus_add_watch</span><span class="p">(</span><span class="n">bus</span><span class="p">,</span><span class="n">bus_call</span><span class="p">,</span><span class="n">loop</span><span class="p">);</span> <span class="c1">//添加消息监视器</span>
+</span><span class='line'>  <span class="n">gst_object_unref</span><span class="p">(</span><span class="n">bus</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//添加元件</span>
+</span><span class='line'>  <span class="n">gst_bin_add_many</span><span class="p">(</span><span class="n">GST_BIN</span><span class="p">(</span><span class="n">pipeline</span><span class="p">),</span>
+</span><span class='line'>            <span class="n">source</span><span class="p">,</span><span class="n">demuxer</span><span class="p">,</span><span class="n">queue</span><span class="p">,</span><span class="n">decoder</span><span class="p">,</span><span class="n">textoverlay</span><span class="p">,</span><span class="n">sink</span><span class="p">,</span>
+</span><span class='line'>            <span class="n">Audioqueue</span><span class="p">,</span><span class="n">Audiodecoder</span><span class="p">,</span><span class="n">Audiosink</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>          
+</span><span class='line'>  <span class="c1">//分别链接元件</span>
+</span><span class='line'>  <span class="n">gst_element_link</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="n">demuxer</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">gst_element_link_many</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span><span class="n">decoder</span><span class="p">,</span><span class="n">textoverlay</span><span class="p">,</span><span class="n">sink</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">gst_element_link_many</span><span class="p">(</span><span class="n">Audioqueue</span><span class="p">,</span><span class="n">Audiodecoder</span><span class="p">,</span><span class="n">Audiosink</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//按照不同的流，动态链接不同的接收衬垫 sink pad</span>
+</span><span class='line'>  <span class="n">g_signal_connect</span><span class="p">(</span><span class="n">demuxer</span><span class="p">,</span><span class="s">&quot;pad-added&quot;</span><span class="p">,</span><span class="n">G_CALLBACK</span><span class="p">(</span><span class="n">on_pad_added</span><span class="p">),</span><span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//设置视频文字</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;text&quot;</span><span class="p">,</span><span class="s">&quot;wuwenjie.tk&quot;</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span> <span class="c1">//文字</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;deltax&quot;</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>   <span class="c1">//x轴方向</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;deltay&quot;</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>   <span class="c1">//y轴方向</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;font-desc&quot;</span><span class="p">,</span><span class="s">&quot;Sans Bold 8&quot;</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span><span class="c1">//字体</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;halign&quot;</span><span class="p">,</span><span class="s">&quot;left&quot;</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>  <span class="c1">//水平对齐方向</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;shaded-background&quot;</span><span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>   <span class="c1">//背景</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;valign&quot;</span><span class="p">,</span><span class="s">&quot;top&quot;</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>   <span class="c1">//竖直方向</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;wrap-mode&quot;</span><span class="p">,</span><span class="s">&quot;word&quot;</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span><span class="c1">//绘制文本</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;xpad&quot;</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span> <span class="c1">//水平</span>
+</span><span class='line'>  <span class="n">g_object_set</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">textoverlay</span><span class="p">),</span><span class="s">&quot;ypad&quot;</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span> <span class="c1">//竖直</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//开始播放</span>
+</span><span class='line'>  <span class="n">g_print</span><span class="p">(</span><span class="s">&quot;开始播放 %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span><span class='line'>  <span class="n">gst_element_set_state</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span><span class="n">GST_STATE_PLAYING</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">g_main_loop_run</span><span class="p">(</span><span class="n">loop</span><span class="p">);</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">//停止管道处理流程</span>
+</span><span class='line'>  <span class="n">gst_element_set_state</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span><span class="n">GST_STATE_NULL</span><span class="p">);</span>
+</span><span class='line'>  <span class="c1">//释放占用的资源</span>
+</span><span class='line'>  <span class="n">gst_object_unref</span><span class="p">(</span><span class="n">GST_OBJECT</span><span class="p">(</span><span class="n">pipeline</span><span class="p">));</span>
+</span><span class='line'>  <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[改]Java Native Interface 播放MP3 ]]></title>
@@ -2725,275 +3166,6 @@
 <li>美元货币政策及其经济预期对1307价格影响增大</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[原油指数抓取+android浮动窗口Service]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2013/05/05/Crude-oil-index-grep-android-floating-window-Service/"/>
-    <updated>2013-05-05T10:02:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2013/05/05/Crude-oil-index-grep-android-floating-window-Service</id>
-    <content type="html"><![CDATA[<h1>1.原油指数抓取</h1>
-
-
-<p>1.0 背景</p>
-
-<p>ICBC工商银行推出的<a title="账户原油" href="http://www.icbc.com.cn/ICBC/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E4%BA%A7%E5%93%81%E6%9C%8D%E5%8A%A1/%E6%8A%95%E8%B5%84%E4%BA%A4%E6%98%93%E7%B1%BB%E4%BA%A7%E5%93%81/%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9/default.htm" target="_blank">账户原油</a>，</p>
-
-<!-- more -->
-
-
-<p>以人民币交易是按照</p>
-
-<p><span id="MyFreeTemplateUserControl"><a title="NYMEX" href="http://zh.wikipedia.org/wiki/%E7%B4%90%E7%B4%84%E5%95%86%E5%93%81%E6%9C%9F%E8%B2%A8%E4%BA%A4%E6%98%93%E6%89%80" target="_blank">纽约商业交易所</a>（NYMEX）</span></p>
-
-<p><span id="MyFreeTemplateUserControl"><a title="西得克萨斯中间基原油" href="http://zh.wikipedia.org/wiki/%E8%A5%BF%E5%BE%97%E5%85%8B%E8%90%A8%E6%96%AF%E4%B8%AD%E9%97%B4%E5%9F%BA%E5%8E%9F%E6%B2%B9" target="_blank">西德克萨斯轻质低硫原油</a>期货合约（WTI）价格报价，</span></p>
-
-<p><span id="MyFreeTemplateUserControl">以及账户国际原油参考洲际交易所（ICE）</span></p>
-
-<p><span id="MyFreeTemplateUserControl"><a title="搜索/北海布伦特原油" href="http://zh.wikipedia.org/wiki/Special:%E6%90%9C%E7%B4%A2/%E5%8C%97%E6%B5%B7%E5%B8%83%E4%BC%A6%E7%89%B9%E5%8E%9F%E6%B2%B9" target="_blank">布伦特原油</a>期货合约（Brent）价格报价</span></p>
-
-<p><span id="MyFreeTemplateUserControl">和综合考虑人民币与美元汇率报价的。</span></p>
-
-<p>1.1 SHELL实现</p>
-
-<p>&nbsp;</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/sh</span>
-</span><span class='line'><span class="c">#</span>
-</span><span class='line'><span class="c"># 抓取 wap.eastmoney.com 原油指数</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#最新价</span>
-</span><span class='line'><span class="nv">latestprice</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c">#涨跌值</span>
-</span><span class='line'><span class="nv">Pricevalue</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c">#涨跌幅</span>
-</span><span class='line'><span class="nv">risingAndfalling</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c">#今开盘</span>
-</span><span class='line'><span class="nv">openingQuotation</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c">#最高价</span>
-</span><span class='line'><span class="nv">ceilingprice</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c">#最低价</span>
-</span><span class='line'><span class="nv">bottomprice</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c">#昨收盘</span>
-</span><span class='line'><span class="nv">closingQuotation</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c">#交易时间</span>
-</span><span class='line'><span class="nv">exchangehour</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c"># 分时图URL</span>
-</span><span class='line'><span class="nv">timeLine</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'><span class="c"># K线图</span>
-</span><span class='line'><span class="nv">KChart</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'>
-</span><span class='line'><span class="c">#获得html</span>
-</span><span class='line'>wget -O conc.html -q --user-agent<span class="o">=</span><span class="s2">&quot;Mobile Safari/534.30&quot;</span> --no-cookies <span class="se">\</span>
-</span><span class='line'>--referer<span class="o">=</span><span class="s2">&quot;http://wap.eastmoney.com/Futures.aspx&quot;</span> <span class="se">\</span>
-</span><span class='line'>http://wap.eastmoney.com/FuturesInfo.aspx?c<span class="o">=</span>CONC
-</span><span class='line'>
-</span><span class='line'><span class="c"># 最新价：.{7}(.{4,5})</span>
-</span><span class='line'><span class="nv">latestprice</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;最新价：.\{7\}\(.\{4,5\}\)&#39; conc.html | awk &#39;gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'><span class="c">#gsub(r,s,t) 在字符串t中，用s替换和正则r匹配所有字符串 返回替换的个数。如果没有给出t，缺省为$0</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 涨跌值：.{45}(.{3,5}[0-9])</span>
-</span><span class='line'><span class="nv">Pricevalue</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;涨跌值：.\{45\}\(.\{3,5\}[0-9]\)&#39; conc.html | awk &#39;gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 涨跌幅：.{45}(.{4,5}%)</span>
-</span><span class='line'><span class="nv">risingAndfalling</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;涨跌幅：.\{45\}\(.\{4,5\}%\)&#39; conc.html | awk &#39;gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 今开盘：.{7}(.{3,5}[0-9])</span>
-</span><span class='line'><span class="nv">openingQuotation</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;今开盘：.\{7\}\(.\{3,5\}[0-9]\)&#39; conc.html | awk &#39;gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 最高价：.{7}(.{4,5}[0-9])</span>
-</span><span class='line'><span class="nv">ceilingprice</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;最高价：.\{7\}\(.\{4,5\}[0-9]\)&#39; conc.html | awk &#39;gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 最低价：.{7}(.{4,5}[0-9])</span>
-</span><span class='line'><span class="nv">bottomprice</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;最低价：.\{7\}\(.\{4,5\}[0-9]\)&#39; conc.html | awk &#39;gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 昨收盘：.{7}(.{4,5}[0-9])</span>
-</span><span class='line'><span class="nv">closingQuotation</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;昨收盘：.\{7\}\(.\{4,5\}[0-9]\)&#39; conc.html | awk &#39;gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 交易时间：.{7}(.{19})</span>
-</span><span class='line'><span class="nv">exchangehour</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;交易时间：.\{7\}\(.\{19\}\)&#39; conc.html | awk &#39;gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># 分时图.*(ht.*)K</span>
-</span><span class='line'><span class="nv">timeLine</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;分时图.*\(ht.*\)K&#39; conc.html|\</span>
-</span><span class='line'><span class="s2">grep -o &#39;\(http.*0\)&#39;|awk &#39;gsub(/amp;/,&quot;&quot;)&#39;`&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#获得分时图</span>
-</span><span class='line'>wget -O timeline.png -q --user-agent<span class="o">=</span><span class="s2">&quot;Mobile Safari/534.30&quot;</span> --no-cookies <span class="se">\</span>
-</span><span class='line'>--referer<span class="o">=</span><span class="s2">&quot;http://wap.eastmoney.com/Futures.aspx&quot;</span> <span class="nv">$timeLine</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#获得k线图 K线图.*(ht.*C0)</span>
-</span><span class='line'><span class="nv">KChart</span><span class="o">=</span><span class="s2">&quot;`grep -o &#39;K线图.*\(ht.*C0\)&#39; conc.html|\</span>
-</span><span class='line'><span class="s2">grep -o &#39;\(http.*0\)&#39;|awk &#39;gsub(/amp;/,&quot;&quot;)&#39;`&quot;</span>;
-</span><span class='line'>
-</span><span class='line'>wget -O KChart.png -q --user-agent<span class="o">=</span><span class="s2">&quot;Mobile Safari/534.30&quot;</span> --no-cookies <span class="se">\</span>
-</span><span class='line'>--referer<span class="o">=</span><span class="s2">&quot;http://wap.eastmoney.com/Futures.aspx&quot;</span> <span class="nv">$KChart</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">echo</span> <span class="nv">$latestprice</span>
-</span><span class='line'><span class="nb">echo</span> <span class="nv">$Pricevalue</span>
-</span><span class='line'><span class="nb">echo</span> <span class="nv">$risingAndfalling</span>
-</span><span class='line'><span class="nb">echo</span> <span class="nv">$openingQuotation</span>
-</span><span class='line'><span class="nb">echo</span> <span class="nv">$ceilingprice</span>
-</span><span class='line'><span class="nb">echo</span> <span class="nv">$bottomprice</span>
-</span><span class='line'><span class="nb">echo</span> <span class="nv">$closingQuotation</span>
-</span><span class='line'><span class="nb">echo</span> <span class="nv">$exchangehour</span>
-</span><span class='line'><span class="c">#echo $timeLine</span>
-</span><span class='line'><span class="c">#echo $KChart</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">tPicPath</span><span class="o">=</span><span class="s2">&quot;`pwd`&quot;&quot;/timeline.png&quot;</span>;
-</span><span class='line'><span class="nv">KPicPath</span><span class="o">=</span><span class="s2">&quot;`pwd`&quot;&quot;/KChart.png&quot;</span>;
-</span><span class='line'>
-</span><span class='line'>notify-send -t 20000 -i <span class="nv">$tPicPath</span>  <span class="s2">&quot;$latestprice $Pricevalue&quot;</span> <span class="s2">&quot; $risingAndfalling $openingQuotation \</span>
-</span><span class='line'><span class="s2">$ceilingpric $bottomprice $closingQuotation $exchangehour&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注：grep 的正则表达式也许不准(在网页的改变下）</p>
-
-<p>1.2 效果</p>
-
-<p><img alt="效果" src="http://i.troll.ws/c914df5d.png" width="499" height="103" /></p>
-
-<p>more:
-<a href="http://www.icbc.com.cn/ICBC/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E4%BA%A7%E5%93%81%E6%9C%8D%E5%8A%A1/%E6%8A%95%E8%B5%84%E4%BA%A4%E6%98%93%E7%B1%BB%E4%BA%A7%E5%93%81/%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9/default.htm" target="_blank">账户原油</a>
-<a href="http://www.icbc.com.cn/icbc/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E5%AD%A6%E8%8B%91/%E7%83%AD%E7%82%B9%E9%97%AE%E7%AD%94/%E4%B8%AD%E5%9B%BD%E5%B7%A5%E5%95%86%E9%93%B6%E8%A1%8C%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9%E4%B8%9A%E5%8A%A1%E7%9F%A5%E8%AF%86%E9%97%AE%E7%AD%941.htm" target="_blank">中国工商银行账户原油业务知识问答</a>
-<strong>2.android浮动窗口Service</strong></p>
-
-<p><a title="FloatView.java" href="https://github.com/wuwenjie1992/Xhullo/blob/master/src/wo/wocom/xwell/view/FloatView.java" target="_blank">FloatView.java</a></p>
-
-<p><a title="SV_FloateViewService" href="https://github.com/wuwenjie1992/Xhullo/blob/master/src/wo/wocom/xwell/service/SV_FloateViewService.java" target="_blank">SV_FloateViewService.java</a></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">ComponentName</span> <span class="n">component</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ComponentName</span>
-</span><span class='line'><span class="o">(</span><span class="k">this</span><span class="o">,</span><span class="n">wo</span><span class="o">.</span><span class="na">wocom</span><span class="o">.</span><span class="na">xwell</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">SV_FloateViewService</span><span class="o">.</span><span class="na">class</span><span class="o">);&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// 组件名称，intent会根据component</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// name启动一个组件（activity,service,contentProvider）</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">Intent</span> <span class="n">mIntent01</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">mIntent01</span><span class="o">.</span><span class="na">setComponent</span><span class="o">(</span><span class="n">component</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">startService</span><span class="o">(</span><span class="n">mIntent01</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>效果：</p>
-
-<p><img alt="浮动窗口" src="http://i.troll.ws/ab5bef34.png" width="320" height="480" /></p>
-
-<p>注：该版除屏幕外其他按键不能工作，</p>
-
-<p>原因LayoutParams相关参数的设置（可能导致）</p>
-
-<p>LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH</p>
-
-<h2>&nbsp;</h2>
-
-<p>更新：</p>
-
-<p>添加WindowManager.LayoutParams.flags的设置LayoutParams.FLAG_NOT_FOCUSABLE</p>
-
-<p>//FLAG_NOT_FOCUSABLE Constant Value: 8 (0x00000008)不聚焦 可使实体按键反应//Window flag: this window won&rsquo;t ever get key input focus,
-//so the user can not send key or other button events to it.</p>
 ]]></content>
   </entry>
   
