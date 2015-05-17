@@ -9,10 +9,7 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="不知道为何
-登录了Xubuntu
-后
-发现为社么程序的外框都没有的 用得十分的不习惯 找谷神 一问 有了以下解决方法： 1）Alt + F2 2)输入 rm -rf ~/.cache/sessions 删除 缓存 3）运行 4）reboot 重启 5) 完成 MORE： Quick Fix &hellip;">
+  <meta name="description" content="1)准备 nasm ,VirtualBox sudo apt-get install nasm sudo apt-get install virtualbox ==================================== 2)编译boot0.0.1.asm %ifdef &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,6 +84,158 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/26/minimalist-operating-system/">【改】十分钟的极简操作系统</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-26T12:05:00+08:00" pubdate data-updated="true">Jul 26<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/07/26/minimalist-operating-system/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>1)准备 nasm ,VirtualBox</p>
+
+<p>sudo apt-get install nasm</p>
+
+<p>sudo apt-get install virtualbox</p>
+
+<p>====================================</p>
+
+<p>2)编译boot0.0.1.asm</p>
+
+<hr />
+
+<p>%ifdef  <em>BOOT_DEBUG</em>
+org  0100h        ; 调试状态, 做成 .COM 文件, 可调试
+%else
+org  07c00h        ; BIOS 将把 Boot Sector 加载到 0:7C00 处
+%endif</p>
+
+<p>mov    ax, cs
+mov    ds, ax
+mov    es, ax
+call    DispStr        ; 调用显示字符串例程
+jmp    $        ; 无限循环
+DispStr:
+mov    ax, BootMessage
+mov    bp, ax        ; ES:BP = 串地址
+mov    cx, 17        ; CX = 串长度
+mov    ax, 01301h    ; AH = 13,  AL = 01h
+mov    bx, 000ch    ; 页号为0(BH = 0) 黑底红字(BL = 0Ch,高亮)
+mov    dl, 0
+int    10h        ; int 10h
+ret
+BootMessage:        db    &ldquo;Ohhhh,wuwenjie!!!&rdquo;
+times     510-($&ndash;$$)    db    0 ; 填充剩下的空间，使生成的二进制代码恰好为512字节
+dw     0xaa55              ; 结束标志</p>
+
+<hr />
+
+<p>2.2）利用nasn 编译</p>
+
+<p>nasm boot0.0.1.asm -o boot0.0.1.bin
+2.3）dd if=boot0.0.1.bin of=myos0.0.1.img bs=512 count=1</p>
+
+<p>生成img文件</p>
+
+<p>&nbsp;</p>
+
+<p>==================================================</p>
+
+<p>3）VirtualBox检验极简OS</p>
+
+<p>步骤：</p>
+
+<p>&nbsp;</p>
+
+<p>新建&mdash;&gt;下一步&mdash;&gt;名称（myos0.0.1)other other/unknown</p>
+
+<p>&nbsp;</p>
+
+<p>&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步</p>
+
+<p>&nbsp;</p>
+
+<p>&mdash;&gt;创建&mdash;&gt;创建&mdash;&gt;设置&mdash;&gt;存储&mdash;&ndash;&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>添加软盘控制器（启动顺序默认软驱开始）&mdash;&gt;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时55分47秒.png"><img class="alignleft  wp-image-556" title="添加软盘控制器" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时55分47秒.png" alt="" width="408" height="352" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>添加虚拟软驱&mdash;&ndash;&gt;选择磁盘&mdash;&gt;选择刚刚生成的myos0.0.1.img&mdash;&gt;</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时57分43秒1.png"><img class="alignleft size-full wp-image-558" title="添加虚拟软驱" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时57分43秒1.png" alt="" width="204" height="22" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>打开&mdash;&gt;确定&mdash;&ndash;&gt;启动</p>
+
+<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-15时02分33秒.png"><img title="成功画面" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-15时02分33秒.png" alt="" width="511" height="194" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>====================================================</p>
+
+<p>4）参考</p>
+
+<p>1.[于渊]一个操作系统的实现</p>
+
+<p>2.<a title="boot.asm" href="https://github.com/yyu/osfs01/blob/master/boot.asm" target="_blank"><a href="https://github.com/yyu/osfs01/blob/master/boot.asm">https://github.com/yyu/osfs01/blob/master/boot.asm</a></a></p>
+
+<p>3.<a title="还在建设中（2012.7.26）" href="http://osfromscratch.org" target="_blank"><a href="http://osfromscratch.org">http://osfromscratch.org</a></a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1385,71 +1534,6 @@ sudo mount -o loop [root.disk路径]  [需要挂载到的路径]</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/20/2D-map-editor-Tiled-in-linux/">linux下的2D地图编辑器Tiled</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-20T16:56:00+08:00" pubdate data-updated="true">Apr 20<span>th</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/04/20/2D-map-editor-Tiled-in-linux/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a title="mapeditor.org" href="http://www.mapeditor.org/" target="_blank">Tiled Map Editor </a></p>
-
-<p>&nbsp;</p>
-
-<p>最近学习J2ME，</p>
-
-<p>弄弄看JAVA小游戏，</p>
-
-<p>做地图不方便，</p>
-
-<p>用它比较好</p>
-
-<p><img class="alignnone" title="tiled-qt-screenshot-3-thumb" src="http://images.mapeditor.org/tiled-qt-screenshot-3-thumb.png" alt="tiled-qt-screenshot-3-thumb" width="401" height="243" /></p>
-
-<p><img class="alignnone" title="tiled-qt-screenshot-4-thumb" src="http://images.mapeditor.org/tiled-qt-screenshot-4-thumb.png" alt="tiled-qt-screenshot-4-thumb" width="396" height="237" /></p>
-
-<p><img class="alignnone" title="tiled-java-thumb" src="http://images.mapeditor.org/tiled-java-thumb.png" alt="tiled-java-thumb" width="396" height="264" /></p>
-
-<p>&nbsp;</p>
-
-<h4><a title="sourceforge.net" href="http://sourceforge.net/projects/tiled/files/Tiled/0.7.2/tiled-0.7.2-bin.zip" target="_blank">Java Version DOWNLOAD</a></h4>
-
-
-<p>&nbsp;</p>
-
-<p>cd dist (if you have compiled Tiled yourself)
-java -jar tiled.jar</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; 老早的</a>
@@ -1467,6 +1551,10 @@ java -jar tiled.jar</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/30/ryu-yan-jian-jie/">R语言简介</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">[改]Gstreamer 播放MP4 并 添加文字水印</a>
       </li>
     
@@ -1480,10 +1568,6 @@ java -jar tiled.jar</p>
     
       <li class="post">
         <a href="/blog/2014/12/28/bai-yin-zhi-shu-agl9-20141228ji-zhu-fen-xi-agt-plus-d/">白银指数AGL9-20141228技术分析-AGt+d</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/30/ri-mu-the-sunset/">日暮-the Sunset</a>
       </li>
     
   </ul>

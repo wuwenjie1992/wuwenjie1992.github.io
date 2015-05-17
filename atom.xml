@@ -4,7 +4,7 @@
   <title><![CDATA[吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-04-12T20:07:04+08:00</updated>
+  <updated>2015-05-17T18:39:36+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[R语言简介]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/04/30/ryu-yan-jian-jie/"/>
+    <updated>2015-04-30T18:14:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/04/30/ryu-yan-jian-jie</id>
+    <content type="html"><![CDATA[<h2>R？</h2>
+
+<ul>
+<li>1993年<a href="http://www.r-project.org/">R</a>诞生了，而其前者<a href="http://zh.wikipedia.org/wiki/S%E8%AA%9E%E8%A8%80">S语言</a>早在1975年的贝尔实验室就被研发出来了。</li>
+<li>R是<a href="https://directory.fsf.org/wiki/R">GNU计划的一个项目</a>，是S的开源实现，所以亦称为GNU s。</li>
+<li>R是优秀的计算、绘图、统计分析系统，此外由用户撰写的包使得其功能更为强大。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>正文</h2>
+
+<ul>
+<li></li>
+</ul>
+
+
+<iframe src ="http://www.wuwenjie.tk/images/R简介.pdf" width="800" height="1000">
+<p>你的浏览器不支持iframes！</p>
+</iframe>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[改]Gstreamer 播放MP4 并 添加文字水印 ]]></title>
@@ -3064,107 +3097,6 @@
 </span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;\e[1;33mAuthor:wuwenjie.tk\e[0m</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[使用octopress了]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2013/05/31/shi-yong-octopressliao/"/>
-    <updated>2013-05-31T23:32:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2013/05/31/shi-yong-octopressliao</id>
-    <content type="html"><![CDATA[<h2>在wordpress被攻击之后转向<a href="http://octopress.org/">octopress</a></h2>
-
-<ul>
-<li>octopress 的静态特性，对个人blog比较好</li>
-<li>markdown 语法，写文章方便，干净清晰</li>
-</ul>
-
-
-<h2>账户原油K线</h2>
-
-<!-- more -->
-
-
-<ul>
-<li><p>宏观部分影响因素</p>
-
-<ul>
-<li>美国经济复苏的预计
-
-<ul>
-<li>美联储政策对美元走势的影响</li>
-<li>各经济指标的表现的预计
-
-<ul>
-<li><a href="http://data.eastmoney.com/cjsj/foreign_0_2.html">非农就业人数</a></li>
-<li>失业率</li>
-<li>GDP、等等</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>世界范围内的经济复苏的预计
-
-<ul>
-<li>欧元区经济复苏情况</li>
-<li>中国经济发展预计
-
-<ul>
-<li><a href="http://data.eastmoney.com/cjsj/cpi.html">CPI</a></li>
-<li>PPI、GDP</li>
-<li>PMI、等等</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>行业部分影响因素</p>
-
-<ul>
-<li>原油库存 <a href="http://www.eia.gov/">美国能源信息署(EIA)</a></li>
-<li>原油需求 淡季旺季</li>
-<li>地缘政治 中东局势、石油主产区政治局势等</li>
-<li>欧佩克当月原油日均产量</li>
-<li>炼厂开工率</li>
-</ul>
-</li>
-<li><p>技术影响因素</p>
-
-<ul>
-<li><img src="http://www.wuwenjie.tk/images/cln31307-20130601-2.png" alt="cln31307-20130601-2" /></li>
-<li>说明
-
-<ul>
-<li> 20130601 Virtualbox Win-XP 大智慧</li>
-<li> 总体上看是很漂亮的<a href="http://wiki.mbalib.com/wiki/%E5%A4%B4%E8%82%A9%E5%BA%95">头肩底</a>
-
-<ul>
-<li> 有明显交易量的配合</li>
-<li> 突破了0.618的93.613$颈线</li>
-<li> 下行通道已经打开</li>
-</ul>
-</li>
-<li> 注意0.382的90.779$的支撑位</li>
-<li> 画周期线 以7天为一个周期</li>
-<li> 趋势上看在近1-2周也许会调整到位</li>
-<li> 近5周亦可看作<a href="http://wiki.mbalib.com/wiki/M%E5%A4%B4">M头</a></li>
-<li> <a href="http://i.troll.ws/8387b765.png">察看大图</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>结论</h2>
-
-<ul>
-<li>近期突破90$概率大</li>
-<li>未来两周在90$-94$附近震荡</li>
-<li>美元货币政策及其经济预期对1307价格影响增大</li>
-</ul>
 
 ]]></content>
   </entry>

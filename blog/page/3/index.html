@@ -9,7 +9,8 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="1.原油指数抓取 1.0 背景 ICBC工商银行推出的账户原油， ">
+  <meta name="description" content="在wordpress被攻击之后转向octopress octopress 的静态特性，对个人blog比较好
+markdown 语法，写文章方便，干净清晰 账户原油K线 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +85,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/31/shi-yong-octopressliao/">使用octopress了</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-31T23:32:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
+        
+        
+          | <a href="/blog/2013/05/31/shi-yong-octopressliao/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>在wordpress被攻击之后转向<a href="http://octopress.org/">octopress</a></h2>
+
+<ul>
+<li>octopress 的静态特性，对个人blog比较好</li>
+<li>markdown 语法，写文章方便，干净清晰</li>
+</ul>
+
+
+<h2>账户原油K线</h2>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/31/shi-yong-octopressliao/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -556,158 +609,6 @@ C4droid 已经几乎完全支持C语言，</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/26/minimalist-operating-system/">【改】十分钟的极简操作系统</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-26T12:05:00+08:00" pubdate data-updated="true">Jul 26<span>th</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/07/26/minimalist-operating-system/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>1)准备 nasm ,VirtualBox</p>
-
-<p>sudo apt-get install nasm</p>
-
-<p>sudo apt-get install virtualbox</p>
-
-<p>====================================</p>
-
-<p>2)编译boot0.0.1.asm</p>
-
-<hr />
-
-<p>%ifdef  <em>BOOT_DEBUG</em>
-org  0100h        ; 调试状态, 做成 .COM 文件, 可调试
-%else
-org  07c00h        ; BIOS 将把 Boot Sector 加载到 0:7C00 处
-%endif</p>
-
-<p>mov    ax, cs
-mov    ds, ax
-mov    es, ax
-call    DispStr        ; 调用显示字符串例程
-jmp    $        ; 无限循环
-DispStr:
-mov    ax, BootMessage
-mov    bp, ax        ; ES:BP = 串地址
-mov    cx, 17        ; CX = 串长度
-mov    ax, 01301h    ; AH = 13,  AL = 01h
-mov    bx, 000ch    ; 页号为0(BH = 0) 黑底红字(BL = 0Ch,高亮)
-mov    dl, 0
-int    10h        ; int 10h
-ret
-BootMessage:        db    &ldquo;Ohhhh,wuwenjie!!!&rdquo;
-times     510-($&ndash;$$)    db    0 ; 填充剩下的空间，使生成的二进制代码恰好为512字节
-dw     0xaa55              ; 结束标志</p>
-
-<hr />
-
-<p>2.2）利用nasn 编译</p>
-
-<p>nasm boot0.0.1.asm -o boot0.0.1.bin
-2.3）dd if=boot0.0.1.bin of=myos0.0.1.img bs=512 count=1</p>
-
-<p>生成img文件</p>
-
-<p>&nbsp;</p>
-
-<p>==================================================</p>
-
-<p>3）VirtualBox检验极简OS</p>
-
-<p>步骤：</p>
-
-<p>&nbsp;</p>
-
-<p>新建&mdash;&gt;下一步&mdash;&gt;名称（myos0.0.1)other other/unknown</p>
-
-<p>&nbsp;</p>
-
-<p>&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步&mdash;&gt;下一步</p>
-
-<p>&nbsp;</p>
-
-<p>&mdash;&gt;创建&mdash;&gt;创建&mdash;&gt;设置&mdash;&gt;存储&mdash;&ndash;&gt;</p>
-
-<p>&nbsp;</p>
-
-<p>添加软盘控制器（启动顺序默认软驱开始）&mdash;&gt;</p>
-
-<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时55分47秒.png"><img class="alignleft  wp-image-556" title="添加软盘控制器" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时55分47秒.png" alt="" width="408" height="352" /></a></p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>添加虚拟软驱&mdash;&ndash;&gt;选择磁盘&mdash;&gt;选择刚刚生成的myos0.0.1.img&mdash;&gt;</p>
-
-<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时57分43秒1.png"><img class="alignleft size-full wp-image-558" title="添加虚拟软驱" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-14时57分43秒1.png" alt="" width="204" height="22" /></a></p>
-
-<p>&nbsp;</p>
-
-<p>打开&mdash;&gt;确定&mdash;&ndash;&gt;启动</p>
-
-<p><a href="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-15时02分33秒.png"><img title="成功画面" src="http://www.wuwenjie.tk/wp-content/uploads/2012/07/屏幕截图-2012年07月26日-15时02分33秒.png" alt="" width="511" height="194" /></a></p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>====================================================</p>
-
-<p>4）参考</p>
-
-<p>1.[于渊]一个操作系统的实现</p>
-
-<p>2.<a title="boot.asm" href="https://github.com/yyu/osfs01/blob/master/boot.asm" target="_blank"><a href="https://github.com/yyu/osfs01/blob/master/boot.asm">https://github.com/yyu/osfs01/blob/master/boot.asm</a></a></p>
-
-<p>3.<a title="还在建设中（2012.7.26）" href="http://osfromscratch.org" target="_blank"><a href="http://osfromscratch.org">http://osfromscratch.org</a></a></p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; 老早的</a>
@@ -725,6 +626,10 @@ dw     0xaa55              ; 结束标志</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/30/ryu-yan-jian-jie/">R语言简介</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">[改]Gstreamer 播放MP4 并 添加文字水印</a>
       </li>
     
@@ -738,10 +643,6 @@ dw     0xaa55              ; 结束标志</p>
     
       <li class="post">
         <a href="/blog/2014/12/28/bai-yin-zhi-shu-agl9-20141228ji-zhu-fen-xi-agt-plus-d/">白银指数AGL9-20141228技术分析-AGt+d</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/30/ri-mu-the-sunset/">日暮-the Sunset</a>
       </li>
     
   </ul>
