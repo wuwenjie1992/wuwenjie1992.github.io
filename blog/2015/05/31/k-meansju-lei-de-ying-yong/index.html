@@ -1,0 +1,600 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>K-means聚类的应用 - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="K-means 简介 K-means算法（k-means clustering）：一种适用于大样本的无监督式的聚类分析方法。
+我对算法基本原理的理解：
+1.随机初始化k个聚类中心，也可以指定聚类中心。
+2.计算样本与聚类中心的距离，将样本划分到最近的聚类中心的类里。
+3.划分完毕后， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2015/05/31/k-meansju-lei-de-ying-yong">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+  <!--<script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>-->
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">K-means聚类的应用</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-31T19:02:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2015</time>
+        
+        
+          | <a href="#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>K-means 简介</h1>
+
+<ul>
+<li>K-means算法（k-means clustering）：一种适用于大样本的无监督式的聚类分析方法。</li>
+<li>我对算法基本原理的理解：</li>
+<li>1.随机初始化k个聚类中心，也可以指定聚类中心。</li>
+<li>2.计算样本与聚类中心的距离，将样本划分到最近的聚类中心的类里。</li>
+<li>3.划分完毕后，计算每个类新的聚类中心，可以采用不同算法计算。</li>
+<li>4.如果新的聚类中心没有变化，算法结束；如果有变化，goto 2、3。</li>
+</ul>
+
+
+<h1>K-means 应用</h1>
+
+<ul>
+<li>由于它流行于数据挖掘领域，常用来探索未知客群的结构。</li>
+<li>在划分问题中，作为预处理工作，划分出了大致类别，然后可探究类内特性和差异。</li>
+<li>其他：可以用作一种剔除算法、<a href="http://zh.wikipedia.org/zh/K-%E5%B9%B3%E5%9D%87%E7%AE%97%E6%B3%95">向量的量化、特征学习</a>。</li>
+</ul>
+
+
+<h1>K-means 的 R 实践</h1>
+
+<ul>
+<li>使用R语言使用K-means算法快捷方便。</li>
+</ul>
+
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="err">#</span> <span class="err">初始化数据</span>
+</span><span class='line'><span class="nx">m</span> <span class="o">&lt;-</span> <span class="nx">rbind</span><span class="p">(</span>
+</span><span class='line'><span class="nx">matrix</span><span class="p">(</span><span class="nx">rnorm</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">sd</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nx">ncol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span> <span class="err">#</span> <span class="err">标准正态分布</span>
+</span><span class='line'><span class="nx">matrix</span><span class="p">(</span><span class="nx">rnorm</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">mean</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">sd</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nx">ncol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span>
+</span><span class='line'><span class="nx">matrix</span><span class="p">(</span><span class="nx">rnorm</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">mean</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">sd</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nx">ncol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span>
+</span><span class='line'><span class="nx">matrix</span><span class="p">(</span><span class="nx">rnorm</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="nx">mean</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nx">sd</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nx">ncol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="nx">colnames</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">m</span>  <span class="o">&lt;-</span> <span class="nx">apply</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="nx">scale</span><span class="p">)</span> <span class="err">#</span> <span class="err">标准化</span>
+</span><span class='line'><span class="nx">cl</span> <span class="o">&lt;-</span> <span class="nx">kmeans</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="err">#</span> <span class="err">使用</span><span class="nx">Kmeans</span><span class="err">进行聚类分析</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">cl</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">cl$size</span>  <span class="err">#</span> <span class="err">聚类每个分组的数量</span>
+</span><span class='line'><span class="nx">cl$totss</span> <span class="err">#</span> <span class="nx">The</span> <span class="nx">total</span> <span class="nx">sum</span> <span class="nx">of</span> <span class="nx">squares</span><span class="p">.</span>
+</span><span class='line'><span class="nx">cl$withinss</span> <span class="err">#</span> <span class="nx">Vector</span> <span class="nx">of</span> <span class="nx">within</span><span class="o">-</span><span class="nx">cluster</span> <span class="nx">sum</span> <span class="nx">of</span> <span class="nx">squares</span>
+</span><span class='line'><span class="nx">cl$centers</span>  <span class="err">#</span> <span class="err">聚类中心</span>
+</span><span class='line'><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="nx">cl$tot</span><span class="p">.</span><span class="nx">withinss</span><span class="o">/</span><span class="nx">cl$totss</span><span class="p">)</span>  <span class="err">#</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="nx">cl$withinss</span><span class="p">)</span><span class="o">/</span><span class="nx">cl$totss</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">############################</span>
+</span><span class='line'><span class="err">#</span> <span class="nx">K</span><span class="o">-</span><span class="nx">means</span> <span class="err">确定组数</span><span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">png</span><span class="p">(</span><span class="s2">&quot;Kmeans_group_1.png&quot;</span><span class="p">)</span> <span class="err">#</span> <span class="err">输出图像到</span><span class="nx">png</span><span class="err">文件</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">wss</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="nx">nrow</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nx">sum</span><span class="p">(</span><span class="nx">apply</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="kd">var</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="mi">2</span><span class="o">:</span><span class="mi">20</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">wss</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">kmeans</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">centers</span><span class="o">=</span><span class="nx">i</span><span class="p">)</span><span class="nx">$withinss</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">plot</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span><span class="nx">wss</span><span class="p">,</span><span class="nx">type</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span><span class="nx">xlab</span><span class="o">=</span><span class="s2">&quot;No. Clusters&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">ylab</span><span class="o">=</span><span class="s2">&quot;Within groups sum of squares&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">main</span><span class="o">=</span><span class="s2">&quot;Kmeans Centers Method 1&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">identify</span><span class="p">(</span><span class="nx">wss</span><span class="p">)</span>
+</span><span class='line'><span class="nx">dev</span><span class="p">.</span><span class="nx">off</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span>  <span class="nx">K</span><span class="o">-</span><span class="nx">means</span> <span class="err">确定组数</span><span class="mi">2</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">png</span><span class="p">(</span><span class="s2">&quot;Kmeans_group_2.png&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">wt</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">()</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">20</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">ks</span> <span class="o">&lt;-</span> <span class="nx">kmeans</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">centers</span><span class="o">=</span><span class="nx">i</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">wt</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="nx">ks$tot</span><span class="p">.</span><span class="nx">withinss</span> <span class="o">/</span> <span class="nx">ks$totss</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">plot</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span><span class="nx">wt</span><span class="p">,</span><span class="nx">type</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span><span class="nx">xlab</span><span class="o">=</span><span class="s2">&quot;No. Clusters&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">ylab</span><span class="o">=</span><span class="s2">&quot;tot withinss / totss&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">main</span><span class="o">=</span><span class="s2">&quot;Kmeans Centers Method 2&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">abline</span><span class="p">(</span><span class="nx">h</span><span class="o">=</span><span class="mf">0.9</span><span class="p">);</span><span class="nx">identify</span><span class="p">(</span><span class="nx">wt</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">dev</span><span class="p">.</span><span class="nx">off</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">############################</span>
+</span><span class='line'><span class="err">#</span> <span class="err">找出内部点</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">resid</span><span class="p">.</span><span class="nx">m</span> <span class="o">&lt;-</span> <span class="nx">m</span> <span class="o">-</span> <span class="nx">fitted</span><span class="p">(</span><span class="nx">cl</span><span class="p">)</span>
+</span><span class='line'><span class="err">#</span> <span class="err">计算</span> <span class="err">样本与对应中心点的差</span>
+</span><span class='line'><span class="err">#</span> <span class="nx">cluster</span> <span class="nx">centers</span> <span class="s2">&quot;fitted&quot;</span> <span class="nx">to</span> <span class="nx">each</span> <span class="nx">obs</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">##</span> <span class="err">计算距离</span>
+</span><span class='line'><span class="nx">distance</span> <span class="o">&lt;-</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="nx">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)}</span>
+</span><span class='line'><span class="nx">dis</span> <span class="o">&lt;-</span> <span class="nx">apply</span><span class="p">(</span><span class="nx">resid</span><span class="p">.</span><span class="nx">m</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nx">distance</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">将距离与样本整合在一起</span>
+</span><span class='line'><span class="nx">m</span> <span class="o">&lt;-</span> <span class="nx">as</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">frame</span><span class="p">(</span><span class="nx">cbind</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">cl$cluster</span><span class="p">,</span><span class="nx">dis</span><span class="p">))</span>
+</span><span class='line'><span class="nx">colnames</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span><span class="s2">&quot;dis&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">inpoint</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">筛选出每个类中内部的样本</span> <span class="err">小于</span><span class="mf">1.2</span><span class="err">倍的类内平均距离</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="nx">length</span><span class="p">(</span><span class="nx">cl$size</span><span class="p">)){</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="err">#</span> <span class="nx">print</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">tm</span> <span class="o">&lt;-</span> <span class="nx">m</span><span class="p">[</span><span class="nx">which</span><span class="p">(</span><span class="nx">m$cluster</span> <span class="o">==</span> <span class="nx">i</span><span class="p">),]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">means</span> <span class="o">&lt;-</span> <span class="nx">mean</span><span class="p">(</span><span class="nx">tm$dis</span><span class="p">)</span> <span class="err">#每群的平均距离</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">tpoint</span> <span class="o">&lt;-</span> <span class="nx">tm</span><span class="p">[</span><span class="nx">which</span><span class="p">(</span><span class="nx">tm$dis</span> <span class="o">&lt;=</span> <span class="mf">1.2</span><span class="o">*</span><span class="nx">means</span><span class="p">),]</span>
+</span><span class='line'>  <span class="err">#</span> <span class="o">&lt;</span><span class="err">每群的平均距离</span><span class="p">,</span><span class="err">在类内部</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">inpoint</span> <span class="o">&lt;-</span> <span class="nx">rbind</span><span class="p">(</span><span class="nx">inpoint</span><span class="p">,</span><span class="nx">tpoint</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">inpoint</span> <span class="o">&lt;-</span> <span class="nx">inpoint</span><span class="p">[,</span><span class="nx">c</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">)]</span>
+</span><span class='line'><span class="nx">m</span> <span class="o">&lt;-</span> <span class="nx">m</span><span class="p">[,</span><span class="nx">c</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">)]</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nx">png</span><span class="p">(</span><span class="s2">&quot;Kmeans_inside.png&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">设置背景颜色</span>
+</span><span class='line'><span class="nx">par</span><span class="p">(</span><span class="nx">bg</span> <span class="o">=</span> <span class="s2">&quot;azure&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">画出聚类样本</span>
+</span><span class='line'><span class="nx">plot</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">col</span> <span class="o">=</span> <span class="nx">cl$cluster</span><span class="p">,</span><span class="nx">main</span><span class="o">=</span><span class="s2">&quot;K均值聚类结果与类内聚集点&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">画出样本中心</span>
+</span><span class='line'><span class="nx">points</span><span class="p">(</span><span class="nx">cl$centers</span><span class="p">,</span> <span class="nx">col</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="nx">length</span><span class="p">(</span><span class="nx">cl$size</span><span class="p">),</span> <span class="nx">pch</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">cex</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">画出内部点</span>
+</span><span class='line'><span class="nx">points</span><span class="p">(</span><span class="nx">inpoint</span><span class="p">,</span> <span class="nx">col</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="nx">nrow</span><span class="p">(</span><span class="nx">inpoint</span><span class="p">),</span> <span class="nx">pch</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">cex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">dev</span><span class="p">.</span><span class="nx">off</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>确定分类组数方法：</li>
+<li><img src="/images/Kmeans_group_1.png" alt="确定组数方法1" /></li>
+<li><img src="/images/Kmeans_group_2.png" alt="确定组数方法2" /></li>
+</ul>
+
+
+<h1>其他应用</h1>
+
+<ul>
+<li>最后找出内部点中，可以用作大样本快速SVM的样本筛选方法</li>
+<li>因为支持向量只由超平面决定，而样本外部的点才能影响SV</li>
+<li>所以可以将内部的点剔除而加快SVM的计算效率</li>
+<li>如下图没有圈中的可作为训练样本，剔除可按需要进行</li>
+<li><img src="/images/Kmeans_inside.png" alt="K均值聚类结果与类内聚集点" /></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-31T19:02:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/data-mining/'>Data mining</a>, <a class='category' href='/blog/categories/kmeans/'>Kmeans</a>, <a class='category' href='/blog/categories/r/'>R</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2015/05/31/k-meansju-lei-de-ying-yong/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2015/05/31/k-meansju-lei-de-ying-yong/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/04/30/ryu-yan-jian-jie/" title="Previous Post: R语言简介">&laquo; R语言简介</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/k-meansju-lei-de-ying-yong/">K-means聚类的应用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/30/ryu-yan-jian-jie/">R语言简介</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">[改]Gstreamer 播放MP4 并 添加文字水印</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">[改]Java Native Interface 播放MP3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/31/gai-sas-an-zhuang-yu-jian-jie/">[改]SAS-安装与简介</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+	<li><a href="http://www.virscan.org/">在线扫毒</a></li>
+	
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>2014.4:证券经纪人:s1090414030081</li>
+<li>2014.8.11:CMBCC</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+<li><a href="http://wuhuinxin.tk">Other Website</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70">
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"wuwenjie"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2015 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

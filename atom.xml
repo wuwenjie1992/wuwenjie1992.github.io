@@ -4,7 +4,7 @@
   <title><![CDATA[吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-05-17T18:39:36+08:00</updated>
+  <updated>2015-06-07T21:06:27+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,275 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[K-means聚类的应用]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/05/31/k-meansju-lei-de-ying-yong/"/>
+    <updated>2015-05-31T19:02:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/05/31/k-meansju-lei-de-ying-yong</id>
+    <content type="html"><![CDATA[<h1>K-means 简介</h1>
+
+<ul>
+<li>K-means算法（k-means clustering）：一种适用于大样本的无监督式的聚类分析方法。</li>
+<li>我对算法基本原理的理解：</li>
+<li>1.随机初始化k个聚类中心，也可以指定聚类中心。</li>
+<li>2.计算样本与聚类中心的距离，将样本划分到最近的聚类中心的类里。</li>
+<li>3.划分完毕后，计算每个类新的聚类中心，可以采用不同算法计算。</li>
+<li>4.如果新的聚类中心没有变化，算法结束；如果有变化，goto 2、3。</li>
+</ul>
+
+
+<h1>K-means 应用</h1>
+
+<ul>
+<li>由于它流行于数据挖掘领域，常用来探索未知客群的结构。</li>
+<li>在划分问题中，作为预处理工作，划分出了大致类别，然后可探究类内特性和差异。</li>
+<li>其他：可以用作一种剔除算法、<a href="http://zh.wikipedia.org/zh/K-%E5%B9%B3%E5%9D%87%E7%AE%97%E6%B3%95">向量的量化、特征学习</a>。</li>
+</ul>
+
+
+<h1>K-means 的 R 实践</h1>
+
+<ul>
+<li>使用R语言使用K-means算法快捷方便。</li>
+</ul>
+
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="err">#</span> <span class="err">初始化数据</span>
+</span><span class='line'><span class="nx">m</span> <span class="o">&lt;-</span> <span class="nx">rbind</span><span class="p">(</span>
+</span><span class='line'><span class="nx">matrix</span><span class="p">(</span><span class="nx">rnorm</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">sd</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nx">ncol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span> <span class="err">#</span> <span class="err">标准正态分布</span>
+</span><span class='line'><span class="nx">matrix</span><span class="p">(</span><span class="nx">rnorm</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">mean</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">sd</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nx">ncol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span>
+</span><span class='line'><span class="nx">matrix</span><span class="p">(</span><span class="nx">rnorm</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">mean</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">sd</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nx">ncol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span>
+</span><span class='line'><span class="nx">matrix</span><span class="p">(</span><span class="nx">rnorm</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="nx">mean</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nx">sd</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nx">ncol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="nx">colnames</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">m</span>  <span class="o">&lt;-</span> <span class="nx">apply</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="nx">scale</span><span class="p">)</span> <span class="err">#</span> <span class="err">标准化</span>
+</span><span class='line'><span class="nx">cl</span> <span class="o">&lt;-</span> <span class="nx">kmeans</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="err">#</span> <span class="err">使用</span><span class="nx">Kmeans</span><span class="err">进行聚类分析</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">cl</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">cl$size</span>  <span class="err">#</span> <span class="err">聚类每个分组的数量</span>
+</span><span class='line'><span class="nx">cl$totss</span> <span class="err">#</span> <span class="nx">The</span> <span class="nx">total</span> <span class="nx">sum</span> <span class="nx">of</span> <span class="nx">squares</span><span class="p">.</span>
+</span><span class='line'><span class="nx">cl$withinss</span> <span class="err">#</span> <span class="nx">Vector</span> <span class="nx">of</span> <span class="nx">within</span><span class="o">-</span><span class="nx">cluster</span> <span class="nx">sum</span> <span class="nx">of</span> <span class="nx">squares</span>
+</span><span class='line'><span class="nx">cl$centers</span>  <span class="err">#</span> <span class="err">聚类中心</span>
+</span><span class='line'><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="nx">cl$tot</span><span class="p">.</span><span class="nx">withinss</span><span class="o">/</span><span class="nx">cl$totss</span><span class="p">)</span>  <span class="err">#</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="nx">cl$withinss</span><span class="p">)</span><span class="o">/</span><span class="nx">cl$totss</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">############################</span>
+</span><span class='line'><span class="err">#</span> <span class="nx">K</span><span class="o">-</span><span class="nx">means</span> <span class="err">确定组数</span><span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">png</span><span class="p">(</span><span class="s2">&quot;Kmeans_group_1.png&quot;</span><span class="p">)</span> <span class="err">#</span> <span class="err">输出图像到</span><span class="nx">png</span><span class="err">文件</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">wss</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="nx">nrow</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nx">sum</span><span class="p">(</span><span class="nx">apply</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="kd">var</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="mi">2</span><span class="o">:</span><span class="mi">20</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">wss</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">kmeans</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">centers</span><span class="o">=</span><span class="nx">i</span><span class="p">)</span><span class="nx">$withinss</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">plot</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span><span class="nx">wss</span><span class="p">,</span><span class="nx">type</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span><span class="nx">xlab</span><span class="o">=</span><span class="s2">&quot;No. Clusters&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">ylab</span><span class="o">=</span><span class="s2">&quot;Within groups sum of squares&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">main</span><span class="o">=</span><span class="s2">&quot;Kmeans Centers Method 1&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">identify</span><span class="p">(</span><span class="nx">wss</span><span class="p">)</span>
+</span><span class='line'><span class="nx">dev</span><span class="p">.</span><span class="nx">off</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span>  <span class="nx">K</span><span class="o">-</span><span class="nx">means</span> <span class="err">确定组数</span><span class="mi">2</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">png</span><span class="p">(</span><span class="s2">&quot;Kmeans_group_2.png&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">wt</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">()</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">20</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">ks</span> <span class="o">&lt;-</span> <span class="nx">kmeans</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">centers</span><span class="o">=</span><span class="nx">i</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">wt</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="nx">ks$tot</span><span class="p">.</span><span class="nx">withinss</span> <span class="o">/</span> <span class="nx">ks$totss</span><span class="p">))</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">plot</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span><span class="nx">wt</span><span class="p">,</span><span class="nx">type</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span><span class="nx">xlab</span><span class="o">=</span><span class="s2">&quot;No. Clusters&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">ylab</span><span class="o">=</span><span class="s2">&quot;tot withinss / totss&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">main</span><span class="o">=</span><span class="s2">&quot;Kmeans Centers Method 2&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">abline</span><span class="p">(</span><span class="nx">h</span><span class="o">=</span><span class="mf">0.9</span><span class="p">);</span><span class="nx">identify</span><span class="p">(</span><span class="nx">wt</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">dev</span><span class="p">.</span><span class="nx">off</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">############################</span>
+</span><span class='line'><span class="err">#</span> <span class="err">找出内部点</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">resid</span><span class="p">.</span><span class="nx">m</span> <span class="o">&lt;-</span> <span class="nx">m</span> <span class="o">-</span> <span class="nx">fitted</span><span class="p">(</span><span class="nx">cl</span><span class="p">)</span>
+</span><span class='line'><span class="err">#</span> <span class="err">计算</span> <span class="err">样本与对应中心点的差</span>
+</span><span class='line'><span class="err">#</span> <span class="nx">cluster</span> <span class="nx">centers</span> <span class="s2">&quot;fitted&quot;</span> <span class="nx">to</span> <span class="nx">each</span> <span class="nx">obs</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">##</span> <span class="err">计算距离</span>
+</span><span class='line'><span class="nx">distance</span> <span class="o">&lt;-</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="nx">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)}</span>
+</span><span class='line'><span class="nx">dis</span> <span class="o">&lt;-</span> <span class="nx">apply</span><span class="p">(</span><span class="nx">resid</span><span class="p">.</span><span class="nx">m</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nx">distance</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">将距离与样本整合在一起</span>
+</span><span class='line'><span class="nx">m</span> <span class="o">&lt;-</span> <span class="nx">as</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">frame</span><span class="p">(</span><span class="nx">cbind</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">cl$cluster</span><span class="p">,</span><span class="nx">dis</span><span class="p">))</span>
+</span><span class='line'><span class="nx">colnames</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span><span class="s2">&quot;dis&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">inpoint</span> <span class="o">&lt;-</span> <span class="nx">c</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">筛选出每个类中内部的样本</span> <span class="err">小于</span><span class="mf">1.2</span><span class="err">倍的类内平均距离</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="nx">length</span><span class="p">(</span><span class="nx">cl$size</span><span class="p">)){</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="err">#</span> <span class="nx">print</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">tm</span> <span class="o">&lt;-</span> <span class="nx">m</span><span class="p">[</span><span class="nx">which</span><span class="p">(</span><span class="nx">m$cluster</span> <span class="o">==</span> <span class="nx">i</span><span class="p">),]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">means</span> <span class="o">&lt;-</span> <span class="nx">mean</span><span class="p">(</span><span class="nx">tm$dis</span><span class="p">)</span> <span class="err">#每群的平均距离</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">tpoint</span> <span class="o">&lt;-</span> <span class="nx">tm</span><span class="p">[</span><span class="nx">which</span><span class="p">(</span><span class="nx">tm$dis</span> <span class="o">&lt;=</span> <span class="mf">1.2</span><span class="o">*</span><span class="nx">means</span><span class="p">),]</span>
+</span><span class='line'>  <span class="err">#</span> <span class="o">&lt;</span><span class="err">每群的平均距离</span><span class="p">,</span><span class="err">在类内部</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">inpoint</span> <span class="o">&lt;-</span> <span class="nx">rbind</span><span class="p">(</span><span class="nx">inpoint</span><span class="p">,</span><span class="nx">tpoint</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">inpoint</span> <span class="o">&lt;-</span> <span class="nx">inpoint</span><span class="p">[,</span><span class="nx">c</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">)]</span>
+</span><span class='line'><span class="nx">m</span> <span class="o">&lt;-</span> <span class="nx">m</span><span class="p">[,</span><span class="nx">c</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">)]</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nx">png</span><span class="p">(</span><span class="s2">&quot;Kmeans_inside.png&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">设置背景颜色</span>
+</span><span class='line'><span class="nx">par</span><span class="p">(</span><span class="nx">bg</span> <span class="o">=</span> <span class="s2">&quot;azure&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">画出聚类样本</span>
+</span><span class='line'><span class="nx">plot</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">col</span> <span class="o">=</span> <span class="nx">cl$cluster</span><span class="p">,</span><span class="nx">main</span><span class="o">=</span><span class="s2">&quot;K均值聚类结果与类内聚集点&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">画出样本中心</span>
+</span><span class='line'><span class="nx">points</span><span class="p">(</span><span class="nx">cl$centers</span><span class="p">,</span> <span class="nx">col</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="nx">length</span><span class="p">(</span><span class="nx">cl$size</span><span class="p">),</span> <span class="nx">pch</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="nx">cex</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">#</span> <span class="err">画出内部点</span>
+</span><span class='line'><span class="nx">points</span><span class="p">(</span><span class="nx">inpoint</span><span class="p">,</span> <span class="nx">col</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="nx">nrow</span><span class="p">(</span><span class="nx">inpoint</span><span class="p">),</span> <span class="nx">pch</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">cex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">dev</span><span class="p">.</span><span class="nx">off</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>确定分类组数方法：</li>
+<li><img src="http://www.wuwenjie.tk/images/Kmeans_group_1.png" alt="确定组数方法1" /></li>
+<li><img src="http://www.wuwenjie.tk/images/Kmeans_group_2.png" alt="确定组数方法2" /></li>
+</ul>
+
+
+<h1>其他应用</h1>
+
+<ul>
+<li>最后找出内部点中，可以用作大样本快速SVM的样本筛选方法</li>
+<li>因为支持向量只由超平面决定，而样本外部的点才能影响SV</li>
+<li>所以可以将内部的点剔除而加快SVM的计算效率</li>
+<li>如下图没有圈中的可作为训练样本，剔除可按需要进行</li>
+<li><img src="http://www.wuwenjie.tk/images/Kmeans_inside.png" alt="K均值聚类结果与类内聚集点" /></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[R语言简介]]></title>
@@ -2705,398 +2974,6 @@
 </li>
 <li><img src="http://www.wuwenjie.tk/images/CLU3_1309_20130725.png" alt="CLU3_1309_20130725" /></li>
 </ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[gnuplot绘图工具简单使用和simple cat]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2013/06/29/gnuplothui-tu-gong-ju-jian-dan-shi-yong-he-simple-cat/"/>
-    <updated>2013-06-29T20:10:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2013/06/29/gnuplothui-tu-gong-ju-jian-dan-shi-yong-he-simple-cat</id>
-    <content type="html"><![CDATA[<h1>gnuplot绘图工具简单使用</h1>
-
-<h2>安装</h2>
-
-<ul>
-<li>sudo apt-get install gnuplot</li>
-</ul>
-
-
-<h2>使用</h2>
-
-<ul>
-<li>$ gnuplot</li>
-<li>使用实例:<a href="http://www.ibm.com/developerworks/cn/linux/l-gnuplot/">gnuplot 让您的数据可视化</a></li>
-</ul>
-
-
-<!-- more -->
-
-
-<h2>我的实例</h2>
-
-<ul>
-<li>画<a href="http://quote.eastmoney.com/sh600600.html">600600青岛啤酒</a>走势图和5日<a href="http://zh.wikipedia.org/zh/%E7%A7%BB%E5%8B%95%E5%B9%B3%E5%9D%87">简单移动平均线</a>
-
-<ul>
-<li>600600青岛啤酒的<a href="https://mega.co.nz/#!F4AFjaDA!S0qSqRGszmWqQdA6fQUBsl-C0bJhJtXAvvnOwEjWGAo">日线资料(19930827-20130628)</a>从<a href="http://www.qianlong.com.cn/">钱龙</a>下载</li>
-<li>用<a href="https://projects.gnome.org/gnumeric/">Gnumeric</a>或<a href="http://community.wps.cn/download/">Kingsoft Spreadsheet</a>打开并另存为<a href="http://zh.wikipedia.org/wiki/CSV">CSV格式</a></li>
-<li>型如
-
-<pre><code>  * 时间,涨跌,幅度%,开盘,最高,最低,收盘,成交量,成交额
-  * 1993/08/27,+0.00,+0.00,15,15.3,13.45,14,168226,24084
-  * 1993/08/30,-0.74,-5.29,13.7,13.7,13.17,13.26,32937,4442
-  * 1993/08/31,-0.36,-2.71,13.18,13.37,12.8,12.9,31062,4051
-</code></pre>
-
-<p>  删除第一行，600600.csv</p></li>
-<li>使用cut截取 时间
-
-<ul>
-<li><code>shell
-  cut -d , -f 1,7 600600.csv &gt;600600.txt
-</code></li>
-<li>型如
-
-<pre><code>  * 1993/08/27,14
-  * 1993/08/30,13.26
-  * 1993/08/31,12.9
-  * 1993/09/01,12.92
-</code></pre></li>
-</ul>
-</li>
-<li>使用SHELL生成移动平均线数据文本600600ma5.txt</li>
-</ul>
-</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>        <span class="c">#!/bin/sh</span>
-</span><span class='line'>        <span class="c">#MA 5</span>
-</span><span class='line'>        <span class="c">#</span>
-</span><span class='line'>        <span class="nv">I</span><span class="o">=</span>1;
-</span><span class='line'>        <span class="nv">FileTime</span><span class="o">=</span><span class="s2">&quot;&quot;</span>;
-</span><span class='line'>        <span class="nv">FileNum</span><span class="o">=</span>0;
-</span><span class='line'>        <span class="nv">OUT</span><span class="o">=</span>0;
-</span><span class='line'>        <span class="nv">NA</span><span class="o">=</span>0;
-</span><span class='line'>        <span class="nv">NB</span><span class="o">=</span>0;
-</span><span class='line'>        <span class="nv">NC</span><span class="o">=</span>0;
-</span><span class='line'>        <span class="nv">ND</span><span class="o">=</span>0; <span class="c">#前四天数值</span>
-</span><span class='line'>        <span class="nv">NE</span><span class="o">=</span>0;
-</span><span class='line'>
-</span><span class='line'>        <span class="k">while </span><span class="nb">read </span>list
-</span><span class='line'>        <span class="k">do</span>
-</span><span class='line'><span class="k">            </span><span class="nv">FileNum</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$list</span> |cut -d , -f 2 <span class="sb">`</span>;   <span class="c">#截取</span>
-</span><span class='line'>            <span class="nv">FileTime</span><span class="o">=</span><span class="s2">&quot;`echo $list |cut -d , -f 1 `&quot;</span>;
-</span><span class='line'>
-</span><span class='line'>            <span class="k">if</span> <span class="o">[</span>  <span class="k">$((</span><span class="nv">$I</span><span class="o">%</span><span class="m">5</span><span class="k">))</span> -eq 1 <span class="o">]</span> <span class="c"># =</span>
-</span><span class='line'>              <span class="k">then </span>
-</span><span class='line'><span class="k">              </span><span class="nv">NA</span><span class="o">=</span><span class="nv">$FileNum</span>;
-</span><span class='line'>            <span class="k">elif</span> <span class="o">[</span>  <span class="k">$((</span><span class="nv">$I</span><span class="o">%</span><span class="m">5</span><span class="k">))</span> -eq 2 <span class="o">]</span>
-</span><span class='line'>              <span class="k">then </span>
-</span><span class='line'><span class="k">              </span><span class="nv">NB</span><span class="o">=</span><span class="nv">$FileNum</span>;
-</span><span class='line'>            <span class="k">elif</span> <span class="o">[</span>  <span class="k">$((</span><span class="nv">$I</span><span class="o">%</span><span class="m">5</span><span class="k">))</span> -eq 3 <span class="o">]</span>
-</span><span class='line'>              <span class="k">then </span>
-</span><span class='line'><span class="k">              </span><span class="nv">NC</span><span class="o">=</span><span class="nv">$FileNum</span>;
-</span><span class='line'>            <span class="k">elif</span> <span class="o">[</span>  <span class="k">$((</span><span class="nv">$I</span><span class="o">%</span><span class="m">5</span><span class="k">))</span> -eq 4 <span class="o">]</span>
-</span><span class='line'>              <span class="k">then </span>
-</span><span class='line'><span class="k">              </span><span class="nv">ND</span><span class="o">=</span><span class="nv">$FileNum</span>;
-</span><span class='line'>            <span class="k">elif</span> <span class="o">[</span>  <span class="k">$((</span><span class="nv">$I</span><span class="o">%</span><span class="m">5</span><span class="k">))</span> -eq 0 <span class="o">]</span>
-</span><span class='line'>              <span class="k">then </span>
-</span><span class='line'><span class="k">              </span><span class="nv">NE</span><span class="o">=</span><span class="nv">$FileNum</span>;
-</span><span class='line'>            <span class="k">fi</span>
-</span><span class='line'><span class="k">        </span>
-</span><span class='line'><span class="k">          if</span> <span class="o">[</span> <span class="nv">$I</span> -ge 5 <span class="o">]</span>
-</span><span class='line'>              <span class="k">then    </span>
-</span><span class='line'><span class="k">              </span><span class="nv">OUT</span><span class="o">=</span><span class="sb">`</span>awk <span class="s1">&#39; BEGIN { print (&#39;</span><span class="nv">$NA</span><span class="s1">&#39;+&#39;</span><span class="nv">$NB</span><span class="s1">&#39;+&#39;</span><span class="nv">$NC</span><span class="s1">&#39;+&#39;</span><span class="nv">$ND</span><span class="s1">&#39;+&#39;</span><span class="nv">$NE</span><span class="s1">&#39;)/5 }&#39;</span><span class="sb">`</span>;
-</span><span class='line'>              <span class="nb">echo</span> <span class="s2">&quot;$FileTime,$OUT&quot;</span> &gt;&gt; 600600ma5.txt
-</span><span class='line'>            <span class="k">fi</span>
-</span><span class='line'><span class="k">            </span>
-</span><span class='line'><span class="k">            </span><span class="nv">I</span><span class="o">=</span><span class="k">$((</span><span class="nv">$I</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>;
-</span><span class='line'>        <span class="k">done</span> &lt;600600.txt
-</span></code></pre></td></tr></table></div></figure>
-
-
-<pre><code>    * 型如(600600ma5.txt)
-            * 1993/09/02,13.22
-            * 1993/09/03,13.036
-            * 1993/09/06,13
-            * 1993/09/07,12.94
-            * 1993/09/08,12.806
-* 编写600600.gunplot脚本画出图像
-</code></pre>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>            <span class="nb">set </span>datafile separator <span class="s2">&quot;,&quot;</span> <span class="c">#设置数据文件分割符为,</span>
-</span><span class='line'>            <span class="nb">set </span>xdata <span class="nb">time</span>          <span class="c">#设置x数据为时间类型</span>
-</span><span class='line'>            <span class="nb">set </span>timefmt <span class="s2">&quot;%Y/%m/%d&quot;</span>  <span class="c">#设置时间格式 </span>
-</span><span class='line'>
-</span><span class='line'>            <span class="nb">set </span>grid    <span class="c">#设置网格</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="nb">set </span>title <span class="s1">&#39;600600 青岛啤酒&#39;</span> <span class="c">#设置标题</span>
-</span><span class='line'>            <span class="nb">set </span>xlabel <span class="s1">&#39;时间&#39;</span>       <span class="c">#设置X轴名称</span>
-</span><span class='line'>            <span class="nb">set </span>ylabel <span class="s1">&#39;收盘价&#39;</span>     <span class="c">#设置y轴名称</span>
-</span><span class='line'>
-</span><span class='line'>            plot <span class="s2">&quot;./600600.txt&quot;</span> using 1:2 <span class="se">\</span>
-</span><span class='line'>            title <span class="s1">&#39;600600&#39;</span> <span class="se">\</span>
-</span><span class='line'>            with lines <span class="c">#points</span>
-</span><span class='line'>            <span class="c">#使用600600.txt的1、2列画线，名称为600600，</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="c">#set terminal png</span>
-</span><span class='line'>            <span class="c">#set output &quot;output2.png&quot;</span>
-</span><span class='line'>
-</span><span class='line'>            replot <span class="s2">&quot;./600600ma5.txt&quot;</span> using 1:2 <span class="se">\</span>
-</span><span class='line'>            title <span class="s1">&#39;MA5&#39;</span>    <span class="se">\</span>
-</span><span class='line'>            with lines#points
-</span><span class='line'>            <span class="c">#添加一条使用600600ma5.txt,即移动平均线数据，的线，名称为MA5</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="c">#pause 10 # help pause 保持窗口</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>使用gnuplot批处理模式运行600600.gunplot
-              gnuplot> load &ldquo;./600600.gunplot&rdquo;
-
-<ul>
-<li>效果
-
-<ul>
-<li><img src="http://www.wuwenjie.tk/images/600600&amp;MA5_withlinespoints.png" alt="600600&amp;MA5_withlinespoints" /></li>
-<li><img src="http://www.wuwenjie.tk/images/600600&amp;MA5_withlines.png" alt="600600&amp;MA5_withlines" /></li>
-<li><img src="http://www.wuwenjie.tk/images/600600scale.png" alt="600600scale" /></li>
-<li><img src="http://www.wuwenjie.tk/images/600600&amp;MA5_withlinespoints0629.png" alt="600600&amp;MA5_withlinespoints0629" /></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<hr />
-
-<hr />
-
-<h1>simple Cat</h1>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;sys/stat.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;malloc.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'>  <span class="kt">char</span> <span class="n">a</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">argc</span> <span class="o">&amp;&amp;</span> <span class="n">argv</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">argv[%d] is: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">k</span> <span class="o">=</span> <span class="n">getFSSystemCall</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
-</span><span class='line'>      <span class="n">printf</span><span class="p">(</span><span class="s">&quot;FileSize:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// 请求动态内存</span>
-</span><span class='line'>      <span class="kt">char</span> <span class="o">*</span><span class="n">a_p</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">a_p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">a_p</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">puts</span><span class="p">(</span><span class="s">&quot;malloc null&quot;</span><span class="p">);</span>
-</span><span class='line'>          <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">fp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">printf</span><span class="p">(</span><span class="s">&quot;\e[1;31mNO SUCH FILE\e[0m</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
-</span><span class='line'>          <span class="n">printInfo</span><span class="p">();</span>
-</span><span class='line'>          <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>        <span class="c1">//size_t fread ( void   *buffer,  size_t size,  size_t count,  FILE *stream) ;</span>
-</span><span class='line'>      <span class="c1">//返回值：实际读取的元素个数.如果返回值与count不相同,则可能文件结尾或发生错误.</span>
-</span><span class='line'>      <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">fread</span><span class="p">(</span><span class="n">a_p</span> <span class="o">+</span> <span class="n">j</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</span><span class='line'>          <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">a_p</span> <span class="o">+</span> <span class="n">j</span><span class="p">));</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-</span><span class='line'>      <span class="c1">// 释放</span>
-</span><span class='line'>      <span class="n">free</span><span class="p">(</span><span class="n">a_p</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">int</span> <span class="nf">getFileSize</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span> <span class="n">fps</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">fseek</span><span class="p">(</span><span class="n">fps</span><span class="p">,</span> <span class="mi">0L</span><span class="p">,</span> <span class="n">SEEK_END</span><span class="p">);</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">ftell</span><span class="p">(</span><span class="n">fps</span><span class="p">);</span>
-</span><span class='line'>  <span class="c1">// &lt;stdio.h&gt; long ftell( FILE *s )</span>
-</span><span class='line'>  <span class="c1">// 返回s当前的文件位置</span>
-</span><span class='line'>  <span class="c1">// 错误返回-1</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">size</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// include &lt;sys/stat.h&gt; </span>
-</span><span class='line'><span class="kt">int</span> <span class="nf">getFSSystemCall</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">strFileName</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">struct</span> <span class="n">stat</span> <span class="n">temp</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">stat</span><span class="p">(</span><span class="n">strFileName</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">temp</span><span class="p">);</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">temp</span><span class="p">.</span><span class="n">st_size</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">printInfo</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;\e[1;33m1cat:simple cat Ver:0.0.3 20130528\e[0m</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;\e[1;33mAuthor:wuwenjie.tk\e[0m</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>

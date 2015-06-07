@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Data mining | 吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/blog/categories/data-mining/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-05-17T18:39:36+08:00</updated>
+  <updated>2015-06-07T21:06:27+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,194 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[K-means聚类的应用]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/05/31/k-meansju-lei-de-ying-yong/"/>
+    <updated>2015-05-31T19:02:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/05/31/k-meansju-lei-de-ying-yong</id>
+    <content type="html"><![CDATA[<h1>K-means 简介</h1>
+
+<ul>
+<li>K-means算法（k-means clustering）：一种适用于大样本的无监督式的聚类分析方法。</li>
+<li>我对算法基本原理的理解：</li>
+<li>1.随机初始化k个聚类中心，也可以指定聚类中心。</li>
+<li>2.计算样本与聚类中心的距离，将样本划分到最近的聚类中心的类里。</li>
+<li>3.划分完毕后，计算每个类新的聚类中心，可以采用不同算法计算。</li>
+<li>4.如果新的聚类中心没有变化，算法结束；如果有变化，goto 2、3。</li>
+</ul>
+
+
+<h1>K-means 应用</h1>
+
+<ul>
+<li>由于它流行于数据挖掘领域，常用来探索未知客群的结构。</li>
+<li>在划分问题中，作为预处理工作，划分出了大致类别，然后可探究类内特性和差异。</li>
+<li>其他：可以用作一种剔除算法、<a href="http://zh.wikipedia.org/zh/K-%E5%B9%B3%E5%9D%87%E7%AE%97%E6%B3%95">向量的量化、特征学习</a>。</li>
+</ul>
+
+
+<h1>K-means 的 R 实践</h1>
+
+<ul>
+<li>使用R语言使用K-means算法快捷方便。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>```js</p>
+
+<h1>初始化数据</h1>
+
+<p>m &lt;&ndash; rbind(
+matrix(rnorm(100, sd = 0.6), ncol = 2), # 标准正态分布
+matrix(rnorm(100, mean = 2, sd = 0.6), ncol = 2),
+matrix(rnorm(100, mean = 4, sd = 0.6), ncol = 2),
+matrix(rnorm(50, mean = -3, sd = 0.6), ncol = 2)
+)
+colnames(m) &lt;&ndash; c(&ldquo;x&rdquo;, &ldquo;y&rdquo;)</p>
+
+<p>m  &lt;&ndash; apply(m,2,scale) # 标准化
+cl &lt;&ndash; kmeans(m, 4) # 使用Kmeans进行聚类分析</p>
+
+<p>cl</p>
+
+<p>cl$size  # 聚类每个分组的数量
+cl$totss # The total sum of squares.
+cl$withinss # Vector of within-cluster sum of squares
+cl$centers  # 聚类中心
+1-(cl$tot.withinss/cl$totss)  #1-(sum(cl$withinss)/cl$totss)</p>
+
+<h6>#</h6>
+
+<h1>K-means 确定组数1</h1>
+
+<p>png(&ldquo;Kmeans_group_1.png&rdquo;) # 输出图像到png文件</p>
+
+<p>wss &lt;&ndash; (nrow(m)-1)*sum(apply(m,2,var))</p>
+
+<p>for(i in 2:20)</p>
+
+<pre><code>wss[i] &lt;- sum(kmeans(m,centers=i)$withinss)
+</code></pre>
+
+<p>plot(1:20,wss,type=&ldquo;b&rdquo;,xlab=&ldquo;No. Clusters&rdquo;,</p>
+
+<pre><code>    ylab="Within groups sum of squares",
+    main="Kmeans Centers Method 1")
+</code></pre>
+
+<p>identify(wss)
+dev.off()</p>
+
+<h1>K-means 确定组数2</h1>
+
+<p>png(&ldquo;Kmeans_group_2.png&rdquo;)</p>
+
+<p>wt &lt;&ndash; c()
+for(i in 1:20){</p>
+
+<pre><code>ks &lt;- kmeans(m,centers=i)
+wt[i] &lt;- (1 - (ks$tot.withinss / ks$totss))
+</code></pre>
+
+<p>}
+plot(1:20,wt,type=&ldquo;b&rdquo;,xlab=&ldquo;No. Clusters&rdquo;,</p>
+
+<pre><code>    ylab="tot withinss / totss",
+    main="Kmeans Centers Method 2")
+</code></pre>
+
+<p>abline(h=0.9);identify(wt)</p>
+
+<p>dev.off()</p>
+
+<h6>#</h6>
+
+<h1>找出内部点</h1>
+
+<p>resid.m &lt;&ndash; m &ndash; fitted(cl)</p>
+
+<h1>计算 样本与对应中心点的差</h1>
+
+<h1>cluster centers &ldquo;fitted&rdquo; to each obs.</h1>
+
+<h2>计算距离</h2>
+
+<p>distance &lt;&ndash; function(x){sqrt(x<a href="http://zh.wikipedia.org/zh/K-%E5%B9%B3%E5%9D%87%E7%AE%97%E6%B3%95">1</a>^2+x[2]^2)}
+dis &lt;&ndash; apply(resid.m,1,distance)</p>
+
+<h1>将距离与样本整合在一起</h1>
+
+<p>m &lt;&ndash; as.data.frame(cbind(m,cl$cluster,dis))
+colnames(m) &lt;&ndash; c(&ldquo;x&rdquo;, &ldquo;y&rdquo;,&ldquo;cluster&rdquo;,&ldquo;dis&rdquo;)</p>
+
+<p>inpoint &lt;&ndash; c()</p>
+
+<h1>筛选出每个类中内部的样本 小于1.2倍的类内平均距离</h1>
+
+<p>for (i in 1:length(cl$size)){</p>
+
+<pre><code># print(i)
+
+tm &lt;- m[which(m$cluster == i),]
+
+means &lt;- mean(tm$dis) #每群的平均距离
+
+tpoint &lt;- tm[which(tm$dis &lt;= 1.2*means),]
+# &lt;每群的平均距离,在类内部
+
+inpoint &lt;- rbind(inpoint,tpoint)
+</code></pre>
+
+<p>}</p>
+
+<p>inpoint &lt;&ndash; inpoint[,c(&ldquo;x&rdquo;,&ldquo;y&rdquo;)]
+m &lt;&ndash; m[,c(&ldquo;x&rdquo;,&ldquo;y&rdquo;)]</p>
+
+<p>png(&ldquo;Kmeans_inside.png&rdquo;)</p>
+
+<h1>设置背景颜色</h1>
+
+<p>par(bg = &ldquo;azure&rdquo;)</p>
+
+<h1>画出聚类样本</h1>
+
+<p>plot(m,col = cl$cluster,main=&ldquo;K均值聚类结果与类内聚集点&rdquo;)</p>
+
+<h1>画出样本中心</h1>
+
+<p>points(cl$centers, col = 1:length(cl$size), pch = 8, cex = 5)</p>
+
+<h1>画出内部点</h1>
+
+<p>points(inpoint, col = 1:nrow(inpoint), pch = 1, cex = 2)</p>
+
+<p>dev.off()</p>
+
+<p>```</p>
+
+<ul>
+<li>确定分类组数方法：</li>
+<li><img src="/images/Kmeans_group_1.png" alt="确定组数方法1" /></li>
+<li><img src="/images/Kmeans_group_2.png" alt="确定组数方法2" /></li>
+</ul>
+
+
+<h1>其他应用</h1>
+
+<ul>
+<li>最后找出内部点中，可以用作大样本快速SVM的样本筛选方法</li>
+<li>因为支持向量只由超平面决定，而样本外部的点才能影响SV</li>
+<li>所以可以将内部的点剔除而加快SVM的计算效率</li>
+<li>如下图没有圈中的可作为训练样本，剔除可按需要进行</li>
+<li><img src="/images/Kmeans_inside.png" alt="K均值聚类结果与类内聚集点" /></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[R语言简介]]></title>
