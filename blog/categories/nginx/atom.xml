@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nginx | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/nginx/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2015-08-16T23:27:45+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[nginx二级目录配置--交由php处理]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/07/31/nginxer-ji-mu-lu-pei-zhi-jiao-you-phpchu-li/"/>
+    <updated>2015-07-31T22:36:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/07/31/nginxer-ji-mu-lu-pei-zhi-jiao-you-phpchu-li</id>
+    <content type="html"><![CDATA[<h3>nginx？</h3>
+
+<ul>
+<li>10年前，一款由俄罗斯程序员开发轻量级的代理服务器出现。</li>
+<li>如今，<a href="https://zh.wikipedia.org/zh-cn/Nginx">nginx</a>由于性能出色，应用广泛，受到了越来越多的关注。</li>
+</ul>
+
+
+<h3>nginx二级目录配置</h3>
+
+<ul>
+<li>场景</li>
+<li>无域名</li>
+<li>访问/,显示blog主页</li>
+<li><p>访问/bbs（二级目录），显示php写的论坛主页</p></li>
+<li><p>ngnix配置文件及详解</p></li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>```text
+server {</p>
+
+<pre><code># 监听80端口
+listen 80;
+server_name localhost;
+
+# pass the PHP scripts to FastCGI server listening on the php-fpm socket
+# 将PHP脚本交由监听php-fpm套接字的FastCGI服务器处理
+
+# 将请求地址 是以/bbs开始的，其中带有php字样的用以下方式处理
+location ~* /bbs/.*\.php(.*)$ {
+    include /etc/nginx/fastcgi_params;
+
+    # 设置根目录地址，实际地址
+    # 该目录下要有名为bbs的目录，将论坛系统放在目录下
+    root /var/www;
+
+    #交由php-fpm处理
+    fastcgi_pass   unix:/var/run/php5-fpm.sock;
+
+    fastcgi_index  index.php;
+
+    #cgi程序的参数传递 真正执行php文件的地址
+    fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+}
+
+# /bbs 访问设置
+location /bbs {
+    alias   /var/www/bbs;
+    index   index.php index.html;
+}
+
+# 主页 反向代理设置
+location / {
+    proxy_set_header   X-Real-IP $remote_addr;
+    proxy_set_header   Host      $http_host;
+    #反向代理了本地的ghost blog
+    proxy_pass         http://localhost:2368;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<h3>相关参考</h3>
+
+<ul>
+<li><a href="http://support.ghost.org/basic-nginx-config/#configure-nginx">Basic nginx config (self-hosted with custom domain)</a></li>
+<li><a href="http://tengine.taobao.org/book/">Nginx开发从入门到精通</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
