@@ -9,9 +9,7 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="C4droid is a simple C/C++ IDE + C/C++ compiler for Android with Makefile support.
-C4droid already has almost full C language support,
-so you don& &hellip;">
+  <meta name="description" content="前言 借的书里光盘有C代码， 可也抄来看看， 但中文说明乱码。 行如：// 68ÎªÎÕÊÖÏûÏ¢µÄ¹Ì¶š³€¶È 而且文件较多， 以 .c|.h结尾， 手动改的话就太笨了， ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +84,64 @@ so you don& &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/">批量转换字符编码的实例（iconv）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-21T10:47:00+08:00" pubdate data-updated="true">Sep 21<span>st</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em><strong>前言</strong></em></p>
+
+<p>借的书里光盘有C代码，</p>
+
+<p>可也抄来看看，</p>
+
+<p>但中文说明乱码。</p>
+
+<p>行如：// 68ÎªÎÕÊÖÏûÏ¢µÄ¹Ì¶š³€¶È</p>
+
+<p>而且文件较多，</p>
+
+<p>以 .c|.h结尾，</p>
+
+<p>手动改的话就太笨了，</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1389,96 +1445,6 @@ bitrate=440 设置x264的视频的码率为440。
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/27/JTextArea-add-scrollbars-simple-example/">JTextArea添加滚动条的简单实例</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-27T12:01:00+08:00" pubdate data-updated="true">May 27<span>th</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/05/27/JTextArea-add-scrollbars-simple-example/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.event.*</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">gd2</span><span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">JFrame</span> <span class="n">f</span><span class="o">=</span><span class="k">new</span> <span class="n">JFrame</span><span class="o">();</span>
-</span><span class='line'><span class="n">JPanel</span> <span class="n">p1</span><span class="o">=</span><span class="k">new</span> <span class="n">JPanel</span><span class="o">();</span>
-</span><span class='line'><span class="n">JTextArea</span> <span class="n">t1</span><span class="o">=</span><span class="k">new</span> <span class="n">JTextArea</span><span class="o">(</span><span class="mi">35</span><span class="o">,</span><span class="mi">25</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p1</span><span class="o">.</span><span class="na">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">FlowLayout</span><span class="o">());</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">t1</span><span class="o">.</span><span class="na">setLineWrap</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">p1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">JScrollPane</span><span class="o">(</span><span class="n">t1</span><span class="o">));</span>
-</span><span class='line'><span class="c1">//将JTextArea放入JScrollPane中，这样就能利用滚动的效果</span>
-</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">p1</span><span class="o">);</span>
-</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="na">pack</span><span class="o">();</span>
-</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="na">addWindowListener</span><span class="o">(</span><span class="k">new</span> <span class="n">WindowAdapter</span><span class="o">(){</span> <span class="kd">public</span> <span class="kt">void</span> <span class="n">windowClosing</span><span class="o">(</span><span class="n">WindowEvent</span> <span class="n">e</span><span class="o">){</span> <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);}</span> <span class="o">});</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; 老早的</a>
@@ -1496,6 +1462,10 @@ bitrate=440 设置x264的视频的码率为440。
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa/">[转]Facebook加速deep-learning研发</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/07/31/nginxer-ji-mu-lu-pei-zhi-jiao-you-phpchu-li/">Nginx二级目录配置&#8211;交由php处理</a>
       </li>
     
@@ -1509,10 +1479,6 @@ bitrate=440 设置x264的视频的码率为440。
     
       <li class="post">
         <a href="/blog/2015/04/30/ryu-yan-jian-jie/">R语言简介</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">[改]Gstreamer 播放MP4 并 添加文字水印</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Data mining | 吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/blog/categories/data-mining/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-08-16T23:27:45+08:00</updated>
+  <updated>2015-09-05T21:35:53+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,168 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[转]Facebook加速deep-learning研发]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa/"/>
+    <updated>2015-08-31T20:16:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa</id>
+    <content type="html"><![CDATA[<h2>引言</h2>
+
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E6%95%B8%E6%93%9A">大数据</a>时代的到来是无可质疑的，但挖掘数据背后的秘密才更具价值。</li>
+<li>深度学习，受益于大数据的出现和大规模计算能力的提升，它是开启未来的钥匙。</li>
+</ul>
+
+
+<h2>文章简介</h2>
+
+<ul>
+<li>转载的文章是Keith Adams的一份第八届超大数据库会议（XLDB2015）报告。</li>
+<li>报告简述了深度学习的所遇到的困难问题与解决方法。</li>
+<li>转载文章自<a href="http://www.infoq.com/cn/news/2015/07/facebook-accelerate-deep-learnin">infoq</a>，作者张天雷，有删改。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>正文</h2>
+
+<h3>前言</h3>
+
+<blockquote><p>近年来，人工智能领域所取得的许多进步都与“深度学习”息息相关。
+深度学习的多层非线性结构使其具备强大的特征表达能力和对复杂任务的建模能力。
+构建成熟的深度学习模型常常涉及到巨大的训练数据集，大的模型以及超长的计算时间，
+因此，深层模型的并行化框架和训练加速方法是深度学习走向实用的重要基石。</p></blockquote>
+
+<h3>随机<a href="https://zh.wikipedia.org/wiki/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95">梯度下降</a>（SGD）</h3>
+
+<ul>
+<li>深度学习的参数训练过程中，随机梯度下降（SGD）是最常被使用的方法。</li>
+<li>在这个过程中，通常需要很多的技巧:
+
+<ul>
+<li>模型深度的选择</li>
+<li>神经元个数的设定</li>
+<li>训练权重的初始化</li>
+<li>学习率的调整</li>
+<li>Mini-batch的控制等等</li>
+</ul>
+</li>
+<li>即便对这些技巧十分精通，实践中也要多次训练，反复摸索尝试。</li>
+<li>此外，随机梯度下降本质上<strong>串行</strong>的.
+
+<ul>
+<li>深层模型参数多</li>
+<li>计算量大</li>
+<li>训练数据的规模更大</li>
+<li>消耗很多计算资源</li>
+<li>训练时间会非常长</li>
+</ul>
+</li>
+<li>针对深度学习面临的这些挑战，Keith介绍了他们团队在加速深度学习方面所采用几种方法。</li>
+</ul>
+
+
+<h3>GPGPU加速</h3>
+
+<ul>
+<li>GPU（Graphic Process Units）的众核体系包含千个流处理器，可将运算并行化执行，大幅缩短模型的运算时间。</li>
+<li>NVIDIA、AMD不断推进GPU大规模并行支持，General-Purposed GPU成为加速并行应用程序的重要手段。</li>
+<li>GPU众核（many-core）体系结构，程序在GPU上相较于单核CPU提升几十倍乃至上千倍。</li>
+<li>目前GPU已经发展到了较为成熟的阶段。用来训练深度神经网络，可充分发挥其数以千计核心的高效并行计算能力。</li>
+<li>在使用海量训练数据的场景下，所耗费的时间大幅缩短，占用的服务器也更少。</li>
+<li>如果针对适当的深度神经网络进行合理优化，一块GPU卡可相当于数十甚至上百台CPU服务器的计算能力。</li>
+<li>GPU是深度学习模型训练方面的首选解决方案，也是Facebook当前加速深度学习的最重要方式。</li>
+</ul>
+
+
+<h3>数据并行（Data Parallel）</h3>
+
+<ul>
+<li>数据并行是指将训练数据切分为N份，分配给N个worker对N个分片的数据并行训练。</li>
+<li>完成数据并行训练之后，模型的梯度是所有分片数据上<strong><a href="https://zh.wikipedia.org/wiki/%E6%A2%AF%E5%BA%A6">梯度</a></strong>的平均值，然后使用这个均值对参数进行更新。</li>
+<li>再将更新的参数返回给N个worker进行下一次的迭代。</li>
+<li>在训练的过程中，多个训练过程相互独立，每次迭代过程中worker之间的通信等比于参数的数量。</li>
+<li>数据并行也存在自身的缺点，当训练数据太多时，数据并行不得不减小学习率，以保证训练过程的平稳。</li>
+</ul>
+
+
+<h3>模型并行（Model Parallel）</h3>
+
+<ul>
+<li>将模型拆分成几个单元，每一层都可以被拆分，由不同的训练单元分别持有，共同协作完成训练。</li>
+<li>当一个计算单元上的神经元的输入来自另一个训练单元上的神经元的输出时，不同计算单元之间就产生通信开销。</li>
+<li>拆分单元太多时，神经元输出值的通信量会急剧增加，导致模型的效率大幅下降。</li>
+<li>多数情况下，模型并行带来的通信开销和同步消耗超过数据并行，因此加速比也不及数据并行。</li>
+<li>但对于单机内存无法容纳的大模型来说，模型并行提供了一个很好的选择。</li>
+<li>亦可组合数据并行和模型并行产生混合架构。</li>
+</ul>
+
+
+<h3>基于<a href="https://github.com/torch/torch7">Torch7</a>的深度学习（Productive Deep Learning with Torch7）</h3>
+
+<ul>
+<li>Torch7是一个为机器学习算法提供广泛支持的科学计算框架。</li>
+<li>神经网络工具包实现了以下基础模块，可以方便地配置出目标多层神经网络。
+
+<ul>
+<li>均方标准差代价函数</li>
+<li>非线性激活函数</li>
+<li>梯度下降训练神经网络算法等</li>
+</ul>
+</li>
+<li>Torch是机器学习和人工智能项目的核心。
+
+<ul>
+<li>不仅学术界，连google、Twitter和英特尔等企业也都使用这一架构。</li>
+</ul>
+</li>
+<li>Facebook开发了一些能够在Torch7上更快速地训练神经网络的模块，加快了基于Torch的深度学习项目的运行速度。
+
+<ul>
+<li>允许开发者使用多个GPU进行参数的并行训练。</li>
+<li>可使卷积神经网络的训练速度提升数十倍以上，而卷积神经网络是很多深度学习系统的核心。</li>
+<li>另外，Facebook还推出了多款工具，速度常常比Torch默认工具快3至10倍。</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>参数服务器架构（Parameter Server Architecture）</h3>
+
+<ul>
+<li>CPU集群方案的基本架构包含：
+
+<ul>
+<li>用于执行训练任务的Worker</li>
+<li>用于分布式存储分发模型的参数服务器（Parameter Server）</li>
+<li>用于协调整体任务的主控程序（Master）</li>
+</ul>
+</li>
+<li>CPU集群方案适合训练GPU内存难以容纳的大模型，以及稀疏连接神经网络。</li>
+<li>Keith还对Andrew Ng和Jeff Dean提出的参数服务器架构进行了简单介绍。
+
+<ul>
+<li>他们在Google用1000台CPU服务器，完成了模型并行和Downpour SGD数据并行的深度神经网络训练。</li>
+<li>Andrew Ng和Jeff Dean的这项<a href="http://papers.nips.cc/paper/4687-large-scale-distributed-deep-networks">成果</a>发表在NIPS2012上。</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>总结</h3>
+
+<ul>
+<li>报告中，还提到了Tensor DSM等其他的方式用于加速深度学习。</li>
+<li><blockquote><p>深度学习可通过学习一种深层非线性网络结构，实现复杂函数逼近，并展现了强大的学习数据集本质和高度抽象化特征的能力。</p></blockquote></li>
+<li><blockquote><p>但是其面临的最大问题是如何解决其过长的计算时间，
+只有强有力的基础设施和定制化的并行计算框架，才能让以往不可想象的训练任务加速完成，为深度学习走向实用奠定坚实的基础。</p></blockquote></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[K-means聚类的应用]]></title>
