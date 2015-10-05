@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-09-05T21:35:53+08:00</updated>
+  <updated>2015-10-05T17:18:06+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[解决android sdk manager更新--使用JAVA SOCK代理选项]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/09/30/jie-jue-android-sdk-managergeng-xin-shi-yong-java-sockdai-li-xuan-xiang/"/>
+    <updated>2015-09-30T15:43:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/09/30/jie-jue-android-sdk-managergeng-xin-shi-yong-java-sockdai-li-xuan-xiang</id>
+    <content type="html"><![CDATA[<h3>前言</h3>
+
+<ul>
+<li>我国一直努力地去做互联网的强国。<a href="http://news.xinhuanet.com/politics/2014-02/27/c_119538788.htm">1</a></li>
+<li>android sdk manager 无法正常更新，国情如此。</li>
+<li>android开发者急需新版的SDK，以跟上时代。</li>
+</ul>
+
+
+<h3>普通方法</h3>
+
+<ul>
+<li>普遍的方法是改SDK manager的http proxy。</li>
+<li>之前用过几个地址，效果不佳，大概是失效了。</li>
+</ul>
+
+
+<h3>我的解决方法</h3>
+
+<ul>
+<li>以linux版为例</li>
+<li>启动sdk manager 其实是执行<strong>SDK目录下/tools/android</strong>。</li>
+<li>它其实是一个可执行的shell脚本。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<ul>
+<li>最为重要的是脚本的最后一段，添加<a href="http://docs.oracle.com/javase/7/docs/technotes/guides/net/properties.html">java socket代理选项</a>即可。</li>
+<li>启动执行之后即可进行使用了。</li>
+<li>注：你必需有科学上网的工具，并能正确链接。</li>
+</ul>
+
+
+<h3>shell修改如下(android 文件)</h3>
+
+<p>```bash
+exec &ldquo;$java_cmd&rdquo; \</p>
+
+<pre><code>-Xmx256M $os_opts $java_debug \
+-Dcom.android.sdkmanager.toolsdir="$progdir" \
+-DsocksProxyHost="127.0.0.1" \
+-DsocksProxyPort="7070" \
+-classpath "$jarpath:$swtpath/swt.jar" \
+com.android.sdkmanager.Main "$@"
+</code></pre>
+
+<p>```</p>
+
+<ul>
+<li>socksProxyHost socket代理服务器地址。</li>
+<li>socksProxyPort socket代理端口。</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[改]Java Native Interface 播放MP3 ]]></title>
@@ -750,126 +814,6 @@ public static void main(String[] args) {
 <li><img src="/images/hello_lucene_2.png" alt="hello_lucene_2" /></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[hello_luence 本地文本查找引擎的一个实例 lucene+nodejs]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/"/>
-    <updated>2013-09-06T21:11:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs</id>
-    <content type="html"><![CDATA[<h2>hello_luence 本地文本查找引擎的一个实例 lucene+nodejs</h2>
-
-<h3>开始</h3>
-
-<ul>
-<li>为什么会有它
-
-<ul>
-<li>我有的时候会想查一些书、文章当中的字，看看这个字到底是怎么用的。</li>
-<li>在网上找到一些html版的书的网站，当用wget抓下来之后，花了很长时间，内容很多，文件很多。</li>
-<li>当然在linux下，有很好的文本查找、处理的工具，比如使用以下命令。
-
-<ul>
-<li><code>find ./* | xargs grep OpenJDK</code></li>
-<li>作用：在当前目录下，找出其中含有<code>OpenJDK</code>的文本。</li>
-<li>解释：<code>find ./*</code> 列出当前目录下所有文件。
-
-<ul>
-<li><code>|</code>管道，将前面的<code>标准输出</code>导入到后面的<code>标准输入</code>。</li>
-<li><a href="http://zh.wikipedia.org/wiki/Xargs"><code>xargs</code></a> ,将<code>标准输入</code>分块给后面的命令，将参数列表转换成小块分段传递给其他命令。</li>
-<li><code>grep OpenJDK</code> ,<a href="http://zh.wikipedia.org/wiki/Grep">grep</a>匹配正则表达式的文本进行搜索，输出匹配或不匹配的行或文本。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>虽然方法简单但每次每个历遍，东西太多时间太长。</li>
-<li>有个<a href="http://lucene.apache.org/">lucene项目</a>,基于Java的全文索引工具包,虽不是搜索引擎，但开源搜索<a href="http://lucene.apache.org/solr/">Solr</a>、<a href="http://nutch.apache.org/">Nutch</a>均基于它。
-<!-- more -->
-
-<h3>尝试使用lucene</h3></li>
-<li>暑假之前借了本 <a href="http://www.manning.com/hatcher2/">Lucene IN ACTION</a>中文版,其实书已经很老了，但作为参考资料还是有作用的。</li>
-<li>在下载<code>Apache Lucene 4.3</code>（4.4已经available），<code>docs/core/index.html</code>是Lucene的核心API文档</li>
-<li>用 Eclipse 就可以导入<code>core/lucene-core-4.3.0.jar</code>和<code>analysis/common/lucene-analyzers-common-4.3.0.jar</code>等jar包</li>
-<li>Lucene 自带的Demo 在
-
-<ul>
-<li>docs/demo/src-html/org/apache/lucene/demo/IndexFiles.html</li>
-<li>docs/demo/src-html/org/apache/lucene/demo/SearchFiles.html 是很好的入门资料</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>学习Lucene的参考</h3>
-
-<ul>
-<li> <a href="http://zh.wikipedia.org/zh-cn/%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95">倒排索引</a></li>
-<li> <code>Lucene API</code></li>
-<li> <a href="http://www.ibm.com/developerworks/cn/java/j-lo-lucene1/">实战 Lucene，第 1 部分: 初识 Lucene</a></li>
-<li> <a href="http://www.chedong.com/tech/lucene.html">Lucene：基于Java的全文检索引擎简介</a></li>
-<li> <a href="http://www.ibm.com/developerworks/cn/opensource/os-apache-lucenesearch/">使用 Apache Lucene 搜索文本</a></li>
-<li> <a href="http://www.ibm.com/developerworks/cn/java/wa-lucene/">深入 Lucene 索引机制</a></li>
-<li> <a href="http://approximation.iteye.com/blog/345885">Lucene中文分析器的中文分词准确性和性能比较</a></li>
-<li> <a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-lucene-pl/">Lucene Payload 的研究与应用</a></li>
-<li> <a href="http://www.matrix67.com/blog/archives/4212">漫话中文自动分词和语义识别（上）：中文分词算法</a></li>
-<li> 等等</li>
-</ul>
-
-
-<h3>使用lucene成果</h3>
-
-<ul>
-<li>建立索引，<a href="http://zh.wikipedia.org/wiki/%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a>
-
-<ul>
-<li>硬件信息</li>
-<li>CUP:  800MHz * 2  AMD Athlon&trade; II X2 240 Processor , <code>cat /proc/cpuinfo</code></li>
-<li>MEM: 1801072 kB , <code>cat /proc/meminfo</code></li>
-<li>SDA: Hitachi HDT721032SLA380 320 GB , <code>sudo smartctl -a /dev/sda</code></li>
-<li>系统和软件</li>
-<li>Linux 3.2.0-52-generic #78-Ubuntu SMP i686 athlon i386 GNU/Linux , <code>uname -a</code></li>
-<li><p>java version &ldquo;1.7.0_25&rdquo; , <code>java -version</code></p>
-
-<ul>
-<li><a href="http://openjdk.java.net/">OpenJDK</a> Runtime Environment (IcedTea 2.3.10) (7u25-2.3.10-1ubuntu0.12.04.2)</li>
-<li>OpenJDK Client VM (build 23.7-b01, mixed mode, sharing)</li>
-</ul>
-</li>
-<li><p>执行的命令 <code>time java -Xms512m -Xmx1024m -jar lucene.jar -AI /media/linux_lenovo/file /media/linux_lenovo/L_index</code></p></li>
-</ul>
-</li>
-<li>对象 10000个最终目标文件，平均30KB</li>
-<li><p>输出</p>
-
-<ul>
-<li> real 1m28.123s</li>
-<li> user 1m27.045s</li>
-<li> sys  0m3.392s</li>
-</ul>
-</li>
-<li><p>执行搜索</p>
-
-<ul>
-<li><code>time java -Xms512m -Xmx1024m -jar lucene.jar -SQPS /media/linux_lenovo/L_index 张飞* contents "";</code></li>
-<li>输出
-
-<ul>
-<li>real  0m0.521s</li>
-<li>user  0m0.604s</li>
-<li>sys   0m0.076s</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>更多</h3>
-
-<p><img src="/images/hello_lucene.png" alt="hello_lucene" /></p>
 ]]></content>
   </entry>
   

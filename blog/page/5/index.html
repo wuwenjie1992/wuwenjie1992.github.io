@@ -9,34 +9,8 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*; public class gd2 &hellip;">
+  <meta name="description" content="mencoder [若干选项] 文件 [文件|URL|&ndash;] [-o 文件 | file://文件 | smb://[用户名:密码@]主机/文件路径]
+mencoder [若干选项] 文件1 [该文件专用的选项] [文件2] [该文件专用的选项] &nbsp; [caption id=& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -111,6 +85,174 @@ import javax.swing.*; public class gd2 &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/10/mencoder-transcoding/">Mencoder转码</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-10T09:05:00+08:00" pubdate data-updated="true">Jun 10<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/06/10/mencoder-transcoding/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>mencoder [若干选项] 文件 [文件|URL|&ndash;] [-o 文件 | file://文件 | smb://[用户名:密码@]主机/文件路径]
+mencoder [若干选项] 文件1 [该文件专用的选项] [文件2] [该文件专用的选项]</p>
+
+<p>&nbsp;</p>
+
+<p>[caption id=&ldquo;attachment_487&rdquo; align=&ldquo;alignleft&rdquo; width=&ldquo;205&rdquo; caption=&ldquo;mplayer&rdquo;]<a href="http://www.mplayerhq.hu/design7/news.html"><img class="size-full wp-image-487" title="mplayer" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/left.jpg" alt="mplayer" width="205" height="449" /></a>[/caption]</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>实例 1：f4v&mdash;&ndash;&gt;mp4</p>
+
+<p>mencoder a.f4v -o a1.mp4 -oac mp3lame -lameopts cbr:br=128 -ovc x264 -x264encopts bitrate=440 -vf scale=480:320</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>解释:</p>
+
+<p>a.fv4是指输入的视频，要转换的视频。
+-o a1.avi 中的“-o”是指你要输出视频，输出视频名为a1.avi
+-oac 设置音频编码器。
+mp3lame 设置音频编码器为mp3lame，就是mp3
+-lameopts 设置mp3lamer的相关参数
+cbr:br=128 设置音频的码率为128。96、112、128、192、256、320Kbps
+-ovc 设置视频编码器。
+x264 设置视频编码器为x264。</p>
+
+<p>-x264encopts 设置x264的参数。
+bitrate=440 设置x264的视频的码率为440。
+-vf scale=480:320  设置视频的宽为480，高为320.( -vf scale=448:-3) -3是让mencoder来设置最佳宽度。</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>实例 2： flv&mdash;&ndash;&gt;mp3</p>
+
+<p>mencoder b.flv -o b.mp3 -ovc frameno -oac mp3lame -lameopts cbr:br=320 -of rawaudio -ss 1:30 -endpos 2:45</p>
+
+<hr />
+
+<p>解释:</p>
+
+<p>b.flv 输入源文件
+-o b.mp3 输出的目标文件名称
+-ovc frameno 不处理视频编码
+-oac mp3lame 输出的音频编码格式为mp3
+-lameopts cbr:br=320 音频附件选项，cbr(常量比特率)编码格式，音频码流为320bps
+-of rawaudio 输出文件为原始音频流
+-ss 1:30 音频截取的起始时间(表示从b.flv的第1分30秒开始截取)
+-endpos 2:45 预截取音频的长度(表示预截取的音频长度是2分45秒，可计算出其结束时间4:15)(-endpos 10mb 编码数据量为10M)</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>注：</p>
+
+<p>1）
+-of &lt;格式&gt;（用于 BETA 测试！）
+编码为指定的容器格式（默认值：AVI）
+-of lavf
+使用 libavformat 流合并器编码</p>
+
+<p>EX：mencoder a.f4v -o a1.mp4 -oac mp3lame -lameopts cbr:br=128 -ovc x264 -x264encopts bitrate=440 -vf scale=480:320 -of lavf</p>
+
+<p>2）安装<em> sudo apt</em>-get <em>install</em> mencoder</p>
+
+<hr />
+
+<p>参考：</p>
+
+<p>1）man mplayer        man mencoder</p>
+
+<p>2)<a href="http://baike.baidu.com/view/3353694.htm">http://baike.baidu.com/view/3353694.htm</a></p>
+
+<p>3)<a href="http://www.mplayerhq.hu/DOCS/HTML/zh_CN/mencoder.html">http://www.mplayerhq.hu/DOCS/HTML/zh_CN/mencoder.html</a></p>
+
+<p>4)<a href="http://www.mplayerhq.hu/DOCS/HTML/zh_CN/index.html">http://www.mplayerhq.hu/DOCS/HTML/zh_CN/index.html</a></p>
+
+<p>5)<a href="http://hi.baidu.com/hailoong/blog/item/545cfa17baefe4084b90a77c.html">http://hi.baidu.com/hailoong/blog/item/545cfa17baefe4084b90a77c.html</a></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -836,80 +978,6 @@ sudo apt-get install 0ad</code></pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/03/Code-Rush/">《Code Rush》（奔腾的代码）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-03T04:54:00+08:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/03/03/Code-Rush/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>这是一部讲述Netscape和Mozilla的故事的纪录片。</p>
-
-<p>Netscape是一家伟大的公司，</p>
-
-<p>它发明了img标签、cookie、ssl安全协议，</p>
-
-<p>当然还有如今HTML5时代的明星语言Javascript！</p>
-
-<p>但是由于众所周知的原因，它失败了。</p>
-
-<p>Netscape最终将浏览器代码开源，</p>
-
-<p>这个新项目就是Mozilla！</p>
-
-<p>摄制团队横跨了期间重要的几个时间点，</p>
-
-<p>整整跟踪了程序员们一年的时间，</p>
-
-<p>最终制成这部纪录片。</p>
-
-<p><a title="纪录片《Code Rush》" href="http://www.ruanyifeng.com/blog/2009/09/code_rush.html" target="_blank">著名科技博主阮一峰</a>曾经强烈推荐此片，</p>
-
-<p>他说：“如果你对软件业感兴趣，</p>
-
-<p>希望了解程序员的生活</p>
-
-<p>以及Mozilla项目的起源和创造它的人们，</p>
-
-<p>那么千万不要错过这部纪录片。</p>
-
-<p>我保证这是一部过目难忘的作品。”</p>
-
-<p>115网盘下载：<a href="http://115.com/file/bel9z9k2" target="_blank"><a href="http://115.com/file/bel9z9k2">http://115.com/file/bel9z9k2</a></a></p>
-
-<object width="480" height="400" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="src" value="http://www.tudou.com/v/hs6eBWvKS6M/&amp;rpid=77547687&amp;resourceId=77547687_05_05_99/v.swf" /><param name="allowscriptaccess" value="always" /><param name="allowfullscreen" value="true" /><param name="wmode" value="opaque" /><embed width="480" height="400" type="application/x-shockwave-flash" src="http://www.tudou.com/v/hs6eBWvKS6M/&amp;rpid=77547687&amp;resourceId=77547687_05_05_99/v.swf" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" /></object>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; 老早的</a>
@@ -927,6 +995,10 @@ sudo apt-get install 0ad</code></pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/09/30/jie-jue-android-sdk-managergeng-xin-shi-yong-java-sockdai-li-xuan-xiang/">解决android Sdk manager更新&#8211;使用JAVA SOCK代理选项</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa/">[转]Facebook加速deep-learning研发</a>
       </li>
     
@@ -940,10 +1012,6 @@ sudo apt-get install 0ad</code></pre>
     
       <li class="post">
         <a href="/blog/2015/05/31/k-meansju-lei-de-ying-yong/">K-means聚类的应用</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/30/ryu-yan-jian-jie/">R语言简介</a>
       </li>
     
   </ul>
