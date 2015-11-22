@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Data mining | 吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/blog/categories/data-mining/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-10-05T17:18:06+08:00</updated>
+  <updated>2015-11-22T14:48:18+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,231 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[BIG_DATA杂谈(1)-简单的hadoop伪分布式配置与测试]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2015/10/31/big-dataza-tan-1-jian-dan-de-hadoopwei-fen-bu-shi-pei-zhi-yu-ce-shi/"/>
+    <updated>2015-10-31T20:23:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2015/10/31/big-dataza-tan-1-jian-dan-de-hadoopwei-fen-bu-shi-pei-zhi-yu-ce-shi</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
+
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E6%95%B8%E6%93%9A">Big Data</a> and <a href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD">AI</a>&rsquo;s age has coming!</li>
+<li>面对海量的数据，传统方式已无法满足用户高效地使用和处理数据了。</li>
+<li><a href="http://hadoop.apache.org">hadoop</a>的意义非同一般，它赋予了人们面对bigdata的信心和能力，同时也开创了一个时代，</li>
+<li>它是一个可靠的、可扩展的、分布式的计算框架,给予人们PB级的计算处理能力。</li>
+<li>由<a href="https://en.wikipedia.org/wiki/Doug_Cutting">Doug Cutting</a>根据谷歌公司发表的MapReduce和GFS的论文自行实现而成。</li>
+<li>诞生历史：Lucene (1999) &ndash;> Nutch (2003) &ndash;> hadoop (2011)</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>配置</h2>
+
+<ul>
+<li>对hadoop的配置资料有很多，不再赘述。可参考<a href="https://hadoop.apache.org/docs/r1.0.4/cn/quickstart.html#PseudoDistributed">它</a></li>
+<li>主要关注的是配置中存在的问题
+
+<ul>
+<li>解决 错误: 找不到或无法加载主类 org.apache.hadoop.hdfs.server.namenode.NameNode</li>
+<li> export HADOOP_HOME=/home/wuwenjie/hello/bigdata/hadoop-2.7.1</li>
+<li> export PATH=&ldquo;${HADOOP_HOME}:$PATH&rdquo;</li>
+<li>etc/hadoop/hadoop-env.sh 中配置JDK</li>
+<li> export JAVA_HOME=&ldquo;/usr/lib/jvm/java-7-openjdk-i386&rdquo;</li>
+<li>etc/hadoop 下的一些配置：
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>etc/hadoop/core-site.xml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;configuration&gt;</span>
+</span><span class='line'><span class="nt">&lt;property&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;value&gt;</span>hdfs://localhost:9000<span class="nt">&lt;/value&gt;</span>
+</span><span class='line'><span class="nt">&lt;/property&gt;</span>
+</span><span class='line'><span class="nt">&lt;property&gt;&lt;br/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;value&gt;</span>/home/wuwenjie/hello/bigdata/hadoopTmpDir<span class="nt">&lt;/value&gt;&lt;br/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/property&gt;&lt;br/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/configuration&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+</ul>
+</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>etc/hadoop/hdfs-site.xml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;configuration&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>property<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>name<span class="ni">&amp;gt;</span>dfs.replication<span class="ni">&amp;lt;</span>/name<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>value<span class="ni">&amp;gt;</span>1<span class="ni">&amp;lt;</span>/value<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/property<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>property<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>name<span class="ni">&amp;gt;</span>dfs.name.dir<span class="ni">&amp;lt;</span>/name<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>value<span class="ni">&amp;gt;</span>file:///home/wuwenjie/hello/bigdata/hdfs/name<span class="ni">&amp;lt;</span>/value<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/property<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>property<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>name<span class="ni">&amp;gt;</span>dfs.data.dir<span class="ni">&amp;lt;</span>/name<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>value<span class="ni">&amp;gt;</span>file:///home/wuwenjie/hello/bigdata/hdfs/data<span class="ni">&amp;lt;</span>/value<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/property<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/configuration&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>etc/hadoop/mapred-site.xml</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;configuration&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>property<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>name<span class="ni">&amp;gt;</span>mapred.job.tracker<span class="ni">&amp;lt;</span>/name<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>value<span class="ni">&amp;gt;</span>localhost:9001<span class="ni">&amp;lt;</span>/value<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/property<span class="ni">&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="ni">&amp;lt;</span>property<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>name<span class="ni">&amp;gt;</span>mapreduce.framework.name<span class="ni">&amp;lt;</span>/name<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>value<span class="ni">&amp;gt;</span>yarn<span class="ni">&amp;lt;</span>/value<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/property<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/configuration&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>etc/hadoop/yarn-site.xml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;configuration&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>!-- Site specific YARN configuration properties --<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>property<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>name<span class="ni">&amp;gt;</span>yarn.nodemanager.aux-services<span class="ni">&amp;lt;</span>/name<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>value<span class="ni">&amp;gt;</span>mapreduce_shuffle<span class="ni">&amp;lt;</span>/value<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/property<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/configuration&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>初始化及启动</h2>
+
+<ul>
+<li>启动hdsf：sbin/start-dfs.sh</li>
+<li>格式化文件系统（只需一次）：bin/hdfs namenode -format</li>
+<li>启动yarn：sbin/start-yarn.sh</li>
+<li>察看java进程：jps</li>
+<li><p>jps命令结果
+<code>text
+5600 ResourceManager
+5987 Jps
+5024 DataNode
+5399 SecondaryNameNode
+5890 NodeManager
+4738 NameNode
+</code></p></li>
+<li><p>解释</p>
+
+<ul>
+<li>ResourceManager：处理客户端请求启动/监控、ApplicationMaster监控、NodeManager资源分配与调度。</li>
+<li>DataNode：HDFS工作节点，根据namenode的调度存储和检索数据，定期发送存储的block列表。</li>
+<li>SecondaryNameNode：帮助NameNode管理Metadata数据，减小在NameNode上的压力。</li>
+<li>NodeManager：单个节点上的资源管理、处理来自ResourceManager、ApplicationMaster的命令。</li>
+<li>NameNode：管理HDFS的Namespace，维护所有文件和文件夹的元数据(metadata）。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>测试</h2>
+
+<ul>
+<li>在hdfs中创建文件夹和导入数据
+<code>sh
+bin/hdfs dfs -mkdir /hadoop
+bin/hdfs dfs -mkdir /hadoop/test
+bin/hdfs dfs -mkdir /hadoop/out
+bin/hdfs dfs -put "/media/三国志.txt" /hadoop/test
+</code></li>
+<li>运行内置示例：grep
+<code>sh
+bin/hadoop jar \
+    share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar \
+    grep /hadoop/test /hadoop/out '漢.'
+</code></li>
+<li>察看结果
+<code>sh
+bin/hdfs dfs -cat /hadoop/out/part-r-00000
+</code></li>
+<li>部分结果
+<code>sh
+41    漢書
+38  漢中
+36  漢晉
+34  漢，
+30  漢之
+29  漢室
+23  漢紀
+23  漢氏
+16  漢末
+16  漢高
+14  漢朝
+13  漢祖
+12  漢文
+12  漢祚
+9   漢帝
+8   漢家
+7   漢水
+</code></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[转]Facebook加速deep-learning研发]]></title>
