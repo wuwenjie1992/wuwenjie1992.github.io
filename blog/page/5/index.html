@@ -9,7 +9,7 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="xhuloo作为学习ANDROID编程的DEMO，UI设计十分差（基本没有设计），但它可作为初学的演示，它简单十分，浅显易懂。没有实用价值，作为编程（API）的探究。 下面是几张EMULATER的演示图片： &nbsp; 1.Application information &nbsp; &nbsp &hellip;">
+  <meta name="description" content="xhuloo作为学习ANDROID编程的DEMO，UI设计十分差（基本没有设计），但它可作为初学的演示，它简单十分，浅显易懂。没有实用价值，作为编程（API）的探究。 &nbsp; xhuloo1.3.2 release 增加新功能 1）android id &mdash;&ndash;&gt; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +84,484 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/06/xhuloo1_3_2/">开源小项目：xhuloo1.3.2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-06T09:28:00+08:00" pubdate data-updated="true">Jul 6<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/07/06/xhuloo1_3_2/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>xhuloo作为学习ANDROID编程的DEMO，UI设计十分差（基本没有设计），但它可作为初学的演示，它简单十分，浅显易懂。没有实用价值，作为编程（API）的探究。</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>xhuloo1.3.2 release 增加新功能</p>
+
+<p>1）android id &mdash;&ndash;&gt;XhulooActivity_PHONE</p>
+
+<p>2) 自定义列表 &mdash;&mdash;&gt;XhulooActivity_weatherreport(发展为天气预报功能）</p>
+
+<p>3）震动 &mdash;&ndash;&gt;    XhulooActivity_MEM</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>发展方向：</p>
+
+<p>1）完善文件游览功能,BACK功能</p>
+
+<p>2）读取 设备的IP地址，等信息</p>
+
+<p>3）SERVICE后台功能</p>
+
+<p>4）天气预报</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>———</p>
+
+<p>project zip <a title="Xhuloo.zip" href="http://filemarkets.com/file/common/f9dea934/" target="_blank">here</a>     MD5：0bd2ce8fc97b79736728b49ab18f58d9</p>
+
+<p>apk : <a title="apk" href="http://filemarkets.com/file/common/33861aa3/" target="_blank">here</a>               MD5：e4b1ef927595b30a9214bb788aa3ccd7</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<hr />
+
+<p>XhulooActivity.java 的源代码
+<code lang="java">
+package wo.wocom.xwell;</p>
+
+<p>import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;</p>
+
+<p>public class XhulooActivity extends Activity {
+/<em>* Called when the activity is first created. </em>/</p>
+
+<p>private static final String TAG = &ldquo;XA_Xhuloo&rdquo;;
+//弹出框</p>
+
+<p>String mEditText01_s =null;</p>
+
+<p>/<em>重力感应参数</em>/
+float x,y,z;
+float currentAcceleration = 0;
+float maxAcceleration = 0;</p>
+
+<p>/<em>生命周期</em>/
+public void onCreate(Bundle savedInstanceState) {</p>
+
+<p>super.onCreate(savedInstanceState);
+setContentView(R.layout.main); //设置主布局</p>
+
+<p>Log.i(XhulooActivity.TAG, &ldquo;XA_start onCreate~~~&rdquo;);</p>
+
+<p>final TextView main_textview=(TextView) findViewById(R.id.main_textview);
+final Button ok_button = (Button) findViewById(R.id.widget40_button_OK);
+final EditText mEditText01 = (EditText) findViewById(R.id. myEditText);
+final CheckBox iAccept=(CheckBox)findViewById(R.id. CheckBox_Accept );
+final String[] data = {&ldquo;心怔煩亂敵若云&rdquo;,&ldquo;有炎百刃月無暈&rdquo;,&ldquo;靈威震怒鼓徹天&rdquo;,&ldquo;犀甲迸裂矣厥劍&rdquo;,&ldquo;永思故原遙難反&rdquo;,
+&ldquo;遠峙疊巒久無還&rdquo;,&ldquo;埋骨鬼雄血浸袍&rdquo;,&ldquo;藏懷青絲志誠傲&rdquo;,&ldquo;顧往舊徑櫻爛漫&rdquo;,&ldquo;逸鸞鳳鹮面桃然&rdquo;,&ldquo;雯華琉白馨而靨&rdquo;};</p>
+
+<p>/<em>按钮监听 </em>/
+ok_button.setOnClickListener(new Button.OnClickListener(){
+public void onClick(View v) {
+ok_button.setText(&ldquo;Hi,clicked&rdquo;);</p>
+
+<p>switch(v.getId()){
+case R.id.widget40_button_OK:</p>
+
+<p>mEditText01_s=mEditText01.getText().toString(); //获得文本编框的文字
+//toast
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:&rdquo;+mEditText01_s, Toast.LENGTH_LONG).show();
+break;</p>
+
+<p>default:
+break;
+}//switch
+}//onclick_end</p>
+
+<p>}
+);</p>
+
+<p>/<em> 设置EditText 用OnKeyListener 事件来启动 </em>/
+mEditText01.setOnKeyListener(new EditText.OnKeyListener(){
+public boolean onKey(View v, int keyCode, KeyEvent event) {</p>
+
+<p>if(mEditText01.getText().toString().length()!=0){ok_button.setText(mEditText01.getText().toString());}</p>
+
+<p>else{
+ok_button.setText(&ldquo;ok请提交&rdquo;);
+AlertDialog.Builder my_ADialog=new AlertDialog.Builder(XhulooActivity.this); ;
+/<em>设置标题</em>/
+my_ADialog.setTitle(&ldquo;XA_AlertDialog.Builder&rdquo;);
+/<em>设置显示消息</em>/
+my_ADialog.setMessage(&ldquo;请提交&rdquo;);
+/<em>设置不能取消</em>/
+my_ADialog.setCancelable(false);</p>
+
+<p>my_ADialog.setPositiveButton(&ldquo;退出Huloo;并访问官网&rdquo;,new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+XhulooActivity.this.finish();
+Uri uri=Uri.parse(&ldquo;<a href="http://www.wuwenjie.tk">http://www.wuwenjie.tk</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent);} });</p>
+
+<p>my_ADialog.setNegativeButton(&ldquo;取消&rdquo;, new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+dialog.cancel();
+}
+});
+/<em>显示</em>/
+my_ADialog.show();
+}</p>
+
+<p>return false;
+}//onkey_end
+}
+);//sokl_end</p>
+
+<p>/<em>图片 </em>/
+final ImageView mImageView = (ImageView) findViewById(R.id.imageView1);
+mImageView.setImageDrawable(getResources().getDrawable(R.drawable.action));</p>
+
+<p>/<em>选择监听 </em>/
+iAccept.setOnClickListener(new CheckBox.OnClickListener(){
+public void onClick(View v) {
+if(iAccept.isChecked()){
+main_textview.setText(&ldquo;checkbox checked&rdquo;);
+mImageView.setVisibility(View.VISIBLE);
+}
+else{main_textview.setText(getString(R.string.hello));
+mImageView.setVisibility(View.INVISIBLE);}
+} }
+);</p>
+
+<p>/<em>列表</em>/
+ListView lv = (ListView) findViewById(R.id.list1);
+ArrayAdapter adapter = new ArrayAdapter(
+this,android.R.layout.simple_list_item_1,data); //simple_list_item_1是系统本身有的布局
+lv.setAdapter(adapter);</p>
+
+<p>/<em>重力感应功能</em>/</p>
+
+<p>//获得重力感应硬件控制器
+SensorManager sm=(SensorManager) this.getSystemService(SENSOR_SERVICE);
+final Sensor sensor=sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);</p>
+
+<p>//添加重力感应侦听，并实现其方法，
+SensorEventListener sel=new SensorEventListener(){</p>
+
+<p>double calibration = SensorManager.STANDARD_GRAVITY;
+//系统设置的重力加速度标准值，设备在水平静止的情况下就承受这个压力，
+//所以默认Y轴方向的加速度值为STANDARD_GRAVITY
+public void onSensorChanged(SensorEvent se) {
+x=se.values[SensorManager.DATA_X];
+y=se.values[SensorManager.DATA_Y];
+z=se.values[SensorManager.DATA_Z];</p>
+
+<p>//计算三个方向的加速度
+double a =Math.round(Math.sqrt(Math.pow(x,2)+Math.pow(y,2) +Math.pow(z,2)));</p>
+
+<p>//消去原有的重力引起的压力
+currentAcceleration = Math.abs((float)(a-calibration));
+if (currentAcceleration &gt; maxAcceleration)
+maxAcceleration = currentAcceleration;</p>
+
+<p>TextView textView_sensor=(TextView) findViewById(R.id.textView_sensor);
+//设置显示文字
+textView_sensor.setText(&ldquo;重力感应:&rdquo;+&ldquo;\n&rdquo;+&ldquo;x=&rdquo;+x+&ldquo;\n&rdquo;+&ldquo;y=&rdquo;+y+&ldquo; &rdquo;+&ldquo;(int)z=&rdquo;+(int)z+&ldquo;\n&rdquo;
++&ldquo;maxA:&rdquo;+maxAcceleration+&ldquo;\n&rdquo;+&ldquo;current:&rdquo;+currentAcceleration+&ldquo;\n&rdquo;
++&ldquo;Name:&rdquo;+sensor.getName()+&ldquo; &rdquo;+&ldquo;Type:&rdquo;+sensor.getType()+&ldquo;\n&rdquo; //得到传感器信息
++&ldquo;Version:&rdquo;+sensor.getVersion()+&ldquo; &rdquo;+&ldquo;vendor:&rdquo;+sensor.getVendor()+&ldquo;\n&rdquo;
++&ldquo;MAXrange:&rdquo;+sensor.getMaximumRange()+&ldquo; &rdquo;+&ldquo;power:&rdquo;+sensor.getPower()+&ldquo;\n&rdquo;
++&ldquo;Resolution:&rdquo;+sensor.getResolution()+&ldquo;\n&rdquo;
+);</p>
+
+<p>}// onSensorChanged
+public void onAccuracyChanged(Sensor arg0, int arg1) { }
+};
+//注册Listener，SENSOR_DELAY_GAME为检测的精确度，
+sm.registerListener(sel, sensor,SensorManager.SENSOR_DELAY_GAME);</p>
+
+<p>}//oncreate end</p>
+
+<p>protected void onRestart() {
+super.onRestart();
+Log.i(TAG, &ldquo;XA_start onRestart&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onRestart&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onResume() {
+super.onResume();
+Log.i(TAG, &ldquo;XA_start onResume&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onResume&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onPause() {
+super.onPause();
+Log.i(TAG, &ldquo;XA_start onPause&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onPause&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onStop() {
+super.onStop();
+Log.i(TAG, &ldquo;XA_start onStop&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onStop&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>protected void onDestroy() {
+super.onDestroy();
+Log.i(TAG, &ldquo;XA_start onDestroy&rdquo;);
+Toast.makeText(XhulooActivity.this, &ldquo;XA_Toast:onDestroy&rdquo;, Toast.LENGTH_LONG).show();
+}</p>
+
+<p>/<em>菜单制作</em>/
+public boolean onCreateOptionsMenu(Menu menu) {
+/<em>
+*
+* add()方法的四个参数，依次是：
+*
+* 1、组别，如果不分组的话就写Menu.NONE,
+*
+* 2、Id，这个很重要，Android根据这个Id来确定不同的菜单
+*
+* 3、顺序，那个菜单现在在前面由这个参数的大小决定
+*
+* 4、文本，菜单的显示文本
+</em>/</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 1, 7, &ldquo;删除&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_delete);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 2, 2, &ldquo;保存&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_edit);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 3, 6, &ldquo;帮助&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_help);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 4, 1, &ldquo;添加&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_add);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 5, 4, &ldquo;详细&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_info_details);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 6, 3, &ldquo;myplaces&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_myplaces);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 7, 5, &ldquo;天气&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_today);</p>
+
+<p>menu.add(Menu.NONE, Menu.FIRST + 8, 8, &ldquo;退出&rdquo;).setIcon(</p>
+
+<p>android.R.drawable.ic_menu_revert);</p>
+
+<p>return true;</p>
+
+<p>}</p>
+
+<p>@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+switch (item.getItemId()) {</p>
+
+<p>case Menu.FIRST + 1:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_删除菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 2:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_保存菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 3:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_帮助：wewenjie.tk&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>AlertDialog.Builder my_ADialog=new AlertDialog.Builder(XhulooActivity.this);
+my_ADialog.setTitle(&ldquo;XA_AlertDialog&rdquo;); //设置标题
+my_ADialog.setMessage(&ldquo;帮助：访问wuwenjie.tk的项目页|访问GPL&rdquo;); //设置显示消息
+my_ADialog.setCancelable(true); //设置能取消</p>
+
+<p>my_ADialog.setPositiveButton(&ldquo;访问wwj&rdquo;,new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+Uri uri=Uri.parse(&ldquo;<a href="http://www.wuwenjie.tk">http://www.wuwenjie.tk</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent);} });</p>
+
+<p>my_ADialog.setNegativeButton(&ldquo;访问GPL&rdquo;, new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int id) {
+Uri uri=Uri.parse(&ldquo;<a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a>&rdquo;);
+Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+startActivity(intent); }
+} );
+/<em>显示</em>/
+my_ADialog.show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 4:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_添加菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 5:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_详细菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 6:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_myplaces点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>/<em>跳转新界面activity </em>/
+Intent intent = new Intent(); //新建Intent意图
+intent.setClass(XhulooActivity.this, XhulooActivity_myplaces.class);
+//方便的调用名称为,返回一个Class对象
+Bundle mBundle = new Bundle();
+mBundle.putString(&ldquo;XA_Data&rdquo;, &ldquo;XA_data from X:&rdquo;+mEditText01_s);
+//加入数据 参数：key-Data value +mEditText01_s
+intent.putExtras(mBundle); //添加附加信息
+startActivityForResult(intent, 0); //跳转，此处的0 OR &gt;=0</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 7:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_天气菜单点击&rdquo;, Toast.LENGTH_SHORT).show();</p>
+
+<p>/<em>跳转新界面activity </em>/
+Intent intent01 = new Intent(); //新建Intent意图
+intent01.setClass(XhulooActivity.this, XhulooActivity_weatherreport.class);
+startActivityForResult(intent01, 0); //跳转，此处的0 OR &gt;=0</p>
+
+<p>break;</p>
+
+<p>case Menu.FIRST + 8:</p>
+
+<p>Toast.makeText(this, &ldquo;XA_退出菜单点击&rdquo;, Toast.LENGTH_SHORT).show();
+Log.i(TAG, &ldquo;XhulooActivity.this.finish()&rdquo;);
+XhulooActivity.this.finish();</p>
+
+<p>break;</p>
+
+<p>}</p>
+
+<p>return false;</p>
+
+<p>}</p>
+
+<p>@Override
+public void onOptionsMenuClosed(Menu menu) {
+Toast.makeText(this, &ldquo;选项菜单关闭&rdquo;, Toast.LENGTH_SHORT).show();
+}</p>
+
+<p>@Override
+public boolean onPrepareOptionsMenu(Menu menu) {
+Toast.makeText(this,
+&ldquo;选项菜单显示前onPrepareOptionsMenu会被调用，可用来调整菜单&rdquo;,
+Toast.LENGTH_SHORT).show();</p>
+
+<p>// 如果返回false，此方法就把用户点击menu的动作给消费了，onCreateOptionsMenu方法将不会被调用
+return true;
+}</p>
+
+<p>/<em>处理返回值 startActivityForResult</em>/</p>
+
+<p>protected void onActivityResult
+(int requestCode, int resultCode, Intent data) {
+switch (resultCode) {
+//resultCode为回传的标记，回传的是RESULT_OK
+case RESULT_OK:
+Bundle b=data.getExtras();
+//data回传的Intent
+String str=b.getString(&ldquo;MP_msg&rdquo;);
+//str即为msg回传的值
+Toast.makeText(this, &ldquo;XA_str getString(\"msg\&rdquo;):&ldquo;+str+"b.toString:&rdquo;+b.toString(), Toast.LENGTH_LONG).show();
+Log.i(TAG, &ldquo;XA_onActivityResult:&mdash;&ndash;&rdquo;+&ldquo;XA_str getString(\"msg\&rdquo;):&ldquo;+str+&rdquo; b.toString:&ldquo;+b.toString());
+break;
+default:
+break;
+}
+}</p>
+
+<p>}</code></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1051,79 +1529,6 @@ sudo dpkg -i libxau6_1.0.6-3_i386.deb</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/02/Linux-AgeOfEmpires-0+A.D/">Linux 下帝国时代： 0 A.D</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-02T11:15:00+08:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/04/02/Linux-AgeOfEmpires-0+A.D/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>0 A.d 是一款类似帝国时代的开源即时战略游戏。
-这个游戏以公元前 500 年至公元 500 年之间为背景，包括了六个独特的种族文明。</p>
-
-<p>特色：3D，画面古典，建筑可换角度，英文</p>
-
-<p><img class="alignnone" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/0_A.D._logo.png/250px-0_A.D._logo.png" alt="" width="250" height="118" /></p>
-
-<p><img class="alignnone" src="http://iloveubuntu.net/pictures_me/0ad%208%201.jpg" alt="" width="721" height="567" /></p>
-
-<p>&nbsp;</p>
-
-<p><img class="alignnone" src="http://www.muylinux.com/wp-content/uploads/2011/03/0AD-alpha4.jpg" alt="" width="689" height="604" /></p>
-
-<p><img class="alignnone" src="http://www.wildfiregames.com/~art/cheezy/screens/whizbang_screenshot.jpg" alt="" width="693" height="768" /></p>
-
-<p>&nbsp;</p>
-
-<p><img class="alignnone" src="http://upload.wikimedia.org/wikipedia/en/1/1b/Iberian_desert_colony_1680x1050.jpg" alt="" width="726" height="642" /></p>
-
-<p>&nbsp;</p>
-
-<p><img class="alignnone" src="http://game-server-hosting.net/wp-content/uploads/2008/12/44%200%20AD.jpg" alt="" width="800" height="600" /></p>
-
-<p>在 Ubuntu 下的安装方法：</p>
-
-<pre><code>sudo add-apt-repository ppa:wfg/0ad 
-sudo apt-get update 
-sudo apt-get install 0ad</code></pre>
-
-
-<p><a href="http://releases.wildfiregames.com/0ad-r09530-alpha-unix-data.tar.gz" target="_blank">源代码下载</a></p>
-
-<p><a href="http://wildfiregames.com/0ad/">http://wildfiregames.com/0ad/</a></p>
-
-<p><a href="http://zh.wikipedia.org/wiki/0_A.D.">http://zh.wikipedia.org/wiki/0_A.D.</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; 老早的</a>
@@ -1141,6 +1546,10 @@ sudo apt-get install 0ad</code></pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben/">简单的JAVA NOTEPAD 记事本</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/11/27/big-dataza-tan-2-hadooptan-jiu-san-guo-yan-yi-de-ci-pin-gai/">BIG_DATA杂谈(2)-hadoop探究《三国演义》的词频-改</a>
       </li>
     
@@ -1154,10 +1563,6 @@ sudo apt-get install 0ad</code></pre>
     
       <li class="post">
         <a href="/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa/">[转]Facebook加速deep-learning研发</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/31/nginxer-ji-mu-lu-pei-zhi-jiao-you-phpchu-li/">Nginx二级目录配置&#8211;交由php处理</a>
       </li>
     
   </ul>
@@ -1267,7 +1672,7 @@ ds.charset = 'UTF-8';
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2015 - wuwenjie -
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2016 - wuwenjie -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>

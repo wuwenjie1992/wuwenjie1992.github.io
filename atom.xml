@@ -4,7 +4,7 @@
   <title><![CDATA[吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2015-12-27T21:58:25+08:00</updated>
+  <updated>2016-02-01T21:19:29+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,1194 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[简单的JAVA NOTEPAD 记事本]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben/"/>
+    <updated>2016-01-01T20:52:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
+
+<ul>
+<li>人们一直会对JAVA有一种“丑陋”的错觉，特别是UI。</li>
+<li>但JAVA其实是强大的、多功能的、适合网络的语言。</li>
+<li>我们一简单的文本编辑器，管中窥豹，一探JAVA的UI设计。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>CODE</h2>
+
+<ul>
+<li>取名为tiff,它的样子</li>
+<li><img src="http://www.wuwenjie.tk/images/JAVA_NOTEPAD.png" alt="java notepad" /></li>
+<li></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>tiff.java </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+<span class='line-number'>281</span>
+<span class='line-number'>282</span>
+<span class='line-number'>283</span>
+<span class='line-number'>284</span>
+<span class='line-number'>285</span>
+<span class='line-number'>286</span>
+<span class='line-number'>287</span>
+<span class='line-number'>288</span>
+<span class='line-number'>289</span>
+<span class='line-number'>290</span>
+<span class='line-number'>291</span>
+<span class='line-number'>292</span>
+<span class='line-number'>293</span>
+<span class='line-number'>294</span>
+<span class='line-number'>295</span>
+<span class='line-number'>296</span>
+<span class='line-number'>297</span>
+<span class='line-number'>298</span>
+<span class='line-number'>299</span>
+<span class='line-number'>300</span>
+<span class='line-number'>301</span>
+<span class='line-number'>302</span>
+<span class='line-number'>303</span>
+<span class='line-number'>304</span>
+<span class='line-number'>305</span>
+<span class='line-number'>306</span>
+<span class='line-number'>307</span>
+<span class='line-number'>308</span>
+<span class='line-number'>309</span>
+<span class='line-number'>310</span>
+<span class='line-number'>311</span>
+<span class='line-number'>312</span>
+<span class='line-number'>313</span>
+<span class='line-number'>314</span>
+<span class='line-number'>315</span>
+<span class='line-number'>316</span>
+<span class='line-number'>317</span>
+<span class='line-number'>318</span>
+<span class='line-number'>319</span>
+<span class='line-number'>320</span>
+<span class='line-number'>321</span>
+<span class='line-number'>322</span>
+<span class='line-number'>323</span>
+<span class='line-number'>324</span>
+<span class='line-number'>325</span>
+<span class='line-number'>326</span>
+<span class='line-number'>327</span>
+<span class='line-number'>328</span>
+<span class='line-number'>329</span>
+<span class='line-number'>330</span>
+<span class='line-number'>331</span>
+<span class='line-number'>332</span>
+<span class='line-number'>333</span>
+<span class='line-number'>334</span>
+<span class='line-number'>335</span>
+<span class='line-number'>336</span>
+<span class='line-number'>337</span>
+<span class='line-number'>338</span>
+<span class='line-number'>339</span>
+<span class='line-number'>340</span>
+<span class='line-number'>341</span>
+<span class='line-number'>342</span>
+<span class='line-number'>343</span>
+<span class='line-number'>344</span>
+<span class='line-number'>345</span>
+<span class='line-number'>346</span>
+<span class='line-number'>347</span>
+<span class='line-number'>348</span>
+<span class='line-number'>349</span>
+<span class='line-number'>350</span>
+<span class='line-number'>351</span>
+<span class='line-number'>352</span>
+<span class='line-number'>353</span>
+<span class='line-number'>354</span>
+<span class='line-number'>355</span>
+<span class='line-number'>356</span>
+<span class='line-number'>357</span>
+<span class='line-number'>358</span>
+<span class='line-number'>359</span>
+<span class='line-number'>360</span>
+<span class='line-number'>361</span>
+<span class='line-number'>362</span>
+<span class='line-number'>363</span>
+<span class='line-number'>364</span>
+<span class='line-number'>365</span>
+<span class='line-number'>366</span>
+<span class='line-number'>367</span>
+<span class='line-number'>368</span>
+<span class='line-number'>369</span>
+<span class='line-number'>370</span>
+<span class='line-number'>371</span>
+<span class='line-number'>372</span>
+<span class='line-number'>373</span>
+<span class='line-number'>374</span>
+<span class='line-number'>375</span>
+<span class='line-number'>376</span>
+<span class='line-number'>377</span>
+<span class='line-number'>378</span>
+<span class='line-number'>379</span>
+<span class='line-number'>380</span>
+<span class='line-number'>381</span>
+<span class='line-number'>382</span>
+<span class='line-number'>383</span>
+<span class='line-number'>384</span>
+<span class='line-number'>385</span>
+<span class='line-number'>386</span>
+<span class='line-number'>387</span>
+<span class='line-number'>388</span>
+<span class='line-number'>389</span>
+<span class='line-number'>390</span>
+<span class='line-number'>391</span>
+<span class='line-number'>392</span>
+<span class='line-number'>393</span>
+<span class='line-number'>394</span>
+<span class='line-number'>395</span>
+<span class='line-number'>396</span>
+<span class='line-number'>397</span>
+<span class='line-number'>398</span>
+<span class='line-number'>399</span>
+<span class='line-number'>400</span>
+<span class='line-number'>401</span>
+<span class='line-number'>402</span>
+<span class='line-number'>403</span>
+<span class='line-number'>404</span>
+<span class='line-number'>405</span>
+<span class='line-number'>406</span>
+<span class='line-number'>407</span>
+<span class='line-number'>408</span>
+<span class='line-number'>409</span>
+<span class='line-number'>410</span>
+<span class='line-number'>411</span>
+<span class='line-number'>412</span>
+<span class='line-number'>413</span>
+<span class='line-number'>414</span>
+<span class='line-number'>415</span>
+<span class='line-number'>416</span>
+<span class='line-number'>417</span>
+<span class='line-number'>418</span>
+<span class='line-number'>419</span>
+<span class='line-number'>420</span>
+<span class='line-number'>421</span>
+<span class='line-number'>422</span>
+<span class='line-number'>423</span>
+<span class='line-number'>424</span>
+<span class='line-number'>425</span>
+<span class='line-number'>426</span>
+<span class='line-number'>427</span>
+<span class='line-number'>428</span>
+<span class='line-number'>429</span>
+<span class='line-number'>430</span>
+<span class='line-number'>431</span>
+<span class='line-number'>432</span>
+<span class='line-number'>433</span>
+<span class='line-number'>434</span>
+<span class='line-number'>435</span>
+<span class='line-number'>436</span>
+<span class='line-number'>437</span>
+<span class='line-number'>438</span>
+<span class='line-number'>439</span>
+<span class='line-number'>440</span>
+<span class='line-number'>441</span>
+<span class='line-number'>442</span>
+<span class='line-number'>443</span>
+<span class='line-number'>444</span>
+<span class='line-number'>445</span>
+<span class='line-number'>446</span>
+<span class='line-number'>447</span>
+<span class='line-number'>448</span>
+<span class='line-number'>449</span>
+<span class='line-number'>450</span>
+<span class='line-number'>451</span>
+<span class='line-number'>452</span>
+<span class='line-number'>453</span>
+<span class='line-number'>454</span>
+<span class='line-number'>455</span>
+<span class='line-number'>456</span>
+<span class='line-number'>457</span>
+<span class='line-number'>458</span>
+<span class='line-number'>459</span>
+<span class='line-number'>460</span>
+<span class='line-number'>461</span>
+<span class='line-number'>462</span>
+<span class='line-number'>463</span>
+<span class='line-number'>464</span>
+<span class='line-number'>465</span>
+<span class='line-number'>466</span>
+<span class='line-number'>467</span>
+<span class='line-number'>468</span>
+<span class='line-number'>469</span>
+<span class='line-number'>470</span>
+<span class='line-number'>471</span>
+<span class='line-number'>472</span>
+<span class='line-number'>473</span>
+<span class='line-number'>474</span>
+<span class='line-number'>475</span>
+<span class='line-number'>476</span>
+<span class='line-number'>477</span>
+<span class='line-number'>478</span>
+<span class='line-number'>479</span>
+<span class='line-number'>480</span>
+<span class='line-number'>481</span>
+<span class='line-number'>482</span>
+<span class='line-number'>483</span>
+<span class='line-number'>484</span>
+<span class='line-number'>485</span>
+<span class='line-number'>486</span>
+<span class='line-number'>487</span>
+<span class='line-number'>488</span>
+<span class='line-number'>489</span>
+<span class='line-number'>490</span>
+<span class='line-number'>491</span>
+<span class='line-number'>492</span>
+<span class='line-number'>493</span>
+<span class='line-number'>494</span>
+<span class='line-number'>495</span>
+<span class='line-number'>496</span>
+<span class='line-number'>497</span>
+<span class='line-number'>498</span>
+<span class='line-number'>499</span>
+<span class='line-number'>500</span>
+<span class='line-number'>501</span>
+<span class='line-number'>502</span>
+<span class='line-number'>503</span>
+<span class='line-number'>504</span>
+<span class='line-number'>505</span>
+<span class='line-number'>506</span>
+<span class='line-number'>507</span>
+<span class='line-number'>508</span>
+<span class='line-number'>509</span>
+<span class='line-number'>510</span>
+<span class='line-number'>511</span>
+<span class='line-number'>512</span>
+<span class='line-number'>513</span>
+<span class='line-number'>514</span>
+<span class='line-number'>515</span>
+<span class='line-number'>516</span>
+<span class='line-number'>517</span>
+<span class='line-number'>518</span>
+<span class='line-number'>519</span>
+<span class='line-number'>520</span>
+<span class='line-number'>521</span>
+<span class='line-number'>522</span>
+<span class='line-number'>523</span>
+<span class='line-number'>524</span>
+<span class='line-number'>525</span>
+<span class='line-number'>526</span>
+<span class='line-number'>527</span>
+<span class='line-number'>528</span>
+<span class='line-number'>529</span>
+<span class='line-number'>530</span>
+<span class='line-number'>531</span>
+<span class='line-number'>532</span>
+<span class='line-number'>533</span>
+<span class='line-number'>534</span>
+<span class='line-number'>535</span>
+<span class='line-number'>536</span>
+<span class='line-number'>537</span>
+<span class='line-number'>538</span>
+<span class='line-number'>539</span>
+<span class='line-number'>540</span>
+<span class='line-number'>541</span>
+<span class='line-number'>542</span>
+<span class='line-number'>543</span>
+<span class='line-number'>544</span>
+<span class='line-number'>545</span>
+<span class='line-number'>546</span>
+<span class='line-number'>547</span>
+<span class='line-number'>548</span>
+<span class='line-number'>549</span>
+<span class='line-number'>550</span>
+<span class='line-number'>551</span>
+<span class='line-number'>552</span>
+<span class='line-number'>553</span>
+<span class='line-number'>554</span>
+<span class='line-number'>555</span>
+<span class='line-number'>556</span>
+<span class='line-number'>557</span>
+<span class='line-number'>558</span>
+<span class='line-number'>559</span>
+<span class='line-number'>560</span>
+<span class='line-number'>561</span>
+<span class='line-number'>562</span>
+<span class='line-number'>563</span>
+<span class='line-number'>564</span>
+<span class='line-number'>565</span>
+<span class='line-number'>566</span>
+<span class='line-number'>567</span>
+<span class='line-number'>568</span>
+<span class='line-number'>569</span>
+<span class='line-number'>570</span>
+<span class='line-number'>571</span>
+<span class='line-number'>572</span>
+<span class='line-number'>573</span>
+<span class='line-number'>574</span>
+<span class='line-number'>575</span>
+<span class='line-number'>576</span>
+<span class='line-number'>577</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JFrame</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JPanel</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JMenuBar</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JMenu</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JMenuItem</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JTextArea</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JScrollPane</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JCheckBox</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JLabel</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JOptionPane</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JFileChooser</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.JPopupMenu</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.UIManager</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.swing.UnsupportedLookAndFeelException</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">javax.imageio.ImageIO</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.event.WindowEvent</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.event.WindowAdapter</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.BorderLayout</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.Dimension</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.Toolkit</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.Image</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.Font</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.datatransfer.Clipboard</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.datatransfer.Transferable</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.datatransfer.StringSelection</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.datatransfer.DataFlavor</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.awt.datatransfer.UnsupportedFlavorException</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.OutputStreamWriter</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.BufferedWriter</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">tiff</span><span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">JFrame</span> <span class="n">f</span><span class="o">;</span>    <span class="c1">// 框架</span>
+</span><span class='line'>  <span class="n">JPanel</span> <span class="n">p</span><span class="o">;</span>  <span class="c1">//面板对象</span>
+</span><span class='line'>  <span class="n">JMenuBar</span> <span class="n">mb</span><span class="o">;</span> <span class="c1">// 菜单栏</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">JMenu</span> <span class="n">fileM</span><span class="o">,</span><span class="n">helpM</span><span class="o">,</span><span class="n">ViewM</span><span class="o">,</span><span class="n">CharM</span><span class="o">,</span><span class="n">FontM</span><span class="o">,</span><span class="n">SetM</span><span class="o">;</span> <span class="c1">// 菜单</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">JMenuItem</span> <span class="n">fileMI</span><span class="o">,</span><span class="n">aboutMI</span><span class="o">,</span><span class="n">SaveMI</span><span class="o">,</span><span class="n">ExitMI</span><span class="o">,</span><span class="n">TabMI</span><span class="o">;</span> <span class="c1">// 菜单项</span>
+</span><span class='line'>  <span class="n">JMenuItem</span> <span class="n">firstopenMI</span><span class="o">,</span><span class="n">uft8MI</span><span class="o">,</span><span class="n">gb1MI</span><span class="o">,</span><span class="n">bigMI</span><span class="o">,</span><span class="n">PCutMI</span><span class="o">,</span><span class="n">PCopyMI</span><span class="o">,</span><span class="n">PpasteMI</span><span class="o">;</span>
+</span><span class='line'>  <span class="n">JMenuItem</span> <span class="n">FontNMI</span><span class="o">,</span><span class="n">FontSMI</span><span class="o">,</span><span class="n">FontZMI</span><span class="o">,</span><span class="n">MasMI</span><span class="o">,</span><span class="n">LineWrapMI</span><span class="o">;</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">JPopupMenu</span> <span class="n">PM</span><span class="o">;</span> <span class="c1">// 弹出式菜单</span>
+</span><span class='line'>  <span class="n">JTextArea</span> <span class="n">ta</span><span class="o">;</span> <span class="c1">// 多行文本框</span>
+</span><span class='line'>  <span class="n">String</span> <span class="n">FontName_ta</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>   <span class="c1">// 字体名称</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">FontStyle_ta</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">,</span><span class="n">FontSize_ta</span> <span class="o">=</span> <span class="mi">12</span><span class="o">;</span> <span class="c1">// 字体风格、字体大小</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">JScrollPane</span> <span class="n">sp</span><span class="o">;</span>    <span class="c1">//滚动条对象</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">File</span> <span class="n">fi</span><span class="o">;</span> <span class="c1">// file to load</span>
+</span><span class='line'>  <span class="n">String</span> <span class="n">FirstOpenwith</span> <span class="o">=</span> <span class="s">&quot;GB2312&quot;</span><span class="o">;</span> <span class="c1">// 首选文件打开编码</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">maxsize</span> <span class="o">=</span> <span class="mi">30</span><span class="o">;</span> <span class="c1">// </span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">StringBuffer</span> <span class="n">content</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">tiff</span><span class="o">(){</span>
+</span><span class='line'>  
+</span><span class='line'>      <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JFrame</span><span class="o">(</span><span class="s">&quot;tiff&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">try</span><span class="o">{</span>
+</span><span class='line'>          <span class="c1">// 使用相对路径，访问图片资源</span>
+</span><span class='line'>          <span class="n">URL</span> <span class="n">imURL</span> <span class="o">=</span> <span class="n">getClass</span><span class="o">().</span><span class="na">getResource</span><span class="o">(</span><span class="s">&quot;res/icon.gif&quot;</span><span class="o">);</span>
+</span><span class='line'>          <span class="n">Image</span> <span class="n">image</span> <span class="o">=</span> <span class="n">ImageIO</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">imURL</span><span class="o">);</span>  <span class="c1">//     读取图形</span>
+</span><span class='line'>          <span class="n">f</span><span class="o">.</span><span class="na">setIconImage</span><span class="o">(</span><span class="n">image</span><span class="o">);</span>       <span class="c1">//  设置图片</span>
+</span><span class='line'>      <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;setIconImage error：&quot;</span><span class="o">+</span><span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="na">addWindowListener</span><span class="o">(</span><span class="k">new</span> <span class="n">WindowAdapter</span><span class="o">(){</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">void</span> <span class="nf">windowClosing</span><span class="o">(</span><span class="n">WindowEvent</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;windowClosing:&quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">});</span><span class="c1">//注册窗口监听器</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">MenuListener</span> <span class="n">myListener</span><span class="o">=</span><span class="k">new</span> <span class="n">MenuListener</span><span class="o">();</span> <span class="c1">//创建监听对象</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JPanel</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="na">setContentPane</span><span class="o">(</span><span class="n">p</span><span class="o">);</span> <span class="c1">//设置容器</span>
+</span><span class='line'>      <span class="n">p</span><span class="o">.</span><span class="na">setLayout</span><span class="o">(</span><span class="k">new</span> <span class="n">BorderLayout</span><span class="o">());</span> <span class="c1">//设置布局管理器</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">p</span><span class="o">.</span><span class="na">setPreferredSize</span><span class="o">(</span><span class="k">new</span> <span class="n">Dimension</span><span class="o">(</span><span class="mi">300</span><span class="o">,</span><span class="mi">150</span><span class="o">));</span> <span class="c1">//设置面板区域大小</span>
+</span><span class='line'>      <span class="c1">//p.add(t,BorderLayout.NORTH); //放置组件</span>
+</span><span class='line'>      <span class="c1">//p.add(sp,BorderLayout.CENTER);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">mb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuBar</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="na">setJMenuBar</span><span class="o">(</span><span class="n">mb</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">PM</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JPopupMenu</span><span class="o">();</span> <span class="c1">// 弹出式菜单</span>
+</span><span class='line'>      <span class="n">PCutMI</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Cut&quot;</span><span class="o">);</span>  <span class="c1">//创建弹出菜单项</span>
+</span><span class='line'>      <span class="n">PCopyMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Copy&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">PpasteMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Paste&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">PM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">PCutMI</span><span class="o">);</span><span class="n">PM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">PCopyMI</span><span class="o">);</span><span class="n">PM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">PpasteMI</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">PCutMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">PCutMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;pop_cut&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">PCopyMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">PCopyMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;pop_copy&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">PpasteMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">PpasteMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;pop_paste&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">ta</span><span class="o">=</span><span class="k">new</span> <span class="n">JTextArea</span><span class="o">(</span><span class="mi">60</span><span class="o">,</span><span class="mi">300</span><span class="o">);</span>  <span class="c1">//文本区域实例化</span>
+</span><span class='line'>      <span class="n">ta</span><span class="o">.</span><span class="na">setSize</span><span class="o">(</span><span class="mi">300</span><span class="o">,</span> <span class="mi">600</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">ta</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">FontName_ta</span><span class="o">,</span><span class="n">FontStyle_ta</span><span class="o">,</span><span class="n">FontSize_ta</span><span class="o">));</span>
+</span><span class='line'>      <span class="n">sp</span><span class="o">=</span><span class="k">new</span> <span class="n">JScrollPane</span><span class="o">(</span><span class="n">ta</span><span class="o">);</span>    <span class="c1">//滚动条实例化</span>
+</span><span class='line'>      <span class="n">p</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">sp</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="na">setBounds</span><span class="o">(</span><span class="mi">250</span><span class="o">,</span> <span class="mi">300</span><span class="o">,</span> <span class="mi">600</span><span class="o">,</span> <span class="mi">500</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">p</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="c1">//容器可视化</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">fileM</span><span class="o">=</span><span class="k">new</span> <span class="n">JMenu</span><span class="o">(</span><span class="s">&quot;File&quot;</span><span class="o">);</span> <span class="c1">// 创建各个菜单</span>
+</span><span class='line'>      <span class="n">mb</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">fileM</span><span class="o">);</span>   <span class="c1">//在menubar中增加fileM,将菜单加入菜单条</span>
+</span><span class='line'>      <span class="n">fileM</span><span class="o">.</span><span class="na">setMnemonic</span><span class="o">(</span><span class="sc">&#39;F&#39;</span><span class="o">);</span>     <span class="c1">// 定义访问键</span>
+</span><span class='line'>      <span class="n">ViewM</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenu</span><span class="o">(</span><span class="s">&quot;View&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">mb</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">ViewM</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">ViewM</span><span class="o">.</span><span class="na">setMnemonic</span><span class="o">(</span><span class="sc">&#39;V&#39;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">SetM</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenu</span><span class="o">(</span><span class="s">&quot;Settings&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">mb</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">SetM</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">SetM</span><span class="o">.</span><span class="na">setMnemonic</span><span class="o">(</span><span class="sc">&#39;S&#39;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">helpM</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenu</span><span class="o">(</span><span class="s">&quot;Help&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">mb</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">helpM</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">helpM</span><span class="o">.</span><span class="na">setMnemonic</span><span class="o">(</span><span class="sc">&#39;H&#39;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">fileMI</span><span class="o">=</span><span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Open&quot;</span><span class="o">);</span>    <span class="c1">// 创建个菜单项</span>
+</span><span class='line'>      <span class="n">fileM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">fileMI</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">fileMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">(){</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="c1">// 文件选择器</span>
+</span><span class='line'>              <span class="n">JFileChooser</span> <span class="n">chooser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JFileChooser</span><span class="o">();</span>
+</span><span class='line'>              <span class="n">chooser</span><span class="o">.</span><span class="na">setDialogTitle</span><span class="o">(</span><span class="s">&quot;Choose File To Open&quot;</span><span class="o">);</span>
+</span><span class='line'>              <span class="n">chooser</span><span class="o">.</span><span class="na">setApproveButtonText</span><span class="o">(</span><span class="s">&quot;Load&quot;</span><span class="o">);</span>
+</span><span class='line'>              <span class="n">chooser</span><span class="o">.</span><span class="na">setApproveButtonToolTipText</span><span class="o">(</span>
+</span><span class='line'>                      <span class="s">&quot;Load this file as &quot;</span> <span class="o">+</span> <span class="n">FirstOpenwith</span><span class="o">);</span>
+</span><span class='line'>              <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">chooser</span><span class="o">.</span><span class="na">showOpenDialog</span><span class="o">(</span><span class="n">f</span><span class="o">);</span> <span class="c1">// 显示</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="c1">// 如果文件选择失败</span>
+</span><span class='line'>              <span class="k">if</span> <span class="o">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="n">JFileChooser</span><span class="o">.</span><span class="na">APPROVE_OPTION</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;OPEN file not choosed&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;OPEN file no choosed&quot;</span><span class="o">,</span><span class="s">&quot;Warning&quot;</span><span class="o">,</span>
+</span><span class='line'>                        <span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="k">return</span><span class="o">;</span>
+</span><span class='line'>              <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="n">fi</span> <span class="o">=</span> <span class="n">chooser</span><span class="o">.</span><span class="na">getSelectedFile</span><span class="o">();</span> <span class="c1">// 选择的文件路径</span>
+</span><span class='line'>              <span class="n">ta</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">readfile</span><span class="o">(</span><span class="n">fi</span><span class="o">,</span><span class="n">maxsize</span><span class="o">,</span><span class="n">FirstOpenwith</span><span class="o">,</span><span class="n">f</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>  
+</span><span class='line'>              <span class="c1">// 读取文件内容,设置多行文本框内容</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="n">content</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">);</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">});</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">SaveMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Save&quot;</span><span class="o">);</span>  <span class="c1">// 保存</span>
+</span><span class='line'>      <span class="n">fileM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">SaveMI</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">SaveMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ActionListener</span><span class="o">(){</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>          
+</span><span class='line'>              <span class="c1">// 文件选择器</span>
+</span><span class='line'>              <span class="n">JFileChooser</span> <span class="n">chooser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JFileChooser</span><span class="o">();</span>
+</span><span class='line'>              <span class="n">chooser</span><span class="o">.</span><span class="na">setDialogTitle</span><span class="o">(</span><span class="s">&quot;Choose File To Save&quot;</span><span class="o">);</span>
+</span><span class='line'>              <span class="n">chooser</span><span class="o">.</span><span class="na">setApproveButtonText</span><span class="o">(</span><span class="s">&quot;Load&quot;</span><span class="o">);</span>
+</span><span class='line'>              <span class="n">chooser</span><span class="o">.</span><span class="na">setApproveButtonToolTipText</span><span class="o">(</span>
+</span><span class='line'>                      <span class="s">&quot;Save this file as &quot;</span> <span class="o">+</span> <span class="n">FirstOpenwith</span><span class="o">);</span>
+</span><span class='line'>              <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">chooser</span><span class="o">.</span><span class="na">showSaveDialog</span><span class="o">(</span><span class="n">f</span><span class="o">);</span> <span class="c1">// 显示</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="c1">// 如果文件选择失败</span>
+</span><span class='line'>              <span class="k">if</span> <span class="o">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="n">JFileChooser</span><span class="o">.</span><span class="na">APPROVE_OPTION</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;SVAE file not choosed&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;SAVE file no choosed&quot;</span><span class="o">,</span><span class="s">&quot;Warning&quot;</span><span class="o">,</span>
+</span><span class='line'>                        <span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="k">return</span><span class="o">;</span>
+</span><span class='line'>              <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="n">fi</span> <span class="o">=</span> <span class="n">chooser</span><span class="o">.</span><span class="na">getSelectedFile</span><span class="o">();</span> <span class="c1">// 选择的文件路径</span>
+</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;file to save: &quot;</span> <span class="o">+</span> <span class="n">fi</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="n">savefile</span><span class="o">(</span><span class="n">fi</span><span class="o">,</span><span class="n">ta</span><span class="o">.</span><span class="na">getText</span><span class="o">(),</span><span class="n">FirstOpenwith</span><span class="o">,</span><span class="n">f</span><span class="o">);</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">});</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">fileM</span><span class="o">.</span><span class="na">addSeparator</span><span class="o">();</span> <span class="c1">// 添加一条横向分隔线</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">ExitMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Exit&quot;</span><span class="o">);</span>  <span class="c1">// 退出</span>
+</span><span class='line'>      <span class="n">fileM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">ExitMI</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">ExitMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">ExitMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;Exit&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">CharM</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenu</span><span class="o">(</span><span class="s">&quot;Charset&quot;</span><span class="o">);</span> <span class="c1">// 字体</span>
+</span><span class='line'>      <span class="n">ViewM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">CharM</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">firstopenMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;OPEN AS&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">uft8MI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;REOPEN AS UFT-8&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">gb1MI</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;REOPEN AS GB2312&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">bigMI</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;REOPEN AS Big5&quot;</span><span class="o">);;</span>
+</span><span class='line'>      <span class="n">CharM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">firstopenMI</span><span class="o">);</span><span class="n">CharM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">uft8MI</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">CharM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">gb1MI</span><span class="o">);</span><span class="n">CharM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">bigMI</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">firstopenMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">firstopenMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;charset_firstopen&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">uft8MI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">uft8MI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;charset_UTF-8&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">gb1MI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">gb1MI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;charset_GB2312&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">bigMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">bigMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;charset_Big5&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// 换行</span>
+</span><span class='line'>      <span class="n">LineWrapMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;LineWrap&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">ViewM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">LineWrapMI</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">LineWrapMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">LineWrapMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;linewarp&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// TAB 大小</span>
+</span><span class='line'>      <span class="n">TabMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Tab&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">ViewM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">TabMI</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">TabMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">TabMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;tab&quot;</span><span class="o">);</span> 
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// 字体菜单</span>
+</span><span class='line'>      <span class="n">FontM</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenu</span><span class="o">(</span><span class="s">&quot;Font&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">ViewM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">FontM</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">FontNMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Name&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">FontSMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Style&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">FontZMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;Size&quot;</span><span class="o">);;</span>
+</span><span class='line'>      <span class="n">FontM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">FontNMI</span><span class="o">);</span><span class="n">FontM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">FontSMI</span><span class="o">);</span><span class="n">FontM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">FontZMI</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">FontNMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">FontNMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;Font_Name&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">FontSMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">FontSMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;Font_Style&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">FontZMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">FontZMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;Font_Size&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="n">MasMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;File MaxSize&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">SetM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">MasMI</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">MasMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">MasMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;Set_MaxSize&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">// 关于</span>
+</span><span class='line'>      <span class="n">aboutMI</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JMenuItem</span><span class="o">(</span><span class="s">&quot;About&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">helpM</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">aboutMI</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">aboutMI</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="n">myListener</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">aboutMI</span><span class="o">.</span><span class="na">setActionCommand</span><span class="o">(</span><span class="s">&quot;about&quot;</span><span class="o">);</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c1">//设置窗体Frame的Mouse监听对象</span>
+</span><span class='line'>      <span class="n">ta</span><span class="o">.</span><span class="na">addMouseListener</span><span class="o">(</span><span class="k">new</span> <span class="n">MouseAdapter</span><span class="o">(){</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">void</span> <span class="nf">mousePressed</span><span class="o">(</span><span class="n">MouseEvent</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>              <span class="k">if</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">isPopupTrigger</span><span class="o">())</span> <span class="c1">//弹出菜单</span>
+</span><span class='line'>              <span class="n">PM</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getComponent</span><span class="o">(),</span><span class="n">e</span><span class="o">.</span><span class="na">getX</span><span class="o">(),</span><span class="n">e</span><span class="o">.</span><span class="na">getY</span><span class="o">());</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">void</span> <span class="nf">mouseReleased</span><span class="o">(</span><span class="n">MouseEvent</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>              <span class="n">mousePressed</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">});</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">// 读取文件内容</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">StringBuffer</span> <span class="nf">readfile</span><span class="o">(</span>
+</span><span class='line'>              <span class="n">File</span> <span class="n">fi</span><span class="o">,</span><span class="kt">int</span> <span class="n">maxsize</span><span class="o">,</span><span class="n">String</span> <span class="n">charset</span><span class="o">,</span><span class="n">JFrame</span> <span class="n">f</span><span class="o">){</span>
+</span><span class='line'>  
+</span><span class='line'>      <span class="n">StringBuffer</span> <span class="n">content</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">if</span> <span class="o">(</span><span class="n">fi</span><span class="o">.</span><span class="na">isFile</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">fi</span><span class="o">.</span><span class="na">canRead</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;file path:&quot;</span> <span class="o">+</span> <span class="n">fi</span><span class="o">);</span>
+</span><span class='line'>          
+</span><span class='line'>          <span class="k">try</span><span class="o">{</span>
+</span><span class='line'>              <span class="n">FileInputStream</span> <span class="n">fis</span><span class="o">=</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">fi</span><span class="o">);</span>
+</span><span class='line'>              <span class="c1">//构造文件字节输入流</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="n">Long</span> <span class="n">size</span> <span class="o">=</span> <span class="n">fi</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;&gt;</span> <span class="mi">10</span> <span class="o">;</span>
+</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+</span><span class='line'>                  <span class="s">&quot;file size:&quot;</span> <span class="o">+</span><span class="n">size</span> <span class="o">+</span><span class="s">&quot;K MaxSize:&quot;</span> <span class="o">+</span> <span class="n">maxsize</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="k">if</span><span class="o">(</span><span class="n">size</span> <span class="o">&gt;&gt;</span> <span class="mi">10</span> <span class="o">&lt;=</span> <span class="n">maxsize</span> <span class="o">){</span>
+</span><span class='line'>              
+</span><span class='line'>                  <span class="n">InputStreamReader</span> <span class="n">isr</span> <span class="o">=</span>
+</span><span class='line'>                              <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">fis</span><span class="o">,</span><span class="n">charset</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="n">isr</span><span class="o">);</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="n">String</span> <span class="n">str</span><span class="o">;</span>
+</span><span class='line'>                  <span class="k">while</span><span class="o">((</span><span class="n">str</span><span class="o">=</span><span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())!=</span><span class="kc">null</span><span class="o">)</span>
+</span><span class='line'>                      <span class="n">content</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">str</span><span class="o">+</span><span class="s">&quot;\n&quot;</span><span class="o">);</span>            
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span> <span class="c1">// 关闭流，释放资源</span>
+</span><span class='line'>                  <span class="n">isr</span><span class="o">.</span><span class="na">close</span><span class="o">();</span><span class="n">fis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="n">f</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&quot;tiff-&quot;</span> <span class="o">+</span> <span class="n">fi</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;large file !&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;large file may cause error!\n&quot;</span> <span class="o">+</span>
+</span><span class='line'>                      <span class="s">&quot;Please change Java Heap Memory!\n&quot;</span> <span class="o">+</span>
+</span><span class='line'>                      <span class="s">&quot;then use Seetings -&gt; File MaxSize&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;large file&quot;</span><span class="o">,</span><span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>              <span class="o">}</span>
+</span><span class='line'>          
+</span><span class='line'>          <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">){</span>
+</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;read file error!&quot;</span><span class="o">+</span><span class="n">ex</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>              <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="s">&quot;Could not read file: &quot;</span><span class="o">,</span>
+</span><span class='line'>              <span class="s">&quot;Error reading file&quot;</span><span class="o">,</span><span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;open file error!&quot;</span><span class="o">);</span>
+</span><span class='line'>          <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="s">&quot;Could not open file: &quot;</span> <span class="o">+</span> <span class="n">fi</span><span class="o">,</span>
+</span><span class='line'>              <span class="s">&quot;Error opening file&quot;</span><span class="o">,</span><span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">content</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">// 保存文件</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">savefile</span><span class="o">(</span><span class="n">File</span> <span class="n">fi</span><span class="o">,</span><span class="n">String</span> <span class="n">save</span><span class="o">,</span>
+</span><span class='line'>                              <span class="n">String</span> <span class="n">charset</span><span class="o">,</span><span class="n">JFrame</span> <span class="n">f</span><span class="o">){</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">if</span> <span class="o">(!</span><span class="n">fi</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;file save path:&quot;</span> <span class="o">+</span> <span class="n">fi</span><span class="o">);</span>
+</span><span class='line'>          
+</span><span class='line'>          <span class="k">try</span><span class="o">{</span>
+</span><span class='line'>              <span class="c1">//构造文件字节输出流</span>
+</span><span class='line'>              <span class="n">FileOutputStream</span> <span class="n">fos</span><span class="o">=</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">fi</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="n">OutputStreamWriter</span> <span class="n">osw</span> <span class="o">=</span>
+</span><span class='line'>                              <span class="k">new</span> <span class="nf">OutputStreamWriter</span><span class="o">(</span><span class="n">fos</span><span class="o">,</span><span class="n">charset</span><span class="o">);</span>
+</span><span class='line'>              <span class="n">BufferedWriter</span> <span class="n">bw</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedWriter</span><span class="o">(</span><span class="n">osw</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="n">bw</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">save</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">save</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+</span><span class='line'>              <span class="n">bw</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>              <span class="n">osw</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>              <span class="n">bw</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="n">f</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&quot;tiff-&quot;</span> <span class="o">+</span> <span class="n">fi</span><span class="o">);</span>
+</span><span class='line'>          
+</span><span class='line'>          <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">){</span>
+</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;save file error !&quot;</span><span class="o">+</span><span class="n">ex</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>              <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="s">&quot;Could not save file: &quot;</span><span class="o">,</span>
+</span><span class='line'>              <span class="s">&quot;Error saveing file&quot;</span><span class="o">,</span><span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;save file exists !&quot;</span><span class="o">);</span>
+</span><span class='line'>          <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="s">&quot;save file exists: &quot;</span> <span class="o">+</span> <span class="n">fi</span> <span class="o">,</span>
+</span><span class='line'>              <span class="s">&quot;Saveing file&quot;</span><span class="o">,</span><span class="n">JOptionPane</span><span class="o">.</span><span class="na">WARNING_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c1">// 普通菜单项监听类，实现ActionListener接口,与界面解耦</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MenuListener</span> <span class="kd">implements</span> <span class="n">ActionListener</span><span class="o">{</span>
+</span><span class='line'>  
+</span><span class='line'>      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>      
+</span><span class='line'>          <span class="c1">// 获得系统剪贴板</span>
+</span><span class='line'>          <span class="n">Clipboard</span> <span class="n">sysClip</span> <span class="o">=</span>
+</span><span class='line'>              <span class="n">Toolkit</span><span class="o">.</span><span class="na">getDefaultToolkit</span><span class="o">().</span><span class="na">getSystemClipboard</span><span class="o">();</span>
+</span><span class='line'>          <span class="n">Transferable</span> <span class="n">cutText</span><span class="o">;</span>  <span class="c1">// 获取剪切文字</span>
+</span><span class='line'>      
+</span><span class='line'>          <span class="k">switch</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getActionCommand</span><span class="o">()){</span>
+</span><span class='line'>          
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;Exit&quot;</span><span class="o">:</span> <span class="c1">//如果选Exit菜单项，结束</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;MenuLis:Exit!&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;charset_firstopen&quot;</span><span class="o">:</span>
+</span><span class='line'>                  <span class="n">FirstOpenwith</span> <span class="o">=</span> <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showInputDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;First Open Charset Name Like UTF-8&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;Change Charset Name&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="n">JOptionPane</span><span class="o">.</span><span class="na">INFORMATION_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;FirstOpenwith:&quot;</span> <span class="o">+</span> <span class="n">FirstOpenwith</span><span class="o">);</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;charset_UTF-8&quot;</span><span class="o">:</span> <span class="c1">// 以UTF-8编码打开</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;MenuLis:charset_UTF-8&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="k">if</span><span class="o">(</span><span class="n">fi</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+</span><span class='line'>                      <span class="c1">// 读取文件函数,设置文字</span>
+</span><span class='line'>                      <span class="n">ta</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">readfile</span><span class="o">(</span><span class="n">fi</span><span class="o">,</span><span class="n">maxsize</span><span class="o">,</span><span class="s">&quot;UTF-8&quot;</span><span class="o">,</span><span class="n">f</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>                      <span class="n">FirstOpenwith</span> <span class="o">=</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">;</span>
+</span><span class='line'>                  <span class="o">}</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;charset_GB2312&quot;</span><span class="o">:</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;MenuLis:charset_GB2312&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="k">if</span><span class="o">(</span><span class="n">fi</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+</span><span class='line'>                      <span class="n">ta</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">readfile</span><span class="o">(</span><span class="n">fi</span><span class="o">,</span><span class="n">maxsize</span><span class="o">,</span><span class="s">&quot;GB2312&quot;</span><span class="o">,</span><span class="n">f</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>                      <span class="n">FirstOpenwith</span> <span class="o">=</span> <span class="s">&quot;GB2312&quot;</span><span class="o">;</span>
+</span><span class='line'>                  <span class="o">}</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>                
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;charset_Big5&quot;</span><span class="o">:</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;MenuLis:charset_Big5&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="k">if</span><span class="o">(</span><span class="n">fi</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+</span><span class='line'>                      <span class="n">ta</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">readfile</span><span class="o">(</span><span class="n">fi</span><span class="o">,</span><span class="n">maxsize</span><span class="o">,</span><span class="s">&quot;Big5&quot;</span><span class="o">,</span><span class="n">f</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>                      <span class="n">FirstOpenwith</span> <span class="o">=</span> <span class="s">&quot;Big5&quot;</span><span class="o">;</span>
+</span><span class='line'>                  <span class="o">}</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;pop_cut&quot;</span><span class="o">:</span> <span class="c1">// 弹出式菜单 剪切</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;MenuLis:pop_cut&quot;</span><span class="o">);</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">ta</span><span class="o">.</span><span class="na">getSelectionStart</span><span class="o">()</span>
+</span><span class='line'>                              <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">ta</span><span class="o">.</span><span class="na">getSelectionEnd</span><span class="o">());</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="c1">// 获取剪切文字</span>
+</span><span class='line'>                  <span class="n">cutText</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringSelection</span><span class="o">(</span><span class="n">ta</span><span class="o">.</span><span class="na">getSelectedText</span><span class="o">());</span>
+</span><span class='line'>                  <span class="c1">// 剪切文字赋到系统剪贴板</span>
+</span><span class='line'>                  <span class="n">sysClip</span><span class="o">.</span><span class="na">setContents</span><span class="o">(</span><span class="n">cutText</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>                  <span class="c1">// 替换</span>
+</span><span class='line'>                  <span class="n">ta</span><span class="o">.</span><span class="na">replaceRange</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">,</span><span class="n">ta</span><span class="o">.</span><span class="na">getSelectionStart</span><span class="o">(),</span><span class="n">ta</span><span class="o">.</span><span class="na">getSelectionEnd</span><span class="o">());</span>
+</span><span class='line'>                  
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>                
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;pop_copy&quot;</span><span class="o">:</span> <span class="c1">// 弹出式菜单 复制</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;MenuLis:pop_copy&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">ta</span><span class="o">.</span><span class="na">getSelectionStart</span><span class="o">()</span>
+</span><span class='line'>                              <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">ta</span><span class="o">.</span><span class="na">getSelectionEnd</span><span class="o">());</span>
+</span><span class='line'>                  <span class="c1">// 获取剪切文字</span>
+</span><span class='line'>                  <span class="n">cutText</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringSelection</span><span class="o">(</span><span class="n">ta</span><span class="o">.</span><span class="na">getSelectedText</span><span class="o">());</span>
+</span><span class='line'>                  <span class="c1">// 剪切文字赋到系统剪贴板</span>
+</span><span class='line'>                  <span class="n">sysClip</span><span class="o">.</span><span class="na">setContents</span><span class="o">(</span><span class="n">cutText</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>                  
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>                    
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;pop_paste&quot;</span><span class="o">:</span> <span class="c1">// 弹出式菜单 黏贴</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;MenuLis:pop_paste&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">ta</span><span class="o">.</span><span class="na">getSelectionStart</span><span class="o">()</span>
+</span><span class='line'>                              <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">ta</span><span class="o">.</span><span class="na">getSelectionEnd</span><span class="o">());</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="c1">// 替换已选取的文本为空</span>
+</span><span class='line'>                  <span class="n">ta</span><span class="o">.</span><span class="na">replaceRange</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">,</span><span class="n">ta</span><span class="o">.</span><span class="na">getSelectionStart</span><span class="o">(),</span><span class="n">ta</span><span class="o">.</span><span class="na">getSelectionEnd</span><span class="o">());</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="n">Transferable</span> <span class="n">clip</span> <span class="o">=</span> <span class="n">sysClip</span><span class="o">.</span><span class="na">getContents</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span> <span class="c1">// 获取系统剪贴板</span>
+</span><span class='line'>                  <span class="k">if</span><span class="o">(</span><span class="n">clip</span> <span class="o">!=</span> <span class="kc">null</span>     <span class="c1">// 是否为空 是否支持字符型</span>
+</span><span class='line'>                      <span class="o">&amp;</span> <span class="n">clip</span><span class="o">.</span><span class="na">isDataFlavorSupported</span><span class="o">(</span><span class="n">DataFlavor</span><span class="o">.</span><span class="na">stringFlavor</span><span class="o">)){</span>
+</span><span class='line'>                      
+</span><span class='line'>                      <span class="k">try</span><span class="o">{</span>
+</span><span class='line'>                          <span class="n">ta</span><span class="o">.</span><span class="na">insert</span><span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">clip</span><span class="o">.</span><span class="na">getTransferData</span><span class="o">(</span><span class="n">DataFlavor</span><span class="o">.</span><span class="na">stringFlavor</span><span class="o">),</span>
+</span><span class='line'>                                  <span class="n">ta</span><span class="o">.</span><span class="na">getSelectionStart</span><span class="o">());</span><span class="c1">// 插入剪贴板字符文字</span>
+</span><span class='line'>                      <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">UnsupportedFlavorException</span> <span class="n">ue</span><span class="o">){</span>
+</span><span class='line'>                          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Unsupport Flavor error:&quot;</span> <span class="o">+</span> <span class="n">ue</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>                      <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">ie</span><span class="o">){</span>
+</span><span class='line'>                          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;IO error:&quot;</span> <span class="o">+</span> <span class="n">ie</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>                      <span class="o">}</span>
+</span><span class='line'>                  <span class="o">}</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;tab&quot;</span><span class="o">:</span> <span class="c1">// 设置tab大小</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;MenuLis:tab&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">ta</span><span class="o">.</span><span class="na">setTabSize</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;linewarp&quot;</span><span class="o">:</span> <span class="c1">// 换行</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;MenuLis:linewarp&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="k">if</span><span class="o">(!</span><span class="n">ta</span><span class="o">.</span><span class="na">getLineWrap</span><span class="o">())</span>
+</span><span class='line'>                      <span class="n">ta</span><span class="o">.</span><span class="na">setLineWrap</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>                  <span class="k">else</span>
+</span><span class='line'>                      <span class="n">ta</span><span class="o">.</span><span class="na">setLineWrap</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;Font_Name&quot;</span><span class="o">:</span> <span class="c1">// 字体名称</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;MenuLis:Font_Name&quot;</span><span class="o">);</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="n">FontName_ta</span> <span class="o">=</span> <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showInputDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;Font Name&quot;</span><span class="o">,</span><span class="s">&quot;Change Font Name&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="n">JOptionPane</span><span class="o">.</span><span class="na">INFORMATION_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">FontName_ta</span><span class="o">);</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="n">ta</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">FontName_ta</span><span class="o">,</span><span class="n">FontStyle_ta</span><span class="o">,</span><span class="n">FontSize_ta</span><span class="o">));</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;Font_Style&quot;</span><span class="o">:</span> <span class="c1">// 字体风格</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;MenuLis:Font_Style&quot;</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>                  <span class="n">String</span> <span class="n">FontStyle</span> <span class="o">=</span> <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showInputDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;Font Style 0-3&quot;</span><span class="o">,</span><span class="s">&quot;Change Font Style&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="n">JOptionPane</span><span class="o">.</span><span class="na">INFORMATION_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">FontStyle_ta</span><span class="o">);</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="k">try</span><span class="o">{</span>
+</span><span class='line'>                      <span class="n">FontStyle_ta</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">FontStyle</span><span class="o">);</span>
+</span><span class='line'>                  <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">nfe</span><span class="o">){</span>
+</span><span class='line'>                  
+</span><span class='line'>                      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Number Formaterror:&quot;</span> <span class="o">+</span> <span class="n">nfe</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>                      <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="s">&quot;Please input Integer!&quot;</span><span class="o">,</span>
+</span><span class='line'>                              <span class="s">&quot;Error Change Font Style&quot;</span><span class="o">,</span><span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="o">}</span>
+</span><span class='line'>                  <span class="n">ta</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">FontName_ta</span><span class="o">,</span><span class="n">FontStyle_ta</span><span class="o">,</span><span class="n">FontSize_ta</span><span class="o">));</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;Font_Size&quot;</span><span class="o">:</span> <span class="c1">// 字体大小</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;MenuLis:Font_Size&quot;</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>                  <span class="n">String</span> <span class="n">FontSize</span> <span class="o">=</span> <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showInputDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;Font Size&quot;</span><span class="o">,</span><span class="s">&quot;Change Font Size&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="n">JOptionPane</span><span class="o">.</span><span class="na">INFORMATION_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">FontSize</span><span class="o">);</span>
+</span><span class='line'>                  
+</span><span class='line'>                  <span class="k">try</span><span class="o">{</span>
+</span><span class='line'>                      <span class="n">FontSize_ta</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">FontSize</span><span class="o">);</span>
+</span><span class='line'>                  <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">nfe</span><span class="o">){</span>
+</span><span class='line'>                  
+</span><span class='line'>                      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Number Formaterror:&quot;</span> <span class="o">+</span> <span class="n">nfe</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>                      <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="s">&quot;Please input Integer!&quot;</span><span class="o">,</span>
+</span><span class='line'>                              <span class="s">&quot;Error Change Font Size&quot;</span><span class="o">,</span><span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="o">}</span>
+</span><span class='line'>                  <span class="n">ta</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">FontName_ta</span><span class="o">,</span><span class="n">FontStyle_ta</span><span class="o">,</span><span class="n">FontSize_ta</span><span class="o">));</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;Set_MaxSize&quot;</span><span class="o">:</span> <span class="c1">// 设置文件打开大小</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;MenuLis:Set_MaxSize&quot;</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>                  <span class="n">String</span> <span class="n">maxSize</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+</span><span class='line'>                  <span class="n">maxSize</span> <span class="o">=</span> <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showInputDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;Open File MAX Size IN (MB)&quot;</span><span class="o">,</span><span class="s">&quot;Change File MAX Size&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="n">JOptionPane</span><span class="o">.</span><span class="na">INFORMATION_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">maxSize</span> <span class="o">+</span> <span class="s">&quot; MB.&quot;</span><span class="o">);</span>
+</span><span class='line'>              
+</span><span class='line'>                  <span class="k">if</span><span class="o">(!(</span><span class="n">maxSize</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">|</span> <span class="n">maxSize</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)){</span>
+</span><span class='line'>                      <span class="k">try</span><span class="o">{</span>
+</span><span class='line'>                          <span class="n">maxsize</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">maxSize</span><span class="o">);</span>
+</span><span class='line'>                      <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">nfe</span><span class="o">){</span>
+</span><span class='line'>                      
+</span><span class='line'>                          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Number Formaterror:&quot;</span> <span class="o">+</span> <span class="n">nfe</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>                          <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="s">&quot;Please input Integer!&quot;</span><span class="o">,</span>
+</span><span class='line'>                                  <span class="s">&quot;Error Change Font Size&quot;</span><span class="o">,</span><span class="n">JOptionPane</span><span class="o">.</span><span class="na">ERROR_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>                      <span class="o">}</span>
+</span><span class='line'>                  <span class="o">}</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;about&quot;</span><span class="o">:</span> <span class="c1">// 关于</span>
+</span><span class='line'>                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;MenuLis:about&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="n">JOptionPane</span><span class="o">.</span><span class="na">showMessageDialog</span><span class="o">(</span><span class="n">f</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;tiff is a free software like a simple notepad.\n&quot;</span> <span class="o">+</span>
+</span><span class='line'>                      <span class="s">&quot;Use JAVA Swing.\n&quot;</span> <span class="o">+</span>
+</span><span class='line'>                      <span class="s">&quot;AUTHOR:WWJ\nVERSION:0.0.1 20150518&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="s">&quot;FREE SOFTWARE [tiff]&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="n">JOptionPane</span><span class="o">.</span><span class="na">INFORMATION_MESSAGE</span><span class="o">);</span>
+</span><span class='line'>              <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>          <span class="o">}</span> <span class="c1">// switch</span>
+</span><span class='line'>          
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="o">}</span> <span class="c1">// MenuListener</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span><span class="n">String</span><span class="o">[]</span><span class="n">args</span><span class="o">){</span>
+</span><span class='line'>  
+</span><span class='line'>      <span class="c1">// 设置UI界面风格</span>
+</span><span class='line'>      <span class="k">try</span><span class="o">{</span>
+</span><span class='line'>          <span class="k">if</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="o">)</span>
+</span><span class='line'>              <span class="n">UIManager</span><span class="o">.</span><span class="na">setLookAndFeel</span><span class="o">(</span>
+</span><span class='line'>                  <span class="c1">// &quot;com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel&quot;);</span>
+</span><span class='line'>                  <span class="c1">// &quot;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&quot;);</span>
+</span><span class='line'>                  <span class="s">&quot;javax.swing.plaf.nimbus.NimbusLookAndFeel&quot;</span><span class="o">);</span>
+</span><span class='line'>                  <span class="c1">// &quot;javax.swing.plaf.synth.SynthLookAndFeel&quot;);</span>
+</span><span class='line'>          <span class="k">else</span>
+</span><span class='line'>              <span class="n">UIManager</span><span class="o">.</span><span class="na">setLookAndFeel</span><span class="o">(</span>
+</span><span class='line'>                  <span class="s">&quot;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&quot;</span><span class="o">);</span>
+</span><span class='line'>      <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">ClassNotFoundException</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;setLookFeel no found error:&quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>      <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">InstantiationException</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;setLookFeel instant error:&quot;</span><span class="o">+</span><span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>      <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">IllegalAccessException</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;setLookFeel Access error:&quot;</span><span class="o">+</span><span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>      <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">UnsupportedLookAndFeelException</span> <span class="n">e</span><span class="o">){</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;setLookFeel support error:&quot;</span><span class="o">+</span><span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">new</span> <span class="nf">tiff</span><span class="o">();</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[BIG_DATA杂谈(2)-hadoop探究《三国演义》的词频-改]]></title>
@@ -3691,43 +4879,6 @@
 <li>去的时候很早，石板街上没有多少人，旁边的店也没开几家</li>
 <li><p>我们在一个街口，停下来买猪肉，老旧的两层老房子</p></li>
 <li><p><img src="http://www.wuwenjie.tk/images/old_street.jpg" alt="old street from web" /></p></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[白银指数AGL9-20140330技术分析]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/"/>
-    <updated>2014-03-30T16:45:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi</id>
-    <content type="html"><![CDATA[<h2>前言</h2>
-
-<ul>
-<li>最近贵金属投资很热，黄金、白银、黄金期货、白银T+D等等</li>
-<li>去年末的时候，去过一家贵金属公司面试，多是电话销售，邀约客户</li>
-<li>后来没有回音，我想就算了，其他机会还有很多</li>
-<li>过年时候在家看<a href="http://price.zhjtong.com/1_ying_740_500.png">工行现货白银</a>，天天盯着，但出手很少，只在除夕建了满仓</li>
-<li>出于谨慎，在它达到前期<a href="http://wiki.mbalib.com/wiki/%E8%82%A1%E7%A5%A8%E7%AE%B1%E7%90%86%E8%AE%BA">箱体</a>上时，全部抛出，赚了一点，但后面的一半没拿住</li>
-</ul>
-
-
-<!-- more -->
-
-
-<h2>经验教训</h2>
-
-<ul>
-<li>白银价格突破时伴随着成交量的放大，这样的上升应该短期是可持续的</li>
-<li>如下图所示</li>
-<li><img src="http://www.wuwenjie.tk/images/silver20140328.png" alt="白银指数20140328" /></li>
-</ul>
-
-
-<h2>一张图预测白银指数后市</h2>
-
-<ul>
-<li><img src="http://www.wuwenjie.tk/images/AGL9-20140330.jpg" alt="AGL9-20130330" /></li>
 </ul>
 
 ]]></content>

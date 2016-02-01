@@ -9,7 +9,7 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="拦路雨偏似雪花 饮泣的你冻吗 这风褛我给你磨到有襟花 连掉了迹也不怕 怎么始终牵挂 苦心选中今天想车你回家 原谅我不再送花 伤口应要结疤 花瓣铺满心里坟场才害怕 如若你非我不嫁 彼此终必火化 一生一世等一天需要代价 谁都只得那双手 靠拥抱亦难任你拥有 要拥有必先懂失去怎接受 曾沿着雪路浪游 &hellip;">
+  <meta name="description" content="屋里有一台计算机是专门用来做报告的，为它配备了一台投影仪。在作报告的时候，有时想播放一些音频文件，但是这台计算机没有扬声器。为了便于问题的描述，可以将这台计算机称为“哑巴机”。除了这台哑巴机之外，其他的计算机都内置了音效挺好的扬声器，相应的，我们管这些带扬声器的机器称为“有声机”。由于我们比较缺钱 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +84,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/13/pulseaudio-%25e8%25b7%25a8%25e7%25bd%2591%25e7%25bb%259c%25e5%25ba%2594%25e7%2594%25a8/">PulseAudio 跨网络应用</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-13T04:23:00+08:00" pubdate data-updated="true">Jan 13<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/01/13/pulseaudio-%25e8%25b7%25a8%25e7%25bd%2591%25e7%25bb%259c%25e5%25ba%2594%25e7%2594%25a8/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>屋里有一台计算机是专门用来做报告的，为它配备了一台投影仪。在作报告的时候，有时想播放一些音频文件，但是这台计算机没有扬声器。为了便于问题的描述，可以将这台计算机称为“<strong>哑巴机</strong>”。除了这台哑巴机之外，其他的计算机都内置了音效挺好的扬声器，相应的，我们管这些带扬声器的机器称为“<strong>有声机</strong>”。由于我们比较缺钱，所以不想为哑巴机再配备一个外部音箱，只想找个办法使得哑巴机可以通过有声机的扬声器播放音频。使用 PulseAudio 可以很简单的解决这个问题。</h1>
+
+
+<div id="article_body">
+<div id="article_content">
+<h2>将有声机作为服务器</h2>
+打开 /etc/pulse/default.pa 文件，增加以下内容：
+<pre>load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1;192.168.0.0/24 auth-anonymous=1</pre>
+<code>192.168.0.0</code> 这个 IP 起始地址可根据具体的网络环境进行修改。
+
+然后重启 pulseaudio 服务：
+<pre>$ pulseaudio --kill
+$ pulseaudio --start</pre>
+<h2>将哑巴机作为客户端</h2>
+在哑巴机上，只需将有声机的 IP 地址设为服务器地址，然后开启音频程序（这个音频程序支持 PulseAudio）即可，例如：
+<pre>$ export PULSE_SERVER=192.168.0.7
+$ rhythmbox foo.mp3</pre>
+如果想将某个有声机设为哑巴机的默认服务器，可以修改哑巴机上的 /etc/pulse/client.pa 文件，增加以下内容：
+<pre>default-server = 192.168.0.7</pre>
+然后执行以下命令刷新一下 PulseAudio 服务器地址：
+<pre>$ pax11publish -e -r</pre>
+这样每次在哑巴机上打开音频程序之前就不需要显式设定服务器地址变量 <code>PULSE_SERVER</code> 了。
+<h2>让 X Window 网络透明也具备音频传送能力</h2>
+在上文内容的基础上，我们可以在有声机上通过 X Window 的 X Serve 端访问哑巴机（其 IP 地址假设是 <code>192.168.0.22</code>）上的 X Client 端，命令如下：
+<pre>$ xhost +
+$ ssh -X mute@192.168.0.22
+$ rhythmbox foo.mp3</pre>
+这样，就可以让哑巴机上的 rhythmbox 利用本地机的扬声器放出音频。
+
+</div>
+转载时，希望不要链接文中图片，另外请保留本文原始出处：
+
+<a href="http://garfileo.is-programmer.com/">http://garfileo.is-programmer.com</a>
+
+</div>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -802,55 +876,6 @@ Firefox亦即火狐浏览器，是近年来撼动IE浏览器市场占有率的�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/11/26/%25e4%25bd%25a0%25e6%259c%2580%25e5%25b8%25b8%25e7%2594%25a8%25e7%259a%2584-10-%25e6%259d%25a1%25e5%2591%25bd%25e4%25bb%25a4%25e6%2598%25af%25e4%25bb%2580%25e4%25b9%2588%25ef%25bc%259f/">你最常用的 命令是什么？</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-11-26T07:59:00+08:00" pubdate data-updated="true">Nov 26<span>th</span>, 2011</time>
-        
-        
-          | <a href="/blog/2011/11/26/%25e4%25bd%25a0%25e6%259c%2580%25e5%25b8%25b8%25e7%2594%25a8%25e7%259a%2584-10-%25e6%259d%25a1%25e5%2591%25bd%25e4%25bb%25a4%25e6%2598%25af%25e4%25bb%2580%25e4%25b9%2588%25ef%25bc%259f/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在 Linux 下肯定要经常和命令行打交道，Linux 下的命令有无数，想知道自己经常用的命令 Top 10 是哪些吗？
-实现起来很简单，把下面的这一长串命令粘进终端，执行就可以看到结果：</p>
-
-<div>
-<div>history | awk &#8216;{CMD[$2]++  ;count++  ;}END { for (a in CMD)print CMD[a] &#8221; &#8221; CMD[a]/count*100 &#8220;% &#8221; a;}&#8217; | grep -v &#8220;./&#8221; | column -c3 -s &#8221; &#8221; -t | sort -nr | nl |  head -n10</div>
-</div>
-
-
-<p>原理也很简单，用 awk 统计 history 中的命令部分出现的次数，去掉 “./&ldquo; 这样不算命令的情况，最后排序输出，列出前 10 个。</p>
-
-<p><code>history | sed &ldquo;s#^\s+[0-9]+\s+##g&rdquo; | grep -oP &ldquo;(?&lt;=^|\|)\w+&rdquo;|sort |uniq -c| sort -k1,1nr -k2</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; 老早的</a>
@@ -868,6 +893,10 @@ Firefox亦即火狐浏览器，是近年来撼动IE浏览器市场占有率的�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben/">简单的JAVA NOTEPAD 记事本</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/11/27/big-dataza-tan-2-hadooptan-jiu-san-guo-yan-yi-de-ci-pin-gai/">BIG_DATA杂谈(2)-hadoop探究《三国演义》的词频-改</a>
       </li>
     
@@ -881,10 +910,6 @@ Firefox亦即火狐浏览器，是近年来撼动IE浏览器市场占有率的�
     
       <li class="post">
         <a href="/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa/">[转]Facebook加速deep-learning研发</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/31/nginxer-ji-mu-lu-pei-zhi-jiao-you-phpchu-li/">Nginx二级目录配置&#8211;交由php处理</a>
       </li>
     
   </ul>
@@ -994,7 +1019,7 @@ ds.charset = 'UTF-8';
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2015 - wuwenjie -
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2016 - wuwenjie -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>

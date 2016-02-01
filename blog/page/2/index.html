@@ -9,9 +9,9 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="前言 SAS 是数据挖掘界的巨无霸,几十年的发展业务遍布全球各行各业。
-其在官网上介绍的客户案例,有招行（包括Credit Card）、工商、交通、广发等等。
-它是“邪恶的”商业软件，那我为什么还要用它呢？ ">
+  <meta name="description" content="前言与背景 JAVA对多媒体的处理能力较弱，但JNI给了我们一扇逃生门（&#8221;escape hatch&#8221;）
+JNI提供给Java调用C语言、C++或被C、C++调用的功能
+使得JAVA可以使用丰富的C、C++库，而且本地方法使程序运行更快 如何播放MP3呢？ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +86,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">[改]Java Native Interface 播放MP3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-02-28T14:32:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2015</time>
+        
+        
+          | <a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>前言与背景</h1>
+
+<ul>
+<li>JAVA对多媒体的处理能力较弱，但JNI给了我们一扇逃生门（&#8221;escape hatch&#8221;）</li>
+<li><a href="http://zh.wikipedia.org/wiki/Java%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3">JNI</a>提供给Java调用C语言、C++或被C、C++调用的功能</li>
+<li>使得JAVA可以使用丰富的C、C++库，而且本地方法使程序运行更快</li>
+</ul>
+
+
+<h1>如何播放MP3呢？</h1>
+
+<ul>
+<li>利用JNI调用著名的<a href="http://zh.wikipedia.org/wiki/GStreamer">GStreamer</a>流式多媒体框架进行播放。</li>
+<li>它采用插件（plugin）和管道（pipeline）的体系结构，可以像搭积木一样简单地创建多媒体应用。</li>
+<li>并且GStreamer提供众多插件，易于扩展，以后可以考虑用Java播放视频。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -528,59 +588,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">白银指数AGL9-20140330技术分析</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-30T16:45:00+08:00" pubdate data-updated="true">Mar 30<span>th</span>, 2014</time>
-        
-        
-          | <a href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>前言</h2>
-
-<ul>
-<li>最近贵金属投资很热，黄金、白银、黄金期货、白银T+D等等</li>
-<li>去年末的时候，去过一家贵金属公司面试，多是电话销售，邀约客户</li>
-<li>后来没有回音，我想就算了，其他机会还有很多</li>
-<li>过年时候在家看<a href="http://price.zhjtong.com/1_ying_740_500.png">工行现货白银</a>，天天盯着，但出手很少，只在除夕建了满仓</li>
-<li>出于谨慎，在它达到前期<a href="http://wiki.mbalib.com/wiki/%E8%82%A1%E7%A5%A8%E7%AE%B1%E7%90%86%E8%AE%BA">箱体</a>上时，全部抛出，赚了一点，但后面的一半没拿住</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/03/30/bai-yin-zhi-shu-agl9-20140330ji-zhu-fen-xi/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; 老早的</a>
@@ -598,6 +605,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben/">简单的JAVA NOTEPAD 记事本</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/11/27/big-dataza-tan-2-hadooptan-jiu-san-guo-yan-yi-de-ci-pin-gai/">BIG_DATA杂谈(2)-hadoop探究《三国演义》的词频-改</a>
       </li>
     
@@ -611,10 +622,6 @@
     
       <li class="post">
         <a href="/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa/">[转]Facebook加速deep-learning研发</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/31/nginxer-ji-mu-lu-pei-zhi-jiao-you-phpchu-li/">Nginx二级目录配置&#8211;交由php处理</a>
       </li>
     
   </ul>
@@ -724,7 +731,7 @@ ds.charset = 'UTF-8';
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2015 - wuwenjie -
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2016 - wuwenjie -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 
 </p>
