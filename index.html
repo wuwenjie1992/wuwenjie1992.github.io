@@ -9,9 +9,10 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="前言 人们一直会对JAVA有一种“丑陋”的错觉，特别是UI。
-但JAVA其实是强大的、多功能的、适合网络的语言。
-我们一简单的文本编辑器，管中窥豹，一探JAVA的UI设计。 ">
+  <meta name="description" content="TextRank与PageRank TextRank脱胎于PageRank，受其启发应用于文本处理。&ndash;>论文
+TextRank在PageRank的基础上，引入了边的权值概念，代表两个句子的相似度。
+PageRank 公式 TextRank 公式 公式解释
+模型描述了一个有向有权图 G &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +87,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">改-TextRank文本关键字提取简介与应用</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-02-06T21:03:00+08:00" pubdate data-updated="true">Feb 6<span>th</span>, 2016</time>
+        
+        
+          | <a href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>TextRank与PageRank</h2>
+
+<ul>
+<li>TextRank脱胎于PageRank，受其启发应用于文本处理。<a href="https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf">&ndash;>论文</a></li>
+<li>TextRank在PageRank的基础上，引入了边的权值概念，代表两个句子的相似度。</li>
+<li>PageRank 公式</li>
+<li><img src="/images/pagerank.png" alt="pagerank" /></li>
+<li>TextRank 公式</li>
+<li><img src="/images/textrank.png" alt="textrank" /></li>
+<li><a href="http://www.cnblogs.com/chenbjin/p/4600538.html">公式解释</a></li>
+<li>模型描述了一个有向有权图 G =(V, E), 由点集合V和边集合E组成</li>
+<li>图中任两点 Vi , Vj 之间边的权重为 wji</li>
+<li>对于一个给定的点Vi, In(Vi)为指向该点的点集合, Out(Vi)为点Vi指向的点集合</li>
+<li>d为阻尼系数,代表从图中某一特定点指向其他任意点的概率,一般取值为0.85</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -611,65 +671,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">[改]Gstreamer 播放MP4 并 添加文字水印</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-03-31T17:58:00+08:00" pubdate data-updated="true">Mar 31<span>st</span>, 2015</time>
-        
-        
-          | <a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>提要</h2>
-
-<ul>
-<li>之前已经写过<a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">JNI播放mp3</a>的文章，使用<a href="http://zh.wikipedia.org/wiki/GStreamer">Gstreamer</a>流式多媒体框架。</li>
-<li>这次直接使用C播放MP4文件，文件对应解码器使用<a href="http://linux-wiki.cn/wiki/zh-hans/%E8%A7%86%E9%A2%91/%E7%85%A7%E7%89%87%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E6%8B%8D%E7%85%A7%E4%BF%A1%E6%81%AF">ffmpeg -i 视频文件</a>命令察看。</li>
-</ul>
-
-
-<h2>要点</h2>
-
-<ul>
-<li>使用动态方法链接音频、视频的接收垫片。</li>
-<li>使用gst_element_seek函数循环播放文件，本用来跳转播放。</li>
-<li>使用textoverlay组件为视频添加文字水印。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; 老早的</a>
@@ -685,6 +686,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">改-TextRank文本关键字提取简介与应用</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben/">简单的JAVA NOTEPAD 记事本</a>
       </li>
     
@@ -698,10 +703,6 @@
     
       <li class="post">
         <a href="/blog/2015/09/30/jie-jue-android-sdk-managergeng-xin-shi-yong-java-sockdai-li-xuan-xiang/">解决android Sdk manager更新&#8211;使用JAVA SOCK代理选项</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa/">[转]Facebook加速deep-learning研发</a>
       </li>
     
   </ul>

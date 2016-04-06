@@ -4,7 +4,7 @@
   <title><![CDATA[吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2016-02-01T21:19:29+08:00</updated>
+  <updated>2016-04-06T22:28:09+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,525 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[改-TextRank文本关键字提取简介与应用]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/"/>
+    <updated>2016-02-06T21:03:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong</id>
+    <content type="html"><![CDATA[<h2>TextRank与PageRank</h2>
+
+<ul>
+<li>TextRank脱胎于PageRank，受其启发应用于文本处理。<a href="https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf">&ndash;>论文</a></li>
+<li>TextRank在PageRank的基础上，引入了边的权值概念，代表两个句子的相似度。</li>
+<li>PageRank 公式</li>
+<li><img src="http://www.wuwenjie.tk/images/pagerank.png" alt="pagerank" /></li>
+<li>TextRank 公式</li>
+<li><img src="http://www.wuwenjie.tk/images/textrank.png" alt="textrank" /></li>
+<li><a href="http://www.cnblogs.com/chenbjin/p/4600538.html">公式解释</a></li>
+<li>模型描述了一个有向有权图 G =(V, E), 由点集合V和边集合E组成</li>
+<li>图中任两点 Vi , Vj 之间边的权重为 wji</li>
+<li>对于一个给定的点Vi, In(Vi)为指向该点的点集合, Out(Vi)为点Vi指向的点集合</li>
+<li>d为阻尼系数,代表从图中某一特定点指向其他任意点的概率,一般取值为0.85</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>关键字提取</h2>
+
+<ul>
+<li>单词构成的边的权重变为0（没有相似性），<a href="http://www.hankcs.com/nlp/textrank-algorithm-to-extract-the-keywords-java-implementation.html">权值约掉</a>，算法退化为PageRank</li>
+<li>大致步骤：</li>
+<li>分词。</li>
+<li>按预定窗口大小，依次划分单词。</li>
+<li>计算公式，迭代、直至收敛。</li>
+<li>对结果倒序排序，得到最重要关键词。</li>
+</ul>
+
+
+<h2>java实现参考</h2>
+
+<ul>
+<li>参考hankcs的实现，<a href="https://github.com/hankcs/TextRank/blob/master/src/main/java/com/hankcs/textrank/TextRankKeyword.java">github</a></li>
+<li>改用smartcn进行分词</li>
+<li>算法关键：getRank</li>
+<li>实例</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>WordCountOrder.java </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.lucene.analysis.TokenStream</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.lucene.analysis.tokenattributes.CharTermAttribute</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.lucene.analysis.util.CharArraySet</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.lucene.util.Version</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm"> * javac -cp &#39;.:lucene-core-4.10.1.jar:lucene-analyzers-common-4.10.1.jar:lucene-analyzers-smartcn-4.10.1.jar&#39; TextRankKeyword.java</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * java -cp &#39;.:lucene-core-4.10.1.jar:lucene-analyzers-common-4.10.1.jar:lucene-analyzers-smartcn-4.10.1.jar&#39; TextRankKeyword `cat a.txt` 50|grep -E &#39;.{2,} - &#39;</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * 基于TextRank算法的关键字提取，适用于单文档</span>
+</span><span class='line'><span class="cm"> * @author hankcs</span>
+</span><span class='line'><span class="cm"> * @modify wuwenjie</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TextRankKeyword</span> <span class="o">{</span>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 提取多少个关键字</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">nKeyword</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 阻尼系数（ＤａｍｐｉｎｇＦａｃｔｏｒ），一般取值为0.85</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="kd">static</span> <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">0.85f</span><span class="o">;</span>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 最大迭代次数</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="kd">static</span> <span class="kt">float</span> <span class="n">min_diff</span> <span class="o">=</span> <span class="mf">0.001f</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 提取关键词</span>
+</span><span class='line'><span class="cm">     * @param document 文档内容</span>
+</span><span class='line'><span class="cm">     * @param size 希望提取几个关键词</span>
+</span><span class='line'><span class="cm">     * @return 一个列表</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getKeywordList</span><span class="o">(</span><span class="n">String</span> <span class="n">document</span><span class="o">,</span> <span class="kt">int</span> <span class="n">size</span><span class="o">)</span>
+</span><span class='line'>    <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+</span><span class='line'>        <span class="n">TextRankKeyword</span> <span class="n">textRankKeyword</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TextRankKeyword</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">textRankKeyword</span><span class="o">.</span><span class="na">nKeyword</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">textRankKeyword</span><span class="o">.</span><span class="na">getKeyword</span><span class="o">(</span><span class="n">document</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 提取关键词</span>
+</span><span class='line'><span class="cm">     * @param content</span>
+</span><span class='line'><span class="cm">     * @return</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getKeyword</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+</span><span class='line'>      
+</span><span class='line'>        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;&gt;</span> <span class="n">entrySet</span> <span class="o">=</span> <span class="n">getTermAndRank</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="n">nKeyword</span><span class="o">).</span><span class="na">entrySet</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;(</span><span class="n">entrySet</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">entrySet</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">{</span>
+</span><span class='line'>            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">());</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 返回全部分词结果和对应的rank</span>
+</span><span class='line'><span class="cm">     * @param content</span>
+</span><span class='line'><span class="cm">     * @return</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Float</span><span class="o">&gt;</span> <span class="n">getTermAndRank</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+</span><span class='line'>        <span class="k">assert</span> <span class="n">content</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">CharArraySet</span> <span class="n">cas</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CharArraySet</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// 自定义停用词</span>
+</span><span class='line'>        <span class="n">String</span><span class="o">[]</span> <span class="n">self_stop_words</span> <span class="o">=</span> <span class="o">{</span> <span class="s">&quot;的&quot;</span><span class="o">,</span> <span class="s">&quot;在&quot;</span><span class="o">,</span><span class="s">&quot;了&quot;</span><span class="o">,</span> <span class="s">&quot;呢&quot;</span><span class="o">,</span> <span class="s">&quot;，&quot;</span><span class="o">,</span> <span class="s">&quot;：&quot;</span><span class="o">,</span> <span class="s">&quot;,&quot;</span><span class="o">,</span><span class="s">&quot;是&quot;</span><span class="o">,</span><span class="s">&quot;一&quot;</span><span class="o">,</span><span class="s">&quot;我&quot;</span><span class="o">,</span><span class="s">&quot;会&quot;</span><span class="o">,</span><span class="s">&quot;这&quot;</span><span class="o">,</span><span class="s">&quot;着&quot;</span><span class="o">,</span><span class="s">&quot;也&quot;</span><span class="o">,</span><span class="s">&quot;为&quot;</span><span class="o">,</span><span class="s">&quot;里&quot;</span><span class="o">,</span><span class="s">&quot;个&quot;</span><span class="o">,</span><span class="s">&quot;要&quot;</span><span class="o">,</span><span class="s">&quot;来&quot;</span><span class="o">,</span><span class="s">&quot;与&quot;</span><span class="o">,</span><span class="s">&quot;但&quot;</span><span class="o">,</span><span class="s">&quot;只&quot;</span><span class="o">,</span><span class="s">&quot;对&quot;</span><span class="o">,</span><span class="s">&quot;就&quot;</span><span class="o">,</span><span class="s">&quot;那些&quot;</span><span class="o">,</span><span class="s">&quot;这些&quot;</span><span class="o">,</span><span class="s">&quot;她们&quot;</span><span class="o">,</span><span class="s">&quot;我们&quot;</span><span class="o">,</span><span class="s">&quot;他们&quot;</span><span class="o">,</span><span class="s">&quot;但是&quot;</span><span class="o">,</span><span class="s">&quot;或者&quot;</span><span class="o">,</span><span class="s">&quot;一个&quot;</span><span class="o">,</span><span class="s">&quot;其他&quot;</span><span class="o">,</span><span class="s">&quot;自己&quot;</span><span class="o">,</span><span class="s">&quot;人&quot;</span><span class="o">,</span><span class="s">&quot;和&quot;</span><span class="o">,</span><span class="s">&quot;上&quot;</span><span class="o">,</span><span class="s">&quot;不&quot;</span><span class="o">,</span><span class="s">&quot;有&quot;</span><span class="o">,</span><span class="s">&quot;他&quot;</span><span class="o">};</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">self_stop_words</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">cas</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">self_stop_words</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// 加入系统默认停用词</span>
+</span><span class='line'>      <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">itor</span> <span class="o">=</span> <span class="n">SmartChineseAnalyzer</span><span class="o">.</span><span class="na">getDefaultStopSet</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
+</span><span class='line'>      <span class="k">while</span> <span class="o">(</span><span class="n">itor</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">cas</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">itor</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// 中英文混合分词器(其他几个分词器对中文的分析都不行)</span>
+</span><span class='line'>        <span class="n">SmartChineseAnalyzer</span> <span class="n">sca</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SmartChineseAnalyzer</span><span class="o">(</span><span class="n">cas</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">wordList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">TokenStream</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">sca</span><span class="o">.</span><span class="na">tokenStream</span><span class="o">(</span><span class="s">&quot;field&quot;</span><span class="o">,</span> <span class="n">content</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">CharTermAttribute</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="n">CharTermAttribute</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">ts</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>
+</span><span class='line'>      <span class="k">while</span> <span class="o">(</span><span class="n">ts</span><span class="o">.</span><span class="na">incrementToken</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">wordList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">ch</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>          <span class="c1">//System.out.print(ch.toString()+&quot;\\&quot;);</span>
+</span><span class='line'>          
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="n">ts</span><span class="o">.</span><span class="na">end</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">ts</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="nf">getRank</span><span class="o">(</span><span class="n">wordList</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 返回分数最高的前size个分词结果和对应的rank</span>
+</span><span class='line'><span class="cm">     * @param content</span>
+</span><span class='line'><span class="cm">     * @param size</span>
+</span><span class='line'><span class="cm">     * @return</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Float</span><span class="o">&gt;</span> <span class="n">getTermAndRank</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">size</span><span class="o">)</span><span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+</span><span class='line'>      
+</span><span class='line'>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="n">getTermAndRank</span><span class="o">(</span><span class="n">content</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;();</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="k">new</span> <span class="n">MaxHeap</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;&gt;(</span><span class="n">size</span><span class="o">,</span> <span class="k">new</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;&gt;()</span>
+</span><span class='line'>        <span class="o">{</span>
+</span><span class='line'>            <span class="nd">@Override</span>
+</span><span class='line'>            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="n">o1</span><span class="o">,</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="n">o2</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="n">o1</span><span class="o">.</span><span class="na">getValue</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">o2</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">}).</span><span class="na">addAll</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">()).</span><span class="na">toList</span><span class="o">())</span>
+</span><span class='line'>        <span class="o">{</span>
+</span><span class='line'>            <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 使用已经分好的词来计算rank</span>
+</span><span class='line'><span class="cm">     * @param termList</span>
+</span><span class='line'><span class="cm">     * @return</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Float</span><span class="o">&gt;</span> <span class="n">getRank</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">wordList</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//        System.out.println(wordList);</span>
+</span><span class='line'>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">words</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;();</span>
+</span><span class='line'>        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">que</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">w</span> <span class="o">:</span> <span class="n">wordList</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">{</span>
+</span><span class='line'>            <span class="k">if</span> <span class="o">(!</span><span class="n">words</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">w</span><span class="o">))</span>
+</span><span class='line'>            <span class="o">{</span>
+</span><span class='line'>                <span class="n">words</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="k">new</span> <span class="n">TreeSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;());</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>            <span class="n">que</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">w</span><span class="o">);</span>
+</span><span class='line'>            <span class="k">if</span> <span class="o">(</span><span class="n">que</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">{</span>
+</span><span class='line'>                <span class="n">que</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">w1</span> <span class="o">:</span> <span class="n">que</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">{</span>
+</span><span class='line'>                <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">w2</span> <span class="o">:</span> <span class="n">que</span><span class="o">)</span>
+</span><span class='line'>                <span class="o">{</span>
+</span><span class='line'>                    <span class="k">if</span> <span class="o">(</span><span class="n">w1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">w2</span><span class="o">))</span>
+</span><span class='line'>                    <span class="o">{</span>
+</span><span class='line'>                        <span class="k">continue</span><span class="o">;</span>
+</span><span class='line'>                    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>                    <span class="n">words</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">w1</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="n">w2</span><span class="o">);</span>
+</span><span class='line'>                    <span class="n">words</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">w2</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="n">w1</span><span class="o">);</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'><span class="c1">//        System.out.println(words);</span>
+</span><span class='line'>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="n">score</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;();</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">max_iter</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">{</span>
+</span><span class='line'>            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Float</span><span class="o">&gt;();</span>
+</span><span class='line'>            <span class="kt">float</span> <span class="n">max_diff</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span><span class='line'>            <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">words</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span>
+</span><span class='line'>            <span class="o">{</span>
+</span><span class='line'>                <span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+</span><span class='line'>                <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">value</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+</span><span class='line'>                <span class="n">m</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">d</span><span class="o">);</span>
+</span><span class='line'>                <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">element</span> <span class="o">:</span> <span class="n">value</span><span class="o">)</span>
+</span><span class='line'>                <span class="o">{</span>
+</span><span class='line'>                    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">words</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">element</span><span class="o">).</span><span class="na">size</span><span class="o">();</span>
+</span><span class='line'>                    <span class="k">if</span> <span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">element</span><span class="o">)</span> <span class="o">||</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="k">continue</span><span class="o">;</span>
+</span><span class='line'>                    <span class="n">m</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">m</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">+</span> <span class="n">d</span> <span class="o">/</span> <span class="n">size</span> <span class="o">*</span> <span class="o">(</span><span class="n">score</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">element</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">score</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">element</span><span class="o">)));</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>                <span class="n">max_diff</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">max_diff</span><span class="o">,</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">score</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">score</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">))));</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>            <span class="n">score</span> <span class="o">=</span> <span class="n">m</span><span class="o">;</span>
+</span><span class='line'>            <span class="k">if</span> <span class="o">(</span><span class="n">max_diff</span> <span class="o">&lt;=</span> <span class="n">min_diff</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">score</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">TextRankKeyword</span> <span class="n">myout</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TextRankKeyword</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Float</span><span class="o">&gt;</span> <span class="n">myRank</span> <span class="o">=</span> <span class="n">myout</span><span class="o">.</span><span class="na">getTermAndRank</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]));</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="nl">key:</span> <span class="n">myRank</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">key</span> <span class="o">+</span> <span class="s">&quot; - &quot;</span> <span class="o">+</span> <span class="n">myRank</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>测试结果</h2>
+
+<ul>
+<li>某抱怨养猫新闻</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>猫 - 10.739771
+</span><span class='line'>记者 - 6.869424
+</span><span class='line'>居民 - 5.822851
+</span><span class='line'>养 - 5.185602
+</span><span class='line'>该 - 4.929795
+</span><span class='line'>家 - 3.1442623
+</span><span class='line'>楼 - 2.9776037
+</span><span class='line'>中 - 2.8466675
+</span><span class='line'>咪 - 2.7177916
+</span><span class='line'>小区 - 2.664779
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[简单的JAVA NOTEPAD 记事本]]></title>
@@ -4756,130 +5275,6 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[嵊州四日访亲记-14-05-03]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/"/>
-    <updated>2014-05-12T23:21:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03</id>
-    <content type="html"><![CDATA[<!-- more -->
-
-
-<h1>题记</h1>
-
-<ul>
-<li>五一的时候去了亲嫲的老家，小的时候我经常去</li>
-<li>开始读书了之后就很少去了，只能依稀记得几件事</li>
-</ul>
-
-
-<h1>正文</h1>
-
-<ul>
-<li>山开两面喜迎客</li>
-<li>水分一涧祝家和</li>
-<li>剡溪千尺野鲫鲜</li>
-<li>嵊春鬱鬱桑椹甜</li>
-<li>好酒越屾情义来</li>
-<li>来时轻装归满塞</li>
-</ul>
-
-
-<h2>繁体正文</h2>
-
-<ul>
-<li>山開兩面喜迎客</li>
-<li>水分一澗祝家和</li>
-<li>剡溪千尺野鯽鮮</li>
-<li>嵊春鬱鬱桑椹甜</li>
-<li>好酒越屾情義來</li>
-<li>來時輕裝歸滿塞</li>
-</ul>
-
-
-<h3>依稀的事1</h3>
-
-<ul>
-<li>有一次去，记得亲嫲还有妳崖（父）或者是？</li>
-<li>在夜里很晚的时候，还在山里的崎岖的路上走</li>
-<li>没有一点灯火，那是真正的伸手不见五指</li>
-<li>那是我很小，我就拉着亲嫲的手，自己慢慢的走</li>
-<li>感觉很累，很累；在路上好像走过了一扇黑黑高高的铁门</li>
-</ul>
-
-
-<h3>依稀的事2</h3>
-
-<ul>
-<li>某一次去的时候，很小的自己生病了</li>
-<li>大概是发烧或者其他，头昏昏的</li>
-<li>只知道是亲嫲抱着我，在漆黑的山上的田埂了走</li>
-<li>后来到了，一个灯火通明的地方</li>
-<li>现在，我才知道婶婶也跟去，路上有一大片墓地</li>
-<li>她吓的都不敢走；还有去的地方是在夜里依旧值班的</li>
-<li>村卫生室</li>
-</ul>
-
-
-<h3>依稀的事3</h3>
-
-<ul>
-<li>太外婆的病床</li>
-<li>只记得这样一个场景</li>
-<li>在一间昏暗的老屋里，太外婆躺在木头大床上</li>
-<li>大概是亲嫲带我来看看太外婆，不知道她应了没有</li>
-<li>我只记得黑黑房间里有两样东西使我好奇</li>
-<li>一是太外婆吃的药，像牛黄解毒片包装一样的东西</li>
-<li>还有一样是，那种老式木头的马桶，有直的木头提手</li>
-</ul>
-
-
-<h3>依稀的事4</h3>
-
-<ul>
-<li>太外婆过世</li>
-<li>太外婆过世的时候，我去了，只记得满山的披麻戴孝的人</li>
-<li>送葬的队伍，在夜里举着火把，在山路上吹吹打打，映红了星空</li>
-<li>白衣的队伍，地上落满冥纸，我记得我说，我要去见或者？太外婆</li>
-<li>亲嫲说，弗好的能，大舅公要冈言话的，我就算了</li>
-</ul>
-
-
-<h3>依稀的事5</h3>
-
-<ul>
-<li>举猎枪、上山玩</li>
-<li>枪是我很喜欢的，那时还有，听说还可以用</li>
-<li>我那时还太小，跌跌撞撞的刚把枪抬过头，就举不动了</li>
-<li>还有上山去玩什么忘记了，只知道是一两个？哥哥带我上去</li>
-<li>爬树，捉小动物？茂密的树林里黑漆漆的，我感觉有点怕就走了</li>
-<li>后来长大了，打听了才知道县里把枪收了，太可惜了</li>
-</ul>
-
-
-<h3>依稀的事6</h3>
-
-<ul>
-<li>小店买零食，玩竹竿</li>
-<li>在山上的小店里老爸伯给我买了咪咪虾条？蟹味粒 买了好多好多</li>
-<li>因为山上只有这个东西最好吃。玩竹竿，挥来挥去的，会有呼呼的声音</li>
-<li>记得那时候在放《包青天》93版，应该是后来重播的时候</li>
-</ul>
-
-
-<h3>依稀的事7</h3>
-
-<ul>
-<li>进老县城，买肉菜，集市买玩具</li>
-<li>嵊州？某个镇?是有老城门的，记忆里是老旧的</li>
-<li>安静得和普通的古镇差不多，但不是现在变了味道的古镇</li>
-<li>去的时候很早，石板街上没有多少人，旁边的店也没开几家</li>
-<li><p>我们在一个街口，停下来买猪肉，老旧的两层老房子</p></li>
-<li><p><img src="http://www.wuwenjie.tk/images/old_street.jpg" alt="old street from web" /></p></li>
-</ul>
 
 ]]></content>
   </entry>

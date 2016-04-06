@@ -9,9 +9,9 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="前言与背景 JAVA对多媒体的处理能力较弱，但JNI给了我们一扇逃生门（&#8221;escape hatch&#8221;）
-JNI提供给Java调用C语言、C++或被C、C++调用的功能
-使得JAVA可以使用丰富的C、C++库，而且本地方法使程序运行更快 如何播放MP3呢？ &hellip;">
+  <meta name="description" content="提要 之前已经写过JNI播放mp3的文章，使用Gstreamer流式多媒体框架。
+这次直接使用C播放MP4文件，文件对应解码器使用ffmpeg -i 视频文件命令察看。 要点 使用动态方法链接音频、视频的接收垫片。
+使用gst_element_seek函数循环播放文件，本用来跳转播放。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +86,65 @@ JNI提供给Java调用C语言、C++或被C、C++调用的功能
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">[改]Gstreamer 播放MP4 并 添加文字水印</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-31T17:58:00+08:00" pubdate data-updated="true">Mar 31<span>st</span>, 2015</time>
+        
+        
+          | <a href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>提要</h2>
+
+<ul>
+<li>之前已经写过<a href="/blog/2015/02/28/gai-java-native-interface-bo-fang-mp3/">JNI播放mp3</a>的文章，使用<a href="http://zh.wikipedia.org/wiki/GStreamer">Gstreamer</a>流式多媒体框架。</li>
+<li>这次直接使用C播放MP4文件，文件对应解码器使用<a href="http://linux-wiki.cn/wiki/zh-hans/%E8%A7%86%E9%A2%91/%E7%85%A7%E7%89%87%E7%9A%84%E7%BC%96%E7%A0%81%E5%92%8C%E6%8B%8D%E7%85%A7%E4%BF%A1%E6%81%AF">ffmpeg -i 视频文件</a>命令察看。</li>
+</ul>
+
+
+<h2>要点</h2>
+
+<ul>
+<li>使用动态方法链接音频、视频的接收垫片。</li>
+<li>使用gst_element_seek函数循环播放文件，本用来跳转播放。</li>
+<li>使用textoverlay组件为视频添加文字水印。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/03/31/gai-gstreamer-bo-fang-mp4-bing-tian-jia-wen-zi-shui-yin/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -546,48 +605,6 @@ JNI提供给Java调用C语言、C++或被C、C++调用的功能
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">嵊州四日访亲记-14-05-03</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-12T23:21:00+08:00" pubdate data-updated="true">May 12<span>th</span>, 2014</time>
-        
-        
-          | <a href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"></div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/12/sheng-zhou-si-ri-fang-qin-ji-14-05-03/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; 老早的</a>
@@ -605,6 +622,10 @@ JNI提供给Java调用C语言、C++或被C、C++调用的功能
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">改-TextRank文本关键字提取简介与应用</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben/">简单的JAVA NOTEPAD 记事本</a>
       </li>
     
@@ -618,10 +639,6 @@ JNI提供给Java调用C语言、C++或被C、C++调用的功能
     
       <li class="post">
         <a href="/blog/2015/09/30/jie-jue-android-sdk-managergeng-xin-shi-yong-java-sockdai-li-xuan-xiang/">解决android Sdk manager更新&#8211;使用JAVA SOCK代理选项</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/31/zhuan-facebookjia-su-deep-learningyan-fa/">[转]Facebook加速deep-learning研发</a>
       </li>
     
   </ul>
