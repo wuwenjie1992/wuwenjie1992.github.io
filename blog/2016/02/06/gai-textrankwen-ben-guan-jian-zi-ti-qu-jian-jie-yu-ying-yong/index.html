@@ -148,6 +148,36 @@ PageRank 公式 TextRank 公式 公式解释
 </ul>
 
 
+<h2>测试结果</h2>
+
+<ul>
+<li>某抱怨养猫新闻</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>猫 - 10.739771
+</span><span class='line'>记者 - 6.869424
+</span><span class='line'>居民 - 5.822851
+</span><span class='line'>养 - 5.185602
+</span><span class='line'>该 - 4.929795
+</span><span class='line'>家 - 3.1442623
+</span><span class='line'>楼 - 2.9776037
+</span><span class='line'>中 - 2.8466675
+</span><span class='line'>咪 - 2.7177916
+</span><span class='line'>小区 - 2.664779
+</span></code></pre></td></tr></table></div></figure>
+
+
 <h2>java实现参考</h2>
 
 <ul>
@@ -158,7 +188,7 @@ PageRank 公式 TextRank 公式 公式解释
 </ul>
 
 
-<figure class='code'><figcaption><span>WordCountOrder.java </span></figcaption>
+<figure class='code'><figcaption><span>TextRankKeyword.java </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -596,14 +626,10 @@ PageRank 公式 TextRank 公式 公式解释
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>测试结果</h2>
-
-<ul>
-<li>某抱怨养猫新闻</li>
-</ul>
 
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>MaxHeap.java </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -613,16 +639,166 @@ PageRank 公式 TextRank 公式 公式解释
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>猫 - 10.739771
-</span><span class='line'>记者 - 6.869424
-</span><span class='line'>居民 - 5.822851
-</span><span class='line'>养 - 5.185602
-</span><span class='line'>该 - 4.929795
-</span><span class='line'>家 - 3.1442623
-</span><span class='line'>楼 - 2.9776037
-</span><span class='line'>中 - 2.8466675
-</span><span class='line'>咪 - 2.7177916
-</span><span class='line'>小区 - 2.664779
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * 用固定容量的优先队列模拟的最大堆，用于解决求topN大的问题</span>
+</span><span class='line'><span class="cm"> *</span>
+</span><span class='line'><span class="cm"> * @author hankcs</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MaxHeap</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 优先队列</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">;</span>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 堆的最大容量</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">int</span> <span class="n">maxSize</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 构造最大堆</span>
+</span><span class='line'><span class="cm">     * @param maxSize 保留多少个元素</span>
+</span><span class='line'><span class="cm">     * @param comparator 比较器，生成最大堆使用o1-o2，生成最小堆使用o2-o1，并修改 e.compareTo(peek) 比较规则</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">MaxHeap</span><span class="o">(</span><span class="kt">int</span> <span class="n">maxSize</span><span class="o">,</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">comparator</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">maxSize</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">();</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">maxSize</span> <span class="o">=</span> <span class="n">maxSize</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;(</span><span class="n">maxSize</span><span class="o">,</span> <span class="n">comparator</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 添加一个元素</span>
+</span><span class='line'><span class="cm">     * @param e 元素</span>
+</span><span class='line'><span class="cm">     * @return 是否添加成功</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">maxSize</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">{</span> <span class="c1">// 未达到最大容量，直接添加</span>
+</span><span class='line'>            <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span><span class='line'>            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="k">else</span>
+</span><span class='line'>        <span class="o">{</span> <span class="c1">// 队列已满</span>
+</span><span class='line'>            <span class="n">E</span> <span class="n">peek</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
+</span><span class='line'>            <span class="k">if</span> <span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">comparator</span><span class="o">().</span><span class="na">compare</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">peek</span><span class="o">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">{</span> <span class="c1">// 将新元素与当前堆顶元素比较，保留较小的元素</span>
+</span><span class='line'>                <span class="n">queue</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+</span><span class='line'>                <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span><span class='line'>                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 添加许多元素</span>
+</span><span class='line'><span class="cm">     * @param collection</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">MaxHeap</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">addAll</span><span class="o">(</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">collection</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">{</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">E</span> <span class="n">e</span> <span class="o">:</span> <span class="n">collection</span><span class="o">)</span>
+</span><span class='line'>        <span class="o">{</span>
+</span><span class='line'>            <span class="n">add</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * 转为有序列表，自毁性操作</span>
+</span><span class='line'><span class="cm">     * @return</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">toList</span><span class="o">()</span>
+</span><span class='line'>    <span class="o">{</span>
+</span><span class='line'>        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;(</span><span class="n">queue</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+</span><span class='line'>        <span class="k">while</span> <span class="o">(!</span><span class="n">queue</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span>
+</span><span class='line'>        <span class="o">{</span>
+</span><span class='line'>            <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">queue</span><span class="o">.</span><span class="na">poll</span><span class="o">());</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -675,6 +851,8 @@ PageRank 公式 TextRank 公式 公式解释
         <a class="basic-alignment left" href="/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben/" title="Previous Post: 简单的JAVA NOTEPAD 记事本">&laquo; 简单的JAVA NOTEPAD 记事本</a>
       
       
+        <a class="basic-alignment right" href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/" title="Next Post: 改-TextRank文本摘要简介与应用">改-TextRank文本摘要简介与应用 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -690,6 +868,10 @@ PageRank 公式 TextRank 公式 公式解释
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/">改-TextRank文本摘要简介与应用</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">改-TextRank文本关键字提取简介与应用</a>
       </li>
     
@@ -703,10 +885,6 @@ PageRank 公式 TextRank 公式 公式解释
     
       <li class="post">
         <a href="/blog/2015/10/31/big-dataza-tan-1-jian-dan-de-hadoopwei-fen-bu-shi-pei-zhi-yu-ce-shi/">BIG_DATA杂谈(1)-简单的hadoop伪分布式配置与测试</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/09/30/jie-jue-android-sdk-managergeng-xin-shi-yong-java-sockdai-li-xuan-xiang/">解决android Sdk manager更新--使用JAVA SOCK代理选项</a>
       </li>
     
   </ul>

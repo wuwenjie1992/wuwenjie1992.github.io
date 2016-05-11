@@ -9,10 +9,9 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="TextRank与PageRank TextRank脱胎于PageRank，受其启发应用于文本处理。&ndash;>论文
-TextRank在PageRank的基础上，引入了边的权值概念，代表两个句子的相似度。
-PageRank 公式 TextRank 公式 公式解释
-模型描述了一个有向有权图 G &hellip;">
+  <meta name="description" content="文本摘要简介 Automatic Summarization 主要有两种方法。
+Extraction : 抽取式，提取文档中已存在的关键词、句子形成摘要。
+Abstraction: 生成式，建立抽象的语意表示，使用自然语言生成技术，形成摘要。 TextRank的文本摘要 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,6 +86,67 @@ PageRank 公式 TextRank 公式 公式解释
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/">改-TextRank文本摘要简介与应用</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-03-31T19:13:00+08:00" pubdate data-updated="true">Mar 31<span>st</span>, 2016</time>
+        
+        
+          | <a href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>文本摘要简介</h2>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Automatic_summarization">Automatic Summarization</a> 主要有<a href="http://www.cnblogs.com/chenbjin/p/4600538.html">两种方法</a>。</li>
+<li>Extraction : 抽取式，提取文档中已存在的关键词、句子形成摘要。</li>
+<li>Abstraction: 生成式，建立抽象的语意表示，使用自然语言生成技术，形成摘要。</li>
+</ul>
+
+
+<h2>TextRank的文本摘要</h2>
+
+<ul>
+<li>TextRank的方法属于<a href="https://en.wikipedia.org/wiki/Automatic_summarization#Unsupervised_approach:_TextRank">graph-based</a> Extraction。</li>
+<li>对文本中的句子重要性排序后得到摘要。</li>
+<li>权值为句子间的相似度，计算两个句子的内容覆盖率。</li>
+<li>与<a href="blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">TextRank关键字提取</a>的不同：考虑了句子间的权值。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -620,57 +680,6 @@ PageRank 公式 TextRank 公式 公式解释
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/30/ryu-yan-jian-jie/">R语言简介</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-04-30T18:14:00+08:00" pubdate data-updated="true">Apr 30<span>th</span>, 2015</time>
-        
-        
-          | <a href="/blog/2015/04/30/ryu-yan-jian-jie/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>R？</h2>
-
-<ul>
-<li>1993年<a href="http://www.r-project.org/">R</a>诞生了，而其前者<a href="http://zh.wikipedia.org/wiki/S%E8%AA%9E%E8%A8%80">S语言</a>早在1975年的贝尔实验室就被研发出来了。</li>
-<li>R是<a href="https://directory.fsf.org/wiki/R">GNU计划的一个项目</a>，是S的开源实现，所以亦称为GNU s。</li>
-<li>R是优秀的计算、绘图、统计分析系统，此外由用户撰写的包使得其功能更为强大。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/04/30/ryu-yan-jian-jie/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; 老早的</a>
@@ -686,6 +695,10 @@ PageRank 公式 TextRank 公式 公式解释
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/">改-TextRank文本摘要简介与应用</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">改-TextRank文本关键字提取简介与应用</a>
       </li>
     
@@ -699,10 +712,6 @@ PageRank 公式 TextRank 公式 公式解释
     
       <li class="post">
         <a href="/blog/2015/10/31/big-dataza-tan-1-jian-dan-de-hadoopwei-fen-bu-shi-pei-zhi-yu-ce-shi/">BIG_DATA杂谈(1)-简单的hadoop伪分布式配置与测试</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/09/30/jie-jue-android-sdk-managergeng-xin-shi-yong-java-sockdai-li-xuan-xiang/">解决android Sdk manager更新&#8211;使用JAVA SOCK代理选项</a>
       </li>
     
   </ul>
