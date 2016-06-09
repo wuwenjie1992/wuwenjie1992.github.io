@@ -9,9 +9,11 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="R？ 1993年R诞生了，而其前者S语言早在1975年的贝尔实验室就被研发出来了。
-R是GNU计划的一个项目，是S的开源实现，所以亦称为GNU s。
-R是优秀的计算、绘图、统计分析系统，此外由用户撰写的包使得其功能更为强大。 ">
+  <meta name="description" content="K-means 简介 K-means算法（k-means clustering）：一种适用于大样本的无监督式的聚类分析方法。
+我对算法基本原理的理解：
+1.随机初始化k个聚类中心，也可以指定聚类中心。
+2.计算样本与聚类中心的距离，将样本划分到最近的聚类中心的类里。
+3.划分完毕后， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +88,76 @@ R是优秀的计算、绘图、统计分析系统，此外由用户撰写的包�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/31/k-meansju-lei-de-ying-yong/">K-means聚类的应用</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-31T19:02:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2015</time>
+        
+        
+          | <a href="/blog/2015/05/31/k-meansju-lei-de-ying-yong/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>K-means 简介</h1>
+
+<ul>
+<li>K-means算法（k-means clustering）：一种适用于大样本的无监督式的聚类分析方法。</li>
+<li>我对算法基本原理的理解：</li>
+<li>1.随机初始化k个聚类中心，也可以指定聚类中心。</li>
+<li>2.计算样本与聚类中心的距离，将样本划分到最近的聚类中心的类里。</li>
+<li>3.划分完毕后，计算每个类新的聚类中心，可以采用不同算法计算。</li>
+<li>4.如果新的聚类中心没有变化，算法结束；如果有变化，goto 2、3。</li>
+</ul>
+
+
+<h1>K-means 应用</h1>
+
+<ul>
+<li>由于它流行于数据挖掘领域，常用来探索未知客群的结构。</li>
+<li>在划分问题中，作为预处理工作，划分出了大致类别，然后可探究类内特性和差异。</li>
+<li>其他：可以用作一种剔除算法、<a href="http://zh.wikipedia.org/zh/K-%E5%B9%B3%E5%9D%87%E7%AE%97%E6%B3%95">向量的量化、特征学习</a>。</li>
+</ul>
+
+
+<h1>K-means 的 R 实践</h1>
+
+<ul>
+<li>使用R语言使用K-means算法快捷方便。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/05/31/k-meansju-lei-de-ying-yong/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -567,53 +639,6 @@ R是优秀的计算、绘图、统计分析系统，此外由用户撰写的包�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/31/2014nian-de-7yue/">2014年的7月</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-31T13:15:00+08:00" pubdate data-updated="true">Jul 31<span>st</span>, 2014</time>
-        
-        
-          | <a href="/blog/2014/07/31/2014nian-de-7yue/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>很多事情如果当时不及时记录，以后回忆起来很容易遗忘</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/07/31/2014nian-de-7yue/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; 老早的</a>
@@ -631,6 +656,10 @@ R是优秀的计算、绘图、统计分析系统，此外由用户撰写的包�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/04/30/bai-xiang-raspberrypi-1-an-zhuang-yao-dian/">白相Raspberrypi-1-安装要点</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/">改-TextRank文本摘要简介与应用</a>
       </li>
     
@@ -644,10 +673,6 @@ R是优秀的计算、绘图、统计分析系统，此外由用户撰写的包�
     
       <li class="post">
         <a href="/blog/2015/11/27/big-dataza-tan-2-hadooptan-jiu-san-guo-yan-yi-de-ci-pin-gai/">BIG_DATA杂谈(2)-hadoop探究《三国演义》的词频-改</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/31/big-dataza-tan-1-jian-dan-de-hadoopwei-fen-bu-shi-pei-zhi-yu-ce-shi/">BIG_DATA杂谈(1)-简单的hadoop伪分布式配置与测试</a>
       </li>
     
   </ul>

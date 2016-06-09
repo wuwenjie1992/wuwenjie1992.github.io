@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 树莓派 | 吴文洁]]></title>
+  <link href="http://www.wuwenjie.tk/blog/categories/shu-mei-pai/atom.xml" rel="self"/>
+  <link href="http://www.wuwenjie.tk/"/>
+  <updated>2016-06-09T22:16:05+08:00</updated>
+  <id>http://www.wuwenjie.tk/</id>
+  <author>
+    <name><![CDATA[wuwenjie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[白相Raspberrypi-1-安装要点]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2016/04/30/bai-xiang-raspberrypi-1-an-zhuang-yao-dian/"/>
+    <updated>2016-04-30T18:49:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2016/04/30/bai-xiang-raspberrypi-1-an-zhuang-yao-dian</id>
+    <content type="html"><![CDATA[<h3>前言</h3>
+
+<ul>
+<li>随着云、物联网、编程教育等事物的兴起，树莓派（raspberrypi）作为人们实现想法、控制硬件的玩具越来越火。</li>
+<li>由于无聊，也想试着玩玩树莓派，就买了raspi 2b、传感器、面包版、杜邦线等。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>硬件准备</h3>
+
+<ul>
+<li>树莓派一个</li>
+<li>电源一个 microusb</li>
+<li>SD卡一个</li>
+<li>网线一根</li>
+<li>读卡器一个（备用）</li>
+</ul>
+
+
+<h3>硬件准备注意</h3>
+
+<ul>
+<li>树莓派不是支持所有SD卡的，-><a href="http://elinux.org/RPi_SD_cards">参考列表</a></li>
+<li>我购买的是SanDisk Ultra microSDHC UHS-1 16G，如下图：</li>
+<li><img src="/images/SanDiskmicroSDHC.png" alt="SanDisk" /></li>
+</ul>
+
+
+<h3>系统安装</h3>
+
+<ul>
+<li>推荐raspbian，基于debain的树莓派发行版</li>
+<li>下载，<a href="https://www.raspberrypi.org/downloads/raspbian/">https://www.raspberrypi.org/downloads/raspbian/</a></li>
+<li>安装教程 <a href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">&ndash;>linux</a></li>
+<li>下载raspbian镜像，并解压</li>
+<li>PC插上SD卡，可以进行分区</li>
+<li>使用dd命令写入SD卡，dcfldd可视化的dd</li>
+</ul>
+
+
+<p><code>text
+dcfldd bs=4m if=2016-02-26-raspbian-jessie.img of=/dev/sdf
+</code></p>
+
+<h3>硬件安装</h3>
+
+<ul>
+<li>树莓派上插好SD卡</li>
+<li>插上网线，连接到路由器</li>
+<li>插上电源，通电</li>
+<li>树莓派启动，act绿灯闪烁，pwr红灯点亮</li>
+</ul>
+
+
+<h3>连接与控制</h3>
+
+<ul>
+<li>树莓派IP可在路由器内查到</li>
+<li>ssh命令，默认用户pi，密码raspberrypi</li>
+</ul>
+
+
+<p><code>text
+ssh pi@192.168.1.106
+</code></p>
+
+<ul>
+<li>使用vnc可视化连接</li>
+<li>pi上：sudo apt-get install tightvncserver</li>
+<li>pc上：sudo apt-get install xtightvncviewer</li>
+<li>参考-><a href="https://www.raspberrypi.com.tw/586/setting-up-vnc/">教程</a></li>
+</ul>
+
+
+<h3>OK</h3>
+
+<ul>
+<li>树莓派之旅正是开始！</li>
+<li><img src="/images/raspi-1.png" alt="raspi" /></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

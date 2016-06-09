@@ -4,7 +4,7 @@
   <title><![CDATA[吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2016-05-11T21:22:09+08:00</updated>
+  <updated>2016-06-09T22:16:05+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[白相Raspberrypi-1-安装要点]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2016/04/30/bai-xiang-raspberrypi-1-an-zhuang-yao-dian/"/>
+    <updated>2016-04-30T18:49:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2016/04/30/bai-xiang-raspberrypi-1-an-zhuang-yao-dian</id>
+    <content type="html"><![CDATA[<h3>前言</h3>
+
+<ul>
+<li>随着云、物联网、编程教育等事物的兴起，树莓派（raspberrypi）作为人们实现想法、控制硬件的玩具越来越火。</li>
+<li>由于无聊，也想试着玩玩树莓派，就买了raspi 2b、传感器、面包版、杜邦线等。</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>硬件准备</h3>
+
+<ul>
+<li>树莓派一个</li>
+<li>电源一个 microusb</li>
+<li>SD卡一个</li>
+<li>网线一根</li>
+<li>读卡器一个（备用）</li>
+</ul>
+
+
+<h3>硬件准备注意</h3>
+
+<ul>
+<li>树莓派不是支持所有SD卡的，-><a href="http://elinux.org/RPi_SD_cards">参考列表</a></li>
+<li>我购买的是SanDisk Ultra microSDHC UHS-1 16G，如下图：</li>
+<li><img src="http://www.wuwenjie.tk/images/SanDiskmicroSDHC.png" alt="SanDisk" /></li>
+</ul>
+
+
+<h3>系统安装</h3>
+
+<ul>
+<li>推荐raspbian，基于debain的树莓派发行版</li>
+<li>下载，<a href="https://www.raspberrypi.org/downloads/raspbian/">https://www.raspberrypi.org/downloads/raspbian/</a></li>
+<li>安装教程 <a href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">&ndash;>linux</a></li>
+<li>下载raspbian镜像，并解压</li>
+<li>PC插上SD卡，可以进行分区</li>
+<li>使用dd命令写入SD卡，dcfldd可视化的dd</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>dcfldd bs=4m if=2016-02-26-raspbian-jessie.img of=/dev/sdf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>硬件安装</h3>
+
+<ul>
+<li>树莓派上插好SD卡</li>
+<li>插上网线，连接到路由器</li>
+<li>插上电源，通电</li>
+<li>树莓派启动，act绿灯闪烁，pwr红灯点亮</li>
+</ul>
+
+
+<h3>连接与控制</h3>
+
+<ul>
+<li>树莓派IP可在路由器内查到</li>
+<li>ssh命令，默认用户pi，密码raspberrypi</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>ssh pi@192.168.1.106
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用vnc可视化连接</li>
+<li>pi上：sudo apt-get install tightvncserver</li>
+<li>pc上：sudo apt-get install xtightvncviewer</li>
+<li>参考-><a href="https://www.raspberrypi.com.tw/586/setting-up-vnc/">教程</a></li>
+</ul>
+
+
+<h3>OK</h3>
+
+<ul>
+<li>树莓派之旅正是开始！</li>
+<li><img src="http://www.wuwenjie.tk/images/raspi-1.png" alt="raspi" /></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[改-TextRank文本摘要简介与应用]]></title>
@@ -5785,32 +5879,6 @@
 <li><img src="http://www.wuwenjie.tk/images/silver20140805.png" alt="silver-w-powre1" /></li>
 <li><img src="http://www.wuwenjie.tk/images/silver20140817.png" alt="silver-w-power2" /></li>
 <li><img src="http://www.wuwenjie.tk/images/silver20140830.png" alt="silver-w-power3" /></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2014年的7月]]></title>
-    <link href="http://www.wuwenjie.tk/blog/2014/07/31/2014nian-de-7yue/"/>
-    <updated>2014-07-31T13:15:00+08:00</updated>
-    <id>http://www.wuwenjie.tk/blog/2014/07/31/2014nian-de-7yue</id>
-    <content type="html"><![CDATA[<ul>
-<li>很多事情如果当时不及时记录，以后回忆起来很容易遗忘</li>
-</ul>
-
-
-<!-- more -->
-
-
-<ul>
-<li>6月22号，帮一体机重装Xp，后同去美兰湖踩点</li>
-<li>6月29号，去美兰湖玩，巴西vs智利，哥伦比亚vs乌拉圭</li>
-<li>7月1号，上午面试，下午去五角场，后去看世界杯，阿根廷vs瑞士</li>
-<li>7月2号，中午出发，去学校准备参加毕业典礼，晚上去浴场，后去佘山睡觉</li>
-<li>7月3号，毕业典礼，领毕业证和学位证</li>
-<li>7月4号，面试完招行信用卡后，多天之后有去体检</li>
-<li>7月7号，去镇里办劳动手册，之后在家等通知，获悉8月11号入职</li>
 </ul>
 
 ]]></content>
