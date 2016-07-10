@@ -9,8 +9,7 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="﻿如果出现了故障 可以用linux启动盘启动 把root.disk所在分区挂载 然后这样： 代码:
-sudo mount -o loop [root.disk路径] [需要挂载到的路径] EX：sudo mount -o loop /media/软件/root.disk /mnt root. &hellip;">
+  <meta name="description" content="关于图片加载： 1)将图片拷贝到 当前PROJECT的res的drawable-*dpi目录下，可以每个都拷贝一下 2)在PACKAGE EXPLORER 找到对应的res目录，右键点击，refresh 3)出现 所需图片 关于R.Java： 1）它是自动生成的 This class was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +84,75 @@ sudo mount -o loop [root.disk路径] [需要挂载到的路径] EX：sudo mount 
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/06/Eclipse-android-loading-picture-and-R.java-problem/">Eclipse Andriod 图片加载和R.java问题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-06T04:11:00+08:00" pubdate data-updated="true">May 6<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/05/06/Eclipse-android-loading-picture-and-R.java-problem/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>关于图片加载：</p>
+
+<p>1)将图片拷贝到 当前PROJECT的res的drawable-*dpi目录下，可以每个都拷贝一下</p>
+
+<p>2)在PACKAGE   EXPLORER  找到对应的res目录，右键点击，refresh</p>
+
+<p>3)出现 所需图片</p>
+
+<p><a href="http://www.eclipse.org/"><img title="Eclipse" src="data:image/jpeg;base64,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" alt="Eclipse" width="200" height="200" /></a></p>
+
+<p>关于R.Java：</p>
+
+<p>1）它是自动生成的</p>
+
+<p>This class was automatically generated by the</p>
+
+<p>aapt tool from the resource data it found.</p>
+
+<p>It should not be modified by hand.</p>
+
+<p>2）出现问题可以 project&mdash;&gt;built automatically</p>
+
+<p>project&mdash;&gt;clean</p>
+
+<p>3)实在不行 可以 重新file &mdash;&gt;new&mdash;&gt;android Project</p>
+
+<p>不要直接黏贴，修改。。。</p>
+
+<p>&nbsp;</p>
+
+<p>注：以上方法仅供参考</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -772,214 +840,6 @@ sudo apt-get install 0ad</code></pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/01/30/Einai/">欸乃</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-30T08:28:00+08:00" pubdate data-updated="true">Jan 30<span>th</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/01/30/Einai/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>《欸乃》存谱初见于《西麓堂琴统》，亦有人称其《渔歌》或《北渔歌》。</p>
-
-<p>指的是浆橹之声或渔家号子声，乐曲音调悠扬，清新隽永，</p>
-
-<p>以山水为意象抒发感情，乃是托迹渔樵，寄情山水烟霞，颐养至静的一首名曲。</p>
-
-<p>&nbsp;</p>
-
-<p>[唐 ]元结《<strong>欸乃</strong>曲》：</p>
-
-<p>谁能听<strong>欸乃</strong>，<strong>欸乃</strong>感人情。</p>
-
-<p>不恨湘波深，不怨湘水清。</p>
-
-<p>所嗟岂敢道，空羡江月明。</p>
-
-<p>昔闻扣断舟，引钓歌此声。</p>
-
-<p>始歌悲风起，歌竟愁云生。</p>
-
-<p>遗曲今何在，逸为渔父行。</p>
-
-<p>&nbsp;</p>
-
-<p>题注：“棹舡之声。” 。结有《欸乃曲五首》﹐
-其序曰:&ldquo;大历丁未中﹐漫叟结为道州刺史﹐以军事诣都使。
-还州﹐逢春水﹐舟行不进﹐作《欸乃五首》 ﹐令舟子唱之﹐盖以取适于道路云。&rdquo;
-形式为七言四句。又元结在《系乐府十二首》中另有《欸乃曲》一首﹐系五言体。</p>
-
-<p>&nbsp;</p>
-
-<p>[唐]柳宗元 《渔翁》诗：</p>
-
-<p>渔翁夜傍西岩宿，晓汲清湘燃楚竹。</p>
-
-<p>烟消日出不见人，<strong>欸乃</strong>一声山水绿。</p>
-
-<p>回看天际下中流，岩上无心云 相逐。</p>
-
-<p>&nbsp;</p>
-
-<p>[唐] 刘言史 《潇湘游》：</p>
-
-<p>夷女采山蕉，缉纱浸江水。</p>
-
-<p>野花满髻妆色新，闲歌<strong>欸乃</strong>深峡里。</p>
-
-<p>欸乃知从何处生，当时泣舜肠断声。</p>
-
-<p>翠华寂寞婵娟没，野筱空余红泪情。</p>
-
-<p>青烟冥冥覆杉桂，崖壁凌天风雨细。</p>
-
-<p>昔人幽恨此地遗，绿芳红艳含怨姿。</p>
-
-<p>清猿未尽鼯鼠切，泪水流到湘妃祠。</p>
-
-<p>北人莫作潇湘游，九疑云入苍梧愁。</p>
-
-<p>&nbsp;</p>
-
-<p>[宋] 陆游 《南定楼遇急雨》诗：</p>
-
-<p>行遍梁州到益州，今年又作度泸游。</p>
-
-<p>江山重复争供眼，风雨纵横乱入楼。</p>
-
-<p>人语朱离逢峒獠，棹歌<strong>欸乃</strong>下吴舟。</p>
-
-<p>天涯住稳归心嬾，登览茫然却欲愁。</p>
-
-<p>&nbsp;</p>
-
-<p>[宋]朱熹《九曲棹歌》中的《五曲》诗中有：</p>
-
-<p>五曲山高云气深，长时烟雨暗平林，</p>
-
-<p>林间有客无人识，<strong>欸乃</strong>声中万古心。</p>
-
-<p>&nbsp;</p>
-
-<p>[宋] 叶适 《灵岩》：</p>
-
-<p>亡王未亡时，绝色馆孤峻。</p>
-
-<p>歌声妙<strong>欸乃</strong>，俎品穷蛤蜃。</p>
-
-<p>[元] 郑光祖 《倩女离魂》第二折：</p>
-
-<p>听长笛一声何处发，歌<strong>欸乃</strong>，橹咿哑。</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>[清] 黄遵宪 《夜宿潮州城下》：</p>
-
-<p>九曲潮江水，遥通海外天，</p>
-
-<p>客程余百一，江路故回旋。</p>
-
-<p>犬亦乡音吠，鸥依岸影眠。</p>
-
-<p>舻声催<strong>欸乃</strong>，既有晓行船。</p>
-
-<p>&nbsp;</p>
-
-<p>[清]赵翼的《阳湖晚归》：</p>
-
-<p>诗情澄水空无滓，心事闲云淡不飞。</p>
-
-<p>最喜渔歌声<strong>欸乃</strong>，扣舷一路送人归。</p>
-
-<p>&nbsp;</p>
-
-<p>[现代]文学家茅盾在描写乌镇的枕河人家时有：</p>
-
-<p>午夜梦回，可以听得橹声<strong>欸乃</strong>，飘然而过。</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>听渔家之桨橹欸乃之声，成为文人生活之情趣。</p>
-
-<p>明 吴伟 江山渔乐图<a href="http://www.yingbishufa.com/ldhh/img/wuwei002.JPG"><img class=" " title="明 吴伟 江山渔乐图" src="http://www.yingbishufa.com/ldhh/img/wuwei002.JPG" alt="明 吴伟 江山渔乐图" width="438" height="522" /></a></p>
-
-<p>此曲为十八段，</p>
-
-<p>首段以吟唱性旋律为基调缓缓铺开，抚琴之势如同展开一张立轴的山水长卷般，
-既松且静，清风一推，荡开波浪层层婆娑细纹，如缓风习习，一派闲适悠然的气息。
-悠长婉转，节奏平稳，不躁不讷，不漾不坠，毫无簇拥堆积之感，似行舟平荡，青山相随，心境开阔无碍。</p>
-
-<p>在第四段中，古琴用散音奏出深沉有力的音调，旋律典雅持重；</p>
-
-<p>而当第八段再现时，则采用泛音弹奏，水声淋漓，鼓荡飘逸，显示出一种飘逸的意趣。</p>
-
-<p>行至中段，乐曲由一转位作以转折，继而情绪更为轻盈，如行舟顺畅，
-迎风而立，心情如水路迎舟，款款如歌。又有音色玲珑，似水花偶溅衣裾，
-剔透清凉，更添意趣；经过变化反复后，琴声愈加流畅自如、通达豁然，
-山水之秀，尽收视野，云水相融，情致愈浓。</p>
-
-<p>乐曲的尾声是一个C徵调，空旷且余韵袅绕，告轻舟已远，言诸世事已了然，
-感慨万端，难以尽述。只是待要重寻来时踪影，早已杳无痕迹，空留青山碧水作追忆。</p>
-
-<p>据《玉梧琴谱》解题，此曲有「脱尘寓江海河汉之游，物外烟霞之思。颐养至静，乐守天真也。」</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>==========================================</p>
-
-<p><a href="http://www.dfg.cn/gb/yspd/jzxsh/55-ena.html">http://www.dfg.cn/gb/yspd/jzxsh/55-ena.html</a></p>
-
-<p><a href="http://www.hudong.com/wiki/%E3%80%8A%E6%AC%B8%E4%B9%83%E3%80%8B">http://www.hudong.com/wiki/%E3%80%8A%E6%AC%B8%E4%B9%83%E3%80%8B</a></p>
-
-<p><a href="http://baike.baidu.com/view/656166.htm">http://baike.baidu.com/view/656166.htm</a></p>
-
-<p><a href="http://huangzanfa0412.blog.163.com/blog/static/51794537201013112853410/">http://huangzanfa0412.blog.163.com/blog/static/51794537201013112853410/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; 老早的</a>
@@ -997,6 +857,10 @@ sudo apt-get install 0ad</code></pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/05/31/bai-xiang-raspberrypi-2-wan-zhuan-led/">白相Raspberrypi-2-玩转LED</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/04/30/bai-xiang-raspberrypi-1-an-zhuang-yao-dian/">白相Raspberrypi-1-安装要点</a>
       </li>
     
@@ -1010,10 +874,6 @@ sudo apt-get install 0ad</code></pre>
     
       <li class="post">
         <a href="/blog/2016/01/01/jian-dan-de-java-notepad-ji-shi-ben/">简单的JAVA NOTEPAD 记事本</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/11/27/big-dataza-tan-2-hadooptan-jiu-san-guo-yan-yi-de-ci-pin-gai/">BIG_DATA杂谈(2)-hadoop探究《三国演义》的词频-改</a>
       </li>
     
   </ul>
