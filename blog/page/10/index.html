@@ -9,7 +9,7 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="明天去学校，呵呵，见呵呵O(∩_∩)O~
+  <meta name="description" content="
 ">
   
 
@@ -85,6 +85,45 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/09/09/twitter-%25e4%25b8%258a%25e7%259a%2584%25e4%25b8%25a4%25e5%258f%25a5%25e8%25af%259d/">Twitter 上的两句话</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-09T11:35:00+08:00" pubdate data-updated="true">Sep 9<span>th</span>, 2011</time>
+        
+        
+          | <a href="/blog/2011/09/09/twitter-%25e4%25b8%258a%25e7%259a%2584%25e4%25b8%25a4%25e5%258f%25a5%25e8%25af%259d/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.wuwenjie.tk/wp-content/uploads/2011/09/twitter.jpg"><img class="alignleft size-full wp-image-164" title="twitter" src="http://www.wuwenjie.tk/wp-content/uploads/2011/09/twitter.jpg" alt="" width="541" height="167" /></a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -784,141 +823,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/07/03/mysql-cmd-command-MySQL-C-data-structures-SQL/">[转]mysql Cmd命令 MySQLCC++数据结构SQL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-03T02:14:00+08:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2011</time>
-        
-        
-          | <a href="/blog/2011/07/03/mysql-cmd-command-MySQL-C-data-structures-SQL/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.wuwenjie.tk/wp-content/uploads/2011/07/start_mysql.gif"><img class="size-full wp-image-72" title="start_mysql" src="http://www.wuwenjie.tk/wp-content/uploads/2011/07/start_mysql.gif" alt="start_mysql" width="498" height="234" /></a></p>
-
-<p>连接：mysql -h主机地址 -u用户名 －p用户密码 （注:u与root可以不用加空格，其它也一样）</p>
-
-<p>断开：exit （回车）</p>
-
-<p>创建授权：grant select on 数据库.* to 用户名@登录主机 identified by \&ldquo;密码\&rdquo;</p>
-
-<p>修改密码：mysqladmin -u用户名 -p旧密码 password 新密码</p>
-
-<p>删除授权: revoke select,insert,update,delete om <em>.</em> from test2@localhost;</p>
-
-<p>显示数据库：show databases;</p>
-
-<p>显示数据表：show tables;</p>
-
-<p>显示表结构：describe 表名;</p>
-
-<p>创建库：create database 库名;</p>
-
-<p>删除库：drop database 库名;</p>
-
-<p>使用库：use 库名;</p>
-
-<p>创建表：create table 表名 (字段设定列表);</p>
-
-<p>删除表：drop table 表名;</p>
-
-<p>修改表：alter table t1 rename t2</p>
-
-<p>查询表：select * from 表名;</p>
-
-<p>清空表：delete from 表名;</p>
-
-<p>备份表: mysqlbinmysqldump -h(ip) -uroot -p(password) databasename tablename &gt; tablename.sql</p>
-
-<p>恢复表: mysqlbinmysql -h(ip) -uroot -p(password) databasename tablename &lt; tablename.sql（操作前先把原来表删除） 增加列：ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT,ADD INDEX &copy;; 修改列：ALTER TABLE t2 MODIFY a TINYINT NOT NULL, CHANGE b c CHAR(20); 删除列：ALTER TABLE t2 DROP COLUMN c; 备份数据库：mysql\bin\mysqldump -h(ip) -uroot -p(password) databasename &gt; database.sql</p>
-
-<p>恢复数据库：mysql\bin\mysql -h(ip) -uroot -p(password) databasename &lt; database.sql 复制数据库：mysql\bin\mysqldump &mdash;all-databases &gt; all-databases.sql</p>
-
-<p>修复数据库：mysqlcheck -A -o -uroot -p54safer</p>
-
-<p>文本数据导入： load data local infile \&ldquo;文件名\&rdquo; into table 表名;</p>
-
-<p>数据导入导出：mysql\bin\mysqlimport database tables.txt</p>
-
-<p>执行sql文件：source 路径+文件（用“/”）2009-07-21</p>
-
-<p>mysql cmd命令</p>
-
-<p>MySQLCC++数据结构SQL</p>
-
-<p>连接：mysql -h主机地址 -u用户名 －p用户密码 （注:u与root可以不用加空格，其它也一样）</p>
-
-<p>断开：exit （回车）</p>
-
-<p>创建授权：grant select on 数据库.* to 用户名@登录主机 identified by \&ldquo;密码\&rdquo;</p>
-
-<p>修改密码：mysqladmin -u用户名 -p旧密码 password 新密码</p>
-
-<p>删除授权: revoke select,insert,update,delete om <em>.</em> from test2@localhost;</p>
-
-<p>显示数据库：show databases;</p>
-
-<p>显示数据表：show tables;</p>
-
-<p>显示表结构：describe 表名;</p>
-
-<p>创建库：create database 库名;</p>
-
-<p>删除库：drop database 库名;</p>
-
-<p>使用库：use 库名;</p>
-
-<p>创建表：create table 表名 (字段设定列表);</p>
-
-<p>删除表：drop table 表名;</p>
-
-<p>修改表：alter table t1 rename t2</p>
-
-<p>查询表：select * from 表名;</p>
-
-<p>清空表：delete from 表名;</p>
-
-<p>备份表: mysqlbinmysqldump -h(ip) -uroot -p(password) databasename tablename &gt; tablename.sql</p>
-
-<p>恢复表: mysqlbinmysql -h(ip) -uroot -p(password) databasename tablename &lt; tablename.sql（操作前先把原来表删除） 增加列：ALTER TABLE t2 ADD c INT UNSIGNED NOT NULL AUTO_INCREMENT,ADD INDEX &copy;; 修改列：ALTER TABLE t2 MODIFY a TINYINT NOT NULL, CHANGE b c CHAR(20); 删除列：ALTER TABLE t2 DROP COLUMN c; 备份数据库：mysql\bin\mysqldump -h(ip) -uroot -p(password) databasename &gt; database.sql</p>
-
-<p>恢复数据库：mysql\bin\mysql -h(ip) -uroot -p(password) databasename &lt; database.sql 复制数据库：mysql\bin\mysqldump &mdash;all-databases &gt; all-databases.sql</p>
-
-<p>修复数据库：mysqlcheck -A -o -uroot -p54safer</p>
-
-<p>文本数据导入： load data local infile \&ldquo;文件名\&rdquo; into table 表名;</p>
-
-<p>数据导入导出：mysql\bin\mysqlimport database tables.txt</p>
-
-<p>执行sql文件：source 路径+文件（用“/”）</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; 老早的</a>
@@ -936,6 +840,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/07/31/bai-xiang-raspberrypi-4-zhuang-ge-yan-jing-e/">白相Raspberrypi-4-装个眼睛哦</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/06/14/bai-xiang-raspberrypi-3-zhuang-ge-er-duo-e/">白相Raspberrypi-3-装个耳朵哦</a>
       </li>
     
@@ -949,10 +857,6 @@
     
       <li class="post">
         <a href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/">改-TextRank文本摘要简介与应用</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">改-TextRank文本关键字提取简介与应用</a>
       </li>
     
   </ul>

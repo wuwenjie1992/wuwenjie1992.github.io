@@ -9,9 +9,9 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="GRUB error : invalid signature 的解决 之前，有一次更新了内核还是其他什么东西，
-想进入win7，玩玩Total War: Shogun 2
-但是在选取win7选项之后，给我返回了 error: invalid signature ">
+  <meta name="description" content="hello_luence 本地文本查找引擎的一个实例 lucene+nodejs 开始 为什么会有它 我有的时候会想查一些书、文章当中的字，看看这个字到底是怎么用的。
+在网上找到一些html版的书的网站，当用wget抓下来之后，花了很长时间，内容很多，文件很多。
+当然在linux下， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +86,75 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/">Hello_luence 本地文本查找引擎的一个实例 Lucene+nodejs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-06T21:11:00+08:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
+        
+        
+          | <a href="/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>hello_luence 本地文本查找引擎的一个实例 lucene+nodejs</h2>
+
+<h3>开始</h3>
+
+<ul>
+<li>为什么会有它
+
+<ul>
+<li>我有的时候会想查一些书、文章当中的字，看看这个字到底是怎么用的。</li>
+<li>在网上找到一些html版的书的网站，当用wget抓下来之后，花了很长时间，内容很多，文件很多。</li>
+<li>当然在linux下，有很好的文本查找、处理的工具，比如使用以下命令。
+
+<ul>
+<li><code>find ./* | xargs grep OpenJDK</code></li>
+<li>作用：在当前目录下，找出其中含有<code>OpenJDK</code>的文本。</li>
+<li>解释：<code>find ./*</code> 列出当前目录下所有文件。
+
+<ul>
+<li><code>|</code>管道，将前面的<code>标准输出</code>导入到后面的<code>标准输入</code>。</li>
+<li><a href="http://zh.wikipedia.org/wiki/Xargs"><code>xargs</code></a> ,将<code>标准输入</code>分块给后面的命令，将参数列表转换成小块分段传递给其他命令。</li>
+<li><code>grep OpenJDK</code> ,<a href="http://zh.wikipedia.org/wiki/Grep">grep</a>匹配正则表达式的文本进行搜索，输出匹配或不匹配的行或文本。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>虽然方法简单但每次每个历遍，东西太多时间太长。</li>
+<li>有个<a href="http://lucene.apache.org/">lucene项目</a>,基于Java的全文索引工具包,虽不是搜索引擎，但开源搜索<a href="http://lucene.apache.org/solr/">Solr</a>、<a href="http://nutch.apache.org/">Nutch</a>均基于它。
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/06/hello-luence-ben-di-wen-ben-cha-zhao-yin-qing-de-ge-shi-li-lucene-plus-nodejs/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -554,64 +623,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/">批量转换字符编码的实例（iconv）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-21T10:47:00+08:00" pubdate data-updated="true">Sep 21<span>st</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em><strong>前言</strong></em></p>
-
-<p>借的书里光盘有C代码，</p>
-
-<p>可也抄来看看，</p>
-
-<p>但中文说明乱码。</p>
-
-<p>行如：// 68ÎªÎÕÊÖÏûÏ¢µÄ¹Ì¶š³€¶È</p>
-
-<p>而且文件较多，</p>
-
-<p>以 .c|.h结尾，</p>
-
-<p>手动改的话就太笨了，</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/09/21/Batch-conversion-of-character-encoding-instances/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; 老早的</a>
@@ -629,6 +640,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/07/31/bai-xiang-raspberrypi-4-zhuang-ge-yan-jing-e/">白相Raspberrypi-4-装个眼睛哦</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/06/14/bai-xiang-raspberrypi-3-zhuang-ge-er-duo-e/">白相Raspberrypi-3-装个耳朵哦</a>
       </li>
     
@@ -642,10 +657,6 @@
     
       <li class="post">
         <a href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/">改-TextRank文本摘要简介与应用</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/02/06/gai-textrankwen-ben-guan-jian-zi-ti-qu-jian-jie-yu-ying-yong/">改-TextRank文本关键字提取简介与应用</a>
       </li>
     
   </ul>

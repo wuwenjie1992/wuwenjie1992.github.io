@@ -4,7 +4,7 @@
   <title><![CDATA[Category: raspberrypi | 吴文洁]]></title>
   <link href="http://www.wuwenjie.tk/blog/categories/raspberrypi/atom.xml" rel="self"/>
   <link href="http://www.wuwenjie.tk/"/>
-  <updated>2016-08-14T21:38:56+08:00</updated>
+  <updated>2016-10-07T16:51:31+08:00</updated>
   <id>http://www.wuwenjie.tk/</id>
   <author>
     <name><![CDATA[wuwenjie]]></name>
@@ -12,6 +12,450 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[白相Raspberrypi-4-装个眼睛哦]]></title>
+    <link href="http://www.wuwenjie.tk/blog/2016/07/31/bai-xiang-raspberrypi-4-zhuang-ge-yan-jing-e/"/>
+    <updated>2016-07-31T16:38:00+08:00</updated>
+    <id>http://www.wuwenjie.tk/blog/2016/07/31/bai-xiang-raspberrypi-4-zhuang-ge-yan-jing-e</id>
+    <content type="html"><![CDATA[<h3>装个眼睛？</h3>
+
+<ul>
+<li>使用USB摄像头当作树莓派的眼睛。</li>
+<li>利用OPENCV作为树莓派感知外部世界图像的处理工具。</li>
+<li>本片文章目的是使得Pi能识别移动物体，具备入侵检测的功能。</li>
+<li>参考文章 <a href="http://python.jobbole.com/81593/">1</a> <a href="http://python.jobbole.com/81645/">2</a> <a href="http://www.pyimagesearch.com/2015/05/25/basic-motion-detection-and-tracking-with-python-and-opencv/">3</a></li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>准备</h3>
+
+<ul>
+<li>为Pi安装OPENGL兼容套件</li>
+<li><p><code>
+sudo apt-get install mesa-utils
+sudo apt-get install libgl1-mesa-dri libgl1-mesa-swx11
+</code></p></li>
+<li>安装python openCV 开发环境</li>
+<li><p><code>
+sudo apt-get install python-opencv libopencv-dev python-numpy python-dev
+sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev
+sudo apt-get install libgtk2.0-dev
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+sudo apt-get install libatlas-base-dev gfortran
+</code></p></li>
+<li><p>推荐使用x11vnc</p></li>
+<li>使用x11vnc 作为VNC的服务端软件</li>
+<li><em>sudo apt-get install x11vnc</em></li>
+<li>原因：具有支持openGL的功能</li>
+<li><p>不会出现 如 <code>window system doesn't support opengl</code> 的错误</p></li>
+<li><p>测试</p></li>
+<li>测试opencv是否能够正常工作</li>
+<li>python 代码如下</li>
+</ul>
+
+
+<p>```
+import cv2</p>
+
+<p>print cv2.<strong>version</strong>
+img = cv2.imread(&ldquo;a.jpg&rdquo;)
+cv2.namedWindow(&ldquo;Image&rdquo;,cv2.CV_WINDOW_AUTOSIZE)
+cv2.imshow(&ldquo;Image&rdquo;,img)
+cv2.waitKey(0)
+cv2.destoryAllWindows()
+```
+ * 如果没有正常现实图片a.jpg，说明开发环境仍有问题，请务必处理。</p>
+
+<h3>检测和跟踪运动对象</h3>
+
+<ul>
+<li>简单原理</li>
+<li>通过摄像头捕获的图像交由python的openCV库进行处理</li>
+<li>对每一张图像继续灰度化后，比较前后两张图像的不同</li>
+<li>不同的区域即认为是运动的对象。</li>
+<li>效果</li>
+<li><p> <video id="video" controls="" preload="none" >
+     <source id="mp4" src="http://www.wuwenjie.tk/images/motion_detector.mp4" type="video/mp4">
+ </video></p></li>
+<li><p>python代码</p></li>
+<li>使用方法如下
+<code>
+python motion_detector.py -c conf.json
+</code></li>
+</ul>
+
+
+<p><code>
+python motion_detector.py -c conf.json --video videos/example_01.mp4
+</code>
+ * 配置文件conf.json</p>
+
+<pre><code>```
+{
+"min-area":1500,
+"show-thresh":true,
+"show-frameDelta":true,
+"decay-time":1000,
+"delta-thresh":25
+}
+```
+</code></pre>
+
+<ul>
+<li>主要py代码如下</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>motion_detector.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="n">coding</span><span class="p">:</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">the</span> <span class="nn">necessary</span> <span class="nn">packages</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">argparse</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">datetime</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">imutils</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">cv2</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">json</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">construct</span> <span class="n">the</span> <span class="n">argument</span> <span class="n">parser</span> <span class="ow">and</span> <span class="n">parse</span> <span class="n">the</span> <span class="n">arguments</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">ap</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span><span class='line'><span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">-</span><span class="n">v</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="n">video</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="n">help</span><span class="o">=&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">video</span> <span class="nb">file</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;)</span>
+</span><span class='line'><span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">-</span><span class="n">c</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="n">conf</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span> <span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">help</span><span class="o">=&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">JSON</span> <span class="n">config</span> <span class="nb">file</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;)</span>
+</span><span class='line'><span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">ap</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">conf</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">conf</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]))</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="err">开启优化</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">cv2</span><span class="o">.</span><span class="n">useOptimized</span><span class="p">()):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">cv2</span><span class="o">.</span><span class="n">setUseOptimized</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="k">if</span> <span class="n">the</span> <span class="n">video</span> <span class="n">argument</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">,</span> <span class="n">then</span> <span class="n">we</span> <span class="n">are</span> <span class="n">reading</span> <span class="kn">from</span> <span class="nn">webcam</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">video</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">camera</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">otherwise</span><span class="p">,</span> <span class="n">we</span> <span class="n">are</span> <span class="n">reading</span> <span class="kn">from</span> <span class="nn">a</span> <span class="nn">video</span> <span class="nn">file</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">else</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">camera</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s">&quot;video&quot;</span><span class="p">])</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">find</span> <span class="n">opencv</span> <span class="n">version</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">print</span> <span class="n">cv2</span><span class="o">.&lt;</span><span class="n">strong</span><span class="o">&gt;</span><span class="n">version</span><span class="o">&lt;/</span><span class="n">strong</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">(</span><span class="n">major_ver</span><span class="p">,</span><span class="n">minor_ver</span><span class="p">,</span><span class="n">subminor_ver</span><span class="p">,</span><span class="n">fin_ver</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv2</span><span class="o">.&lt;</span><span class="n">strong</span><span class="o">&gt;</span><span class="n">version</span><span class="o">&lt;/</span><span class="n">strong</span><span class="o">&gt;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">.&amp;</span><span class="n">rsquo</span><span class="p">;)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">major_ver</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">3</span> <span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">fps</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cv</span><span class="o">.</span><span class="n">CV_CAP_PROP_FPS</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">else</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">fps</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CV_CAP_PROP_FPS</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">print</span> <span class="n">fps</span>
+</span><span class='line'><span class="k">print</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Frames</span> <span class="n">per</span> <span class="n">second</span> <span class="p">:{</span><span class="mi">0</span><span class="p">}</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fps</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">initialize</span> <span class="n">the</span> <span class="n">first</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">video</span> <span class="n">stream</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">firstFrame</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'><span class="n">avg</span> <span class="o">=</span> <span class="bp">None</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">avg1</span> <span class="o">=</span> <span class="bp">None</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span class='line'><span class="n">decay</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">decay</span><span class="o">-</span><span class="n">time</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;]</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">num_frames</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">loop</span> <span class="n">over</span> <span class="n">the</span> <span class="n">frames</span> <span class="n">of</span> <span class="n">the</span> <span class="n">video</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">while</span> <span class="bp">True</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># grab the current frame</span>
+</span><span class='line'><span class="p">(</span><span class="n">grabbed</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span class='line'><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;safe&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># if the frame could not be grabbed, reached the end of the video</span>
+</span><span class='line'><span class="k">if</span> <span class="ow">not</span> <span class="n">grabbed</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">break</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># resize the frame, convert it to grayscale, and blur it</span>
+</span><span class='line'><span class="c"># frame = imutils.resize(frame, width=500)</span>
+</span><span class='line'><span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+</span><span class='line'><span class="c"># gray = cv2.GaussianBlur(gray, (21, 21), 0)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># if the first frame is None, initialize it</span>
+</span><span class='line'><span class="k">if</span> <span class="n">firstFrame</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">firstFrame</span> <span class="o">=</span> <span class="n">gray</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&quot;float&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="c">#avg1 = firstFrame</span>
+</span><span class='line'>    <span class="n">avg</span> <span class="o">=</span> <span class="n">firstFrame</span>
+</span><span class='line'>    <span class="k">continue</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">now</span> <span class="o">-</span><span class="n">t</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="n">decay</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">t</span> <span class="o">=</span> <span class="n">now</span>
+</span><span class='line'>    <span class="c"># compute the absolute diff between current and first frame</span>
+</span><span class='line'>    <span class="n">cv2</span><span class="o">.</span><span class="n">accumulateWeighted</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span><span class="n">firstFrame</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span>
+</span><span class='line'>    <span class="c"># firstFrame = (1-alpha)*firstFrame+alpha*avg</span>
+</span><span class='line'>    <span class="c"># firstFrame = 0.6*firstFrame + 0.4*avg</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cv2</span><span class="o">.</span><span class="n">accumulateWeighted</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="n">avg</span><span class="p">,</span><span class="mf">0.05</span><span class="p">)</span>
+</span><span class='line'><span class="c"># 更新一个动态平均数 avg = (1-alpha)*avg+alpha*gray</span>
+</span><span class='line'><span class="c"># avg = 0.95 * avg + 0.05 * gary</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">frameDelta</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">absdiff</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">avg</span><span class="p">))</span>
+</span><span class='line'><span class="c"># 基于加权平均数的帧，当前帧减去加权平均值，得到帧变化量</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">frameDelta</span><span class="p">,</span> <span class="n">conf</span><span class="p">[</span><span class="s">&quot;delta-thresh&quot;</span><span class="p">],</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span><span class='line'><span class="c"># 阈值化 &amp;gt;25 255</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># dilate the thresholded image to fill in holes, then find contours</span>
+</span><span class='line'><span class="c"># on thresholded image</span>
+</span><span class='line'><span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">(</span><span class="n">cnts</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">thresh</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_SIMPLE</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># loop over the contours</span>
+</span><span class='line'><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cnts</span><span class="p">:</span>
+</span><span class='line'>    <span class="c"># if the contour is too small, ignore it</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">conf</span><span class="p">[</span><span class="s">&quot;min-area&quot;</span><span class="p">]:</span>
+</span><span class='line'>        <span class="k">continue</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># compute the bounding box for the contour, draw it on the frame,</span>
+</span><span class='line'>    <span class="c"># and update the text</span>
+</span><span class='line'>    <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;someone&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">num_frames</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'><span class="n">fps</span> <span class="o">=</span> <span class="n">num_frames</span> <span class="o">/</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+</span><span class='line'><span class="n">num_frames</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># draw the text and timestamp on the frame</span>
+</span><span class='line'><span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="s">&quot;Room Status: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%A </span><span class="si">%d</span><span class="s"> %B %Y %I:%M:%S%p&quot;</span> <span class="o">+</span> <span class="s">&quot; FPS:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fps</span><span class="p">))),</span>
+</span><span class='line'>    <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># show the frame and record if the user presses a key</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">&quot;安全监控画面&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">conf</span><span class="p">[</span><span class="s">&quot;show-thresh&quot;</span><span class="p">]:</span>
+</span><span class='line'>    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">&quot;阈值化画面-Thresh&quot;</span><span class="p">,</span> <span class="n">thresh</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">conf</span><span class="p">[</span><span class="s">&quot;show-frameDelta&quot;</span><span class="p">]:</span>
+</span><span class='line'>    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">&quot;畸变画面-Frame Delta&quot;</span><span class="p">,</span> <span class="n">frameDelta</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">key</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="mh">0xFF</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># if the `q` key is pressed, break from the lop</span>
+</span><span class='line'><span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s">&quot;q&quot;</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">break</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">cleanup</span> <span class="n">the</span> <span class="n">camera</span> <span class="ow">and</span> <span class="n">close</span> <span class="nb">any</span> <span class="nb">open</span> <span class="n">windows</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">camera</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</span><span class='line'><span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[白相Raspberrypi-3-装个耳朵哦]]></title>
