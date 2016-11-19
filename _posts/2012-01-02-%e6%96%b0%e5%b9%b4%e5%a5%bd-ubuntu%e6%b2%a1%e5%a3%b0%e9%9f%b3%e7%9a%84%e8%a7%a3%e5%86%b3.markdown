@@ -1,0 +1,31 @@
+---
+layout: post
+title: "新年好   Ubuntu没声音的解决"
+author: "wuwenjie"
+date: 2012-01-02 03:44
+comments: true
+categories: []
+---
+sudo chmod -R a+rwx  dev/snd
+
+//chmod: change mode 改变权限
+
+//-R, --recursive以递归方式更改所有的文件及子目录
+
+//a  :   all     所用用户, 相当于 ugo
+
+-----------------------------------------
+
+u     user     文件所有者
+g     group     文件所有者所在组
+o     others     所有其他用户
+
+-----------------------------------------
+
+//+ : +(加入)
+
+//rwx:读，写，执行
+
+&nbsp;
+
+&nbsp;

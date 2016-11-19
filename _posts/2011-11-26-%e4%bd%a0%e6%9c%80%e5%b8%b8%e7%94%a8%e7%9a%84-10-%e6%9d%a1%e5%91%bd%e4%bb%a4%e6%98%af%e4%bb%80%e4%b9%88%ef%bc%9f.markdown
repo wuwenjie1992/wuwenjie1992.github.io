@@ -1,0 +1,16 @@
+---
+layout: post
+title: "你最常用的 命令是什么？"
+author: "wuwenjie"
+date: 2011-11-26 07:59
+comments: true
+categories: []
+---
+在 Linux 下肯定要经常和命令行打交道，Linux 下的命令有无数，想知道自己经常用的命令 Top 10 是哪些吗？
+实现起来很简单，把下面的这一长串命令粘进终端，执行就可以看到结果：
+<div>
+<div>history | awk '{CMD[$2]++  ;count++  ;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10</div>
+</div>
+原理也很简单，用 awk 统计 history 中的命令部分出现的次数，去掉 “./" 这样不算命令的情况，最后排序输出，列出前 10 个。
+
+<code>history | sed "s#^\s\+[0-9]\+\s\+##g" | grep -oP "(?&lt;=^|\|)\w+"|sort |uniq -c| sort -k1,1nr -k2</code>

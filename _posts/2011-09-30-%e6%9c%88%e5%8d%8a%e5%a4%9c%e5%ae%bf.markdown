@@ -1,0 +1,12 @@
+---
+layout: post
+title: "月半夜宿"
+author: "wuwenjie"
+date: 2011-09-30 09:46
+comments: true
+categories: []
+---
+<h3>烟笼玄月半</h3>
+<h3>且住羁旅鞍</h3>
+<h3>扣问宿酒家</h3>
+<h3>寒光蚀窗前</h3>
