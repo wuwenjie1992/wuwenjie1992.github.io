@@ -9,7 +9,12 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="前言 借的书里光盘有C代码， 可也抄来看看， 但中文说明乱码。 行如：// 68ÎªÎÕÊÖÏûÏ¢µÄ¹Ì¶š³€¶È 而且文件较多， 以 .c|.h结尾， 手动改的话就太笨了， ">
+  <meta name="description" content="十月基本没有学习新的android 知识。 情况： 为了复习c ，发现c 的魅力。
+就是简单，高效，明了，
+不像JAVA，抽象，以至不知所云。
+以后要多多使用C，
+将android 的&#8221;Java 层”作为主要的UI层，
+要求自己将算法以C实现，提高效率。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +89,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/25/My-Oct-doing/">我的十月在干嘛</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-25T10:07:00+08:00" pubdate data-updated="true">Oct 25<span>th</span>, 2012</time>
+        
+        
+          | <a href="/blog/2012/10/25/My-Oct-doing/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>十月基本没有学习新的android 知识。</p>
+
+<p>情况：</p>
+
+<p>为了复习c ，发现c 的魅力。
+就是简单，高效，明了，
+不像JAVA，抽象，以至不知所云。
+以后要多多使用C，
+将android 的&#8221;Java 层”作为主要的UI层，
+要求自己将算法以C实现，提高效率。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/25/My-Oct-doing/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1277,174 +1335,6 @@ break;
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/10/mencoder-transcoding/">Mencoder转码</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-10T09:05:00+08:00" pubdate data-updated="true">Jun 10<span>th</span>, 2012</time>
-        
-        
-          | <a href="/blog/2012/06/10/mencoder-transcoding/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>mencoder [若干选项] 文件 [文件|URL|&ndash;] [-o 文件 | file://文件 | smb://[用户名:密码@]主机/文件路径]
-mencoder [若干选项] 文件1 [该文件专用的选项] [文件2] [该文件专用的选项]</p>
-
-<p>&nbsp;</p>
-
-<p>[caption id=&ldquo;attachment_487&rdquo; align=&ldquo;alignleft&rdquo; width=&ldquo;205&rdquo; caption=&ldquo;mplayer&rdquo;]<a href="http://www.mplayerhq.hu/design7/news.html"><img class="size-full wp-image-487" title="mplayer" src="http://www.wuwenjie.tk/wp-content/uploads/2012/06/left.jpg" alt="mplayer" width="205" height="449" /></a>[/caption]</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<hr />
-
-<p>实例 1：f4v&mdash;&ndash;&gt;mp4</p>
-
-<p>mencoder a.f4v -o a1.mp4 -oac mp3lame -lameopts cbr:br=128 -ovc x264 -x264encopts bitrate=440 -vf scale=480:320</p>
-
-<p>&nbsp;</p>
-
-<hr />
-
-<p>解释:</p>
-
-<p>a.fv4是指输入的视频，要转换的视频。
--o a1.avi 中的“-o”是指你要输出视频，输出视频名为a1.avi
--oac 设置音频编码器。
-mp3lame 设置音频编码器为mp3lame，就是mp3
--lameopts 设置mp3lamer的相关参数
-cbr:br=128 设置音频的码率为128。96、112、128、192、256、320Kbps
--ovc 设置视频编码器。
-x264 设置视频编码器为x264。</p>
-
-<p>-x264encopts 设置x264的参数。
-bitrate=440 设置x264的视频的码率为440。
--vf scale=480:320  设置视频的宽为480，高为320.( -vf scale=448:-3) -3是让mencoder来设置最佳宽度。</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<hr />
-
-<p>实例 2： flv&mdash;&ndash;&gt;mp3</p>
-
-<p>mencoder b.flv -o b.mp3 -ovc frameno -oac mp3lame -lameopts cbr:br=320 -of rawaudio -ss 1:30 -endpos 2:45</p>
-
-<hr />
-
-<p>解释:</p>
-
-<p>b.flv 输入源文件
--o b.mp3 输出的目标文件名称
--ovc frameno 不处理视频编码
--oac mp3lame 输出的音频编码格式为mp3
--lameopts cbr:br=320 音频附件选项，cbr(常量比特率)编码格式，音频码流为320bps
--of rawaudio 输出文件为原始音频流
--ss 1:30 音频截取的起始时间(表示从b.flv的第1分30秒开始截取)
--endpos 2:45 预截取音频的长度(表示预截取的音频长度是2分45秒，可计算出其结束时间4:15)(-endpos 10mb 编码数据量为10M)</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<hr />
-
-<p>注：</p>
-
-<p>1）
--of &lt;格式&gt;（用于 BETA 测试！）
-编码为指定的容器格式（默认值：AVI）
--of lavf
-使用 libavformat 流合并器编码</p>
-
-<p>EX：mencoder a.f4v -o a1.mp4 -oac mp3lame -lameopts cbr:br=128 -ovc x264 -x264encopts bitrate=440 -vf scale=480:320 -of lavf</p>
-
-<p>2）安装<em> sudo apt</em>-get <em>install</em> mencoder</p>
-
-<hr />
-
-<p>参考：</p>
-
-<p>1）man mplayer        man mencoder</p>
-
-<p>2)<a href="http://baike.baidu.com/view/3353694.htm">http://baike.baidu.com/view/3353694.htm</a></p>
-
-<p>3)<a href="http://www.mplayerhq.hu/DOCS/HTML/zh_CN/mencoder.html">http://www.mplayerhq.hu/DOCS/HTML/zh_CN/mencoder.html</a></p>
-
-<p>4)<a href="http://www.mplayerhq.hu/DOCS/HTML/zh_CN/index.html">http://www.mplayerhq.hu/DOCS/HTML/zh_CN/index.html</a></p>
-
-<p>5)<a href="http://hi.baidu.com/hailoong/blog/item/545cfa17baefe4084b90a77c.html">http://hi.baidu.com/hailoong/blog/item/545cfa17baefe4084b90a77c.html</a></p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; 老早的</a>
@@ -1462,6 +1352,10 @@ bitrate=440 设置x264的视频的码率为440。
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/08/19/yong-pythonfen-xi-bai-yin-t-plus-djie-ge-zou-shi/">用Python分析白银T+D价格走势</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/07/31/bai-xiang-raspberrypi-4-zhuang-ge-yan-jing-e/">白相Raspberrypi-4-装个眼睛哦</a>
       </li>
     
@@ -1475,10 +1369,6 @@ bitrate=440 设置x264的视频的码率为440。
     
       <li class="post">
         <a href="/blog/2016/04/30/bai-xiang-raspberrypi-1-an-zhuang-yao-dian/">白相Raspberrypi-1-安装要点</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/03/31/gai-textrankwen-ben-zhai-yao-jian-jie-yu-ying-yong/">改-TextRank文本摘要简介与应用</a>
       </li>
     
   </ul>
