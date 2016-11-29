@@ -1,9 +1,0 @@
----
-layout: post
-title: "打工中"
-author: "wuwenjie"
-date: 2011-06-24 08:21
-comments: true
-categories: []
----
-呵呵
