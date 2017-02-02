@@ -9,10 +9,12 @@
   <meta name="author" content="wuwenjie">
 
   
-  <meta name="description" content="简介 什么是逻辑回归（Logistic Regression） 逻辑回归模型是广泛运用的分类器，它在线性模型基础上，结合了sigmoid函数（S型）而产生的。
-逻辑回归模型优势是使用简便、求解快速、容易理解，所以使用广泛。
-推荐使用：
-R：glm包（广义线性模型）中选用binomial（二项分布族 &hellip;">
+  <meta name="description" content="什么是决策树 决策树（Decision Tree）是一种树型分支结构的决策模型。
+它以信息论中的香浓熵作为基本划分依据。
+它的优势是模型便于理解、分类效果优异、生产上实现简单等。
+著名算法：ID3、C4.5、C5.0、CART等
+R：C50、rpart
+Python: sklearn(tree) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,6 +89,67 @@ R：glm包（广义线性模型）中选用binomial（二项分布族 &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/10/02/gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/">改-机器学习-决策树（Python实现）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-10-02T18:40:00+08:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2016</time>
+        
+        
+          | <a href="/blog/2016/10/02/gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>什么是决策树</h3>
+
+<ul>
+<li>决策树（Decision Tree）是一种树型分支结构的决策模型。</li>
+<li>它以信息论中的香浓熵作为基本划分依据。</li>
+<li>它的优势是模型便于理解、分类效果优异、生产上实现简单等。</li>
+<li>著名算法：ID3、C4.5、C5.0、CART等</li>
+<li>R：C50、rpart</li>
+<li>Python: sklearn(tree)</li>
+</ul>
+
+
+<h3>效果</h3>
+
+<ul>
+<li><img src="/images/pytrees.png" alt="tree" /></li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/10/02/gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -571,70 +634,6 @@ R：glm包（广义线性模型）中选用binomial（二项分布族 &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/11/27/big-dataza-tan-2-hadooptan-jiu-san-guo-yan-yi-de-ci-pin-gai/">BIG_DATA杂谈(2)-hadoop探究《三国演义》的词频-改</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-11-27T20:36:00+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2015</time>
-        
-        
-          | <a href="/blog/2015/11/27/big-dataza-tan-2-hadooptan-jiu-san-guo-yan-yi-de-ci-pin-gai/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>与传统文化的碰撞</h2>
-
-<ul>
-<li>虽然这个时代日新月异，但古老的故事依然让人们留恋。</li>
-<li>此次用hadoop从另一个方面，探究一下脍炙人口的《三国演义》。</li>
-</ul>
-
-
-<h2>原理</h2>
-
-<ul>
-<li>利用lucene的<a href="http://lucene.apache.org/core/5_4_0/analyzers-smartcn/index.html">smartcn</a>进行分词，结合<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-hadoop2/">hadoop的编写wordcount</a>，进行词频统计。</li>
-</ul>
-
-
-<h2>难点</h2>
-
-<ul>
-<li>编译与运行包含第三方jar包的hadoop程序。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/11/27/big-dataza-tan-2-hadooptan-jiu-san-guo-yan-yi-de-ci-pin-gai/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; 老早的</a>
@@ -650,6 +649,10 @@ R：glm包（广义线性模型）中选用binomial（二项分布族 &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/10/02/gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/">改-机器学习-决策树（Python实现）</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/09/05/gai-ji-qi-xue-xi-luo-ji-hui-gui-pythonshi-xian/">改-机器学习-逻辑回归（Python实现）</a>
       </li>
     
@@ -663,10 +666,6 @@ R：glm包（广义线性模型）中选用binomial（二项分布族 &hellip;">
     
       <li class="post">
         <a href="/blog/2016/06/14/bai-xiang-raspberrypi-3-zhuang-ge-er-duo-e/">白相Raspberrypi-3-装个耳朵哦</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/05/31/bai-xiang-raspberrypi-2-wan-zhuan-led/">白相Raspberrypi-2-玩转LED</a>
       </li>
     
   </ul>

@@ -1,0 +1,1020 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>改-机器学习-决策树（Python实现） - 吴文洁</title>
+  <meta name="author" content="wuwenjie">
+
+  
+  <meta name="description" content="什么是决策树 决策树（Decision Tree）是一种树型分支结构的决策模型。
+它以信息论中的香浓熵作为基本划分依据。
+它的优势是模型便于理解、分类效果优异、生产上实现简单等。
+著名算法：ID3、C4.5、C5.0、CART等
+R：C50、rpart
+Python: sklearn(tree) &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.wuwenjie.tk/blog/2016/10/02/gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="吴文洁" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+  <!--<script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>-->
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24851132-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">吴文洁</a></h1>
+  
+    <h2>Garden of Eden 自由 平等 尊重</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com.hk/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.wuwenjie.tk" />
+    <input class="search" type="text" name="q" results="0" placeholder="搜索"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">归档文章</a></li>
+	<li><a href="/linux">linux</a></li>
+	<li><a href="/ssh">ssh</a></li>
+	<li><a href="/java">java</a></li>
+	<li><a href="/firefox">firefox</a></li>
+	<li><a href="/investment">investment</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">改-机器学习-决策树（Python实现）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-10-02T18:40:00+08:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2016</time>
+        
+        
+          | <a href="#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>什么是决策树</h3>
+
+<ul>
+<li>决策树（Decision Tree）是一种树型分支结构的决策模型。</li>
+<li>它以信息论中的香浓熵作为基本划分依据。</li>
+<li>它的优势是模型便于理解、分类效果优异、生产上实现简单等。</li>
+<li>著名算法：ID3、C4.5、C5.0、CART等</li>
+<li>R：C50、rpart</li>
+<li>Python: sklearn(tree)</li>
+</ul>
+
+
+<h3>效果</h3>
+
+<ul>
+<li><img src="/images/pytrees.png" alt="tree" /></li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>python实现</h3>
+
+<figure class='code'><figcaption><span>trees.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/python </span>
+</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">log</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#计算给定数据集的香农熵</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">calcShannonEnt</span><span class="p">(</span><span class="n">dataSet</span><span class="p">):</span>
+</span><span class='line'>    <span class="c"># 总的训练数据样本条数</span>
+</span><span class='line'>  <span class="n">numEntries</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'>  <span class="c"># 类标签 每条样本所属类别</span>
+</span><span class='line'>  <span class="n">labelCounts</span><span class="o">=</span><span class="p">{}</span>
+</span><span class='line'>  <span class="c"># 遍历每条样本数据</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">featVec</span> <span class="ow">in</span> <span class="n">dataSet</span><span class="p">:</span>
+</span><span class='line'>      <span class="c"># 每条最后一列为各自的类别</span>
+</span><span class='line'>      <span class="n">currentLabel</span> <span class="o">=</span> <span class="n">featVec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span class='line'>      <span class="sd">&#39;&#39;&#39;</span>
+</span><span class='line'><span class="sd">     为所有可能的类别取值建立key value 结构</span>
+</span><span class='line'><span class="sd">     key 类别 value 表示该类出现的次数</span>
+</span><span class='line'><span class="sd">     &#39;&#39;&#39;</span>
+</span><span class='line'>      <span class="c"># 初始化</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">currentLabel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labelCounts</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span><span class="n">labelCounts</span><span class="p">[</span><span class="n">currentLabel</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>      <span class="c"># 出现+1</span>
+</span><span class='line'>      <span class="n">labelCounts</span><span class="p">[</span><span class="n">currentLabel</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 保存信息熵</span>
+</span><span class='line'>  <span class="n">shannonEnt</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 样本遍历完毕后 计算各类别的占总样本的比例</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">labelCounts</span><span class="p">:</span> <span class="c"># 遍历词典&lt;key,value&gt;</span>
+</span><span class='line'>      <span class="c"># 计算该类别的比例</span>
+</span><span class='line'>      <span class="n">prob</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">labelCounts</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">/</span><span class="n">numEntries</span>
+</span><span class='line'>      <span class="c"># 计算信息增益，以2为底的对数</span>
+</span><span class='line'>      <span class="n">shannonEnt</span> <span class="o">-=</span> <span class="n">prob</span><span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 返回数据集的熵</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">shannonEnt</span>
+</span><span class='line'>  
+</span><span class='line'><span class="c">#计算条件熵，划分数据集 按照给定的特征划分数据集</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">splitDataSet</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span><span class="n">axis</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+</span><span class='line'>  <span class="c"># 定义新变量 保存划分后的数据集</span>
+</span><span class='line'>  <span class="n">retDataSet</span><span class="o">=</span><span class="p">[]</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 遍历数据集的每条数据</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">featVec</span> <span class="ow">in</span> <span class="n">dataSet</span><span class="p">:</span>
+</span><span class='line'>      <span class="c"># 符合要求的数据抽取出来存入retDataSet</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">featVec</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span><span class="o">==</span><span class="n">value</span><span class="p">:</span>
+</span><span class='line'>          <span class="c"># 除了给定的特征axis和值value，其他整行被保存下来</span>
+</span><span class='line'>          <span class="n">reducedFeatVec</span><span class="o">=</span><span class="n">featVec</span><span class="p">[:</span><span class="n">axis</span><span class="p">]</span>
+</span><span class='line'>          <span class="n">reducedFeatVec</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">featVec</span><span class="p">[</span><span class="n">axis</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+</span><span class='line'>          <span class="c">#保存去除该行后的数据</span>
+</span><span class='line'>          <span class="n">retDataSet</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reducedFeatVec</span><span class="p">)</span>
+</span><span class='line'>          
+</span><span class='line'>  <span class="c"># 返回去除制定特征值行的数据 便于计算该条件下的条件熵</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">retDataSet</span>
+</span><span class='line'>          
+</span><span class='line'><span class="c"># 选取最好的数据集划分方式 返回最佳特征下标</span>
+</span><span class='line'><span class="c"># 最好的特征即为信息增益最大的特征</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">chooseBestFeatureToSplit</span><span class="p">(</span><span class="n">dataSet</span><span class="p">):</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c">#保存特征个数 最后一列为类标签 -1</span>
+</span><span class='line'>  <span class="n">numFeatures</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span>
+</span><span class='line'>  <span class="c"># 计算整个数据集的香农熵</span>
+</span><span class='line'>  <span class="n">baseEntropy</span> <span class="o">=</span> <span class="n">calcShannonEnt</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'>  <span class="c"># 保存最大信息增益值</span>
+</span><span class='line'>  <span class="n">bestInfoGain</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span class='line'>  <span class="c"># 保存信息增益最大的特征</span>
+</span><span class='line'>  <span class="n">bestFeature</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 循环遍历数据集中的所有特征</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numFeatures</span><span class="p">):</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c"># 取得当前特征对应列下的值</span>
+</span><span class='line'>      <span class="n">featList</span> <span class="o">=</span> <span class="p">[</span><span class="n">example</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">dataSet</span><span class="p">]</span>
+</span><span class='line'>      <span class="c"># 当前特征对应值去重 每个特征值唯一</span>
+</span><span class='line'>      <span class="n">uniqueVals</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">featList</span><span class="p">)</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c"># 保存对应特征值的条件熵</span>
+</span><span class='line'>      <span class="n">newEntropy</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span class='line'>      <span class="c">#遍历特征值</span>
+</span><span class='line'>      <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">uniqueVals</span><span class="p">:</span>
+</span><span class='line'>          <span class="c">#根据当前特征值划分子集</span>
+</span><span class='line'>          <span class="n">subDataSet</span> <span class="o">=</span> <span class="n">splitDataSet</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'>          <span class="c"># 计算子集记录数与总记录数 子集比率</span>
+</span><span class='line'>          <span class="n">prob</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">subDataSet</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataSet</span><span class="p">))</span>
+</span><span class='line'>          <span class="c"># 计算子集记录的熵</span>
+</span><span class='line'>          <span class="n">newEntropy</span> <span class="o">+=</span> <span class="n">prob</span><span class="o">*</span><span class="n">calcShannonEnt</span><span class="p">(</span><span class="n">subDataSet</span><span class="p">)</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c"># 信息增益 = 数据集的熵 - 数据集划分后的熵</span>
+</span><span class='line'>      <span class="n">infoGain</span> <span class="o">=</span> <span class="n">baseEntropy</span> <span class="o">-</span> <span class="n">newEntropy</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="c"># 最好的特征即为信息增益最大的特征</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">infoGain</span><span class="o">&gt;</span><span class="n">bestInfoGain</span><span class="p">):</span>
+</span><span class='line'>          <span class="n">bestInfoGain</span> <span class="o">=</span> <span class="n">infoGain</span>
+</span><span class='line'>          <span class="n">bestFeature</span> <span class="o">=</span> <span class="n">i</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 返回最好的特征</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">bestFeature</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 递归构建决策树</span>
+</span><span class='line'><span class="c"># 其中当所有的特征都用完时，采用多数表决的方法来决定该叶子节点的分类</span>
+</span><span class='line'><span class="c"># 即该叶节点中属于某一类最多的样本数，那么我们就说该叶节点属于那一类！</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">majorityCnt</span><span class="p">(</span><span class="n">classList</span><span class="p">):</span>
+</span><span class='line'>  <span class="c"># 每个类别出现的次数</span>
+</span><span class='line'>  <span class="n">classCount</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>  <span class="c"># 遍历数据集中的类别</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">classList</span><span class="p">:</span>
+</span><span class='line'>      <span class="c"># 初始类别第一次加入字典</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">vote</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">classCount</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span><span class="n">classCount</span><span class="p">[</span><span class="n">vote</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+</span><span class='line'>      <span class="c"># 记录次数</span>
+</span><span class='line'>      <span class="n">classCount</span><span class="p">[</span><span class="n">vote</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 遍历结束后 次数value值从大到小排序</span>
+</span><span class='line'>  <span class="n">sortedClassCount</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">classCount</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(),</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'>  <span class="c"># 返回数量最多的类别</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">sortedClassCount</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#创建树（数据集，特征名）</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">createTree</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span><span class="n">labels</span><span class="p">):</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 取出数据集最后一列 训练数据的类标签</span>
+</span><span class='line'>  <span class="n">classList</span> <span class="o">=</span> <span class="p">[</span><span class="n">example</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">dataSet</span><span class="p">]</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 类别完全相同停止划分</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">classList</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">classList</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">classList</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">classList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>  <span class="c"># 如果数据集没有特征 返回数据集中数量最多的类别</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataSet</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span><span class="k">return</span> <span class="n">majorityCnt</span><span class="p">(</span><span class="n">classList</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 选取数据集中的最佳划分子集特征</span>
+</span><span class='line'>  <span class="n">bestFeat</span> <span class="o">=</span> <span class="n">chooseBestFeatureToSplit</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)</span>
+</span><span class='line'>  <span class="c"># 将该特征名作为树根的节点</span>
+</span><span class='line'>  <span class="n">bestFeatLabel</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">bestFeat</span><span class="p">]</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c">#print &#39;bestFeatLabel:&#39;+ str(bestFeatLabel)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c"># 初始赋值决策树</span>
+</span><span class='line'>  <span class="n">myTree</span> <span class="o">=</span> <span class="p">{</span><span class="n">bestFeatLabel</span><span class="p">:{}}</span>
+</span><span class='line'>  <span class="c"># 删除已选择的特征名</span>
+</span><span class='line'>  <span class="k">del</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">bestFeat</span><span class="p">])</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c">#取得最后划分特征的下标</span>
+</span><span class='line'>  <span class="n">featValues</span> <span class="o">=</span> <span class="p">[</span><span class="n">example</span><span class="p">[</span><span class="n">bestFeat</span><span class="p">]</span> <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">dataSet</span><span class="p">]</span>
+</span><span class='line'>  <span class="n">uniqueVals</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">featValues</span><span class="p">)</span> <span class="c"># 去重</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c">#遍历去重后的特征值</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">uniqueVals</span><span class="p">:</span>
+</span><span class='line'>      <span class="c"># 获得除已删除的特征外 其余特征的名称</span>
+</span><span class='line'>      <span class="n">subLabels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[:]</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">print</span> <span class="s">&quot;最佳划分特征:&quot;</span><span class="o">+</span><span class="n">bestFeatLabel</span><span class="o">+</span><span class="s">&quot; 值:&quot;</span><span class="o">+</span><span class="n">value</span>
+</span><span class='line'>      <span class="k">print</span> <span class="s">&#39;其余特征:&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">subLabels</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="sd">&#39;&#39;&#39;</span>
+</span><span class='line'><span class="sd">     以当前的特征值划分子集，以子集为参数 递归调用创建树的方法</span>
+</span><span class='line'><span class="sd">     将递归调用的结果作为树节点的一个分枝</span>
+</span><span class='line'><span class="sd">     &#39;&#39;&#39;</span>
+</span><span class='line'>      <span class="n">myTree</span><span class="p">[</span><span class="n">bestFeatLabel</span><span class="p">][</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> \
+</span><span class='line'>          <span class="n">createTree</span><span class="p">(</span><span class="n">splitDataSet</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span><span class="n">bestFeat</span><span class="p">,</span><span class="n">value</span><span class="p">),</span><span class="n">subLabels</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">print</span> <span class="s">&quot;树值:&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">myTree</span><span class="p">[</span><span class="n">bestFeatLabel</span><span class="p">][</span><span class="n">value</span><span class="p">])</span>
+</span><span class='line'>      <span class="k">print</span> <span class="s">&quot;树:&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">myTree</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+</span><span class='line'>  
+</span><span class='line'>          
+</span><span class='line'>  <span class="k">return</span> <span class="n">myTree</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#预测决策树（树，叶标签，测试数据向量）</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">classify</span><span class="p">(</span><span class="n">inputTree</span><span class="p">,</span><span class="n">featLabels</span><span class="p">,</span><span class="n">testVec</span><span class="p">):</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c">#树的根节点</span>
+</span><span class='line'>  <span class="n">firstStr</span> <span class="o">=</span> <span class="n">inputTree</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>  <span class="c">#树的后续分支</span>
+</span><span class='line'>  <span class="n">secondDict</span> <span class="o">=</span> <span class="n">inputTree</span><span class="p">[</span><span class="n">firstStr</span><span class="p">]</span>
+</span><span class='line'>  <span class="c">#叶标签的位置</span>
+</span><span class='line'>  <span class="n">featIndex</span> <span class="o">=</span> <span class="n">featLabels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">firstStr</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="c">#循环查找后续分支</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">secondDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">testVec</span><span class="p">[</span><span class="n">featIndex</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;dict&#39;</span><span class="p">:</span>
+</span><span class='line'>              <span class="n">classLabel</span> <span class="o">=</span> <span class="n">classify</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">],</span><span class="n">featLabels</span><span class="p">,</span><span class="n">testVec</span><span class="p">)</span>
+</span><span class='line'>          <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>              <span class="n">classLabel</span> <span class="o">=</span> <span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">return</span> <span class="n">classLabel</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#保存决策树</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">storeTree</span><span class="p">(</span><span class="n">inputTree</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>
+</span><span class='line'>  <span class="kn">import</span> <span class="nn">pickle</span>
+</span><span class='line'>  <span class="n">fw</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">inputTree</span><span class="p">,</span><span class="n">fw</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">fw</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#加载决策树</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">grabTree</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+</span><span class='line'>  <span class="kn">import</span> <span class="nn">pickle</span>
+</span><span class='line'>  <span class="n">fr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">decisionNode</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s">&quot;sawtooth&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s">&quot;0.8&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">leafNode</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s">&quot;round4&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s">&quot;0.8&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">arrow_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s">&quot;&lt;-&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#获取叶节点的数目</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">getNumLeafs</span><span class="p">(</span><span class="n">myTree</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">numLeafs</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="n">firstStr</span> <span class="o">=</span> <span class="n">myTree</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">secondDict</span> <span class="o">=</span> <span class="n">myTree</span><span class="p">[</span><span class="n">firstStr</span><span class="p">]</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">secondDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+</span><span class='line'>      <span class="c">#测试节点的数据是否为字典，以此判断是否为叶节点</span>
+</span><span class='line'>        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">__name__</span><span class="o">==</span><span class="s">&#39;dict&#39;</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">numLeafs</span> <span class="o">+=</span> <span class="n">getNumLeafs</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>   <span class="n">numLeafs</span> <span class="o">+=</span><span class="mi">1</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">numLeafs</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#获取树的层数</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">getTreeDepth</span><span class="p">(</span><span class="n">myTree</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">maxDepth</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="n">firstStr</span> <span class="o">=</span> <span class="n">myTree</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">secondDict</span> <span class="o">=</span> <span class="n">myTree</span><span class="p">[</span><span class="n">firstStr</span><span class="p">]</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">secondDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+</span><span class='line'>      <span class="c">#测试节点的数据是否为字典，以此判断是否为叶节点</span>
+</span><span class='line'>        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">__name__</span><span class="o">==</span><span class="s">&#39;dict&#39;</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">thisDepth</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">getTreeDepth</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>   <span class="n">thisDepth</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">thisDepth</span> <span class="o">&gt;</span> <span class="n">maxDepth</span><span class="p">:</span> <span class="n">maxDepth</span> <span class="o">=</span> <span class="n">thisDepth</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">maxDepth</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#绘制节点</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">plotNode</span><span class="p">(</span><span class="n">nodeTxt</span><span class="p">,</span> <span class="n">centerPt</span><span class="p">,</span> <span class="n">parentPt</span><span class="p">,</span> <span class="n">nodeType</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">createPlot</span><span class="o">.</span><span class="n">ax1</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">nodeTxt</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">parentPt</span><span class="p">,</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s">&#39;axes fraction&#39;</span><span class="p">,</span>
+</span><span class='line'>             <span class="n">xytext</span><span class="o">=</span><span class="n">centerPt</span><span class="p">,</span> <span class="n">textcoords</span><span class="o">=</span><span class="s">&#39;axes fraction&#39;</span><span class="p">,</span>
+</span><span class='line'>             <span class="n">va</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">nodeType</span><span class="p">,</span> <span class="n">arrowprops</span><span class="o">=</span><span class="n">arrow_args</span> <span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#绘制连接线  </span>
+</span><span class='line'><span class="k">def</span> <span class="nf">plotMidText</span><span class="p">(</span><span class="n">cntrPt</span><span class="p">,</span> <span class="n">parentPt</span><span class="p">,</span> <span class="n">txtString</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">xMid</span> <span class="o">=</span> <span class="p">(</span><span class="n">parentPt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">cntrPt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">cntrPt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">yMid</span> <span class="o">=</span> <span class="p">(</span><span class="n">parentPt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">cntrPt</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span> <span class="o">+</span> <span class="n">cntrPt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">createPlot</span><span class="o">.</span><span class="n">ax1</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xMid</span><span class="p">,</span> <span class="n">yMid</span><span class="p">,</span> <span class="n">txtString</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#绘制树结构  </span>
+</span><span class='line'><span class="k">def</span> <span class="nf">plotTree</span><span class="p">(</span><span class="n">myTree</span><span class="p">,</span> <span class="n">parentPt</span><span class="p">,</span> <span class="n">nodeTxt</span><span class="p">):</span>
+</span><span class='line'>  <span class="c">#if the first key tells you what feat was split on</span>
+</span><span class='line'>    <span class="n">numLeafs</span> <span class="o">=</span> <span class="n">getNumLeafs</span><span class="p">(</span><span class="n">myTree</span><span class="p">)</span>
+</span><span class='line'>    <span class="c">#this determines the x width of this tree</span>
+</span><span class='line'>    <span class="n">depth</span> <span class="o">=</span> <span class="n">getTreeDepth</span><span class="p">(</span><span class="n">myTree</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">firstStr</span> <span class="o">=</span> <span class="n">myTree</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>     <span class="c">#the text label for this node should be this</span>
+</span><span class='line'>    <span class="n">cntrPt</span> <span class="o">=</span> <span class="p">(</span><span class="n">plotTree</span><span class="o">.</span><span class="n">xOff</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">numLeafs</span><span class="p">))</span><span class="o">/</span><span class="mf">2.0</span><span class="o">/</span><span class="n">plotTree</span><span class="o">.</span><span class="n">totalW</span><span class="p">,</span> <span class="n">plotTree</span><span class="o">.</span><span class="n">yOff</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">plotMidText</span><span class="p">(</span><span class="n">cntrPt</span><span class="p">,</span> <span class="n">parentPt</span><span class="p">,</span> <span class="n">nodeTxt</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">plotNode</span><span class="p">(</span><span class="n">firstStr</span><span class="p">,</span> <span class="n">cntrPt</span><span class="p">,</span> <span class="n">parentPt</span><span class="p">,</span> <span class="n">decisionNode</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">secondDict</span> <span class="o">=</span> <span class="n">myTree</span><span class="p">[</span><span class="n">firstStr</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">plotTree</span><span class="o">.</span><span class="n">yOff</span> <span class="o">=</span> <span class="n">plotTree</span><span class="o">.</span><span class="n">yOff</span> <span class="o">-</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">plotTree</span><span class="o">.</span><span class="n">totalD</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">secondDict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+</span><span class='line'>      <span class="c">#test to see if the nodes are dictonaires, if not they are leaf nodes   </span>
+</span><span class='line'>        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">__name__</span><span class="o">==</span><span class="s">&#39;dict&#39;</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">plotTree</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">],</span><span class="n">cntrPt</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>        <span class="c">#recursion</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>          <span class="c">#it&#39;s a leaf node print the leaf node</span>
+</span><span class='line'>            <span class="n">plotTree</span><span class="o">.</span><span class="n">xOff</span> <span class="o">=</span> <span class="n">plotTree</span><span class="o">.</span><span class="n">xOff</span> <span class="o">+</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">plotTree</span><span class="o">.</span><span class="n">totalW</span>
+</span><span class='line'>            <span class="n">plotNode</span><span class="p">(</span><span class="n">secondDict</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="p">(</span><span class="n">plotTree</span><span class="o">.</span><span class="n">xOff</span><span class="p">,</span> <span class="n">plotTree</span><span class="o">.</span><span class="n">yOff</span><span class="p">),</span> <span class="n">cntrPt</span><span class="p">,</span> <span class="n">leafNode</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">plotMidText</span><span class="p">((</span><span class="n">plotTree</span><span class="o">.</span><span class="n">xOff</span><span class="p">,</span> <span class="n">plotTree</span><span class="o">.</span><span class="n">yOff</span><span class="p">),</span> <span class="n">cntrPt</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">plotTree</span><span class="o">.</span><span class="n">yOff</span> <span class="o">=</span> <span class="n">plotTree</span><span class="o">.</span><span class="n">yOff</span> <span class="o">+</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">plotTree</span><span class="o">.</span><span class="n">totalD</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#创建决策树图形    </span>
+</span><span class='line'><span class="k">def</span> <span class="nf">createPlot</span><span class="p">(</span><span class="n">inTree</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">axprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
+</span><span class='line'>    <span class="n">createPlot</span><span class="o">.</span><span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="o">**</span><span class="n">axprops</span><span class="p">)</span>    <span class="c">#no ticks</span>
+</span><span class='line'>    <span class="c">#createPlot.ax1 = plt.subplot(111, frameon=False) #ticks for demo puropses </span>
+</span><span class='line'>    <span class="n">plotTree</span><span class="o">.</span><span class="n">totalW</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">getNumLeafs</span><span class="p">(</span><span class="n">inTree</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">plotTree</span><span class="o">.</span><span class="n">totalD</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">getTreeDepth</span><span class="p">(</span><span class="n">inTree</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">plotTree</span><span class="o">.</span><span class="n">xOff</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">/</span><span class="n">plotTree</span><span class="o">.</span><span class="n">totalW</span><span class="p">;</span> <span class="n">plotTree</span><span class="o">.</span><span class="n">yOff</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">plotTree</span><span class="p">(</span><span class="n">inTree</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>测试程序</h3>
+
+<figure class='code'><figcaption><span>trees_test.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># exec(open(&#39;trees_test.py&#39;).read())</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">trees</span>
+</span><span class='line'><span class="n">fr</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;lenses.txt&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">lenses</span> <span class="o">=</span> <span class="p">[</span> <span class="n">inst</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">fr</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+</span><span class='line'><span class="n">lensesLabels</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;age&#39;</span><span class="p">,</span><span class="s">&#39;prescript&#39;</span><span class="p">,</span><span class="s">&#39;astigmatic&#39;</span><span class="p">,</span><span class="s">&#39;terRate&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="n">lensesTree</span> <span class="o">=</span> <span class="n">trees</span><span class="o">.</span><span class="n">createTree</span><span class="p">(</span><span class="n">lenses</span><span class="p">,</span><span class="n">lensesLabels</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="n">lensesTree</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">trees</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">lensesTree</span><span class="p">,[</span><span class="s">&#39;age&#39;</span><span class="p">,</span><span class="s">&#39;prescript&#39;</span><span class="p">,</span><span class="s">&#39;astigmatic&#39;</span><span class="p">,</span><span class="s">&#39;terRate&#39;</span><span class="p">],</span>
+</span><span class='line'>    <span class="p">[</span><span class="s">&#39;presbyopic&#39;</span><span class="p">,</span><span class="s">&#39;hyper&#39;</span><span class="p">,</span><span class="s">&#39;no&#39;</span><span class="p">,</span><span class="s">&#39;reduced&#39;</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">trees</span><span class="o">.</span><span class="n">createPlot</span><span class="p">(</span><span class="n">lensesTree</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>数据文件</h3>
+
+<ul>
+<li>UCI数据集（<a href="http://archive.ics.uci.edu/ml/datasets/Lenses">隐形眼镜</a>）</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>lenses.txt </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">young</span>    <span class="n">myope</span>   <span class="n">no</span>   <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">young</span>  <span class="n">myope</span>    <span class="n">no</span>   <span class="n">normal</span>   <span class="n">soft</span>
+</span><span class='line'><span class="n">young</span>  <span class="n">myope</span>    <span class="n">yes</span>  <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">young</span>  <span class="n">myope</span>    <span class="n">yes</span>  <span class="n">normal</span>   <span class="n">hard</span>
+</span><span class='line'><span class="n">young</span>  <span class="n">hyper</span>    <span class="n">no</span>   <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">young</span>  <span class="n">hyper</span>    <span class="n">no</span>   <span class="n">normal</span>   <span class="n">soft</span>
+</span><span class='line'><span class="n">young</span>  <span class="n">hyper</span>    <span class="n">yes</span>  <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">young</span>  <span class="n">hyper</span>   <span class="n">yes</span>   <span class="n">normal</span>   <span class="n">hard</span>
+</span><span class='line'><span class="n">pre</span>    <span class="n">myope</span>    <span class="n">no</span>   <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">pre</span>    <span class="n">myope</span>    <span class="n">no</span>   <span class="n">normal</span>   <span class="n">soft</span>
+</span><span class='line'><span class="n">pre</span>    <span class="n">myope</span>    <span class="n">yes</span>  <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">pre</span>    <span class="n">myope</span>    <span class="n">yes</span>  <span class="n">normal</span>   <span class="n">hard</span>
+</span><span class='line'><span class="n">pre</span>    <span class="n">hyper</span>    <span class="n">no</span>   <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">pre</span>    <span class="n">hyper</span>    <span class="n">no</span>   <span class="n">normal</span>   <span class="n">soft</span>
+</span><span class='line'><span class="n">pre</span>    <span class="n">hyper</span>    <span class="n">yes</span>  <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">pre</span>    <span class="n">hyper</span>    <span class="n">yes</span>  <span class="n">normal</span>   <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">presbyopic</span> <span class="n">myope</span>    <span class="n">no</span>   <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">presbyopic</span> <span class="n">myope</span>    <span class="n">no</span>   <span class="n">normal</span>   <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">presbyopic</span> <span class="n">myope</span>    <span class="n">yes</span>  <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">presbyopic</span> <span class="n">myope</span>    <span class="n">yes</span>  <span class="n">normal</span>   <span class="n">hard</span>
+</span><span class='line'><span class="n">presbyopic</span> <span class="n">hyper</span>    <span class="n">no</span>   <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">presbyopic</span> <span class="n">hyper</span>    <span class="n">no</span>   <span class="n">normal</span>   <span class="n">soft</span>
+</span><span class='line'><span class="n">presbyopic</span> <span class="n">hyper</span>    <span class="n">yes</span>  <span class="n">reduced</span>  <span class="n">no_lenses</span>
+</span><span class='line'><span class="n">presbyopic</span> <span class="n">hyper</span>    <span class="n">yes</span>  <span class="n">normal</span>   <span class="n">no_lenses</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">wuwenjie</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-10-02T18:40:00+08:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2016</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/data-mining/'>Data mining</a>, <a class='category' href='/blog/categories/maching-learning/'>Maching Learning</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/ji-qi-xue-xi/'>机器学习</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.wuwenjie.tk/blog/2016/10/02/gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/" data-via="wuwenjie1992" data-counturl="http://www.wuwenjie.tk/blog/2016/10/02/gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/09/05/gai-ji-qi-xue-xi-luo-ji-hui-gui-pythonshi-xian/" title="Previous Post: 改-机器学习-逻辑回归（Python实现）">&laquo; 改-机器学习-逻辑回归（Python实现）</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近文章 Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/10/02/gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/">改-机器学习-决策树（Python实现）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/09/05/gai-ji-qi-xue-xi-luo-ji-hui-gui-pythonshi-xian/">改-机器学习-逻辑回归（Python实现）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/08/19/yong-pythonfen-xi-bai-yin-t-plus-djie-ge-zou-shi/">用Python分析白银T+D价格走势</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/07/31/bai-xiang-raspberrypi-4-zhuang-ge-yan-jing-e/">白相Raspberrypi-4-装个眼睛哦</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/06/14/bai-xiang-raspberrypi-3-zhuang-ge-er-duo-e/">白相Raspberrypi-3-装个耳朵哦</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>friend</h1>
+  <ul id="friend">
+    <li><a href="http://tarkrul.info/">猎人笔记</a></li>
+  	<li><a href="http://lyonna.me/">lyonna</a></li>
+	<li><a href="http://lepocher.comoj.com/">lepocher</a></li>
+	<li><a href="http://agentsh.uphero.com">Jonathan</a></li>
+  </ul>
+</section>
+<section>
+  <h1>tool</h1>
+  <ul id="tool">
+	<li><a href="http://pan.baidu.com">百度云</a></li>
+  	<li><a href="http://whoer.net/extended">whoer</a></li>
+	<li><a href="http://mahua.jser.me/">MarkDown</a></li>
+	<li><a href="http://ghosertblog.github.io/mdeditor/">MDeditor</a></li>
+	<li><a href="http://bt.shousibaocai.com/">磁力搜索</a></li>
+	<li><a href="http://mengzhuo.org/regex/">正则验证</a></li>
+	<li><a href="http://tool.oschina.net/">在线工具</a></li>
+	<li><a href="http://pixlr.com/editor/">pixlr</a></li>
+	<li><a href="http://jinzhi.supfree.net/">进制转换</a></li>
+	<li><a href="http://www.virscan.org/">在线扫毒</a></li>
+	
+  	</ul>
+</section>
+<section>
+<h1>权利声明</h1>
+<p>
+<img class="center" width="180" height="63" src="/images/by-nc-sa.png" alt="署名-非商业性使用-相同方式共享 3.0 中国大陆">
+本博客除标注“[转][改]”字样的文章，均为本人原创。所有原创作品采用
+<a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/">署名-非商业性使用-相同方式共享 3.0 中国大陆</a>
+许可协议进行许可。
+</p>
+</section>
+<section>
+<h1>关于我</h1>
+<p>
+<li>无聊的人，什么都是似懂非懂</li>
+<li>使用Linux（80%),Win7/xp(20%）</li>
+<li>喜欢js、java、Shell，粗通证券、技术分析</li>
+<li>用工商银行投资AgT+D</li>
+<li>2014.4:证券经纪人:s1090414030081</li>
+<li>2014.8.11:CMBCC</li>
+<li><a href="https://twitter.com/wuwenjie1992">Twitter</a></li>
+<li><a href="https://github.com/wuwenjie1992">Github</a></li>
+<li><a href="/GnuPG">GnuPG</a></li>
+<li><a href="http://wuhuinxin.tk">Other Website</a></li>
+</p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/wuwenjie1992">@wuwenjie1992</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'wuwenjie1992',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70">
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"wuwenjie"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright <a href="/18" style="text-decoration: none;">⑱</a> 2017 - wuwenjie -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
