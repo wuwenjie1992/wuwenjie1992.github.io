@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>原油指数抓取+android浮动窗口Service | 吴文洁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.原油指数抓取 1.0 背景  ICBC工商银行推出的账户原油，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原油指数抓取+android浮动窗口Service">
+<meta property="og:url" content="http:&#x2F;&#x2F;wuwenjie.tk&#x2F;2013&#x2F;05&#x2F;05&#x2F;2013-05-05-Crude-oil-index-grep-android-floating-window-Service&#x2F;index.html">
+<meta property="og:site_name" content="吴文洁">
+<meta property="og:description" content="1.原油指数抓取 1.0 背景  ICBC工商银行推出的账户原油，">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http:&#x2F;&#x2F;i.troll.ws&#x2F;c914df5d.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;i.troll.ws&#x2F;ab5bef34.png">
+<meta property="og:updated_time" content="2013-06-01T13:04:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;i.troll.ws&#x2F;c914df5d.png">
+  
+    <link rel="alternate" href="/atom.xml" title="吴文洁" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">吴文洁</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Garden of Eden 自由 平等 尊重</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wuwenjie.tk"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2013-05-05-Crude-oil-index-grep-android-floating-window-Service" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/05/05/2013-05-05-Crude-oil-index-grep-android-floating-window-Service/" class="article-date">
+  <time datetime="2013-05-05T02:02:00.000Z" itemprop="datePublished">2013-05-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>►<a class="article-category-link" href="/categories/android/awk/">awk</a>►<a class="article-category-link" href="/categories/android/awk/Finance/">Finance</a>►<a class="article-category-link" href="/categories/android/awk/Finance/grep/">grep</a>►<a class="article-category-link" href="/categories/android/awk/Finance/grep/shell/">shell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      原油指数抓取+android浮动窗口Service
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1>1.原油指数抓取</h1>
+1.0 背景
+
+<p>ICBC工商银行推出的<a title="账户原油" href="http://www.icbc.com.cn/ICBC/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E4%BA%A7%E5%93%81%E6%9C%8D%E5%8A%A1/%E6%8A%95%E8%B5%84%E4%BA%A4%E6%98%93%E7%B1%BB%E4%BA%A7%E5%93%81/%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9/default.htm" target="_blank">账户原油</a>，</p>
+<a id="more"></a>
+<p>以人民币交易是按照</p>
+<p><span id="MyFreeTemplateUserControl"><a title="NYMEX" href="http://zh.wikipedia.org/wiki/%E7%B4%90%E7%B4%84%E5%95%86%E5%93%81%E6%9C%9F%E8%B2%A8%E4%BA%A4%E6%98%93%E6%89%80" target="_blank">纽约商业交易所</a>（NYMEX）</span></p>
+<p><span id="MyFreeTemplateUserControl"><a title="西得克萨斯中间基原油" href="http://zh.wikipedia.org/wiki/%E8%A5%BF%E5%BE%97%E5%85%8B%E8%90%A8%E6%96%AF%E4%B8%AD%E9%97%B4%E5%9F%BA%E5%8E%9F%E6%B2%B9" target="_blank">西德克萨斯轻质低硫原油</a>期货合约（WTI）价格报价，</span></p>
+<p><span id="MyFreeTemplateUserControl">以及账户国际原油参考洲际交易所（ICE）</span></p>
+<p><span id="MyFreeTemplateUserControl"><a title="搜索/北海布伦特原油" href="http://zh.wikipedia.org/wiki/Special:%E6%90%9C%E7%B4%A2/%E5%8C%97%E6%B5%B7%E5%B8%83%E4%BC%A6%E7%89%B9%E5%8E%9F%E6%B2%B9" target="_blank">布伦特原油</a>期货合约（Brent）价格报价</span></p>
+<p><span id="MyFreeTemplateUserControl">和综合考虑人民币与美元汇率报价的。</span></p>
+<p>1.1 SHELL实现</p>
+<p>&nbsp;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 抓取 wap.eastmoney.com 原油指数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#最新价</span></span><br><span class="line">latestprice=<span class="string">""</span>;</span><br><span class="line"><span class="comment">#涨跌值</span></span><br><span class="line">Pricevalue=<span class="string">""</span>;</span><br><span class="line"><span class="comment">#涨跌幅</span></span><br><span class="line">risingAndfalling=<span class="string">""</span>;</span><br><span class="line"><span class="comment">#今开盘</span></span><br><span class="line">openingQuotation=<span class="string">""</span>;</span><br><span class="line"><span class="comment">#最高价</span></span><br><span class="line">ceilingprice=<span class="string">""</span>;</span><br><span class="line"><span class="comment">#最低价</span></span><br><span class="line">bottomprice=<span class="string">""</span>;</span><br><span class="line"><span class="comment">#昨收盘</span></span><br><span class="line">closingQuotation=<span class="string">""</span>;</span><br><span class="line"><span class="comment">#交易时间</span></span><br><span class="line">exchangehour=<span class="string">""</span>;</span><br><span class="line"><span class="comment"># 分时图URL</span></span><br><span class="line">timeLine=<span class="string">""</span>;</span><br><span class="line"><span class="comment"># K线图</span></span><br><span class="line">KChart=<span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#获得html</span></span><br><span class="line">wget -O conc.html -q --user-agent=<span class="string">"Mobile Safari/534.30"</span> --no-cookies \</span><br><span class="line">--referer=<span class="string">"http://wap.eastmoney.com/Futures.aspx"</span> \</span><br><span class="line">http://wap.eastmoney.com/FuturesInfo.aspx?c=CONC</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最新价：.&#123;7&#125;(.&#123;4,5&#125;)</span></span><br><span class="line">latestprice=<span class="string">"`grep -o '最新价：.\&#123;7\&#125;\(.\&#123;4,5\&#125;\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"</span><span class="string">")'`"</span></span><br><span class="line"><span class="comment">#gsub(r,s,t) 在字符串t中，用s替换和正则r匹配所有字符串 返回替换的个数。如果没有给出t，缺省为$0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 涨跌值：.&#123;45&#125;(.&#123;3,5&#125;[0-9])</span></span><br><span class="line">Pricevalue=<span class="string">"`grep -o '涨跌值：.\&#123;45\&#125;\(.\&#123;3,5\&#125;[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"</span><span class="string">")'`"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 涨跌幅：.&#123;45&#125;(.&#123;4,5&#125;%)</span></span><br><span class="line">risingAndfalling=<span class="string">"`grep -o '涨跌幅：.\&#123;45\&#125;\(.\&#123;4,5\&#125;%\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"</span><span class="string">")'`"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 今开盘：.&#123;7&#125;(.&#123;3,5&#125;[0-9])</span></span><br><span class="line">openingQuotation=<span class="string">"`grep -o '今开盘：.\&#123;7\&#125;\(.\&#123;3,5\&#125;[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"</span><span class="string">")'`"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最高价：.&#123;7&#125;(.&#123;4,5&#125;[0-9])</span></span><br><span class="line">ceilingprice=<span class="string">"`grep -o '最高价：.\&#123;7\&#125;\(.\&#123;4,5\&#125;[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"</span><span class="string">")'`"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最低价：.&#123;7&#125;(.&#123;4,5&#125;[0-9])</span></span><br><span class="line">bottomprice=<span class="string">"`grep -o '最低价：.\&#123;7\&#125;\(.\&#123;4,5\&#125;[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"</span><span class="string">")'`"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 昨收盘：.&#123;7&#125;(.&#123;4,5&#125;[0-9])</span></span><br><span class="line">closingQuotation=<span class="string">"`grep -o '昨收盘：.\&#123;7\&#125;\(.\&#123;4,5\&#125;[0-9]\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"</span><span class="string">")'`"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 交易时间：.&#123;7&#125;(.&#123;19&#125;)</span></span><br><span class="line">exchangehour=<span class="string">"`grep -o '交易时间：.\&#123;7\&#125;\(.\&#123;19\&#125;\)' conc.html | awk 'gsub(/&amp;lt;[^&amp;gt;]*&amp;gt;/,"</span><span class="string">")'`"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分时图.*(ht.*)K</span></span><br><span class="line">timeLine=<span class="string">"`grep -o '分时图.*\(ht.*\)K' conc.html|\</span></span><br><span class="line"><span class="string">grep -o '\(http.*0\)'|awk 'gsub(/amp;/,"</span><span class="string">")'`"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获得分时图</span></span><br><span class="line">wget -O timeline.png -q --user-agent=<span class="string">"Mobile Safari/534.30"</span> --no-cookies \</span><br><span class="line">--referer=<span class="string">"http://wap.eastmoney.com/Futures.aspx"</span> <span class="variable">$timeLine</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获得k线图 K线图.*(ht.*C0)</span></span><br><span class="line">KChart=<span class="string">"`grep -o 'K线图.*\(ht.*C0\)' conc.html|\</span></span><br><span class="line"><span class="string">grep -o '\(http.*0\)'|awk 'gsub(/amp;/,"</span><span class="string">")'`"</span>;</span><br><span class="line"></span><br><span class="line">wget -O KChart.png -q --user-agent=<span class="string">"Mobile Safari/534.30"</span> --no-cookies \</span><br><span class="line">--referer=<span class="string">"http://wap.eastmoney.com/Futures.aspx"</span> <span class="variable">$KChart</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$latestprice</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$Pricevalue</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$risingAndfalling</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$openingQuotation</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$ceilingprice</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$bottomprice</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$closingQuotation</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$exchangehour</span></span><br><span class="line"><span class="comment">#echo $timeLine</span></span><br><span class="line"><span class="comment">#echo $KChart</span></span><br><span class="line"></span><br><span class="line">tPicPath=<span class="string">"`pwd`"</span><span class="string">"/timeline.png"</span>;</span><br><span class="line">KPicPath=<span class="string">"`pwd`"</span><span class="string">"/KChart.png"</span>;</span><br><span class="line"></span><br><span class="line">notify-send -t 20000 -i <span class="variable">$tPicPath</span>  <span class="string">"<span class="variable">$latestprice</span> <span class="variable">$Pricevalue</span>"</span> <span class="string">" <span class="variable">$risingAndfalling</span> <span class="variable">$openingQuotation</span> \</span></span><br><span class="line"><span class="string"><span class="variable">$ceilingpric</span> <span class="variable">$bottomprice</span> <span class="variable">$closingQuotation</span> <span class="variable">$exchangehour</span>"</span></span><br></pre></td></tr></table></figure>
+<p>注：grep 的正则表达式也许不准(在网页的改变下）</p>
+<p>1.2 效果</p>
+<img alt="效果" src="http://i.troll.ws/c914df5d.png" width="499" height="103" />
+
+<p>more:<br><a href="http://www.icbc.com.cn/ICBC/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E4%BA%A7%E5%93%81%E6%9C%8D%E5%8A%A1/%E6%8A%95%E8%B5%84%E4%BA%A4%E6%98%93%E7%B1%BB%E4%BA%A7%E5%93%81/%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9/default.htm" target="_blank">账户原油</a><br><a href="http://www.icbc.com.cn/icbc/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E4%B8%93%E5%8C%BA/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA%E5%AD%A6%E8%8B%91/%E7%83%AD%E7%82%B9%E9%97%AE%E7%AD%94/%E4%B8%AD%E5%9B%BD%E5%B7%A5%E5%95%86%E9%93%B6%E8%A1%8C%E8%B4%A6%E6%88%B7%E5%8E%9F%E6%B2%B9%E4%B8%9A%E5%8A%A1%E7%9F%A5%E8%AF%86%E9%97%AE%E7%AD%941.htm" target="_blank">中国工商银行账户原油业务知识问答</a><br><strong>2.android浮动窗口Service</strong></p>
+<p><a title="FloatView.java" href="https://github.com/wuwenjie1992/Xhullo/blob/master/src/wo/wocom/xwell/view/FloatView.java" target="_blank">FloatView.java</a></p>
+<p><a title="SV_FloateViewService" href="https://github.com/wuwenjie1992/Xhullo/blob/master/src/wo/wocom/xwell/service/SV_FloateViewService.java" target="_blank">SV_FloateViewService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ComponentName component = <span class="keyword">new</span> ComponentName</span><br><span class="line">(this,wo.wocom.xwell.service.SV_FloateViewService.class);&lt;/code&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 组件名称，intent会根据component</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// name启动一个组件（activity,service,contentProvider）</span></span><br><span class="line"></span><br><span class="line">Intent mIntent01 = <span class="keyword">new</span> Intent();</span><br><span class="line"></span><br><span class="line">mIntent01.setComponent(component);</span><br><span class="line"></span><br><span class="line">startService(mIntent01);</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<img alt="浮动窗口" src="http://i.troll.ws/ab5bef34.png" width="320" height="480" />
+
+<p>注：该版除屏幕外其他按键不能工作，</p>
+<p>原因LayoutParams相关参数的设置（可能导致）</p>
+<p>LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH</p>
+<h2 id="nbsp"><a href="#nbsp" class="headerlink" title="&nbsp;"></a>&nbsp;</h2><p>更新：</p>
+<p>添加WindowManager.LayoutParams.flags的设置LayoutParams.FLAG_NOT_FOCUSABLE</p>
+<p>//FLAG_NOT_FOCUSABLE Constant Value: 8 (0x00000008)不聚焦 可使实体按键反应//Window flag: this window won’t ever get key input focus,<br>//so the user can not send key or other button events to it.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2013/05/05/2013-05-05-Crude-oil-index-grep-android-floating-window-Service/" data-id="ck1v8f1pl002uavmm9dpidum5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/05/31/2013-05-31-shi-yong-octopressliao/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用octopress了
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/04/19/2013-04-19-at-Qingming-Festival-mourn-grandfather/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">清明悼祖父</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/">Data mining</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/Machine-Learning/">Machine Learning</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/Machine-Learning/NLP/">NLP</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/Machine-Learning/NLP/java/">java</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/R/">R</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/R/Kmeans/">Kmeans</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/SAS/">SAS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/deep-learning/">deep-learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/dig-data/">dig data</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/dig-data/hadoop/">hadoop</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/dig-data/hadoop/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/dig-data/hadoop/java/%E4%B8%89%E5%9B%BD/">三国</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Get-Linux/">Get Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mozilla/">Mozilla</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Mozilla/Netscape/">Netscape</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/PulseAudio/">PulseAudio</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Stock/">Stock</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Stock/share/">share</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Stock/share/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">技术分析</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Stock/share/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/%E6%8C%87%E6%A0%87/">指标</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/awk/">awk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/awk/Finance/">Finance</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/awk/Finance/grep/">grep</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/awk/Finance/grep/shell/">shell</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/java/JNI/">JNI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/java/JNI/c/">c</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/%E5%8F%A4%E6%96%87/">古文</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/%E5%8F%A4%E6%96%87/java/">java</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/bbpress/">bbpress</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bbpress/shell/">shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/c/GStreamer/">GStreamer</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/grub/">grub</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/grub/error/">error</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/grub/error/df/">df</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/grub/error/df/fdisk/">fdisk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/grub/error/df/fdisk/blkid/">blkid</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/html5/">html5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/html5/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/html5/js/github/">github</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/html5/js/github/job/">job</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JNI/">JNI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JNI/c/">c</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JNI/c/GStreamer/">GStreamer</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/android/">android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/android/shell/">shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E8%AE%BA%E6%96%87/">论文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%EF%BC%8CJTextArea%EF%BC%8CJScrollpane/">java，JTextArea，JScrollpane</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/libX11-so-6/">libX11.so.6</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/libX11-so-6/sudo-apt-get-f-install/">sudo apt-get -f install</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/libX11-so-6/sudo-apt-get-f-install/%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E5%85%B1%E4%BA%AB%E5%AF%B9%E8%B1%A1%E6%96%87%E4%BB%B6/">无法打开共享对象文件</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/life/festival/">festival</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/game/">game</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/unix/">unix</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux%EF%BC%8Cjava%EF%BC%8Ctiled/">linux，java，tiled</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/java/nodejs/">nodejs</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/java/nodejs/shell/">shell</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/nasm/">nasm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/nasm/virtualbox/">virtualbox</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/nasm/virtualbox/%E8%BD%AC%EF%BC%8C%E6%94%B9%EF%BC%8Capt-get/">转，改，apt-get</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/php/">php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/">octopress</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/%E5%8E%9F%E6%B2%B9/">原油</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/%E5%8E%9F%E6%B2%B9/K%E7%BA%BF/">K线</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/">Data mining</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">技术分析</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/%E6%8A%95%E8%B5%84/">投资</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/%E6%8A%95%E8%B5%84/%E7%99%BD%E9%93%B6/">白银</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/%E6%8A%95%E8%B5%84/%E7%99%BD%E9%93%B6/%E6%8C%87%E6%A0%87/">指标</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Maching-Learning/">Maching Learning</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/">raspberrypi</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/">hardware</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/GPIO/">GPIO</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/GPIO/python/">python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/openCV/">openCV</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/openCV/python/">python</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/">shell</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/">gnuplot</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/">sudo apt-get install</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/cut/">cut</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/cut/awk/">awk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/cut/awk/c/">c</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/cut/awk/c/fread/">fread</a></li></ul></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/">terminal</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/Stock/">Stock</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/Stock/share/">share</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/Stock/share/K%E7%BA%BF/">K线</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/Stock/share/K%E7%BA%BF/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">技术分析</a></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell%EF%BC%8Cbash%EF%BC%8Ciconv%EF%BC%8Cawk/">shell，bash，iconv，awk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell%EF%BC%8Cbash%EF%BC%8Ciconv%EF%BC%8Cawk/read/">read</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell%EF%BC%8Cmplayer%EF%BC%8Cmencoder/">shell，mplayer，mencoder</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/java/WTK/">WTK</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/java/WTK/jdk/">jdk</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/webproxy/">webproxy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/website/">website</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xfce%EF%BC%8Cerror/">xfce，error</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%8A%E6%B5%B7%E5%B8%82%E7%AB%8B%E5%9B%BE%E4%B9%A6%E9%A6%86/">上海市立图书馆</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%8A%E6%B5%B7%E5%B8%82%E7%AB%8B%E5%9B%BE%E4%B9%A6%E9%A6%86/history/">history</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%8A%E6%B5%B7%E5%B8%82%E7%AB%8B%E5%9B%BE%E4%B9%A6%E9%A6%86/history/%E8%AF%97/">诗</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BC%A0/">传</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BC%A0/%E8%AF%97/">诗</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%BD%E5%AD%A6/">国学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%BD%E5%AD%A6/%E8%80%81%E5%AD%90/">老子</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E4%B8%8B/">富士山下</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E6%83%85/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%95%E8%B5%84/">投资</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%95%E8%B5%84/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">技术分析</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%95%E8%B5%84/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/K%E7%BA%BF/">K线</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%95%E8%B5%84/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/K%E7%BA%BF/%E7%99%BD%E9%93%B6/">白银</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AC%E7%AB%99/">本站</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%97/">诗</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%97/%E5%BF%83%E6%83%85/">心情</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/">转</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/linux/">linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/linux/dia/">dia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/mysql/">mysql</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/mysql/cmd/">cmd</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%BF%E9%87%8C/">阿里</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%BF%E9%87%8C/%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D/">互联网金融</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">二月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">十月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">七月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">四月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/">八月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">十一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">十月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">九月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">八月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">六月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/02/2017-02-02-gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/">改-机器学习-决策树（Python实现）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/02/2017-03-19-line/">改-机器学习-决策树（Python实现）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2017-01-05-gai-ji-qi-xue-xi-luo-ji-hui-gui-pythonshi-xian/">改-机器学习-逻辑回归（Python实现）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/2016-11-19-yong-pythonfen-xi-bai-yin-t-plus-djie-ge-zou-shi/">用Python分析白银T+D价格走势</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/31/2016-10-07-bai-xiang-raspberrypi-4-zhuang-ge-yan-jing-e/">白相Raspberrypi-4-装个眼睛哦</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 wuwenjie<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

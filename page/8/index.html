@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>吴文洁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Garden of Eden 自由 平等 尊重">
+<meta property="og:type" content="website">
+<meta property="og:title" content="吴文洁">
+<meta property="og:url" content="http:&#x2F;&#x2F;wuwenjie.tk&#x2F;page&#x2F;8&#x2F;index.html">
+<meta property="og:site_name" content="吴文洁">
+<meta property="og:description" content="Garden of Eden 自由 平等 尊重">
+<meta property="og:locale" content="zh-cn">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="吴文洁" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">吴文洁</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Garden of Eden 自由 平等 尊重</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wuwenjie.tk"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2012-01-13-pulseaudio-%e8%b7%a8%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/01/13/2012-01-13-pulseaudio-%E8%B7%A8%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" class="article-date">
+  <time datetime="2012-01-12T20:23:00.000Z" itemprop="datePublished">2012-01-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PulseAudio/">PulseAudio</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/01/13/2012-01-13-pulseaudio-%E8%B7%A8%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">PulseAudio 跨网络应用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1>屋里有一台计算机是专门用来做报告的，为它配备了一台投影仪。在作报告的时候，有时想播放一些音频文件，但是这台计算机没有扬声器。为了便于问题的描述，可以将这台计算机称为“<strong>哑巴机</strong>”。除了这台哑巴机之外，其他的计算机都内置了音效挺好的扬声器，相应的，我们管这些带扬声器的机器称为“<strong>有声机</strong>”。由于我们比较缺钱，所以不想为哑巴机再配备一个外部音箱，只想找个办法使得哑巴机可以通过有声机的扬声器播放音频。使用 PulseAudio 可以很简单的解决这个问题。</h1>
+<div id="article_body">
+<div id="article_content">
+<h2>将有声机作为服务器</h2>
+打开 /etc/pulse/default.pa 文件，增加以下内容：
+<pre>load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1;192.168.0.0/24 auth-anonymous=1</pre>
+<code>192.168.0.0</code> 这个 IP 起始地址可根据具体的网络环境进行修改。
+
+<p>然后重启 pulseaudio 服务：</p>
+<pre>$ pulseaudio --kill
+$ pulseaudio --start</pre>
+<h2>将哑巴机作为客户端</h2>
+在哑巴机上，只需将有声机的 IP 地址设为服务器地址，然后开启音频程序（这个音频程序支持 PulseAudio）即可，例如：
+<pre>$ export PULSE_SERVER=192.168.0.7
+$ rhythmbox foo.mp3</pre>
+如果想将某个有声机设为哑巴机的默认服务器，可以修改哑巴机上的 /etc/pulse/client.pa 文件，增加以下内容：
+<pre>default-server = 192.168.0.7</pre>
+然后执行以下命令刷新一下 PulseAudio 服务器地址：
+<pre>$ pax11publish -e -r</pre>
+这样每次在哑巴机上打开音频程序之前就不需要显式设定服务器地址变量 <code>PULSE_SERVER</code> 了。
+<h2>让 X Window 网络透明也具备音频传送能力</h2>
+在上文内容的基础上，我们可以在有声机上通过 X Window 的 X Serve 端访问哑巴机（其 IP 地址假设是 <code>192.168.0.22</code>）上的 X Client 端，命令如下：
+<pre>$ xhost +
+$ ssh -X mute@192.168.0.22
+$ rhythmbox foo.mp3</pre>
+这样，就可以让哑巴机上的 rhythmbox 利用本地机的扬声器放出音频。
+
+</div>
+转载时，希望不要链接文中图片，另外请保留本文原始出处：
+
+<p><a href="http://garfileo.is-programmer.com/" target="_blank" rel="noopener">http://garfileo.is-programmer.com</a></p>
+</div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2012/01/13/2012-01-13-pulseaudio-%E8%B7%A8%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" data-id="ck1v8f1qf004navmmf1986ney" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2012-01-11-%e5%af%8c%e5%a3%ab%e5%b1%b1%e4%b8%8b-%ef%bc%88%e5%a4%a9%e5%a4%a9%e5%9c%a8%e5%ae%b6%ef%bc%8c%e6%97%a0%e8%81%8a%e5%95%8a%ef%bc%89" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/01/11/2012-01-11-%E5%AF%8C%E5%A3%AB%E5%B1%B1%E4%B8%8B-%EF%BC%88%E5%A4%A9%E5%A4%A9%E5%9C%A8%E5%AE%B6%EF%BC%8C%E6%97%A0%E8%81%8A%E5%95%8A%EF%BC%89/" class="article-date">
+  <time datetime="2012-01-11T07:10:00.000Z" itemprop="datePublished">2012-01-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E4%B8%8B/">富士山下</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/01/11/2012-01-11-%E5%AF%8C%E5%A3%AB%E5%B1%B1%E4%B8%8B-%EF%BC%88%E5%A4%A9%E5%A4%A9%E5%9C%A8%E5%AE%B6%EF%BC%8C%E6%97%A0%E8%81%8A%E5%95%8A%EF%BC%89/">富士山下                         （天天在家，无聊啊）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>拦路雨偏似雪花</p>
+<p>饮泣的你冻吗</p>
+<p>这风褛我给你磨到有襟花</p>
+<p>连掉了迹也不怕</p>
+<p>怎么始终牵挂</p>
+<p>苦心选中今天想车你回家</p>
+<p>原谅我不再送花</p>
+<p>伤口应要结疤</p>
+<p>花瓣铺满心里坟场才害怕</p>
+<p>如若你非我不嫁</p>
+<p>彼此终必火化</p>
+<p>一生一世等一天需要代价</p>
+<p>谁都只得那双手</p>
+<p>靠拥抱亦难任你拥有</p>
+<p>要拥有必先懂失去怎接受</p>
+<p>曾沿着雪路浪游</p>
+<p>为何为好事泪流</p>
+<p>谁能凭爱意要富士山私有</p>
+<p>何不把悲哀感觉</p>
+<p>假设是来自你虚构</p>
+<p>试管里找不到它染污眼眸</p>
+<p>前尘硬化像石头</p>
+<p>随缘地抛下便逃走</p>
+<p>我绝不罕有</p>
+<p>往街里绕过一周</p>
+<p>我便化乌有</p>
+<p>情人节不要说穿</p>
+<p>只敢抚你发端</p>
+<p>这种姿态可会令你更心酸</p>
+<p>留在汽车里取暖</p>
+<p>应该怎么规劝</p>
+<p>怎么可以将手腕忍痛划损</p>
+<p>人活到几岁算短</p>
+<p>失恋只有更短</p>
+<p>归家需要几里路谁能预算</p>
+<p>忘掉我跟你恩怨</p>
+<p>樱花开了几转</p>
+<p>东京之旅一早比一世遥远</p>
+<p>谁都只得那双手</p>
+<p>靠拥抱亦难任你拥有</p>
+<p>要拥有必先懂失去怎接受</p>
+<p>曾沿着雪路浪游</p>
+<p>为何为好事泪流</p>
+<p>谁能凭爱意要富士山私有</p>
+<p>何不把悲哀感觉</p>
+<p>假设是来自你虚构</p>
+<p>试管里找不到它染污眼眸</p>
+<p>前尘硬化像石头</p>
+<p>随缘地抛下便逃走</p>
+<p>我绝不罕有</p>
+<p>往街里绕过一周</p>
+<p>我便化乌有</p>
+<p>谁都只得那双手</p>
+<p>靠拥抱亦难任你拥有</p>
+<p>要拥有必先懂失去怎接受</p>
+<p>曾沿着雪路浪游</p>
+<p>为何为好事泪流</p>
+<p>谁能凭爱意要富士山私有</p>
+<p>何不把悲哀感觉</p>
+<p>假设是来自你虚构</p>
+<p>试管里找不到它染污眼眸</p>
+<p>前尘硬化像石头</p>
+<p>随缘地抛下便逃走</p>
+<p>我绝不罕有</p>
+<p>往街里绕过一周</p>
+<p>我便化乌有</p>
+<p>你还嫌不够</p>
+<p>我把这陈年风褛</p>
+<p>送赠你解咒</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2012/01/11/2012-01-11-%E5%AF%8C%E5%A3%AB%E5%B1%B1%E4%B8%8B-%EF%BC%88%E5%A4%A9%E5%A4%A9%E5%9C%A8%E5%AE%B6%EF%BC%8C%E6%97%A0%E8%81%8A%E5%95%8A%EF%BC%89/" data-id="ck1v8f1qd004havmmcaguhk3y" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2012-01-06-get-linux-0-1%e5%8f%91%e5%b8%83-%e5%b8%ae%e5%8a%a9windows%e7%94%a8%e6%88%b7%e8%ae%a4%e8%af%86linux" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/01/06/2012-01-06-get-linux-0-1%E5%8F%91%E5%B8%83-%E5%B8%AE%E5%8A%A9windows%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%86linux/" class="article-date">
+  <time datetime="2012-01-05T22:46:00.000Z" itemprop="datePublished">2012-01-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Get-Linux/">Get Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/01/06/2012-01-06-get-linux-0-1%E5%8F%91%E5%B8%83-%E5%B8%AE%E5%8A%A9windows%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%86linux/">Get Linux 0.1发布 帮助Windows用户认识Linux</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a title="http://www.downloadcrew.com/article/26552-get_linux" href="http://www.downloadcrew.com/article/26552-get_linux" target="_blank">Get Linux</a>是一个小型的Windows工具，它可以帮助用户找出多达100种Linux发行版的下载和安装方法，使用非常简单，只需要在列表中找到自己中意的版本然后选择32还是64位就可以开始下载了，同时这款软件还会提供不同Linux的图像和视频，帮助用户转移到Linux平台。</p>
+<h1 id="articleTitle"><a title="download" href="http://sourceforge.net/projects/getlinux/files/Get%20Linux.zip/download" target="_blank">Get Linux 0.1</a></h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2012/01/06/2012-01-06-get-linux-0-1%E5%8F%91%E5%B8%83-%E5%B8%AE%E5%8A%A9windows%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%86linux/" data-id="ck1v8f1ou001eavmm9gaa65cp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2012-01-02-%e6%96%b0%e5%b9%b4%e5%a5%bd-ubuntu%e6%b2%a1%e5%a3%b0%e9%9f%b3%e7%9a%84%e8%a7%a3%e5%86%b3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2012/01/02/2012-01-02-%E6%96%B0%E5%B9%B4%E5%A5%BD-ubuntu%E6%B2%A1%E5%A3%B0%E9%9F%B3%E7%9A%84%E8%A7%A3%E5%86%B3/" class="article-date">
+  <time datetime="2012-01-01T19:44:00.000Z" itemprop="datePublished">2012-01-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/01/02/2012-01-02-%E6%96%B0%E5%B9%B4%E5%A5%BD-ubuntu%E6%B2%A1%E5%A3%B0%E9%9F%B3%E7%9A%84%E8%A7%A3%E5%86%B3/">新年好   Ubuntu没声音的解决</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>sudo chmod -R a+rwx  dev/snd</p>
+<p>//chmod: change mode 改变权限</p>
+<p>//-R, –recursive以递归方式更改所有的文件及子目录</p>
+<p>//a  :   all     所用用户, 相当于 ugo</p>
+<hr>
+<p>u     user     文件所有者<br>g     group     文件所有者所在组<br>o     others     所有其他用户</p>
+<hr>
+<p>//+ : +(加入)</p>
+<p>//rwx:读，写，执行</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2012/01/02/2012-01-02-%E6%96%B0%E5%B9%B4%E5%A5%BD-ubuntu%E6%B2%A1%E5%A3%B0%E9%9F%B3%E7%9A%84%E8%A7%A3%E5%86%B3/" data-id="ck1v8f1ot001davmm3z2i27kn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2011-12-25-%e4%b8%8b%e7%a4%bc%e6%8b%9c%e8%80%83%e8%af%95%e5%95%8a" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/25/2011-12-25-%E4%B8%8B%E7%A4%BC%E6%8B%9C%E8%80%83%E8%AF%95%E5%95%8A/" class="article-date">
+  <time datetime="2011-12-24T21:32:00.000Z" itemprop="datePublished">2011-12-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/25/2011-12-25-%E4%B8%8B%E7%A4%BC%E6%8B%9C%E8%80%83%E8%AF%95%E5%95%8A/">下礼拜考试啊</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下礼拜考试，考完。寒假想学java和保险学，不能忘了。。。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2011/12/25/2011-12-25-%E4%B8%8B%E7%A4%BC%E6%8B%9C%E8%80%83%E8%AF%95%E5%95%8A/" data-id="ck1v8f1os001aavmmgtijbvir" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2011-12-18-%e5%bc%a0%e4%bf%a1%e5%93%b2-%e9%9b%a8%e9%9c%96%e9%93%83" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/18/2011-12-18-%E5%BC%A0%E4%BF%A1%E5%93%B2-%E9%9B%A8%E9%9C%96%E9%93%83/" class="article-date">
+  <time datetime="2011-12-18T00:27:00.000Z" itemprop="datePublished">2011-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/18/2011-12-18-%E5%BC%A0%E4%BF%A1%E5%93%B2-%E9%9B%A8%E9%9C%96%E9%93%83/">张信哲 - 雨霖铃 </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人处苏州 让前事退后</p>
+<p>雨下 天空哭了这样久</p>
+<p>难再挽手 便遊荡宇宙</p>
+<p>以后 不见面更自由</p>
+<p>&nbsp;</p>
+<p>没有悲 因我太明事理</p>
+<p>没有喜 全是你福气</p>
+<p>无谓怕 谁又怕 你今晚将出嫁</p>
+<p>忘掉祝福话 更拒绝去诅咒他</p>
+<p>难永别你 这个你 有日也必成家</p>
+<p>分手时 早该想到吧 要化</p>
+<p>&nbsp;</p>
+<p>终于都不忍上机</p>
+<p>原谅我 远隔万里为回避</p>
+<p>没有喜 喜宴对谁做戏</p>
+<p>没有悲 情敌够福气</p>
+<p>无谓怕 谁又怕</p>
+<p>你今晚将出嫁 忘掉祝福话 更拒绝去诅咒他</p>
+<p>难永别你 这个你 有日也必成家</p>
+<p>分手时 早该想到吧</p>
+<p>&nbsp;</p>
+<p>多得光阴这劫匪</p>
+<p>驯服我 在记忆里没妒忌</p>
+<p>心灰飞仍属惊喜</p>
+<p>亦胜从无深爱你</p>
+<p>连夜雨 试验我的慈悲</p>
+<p>无谓怕 谁又怕 你今晚将出嫁</p>
+<p>无谓恭喜吧 更拒绝去比较他</p>
+<p>忘记代价 对你牵挂 我没这么傻瓜</p>
+<p>这一夜 酸风苦雨下</p>
+<p>连生死 亦未怕</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2011/12/18/2011-12-18-%E5%BC%A0%E4%BF%A1%E5%93%B2-%E9%9B%A8%E9%9C%96%E9%93%83/" data-id="ck1v8f1or0019avmma0qw7fr4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2011-12-18-%e6%9c%ac%e7%ab%99%e9%9d%a9%e6%96%b0%e5%88%b0wordpress-3-3-sonny" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/18/2011-12-18-%E6%9C%AC%E7%AB%99%E9%9D%A9%E6%96%B0%E5%88%B0wordpress-3-3-sonny/" class="article-date">
+  <time datetime="2011-12-17T21:50:00.000Z" itemprop="datePublished">2011-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/18/2011-12-18-%E6%9C%AC%E7%AB%99%E9%9D%A9%E6%96%B0%E5%88%B0wordpress-3-3-sonny/">本站革新到wordpress 3.3 Sonny</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>cn.wordpress.org/wordpress-3.3-zh_CN.zip</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2011/12/18/2011-12-18-%E6%9C%AC%E7%AB%99%E9%9D%A9%E6%96%B0%E5%88%B0wordpress-3-3-sonny/" data-id="ck1v8f1os001cavmm3ixt0xeq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2011-12-17-firebug" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/17/2011-12-17-firebug/" class="article-date">
+  <time datetime="2011-12-17T01:15:00.000Z" itemprop="datePublished">2011-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/17/2011-12-17-firebug/">Firebug</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&nbsp;</p>
+<div>
+
+<p>本文最初发表《程序员》杂志第三期，现将全文贴上，内容已经过编辑修饰了很多:)</p>
+<h3>什么是Firebug</h3>
+从事了数年的Web开发工作，越来越觉得现在对WEB开发有了更高的要求。要写出漂亮的HTML代码；要编写精致的CSS样式表展示每个页面模块；要调试<a href="http://www.ooso.net/index.php/archives/category/javascript/" target="_blank" rel="noopener">javascript</a>给页面增加一些更活泼的要素；要使用Ajax给用户带来更好的体验。一个优秀的WEB开发人员需要顾及更多层面，才能交出一份同样优秀的作业。为帮助广大正处于Web2.0洪流中的开发人员，在这里为大家介绍一款轻巧灵活的辅助开发工具。
+
+<p>Firebug是Firefox下的一款开发类插件，现属于<a href="http://www.ooso.net/index.php/archives/category/firefox/" target="_blank" rel="noopener">Firefox</a>的 五星级强力推荐插件之一。它集HTML查看和编辑、Javascript控制台、网络状况监视器于一体，是开发JavaScript、CSS、HTML和 Ajax的得力助手。Firebug如同一把精巧的瑞士军刀，从各个不同的角度剖析Web页面内部的细节层面，给Web开发者带来很大的便利。这是一款让 人爱不释手的插件，如果你以前没有接触过它，也许在阅读本文之后，会有一试的欲望。笔者在撰写此文的时候，正逢Firebug发布1.0正式版，这不能不 说是种巧合。</p>
+<h3>应用</h3>
+Firebug插件虽然功能强大，但是它已经和Firefox浏览器无缝地结合在一起，使用简单直观。如果你担心它会占用太多的系统资源，也可以方便地启用/关闭这个插件，甚至针对特定的站点开启这个插件。
+
+<p>在安装好插件之后，先用Firefox浏览器打开需要测试的页面，然后点击右下方的绿色按钮或使用快捷键F12唤出Firebug插件，它会将当前页面分成上下两个框架，如图1所示。</p>
+<p>图1：Firebug插件展开图示<br><img src="http://www.ooso.net/wp-content/uploads/2007/firebug1.png" alt="firebug插件展开图示" width="627" height="153" /><br>从图1中看到，Firebug有6个主要的Tab按钮，下文将主要介绍介绍这几方面的功能。</p>
+<table border="1" cellpadding="4">
+<tbody>
+<tr>
+<td>Console</td>
+<td>HTML</td>
+<td>CSS</td>
+<td>Script</td>
+<td>Dom</td>
+<td>Net</td>
+</tr>
+<tr>
+<td>控制台</td>
+<td>Html查看器</td>
+<td>Css查看器</td>
+<td>脚本条时期</td>
+<td>Dom查看器</td>
+<td>网络状况监视</td>
+</tr>
+</tbody>
+</table>
+<h3>Console 控制台</h3>
+控制台能够显示当前页面中的javascript错误以及警告，并提示出错的文件和行号，方便调试，这些错误提示比起浏览器本身提供的错误提示更加 详细且具有参考价值。而且在调试Ajax应用的时候也是特别有用，你能够在控制台里看到每一个XMLHttpRequests请求post出去的参数、 URL，http头以及回馈的内容，原本似乎在幕后黑匣子里运作的程序被清清楚楚地展示在你面前。
+
+<p>象C shell或Python shell一样，你还能在控制台中查看变量内容，直接运行javascript语句，就算是大段的javascript程序也能够正确运行并拿到运行期的信息。</p>
+<p>控制台还有个重要的作用就是查看脚本的log, 从前你也许习惯了使用alert来打印变量，但是Firebug给我们带来了一个新朋友 —— console.log, 最简单的打印日志的语法是这样的：</p>
+<pre><code>console.log("hello world")</code></pre>
+<p>如果你有一堆参数需要组合在一起输出，可以写成这样：</p>
+<pre><code>console.log(2,4,6,8,"foo",bar).</code></pre>
+<p>Firebug的日志输出有多种可选的格式以及语法，甚至可以定制彩色输出，比起单调的alert，显然更加方便，限于篇幅，这里不做详细说明，但是有志于提高debug效率的读者，可以到Firebug的官方站点（见附录）查看更详细的教程。</p>
+<p>图2： 在控制台里调试javascript<br><img src="http://www.ooso.net/wp-content/uploads/2007/firebug2.png" alt="在控制台里调试javascript" /></p>
+<h3>查看和修改HTML</h3>
+第一次看到Firebug强大的HTML代码查看器，就觉得它与众不同，相比于Firefox自带的HTML查看器，它的功能强大了许多。 HTML
+
+<p>首先你看到的是已经经过格式化的HTML代码，它有清晰的层次，你能够方便地分辨出每一个标签之间的从属并行关系，标签的折叠功能能够帮助你集中精 力分析代码。源代码上方还标记出了DOM的层次，如图3所示，它清楚地列出了一个hml元素的parent、child以及root元素，配合 Firebug自带的CSS查看器使用，会给div+css页面分析编写带来很大的好处。你还可以在HTML查看器中直接修改HTML源代码，并在浏览器 中第一时间看到修改后的效果，光凭这一点就会让许多页面设计师死心塌地地成为Firebug的粉丝了。</p>
+<p>有时候页面中的javascript会根据用户的动作如鼠标的onmouseover来动态改变一些HTML元素的样式表或背景色，HTML查看器会将页面上改变的内容也抓下来，并以黄色高亮标记，让网页的暗箱操作彻底成为历史。</p>
+<p>利用Inspect检查功能，我们还可以用鼠标在页面中直接选择一些区块，查看相应的HTML源代码和CSS样式表，真正的做到所见即所得，如果你 使用了外部编辑器修改了当前网页，可以点击Firebug的reload图片重新载入网页，它会继续跟踪你之前用Inspect选中的区块，方便调试。</p>
+<p>图3:：HTML查看器<br><img src="http://www.ooso.net/wp-content/uploads/2007/firebug3.png" alt="HTML查看器" /></p>
+<h3>CSS调试</h3>
+Firebug的CSS调试器是专为网页设计师们量身定做的。
+
+<p>如今的网页设计言必称div+css，如果你是用table套出来的HTML页面，就得按这规矩重构一遍，否则显得你不够时髦！用div做出来的页 面的确能精简HTML代码，HTML标签减肥的结果就是CSS样式表的编写成了页面制作的重头戏。Firebug的CSS查看器不仅自下向上列出每一个 CSS样式表的从属继承关系，还列出了每一个样式在哪个样式文件中定义。你可以在这个查看器中直接添加、修改、删除一些CSS样式表属性，并在当前页面中 直接看到修改后的结果。</p>
+<p>一个典型的应用就是页面中的一个区块位置显得有些不太恰当，它需要挪动几个象素。这时候用CSS调试工具可以轻易编辑它的位置——你可以根据需要随意挪动象素。<br>如图4中正在修改一个区块的背景色。</p>
+<p>提示：如果你正在学习CSS样式表的应用，但是总记不住常用的样式表有哪些值，可以尝试在CSS调试器中选中一个样式表属性，然后用上下方向键来改变它的值，它会把可能的值一个个遍历给你看。</p>
+<p>图4: CSS查看器，能够直接修改样式表<br><img src="http://www.ooso.net/wp-content/uploads/2007/firebug4.png" alt="图4: CSS查看器，能够直接修改样式表" /></p>
+<h3>可视化的CSS尺标</h3>
+我们可以利用Firebug来查看页面中某一区块的CSS样式表，如果进一步展开右侧Layout tab的话，它会以标尺的形式将当前区块占用的面积清楚地标识出来，精确到象素，更让人惊讶的是，你能够在这个可视化的界面中直接修改各象素的值，页面上 区块的位置就会随改动而变化。在页面中某些元素出现错位或者面积超出预料值时，该功能能够提供有效的帮助，你可以籍此分析offset、margin、 padding、size之间的关系，从而找出解决问题的办法。
+
+<p>图5：Firebug中的CSS标尺<br><img src="http://www.ooso.net/wp-content/uploads/2007/firebug5.png" alt="图5：Firebug中的CSS标尺" /></p>
+<h3>网络状况监视器</h3>
+也许有一天，你的老板或者客户找到你，抱怨你制作的网页速度奇慢，你该如何应对？你或许会说这可能是网络问题，或者是电脑配置问题，或者是程序太慢，或者直说是他们的人品问题？不管怎么说，最后你可能被要求去解决这个有多种可能的问题。
+
+<p>网络状况监视器能帮你解决这个棘手问题。Firebug的网络监视器同样是功能强大的，它能将页面中的CSS、javascript以及网页中引用 的图片载入所消耗的时间以矩状图呈现出来，也许在这里你能一把揪出拖慢了你的网页的元凶，进而对网页进行调优，最后老板满意客户欢喜，你的饭碗也因此而牢 固。</p>
+<p>网络监视器还有一些其它细节功能，比如预览图片，查看每一个外部文件甚至是xmlHttpRequests请求的http头等等。</p>
+<p>图6：网络状况监视器<br><img src="http://www.ooso.net/wp-content/uploads/2007/firebug6.png" alt="图6：网络状况监视器" /></p>
+<h3>Javascript调试器</h3>
+这是一个很不错的javascript脚本调试器，占用空间不大，但是单步调试、设置断点、变量查看窗口一个不少。正所谓麻雀虽小，五脏俱全。
+
+<p>如果你有一个网站已经建成，然而它的javascript有性能上的问题或者不是太完美，可以通过面板上的Profile来统计每段脚本运行的时间，查看到底是哪些语句执行时间过长，一步步排除问题。</p>
+<p>图7：javascript调试器<br><img src="http://www.ooso.net/wp-content/uploads/2007/firebug7.png" alt="图7：javascript调试器" /></p>
+<h3>DOM查看器</h3>
+DOM(Document Object Model)里头包含了大量的Object以及函数、事件，在从前，你要想从中查到需要的内容，绝非易事，这好比你去了一个巨大的图书馆，想要找到几本名 字不太确切的小书，众多的选择会让你无所适从。而使用Firebug的DOM查看器却能方便地浏览DOM的内部结构，帮助你快速定位DOM对象。双击一个 DOM对象，就能够编辑它的变量或值，编辑的同时，你可能会发现它还有自动完成功能，当你输入document.get之后，按下tab键就能补齐为 document.getElementById，非常方便。如果你认为补齐得不够理想，按下shift+tab又会恢复原状。用了Firebug的 DOM查看器，你的javascript从此找到了驱使的对象，Web开发也许就成了一件乐事。
+
+<p>图8: Dom查看器<br><img src="http://www.ooso.net/wp-content/uploads/2007/firebug8.png" alt="图8: Dom查看器" /></p>
+<h3>小结</h3>
+Firebug插件提供了一整套web开发所必需的工具。从HTML的编写，到CSS样式表的美化调优，以及用javascript脚本开发，亦或 是Ajax应用，Firebug插件都会成为你的得力助手。所谓工欲善其事，必先利其器。在Web2.0的时代，言必称Ajax，动辄就是用户体验提升， 如果把Firebug工具用好，必能让你如虎添翼，将HTML、CSS、javascript整理得服服帖帖，从此成为web开发中的专家级人物。
+<h3>附</h3>
+Firebug的中文含义是萤火虫，作者是Joe Hewitt，官方网页 http://www.getfirebug.com
+Firefox亦即火狐浏览器，是近年来撼动IE浏览器市场占有率的一支强大力量，要不是它的出现，我想有生之年说不定也看不到IE 7的发布了，官方网页 http://www.firefox.com
+
+<p>作者: <a title="Posts by Volcano" href="http://www.ooso.net/archives/author/volcano" target="_blank" rel="author noopener">Volcano</a> 发表于May 15, 2007 at 9:54 am</p>
+<p><a href="http://creativecommons.org/licenses/by/3.0/deed.zh" target="_blank">版权信息</a>: <strong>可以任意转载, 转载时请务必以超链接形式标明文章<a href="http://www.ooso.net/archives/294" target="_blank" rel="noopener">原始出处</a>和<a href="http://www.ooso.net/" target="_blank" rel="noopener">作者信息</a>及此声明</strong></p>
+<p><a title="永久链接到 初识Firebug 全文 — firebug的使用" href="http://www.ooso.net/archives/294" target="_blank" rel="bookmark noopener">永久链接 - http://www.ooso.net/archives/294</a></p>
+</div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2011/12/17/2011-12-17-firebug/" data-id="ck1v8f1ou001favmmalwe2g1c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2011-12-09-%e3%80%90%e4%b8%9c%e9%a3%8e%e4%bd%95%e5%a4%84%e5%9c%a8%e4%ba%ba%e9%97%b4%e3%80%91" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/09/2011-12-09-%E3%80%90%E4%B8%9C%E9%A3%8E%E4%BD%95%E5%A4%84%E5%9C%A8%E4%BA%BA%E9%97%B4%E3%80%91/" class="article-date">
+  <time datetime="2011-12-09T09:28:00.000Z" itemprop="datePublished">2011-12-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/09/2011-12-09-%E3%80%90%E4%B8%9C%E9%A3%8E%E4%BD%95%E5%A4%84%E5%9C%A8%E4%BA%BA%E9%97%B4%E3%80%91/">【东风何处在人间】</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p style="text-align: center;"><strong>烟沙朦胧风凌乱^</strong></p>
+<p style="text-align: center;"><strong>霾雾携寒浸城半 ^</strong></p>
+<p style="text-align: center;"><strong>惊马疾骋迷归路^</strong></p>
+<p style="text-align: center;"><strong>东风借否还人间</strong></p>
+<p style="text-align: center;">&nbsp;</p>
+<p style="text-align: center;"><strong>煙沙朦朧風凌亂^</strong></p>
+<p style="text-align: center;"><strong>霾霧攜寒浸城半^</strong></p>
+<p style="text-align: center;"><strong>驚馬疾騁迷歸路^</strong></p>
+<p style="text-align: center;"><strong>東風借否還人間</strong></p>
+
+
+<p>[caption id=”” align=”alignnone” width=”300” caption=”许嵩”]<a href="http://baike.baidu.com/view/3470774.htm" target="_blank" rel="noopener"><img title="许嵩" src="http://img.1ting.com/images/special/152/s300_53df695ae8a99d92f2b999b92b66dcd3.jpg" alt="许嵩" width="300" height="300" /></a>[/caption]</p>
+<p>原因；听了许嵩的半城烟沙</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2011/12/09/2011-12-09-%E3%80%90%E4%B8%9C%E9%A3%8E%E4%BD%95%E5%A4%84%E5%9C%A8%E4%BA%BA%E9%97%B4%E3%80%91/" data-id="ck1v8f1oq0017avmmdkmn2fs4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2011-12-03-google-chrome-%e6%88%90%e4%b8%ba%e5%85%a8%e7%90%83%e7%ac%ac%e4%ba%8c%e6%b5%81%e8%a1%8c%e6%b5%8f%e8%a7%88%e5%99%a8" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/03/2011-12-03-google-chrome-%E6%88%90%E4%B8%BA%E5%85%A8%E7%90%83%E7%AC%AC%E4%BA%8C%E6%B5%81%E8%A1%8C%E6%B5%8F%E8%A7%88%E5%99%A8/" class="article-date">
+  <time datetime="2011-12-03T06:55:00.000Z" itemprop="datePublished">2011-12-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/03/2011-12-03-google-chrome-%E6%88%90%E4%B8%BA%E5%85%A8%E7%90%83%E7%AC%AC%E4%BA%8C%E6%B5%81%E8%A1%8C%E6%B5%8F%E8%A7%88%E5%99%A8/">Google Chrome 成为全球第二流行浏览器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我还是用firefox的，无所谓。。。。。</p>
+<p>有趣的一张图</p>
+<img class="alignnone" src="http://cdn.techi.com/wp-content/uploads/2011/07/Browser-Wars.jpg" alt="" width="647" height="438" />
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wuwenjie.tk/2011/12/03/2011-12-03-google-chrome-%E6%88%90%E4%B8%BA%E5%85%A8%E7%90%83%E7%AC%AC%E4%BA%8C%E6%B5%81%E8%A1%8C%E6%B5%8F%E8%A7%88%E5%99%A8/" data-id="ck1v8f1op0016avmm0cs78b2u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/7/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/">Data mining</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/Machine-Learning/">Machine Learning</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/Machine-Learning/NLP/">NLP</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/Machine-Learning/NLP/java/">java</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/R/">R</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/R/Kmeans/">Kmeans</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/SAS/">SAS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/deep-learning/">deep-learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/dig-data/">dig data</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/dig-data/hadoop/">hadoop</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/dig-data/hadoop/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-mining/dig-data/hadoop/java/%E4%B8%89%E5%9B%BD/">三国</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Get-Linux/">Get Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mozilla/">Mozilla</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Mozilla/Netscape/">Netscape</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/PulseAudio/">PulseAudio</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Stock/">Stock</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Stock/share/">share</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Stock/share/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">技术分析</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Stock/share/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/%E6%8C%87%E6%A0%87/">指标</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/awk/">awk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/awk/Finance/">Finance</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/awk/Finance/grep/">grep</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/awk/Finance/grep/shell/">shell</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/java/JNI/">JNI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/java/JNI/c/">c</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/%E5%8F%A4%E6%96%87/">古文</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/android/%E5%8F%A4%E6%96%87/java/">java</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/bbpress/">bbpress</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/bbpress/shell/">shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/c/GStreamer/">GStreamer</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/grub/">grub</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/grub/error/">error</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/grub/error/df/">df</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/grub/error/df/fdisk/">fdisk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/grub/error/df/fdisk/blkid/">blkid</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/html5/">html5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/html5/js/">js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/html5/js/github/">github</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/html5/js/github/job/">job</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JNI/">JNI</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JNI/c/">c</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JNI/c/GStreamer/">GStreamer</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/android/">android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/android/shell/">shell</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E8%AE%BA%E6%96%87/">论文</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%EF%BC%8CJTextArea%EF%BC%8CJScrollpane/">java，JTextArea，JScrollpane</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/libX11-so-6/">libX11.so.6</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/libX11-so-6/sudo-apt-get-f-install/">sudo apt-get -f install</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/libX11-so-6/sudo-apt-get-f-install/%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E5%85%B1%E4%BA%AB%E5%AF%B9%E8%B1%A1%E6%96%87%E4%BB%B6/">无法打开共享对象文件</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/life/festival/">festival</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/game/">game</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/unix/">unix</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux%EF%BC%8Cjava%EF%BC%8Ctiled/">linux，java，tiled</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/">lucene</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/java/nodejs/">nodejs</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/lucene/java/nodejs/shell/">shell</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/music/">music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/nasm/">nasm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/nasm/virtualbox/">virtualbox</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/nasm/virtualbox/%E8%BD%AC%EF%BC%8C%E6%94%B9%EF%BC%8Capt-get/">转，改，apt-get</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/php/">php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/">octopress</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/%E5%8E%9F%E6%B2%B9/">原油</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/%E5%8E%9F%E6%B2%B9/K%E7%BA%BF/">K线</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/">Data mining</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">技术分析</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/%E6%8A%95%E8%B5%84/">投资</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/%E6%8A%95%E8%B5%84/%E7%99%BD%E9%93%B6/">白银</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/%E6%8A%95%E8%B5%84/%E7%99%BD%E9%93%B6/%E6%8C%87%E6%A0%87/">指标</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/Data-mining/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Maching-Learning/">Maching Learning</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/">raspberrypi</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/">hardware</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/GPIO/">GPIO</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/GPIO/python/">python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/openCV/">openCV</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/raspberrypi/%E6%A0%91%E8%8E%93%E6%B4%BE/hardware/openCV/python/">python</a></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/">shell</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/">gnuplot</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/">sudo apt-get install</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/cut/">cut</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/cut/awk/">awk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/cut/awk/c/">c</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/gnuplot/sudo-apt-get-install/cut/awk/c/fread/">fread</a></li></ul></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/">terminal</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/Stock/">Stock</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/Stock/share/">share</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/Stock/share/K%E7%BA%BF/">K线</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/terminal/java/Stock/share/K%E7%BA%BF/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">技术分析</a></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell%EF%BC%8Cbash%EF%BC%8Ciconv%EF%BC%8Cawk/">shell，bash，iconv，awk</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell%EF%BC%8Cbash%EF%BC%8Ciconv%EF%BC%8Cawk/read/">read</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell%EF%BC%8Cmplayer%EF%BC%8Cmencoder/">shell，mplayer，mencoder</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/java/">java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/java/WTK/">WTK</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/java/WTK/jdk/">jdk</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/webproxy/">webproxy</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/website/">website</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xfce%EF%BC%8Cerror/">xfce，error</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%8A%E6%B5%B7%E5%B8%82%E7%AB%8B%E5%9B%BE%E4%B9%A6%E9%A6%86/">上海市立图书馆</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%8A%E6%B5%B7%E5%B8%82%E7%AB%8B%E5%9B%BE%E4%B9%A6%E9%A6%86/history/">history</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%8A%E6%B5%B7%E5%B8%82%E7%AB%8B%E5%9B%BE%E4%B9%A6%E9%A6%86/history/%E8%AF%97/">诗</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BC%A0/">传</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BC%A0/%E8%AF%97/">诗</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%BD%E5%AD%A6/">国学</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%BD%E5%AD%A6/%E8%80%81%E5%AD%90/">老子</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E4%B8%8B/">富士山下</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E6%83%85/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%95%E8%B5%84/">投资</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%95%E8%B5%84/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/">技术分析</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%95%E8%B5%84/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/K%E7%BA%BF/">K线</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%95%E8%B5%84/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/K%E7%BA%BF/%E7%99%BD%E9%93%B6/">白银</a></li></ul></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AC%E7%AB%99/">本站</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%97/">诗</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%97/%E5%BF%83%E6%83%85/">心情</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/">转</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/linux/">linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/linux/dia/">dia</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/mysql/">mysql</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AC/mysql/cmd/">cmd</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%BF%E9%87%8C/">阿里</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%98%BF%E9%87%8C/%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D/">互联网金融</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">二月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">十月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">七月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/04/">四月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/">八月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">十一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">十月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">九月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">八月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">六月 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/02/2017-02-02-gai-ji-qi-xue-xi-jue-ce-shu-python-shi-xian/">改-机器学习-决策树（Python实现）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/02/2017-03-19-line/">改-机器学习-决策树（Python实现）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/2017-01-05-gai-ji-qi-xue-xi-luo-ji-hui-gui-pythonshi-xian/">改-机器学习-逻辑回归（Python实现）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/2016-11-19-yong-pythonfen-xi-bai-yin-t-plus-djie-ge-zou-shi/">用Python分析白银T+D价格走势</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/31/2016-10-07-bai-xiang-raspberrypi-4-zhuang-ge-yan-jing-e/">白相Raspberrypi-4-装个眼睛哦</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 wuwenjie<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
