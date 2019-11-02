@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://wuwenjie.tk/2019/11/03/2019-11-03-%25E8%25BD%25AC-%25E5%258F%25A4%25E6%25B1%2589%25E8%25AF%25AD-%25E8%25AE%25BA%25E8%25AF%25AD-%25E5%25AD%2590%25E8%25B7%25AF/</loc>
+    
+    <lastmod>2019-11-02T19:09:36.716Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wuwenjie.tk/2019/10/26/2019-10-26-%25E8%25BD%25AC-Nginx%25E5%258E%259F%25E7%2590%2586/</loc>
     
-    <lastmod>2019-10-25T20:44:03.886Z</lastmod>
+    <lastmod>2019-10-25T20:47:15.259Z</lastmod>
     
   </url>
   
@@ -492,13 +499,6 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2011/06/24/2011-06-24-working/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wuwenjie.tk/2011/06/12/2011-06-12-comodo-error-1601/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
@@ -527,6 +527,13 @@
   </url>
   
   <url>
+    <loc>http://wuwenjie.tk/2011/06/24/2011-06-24-working/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wuwenjie.tk/2011/08/04/2011-08-04-fireworks/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
@@ -541,14 +548,14 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2011/08/29/2011-08-29-%25E5%258F%2588%25E4%25B8%2580%25E4%25B8%25AA-wuwenjie-%25E7%25AB%2599%25E7%2582%25B9/</loc>
+    <loc>http://wuwenjie.tk/2011/08/19/2011-08-19-93-%25E7%259A%2584-linux-%25E7%2594%25A8%25E6%2588%25B7%25E6%2598%25AF%25E7%2594%25B7%25E6%2580%25A7/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2011/08/19/2011-08-19-93-%25E7%259A%2584-linux-%25E7%2594%25A8%25E6%2588%25B7%25E6%2598%25AF%25E7%2594%25B7%25E6%2580%25A7/</loc>
+    <loc>http://wuwenjie.tk/2011/08/29/2011-08-29-%25E5%258F%2588%25E4%25B8%2580%25E4%25B8%25AA-wuwenjie-%25E7%25AB%2599%25E7%2582%25B9/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
@@ -604,7 +611,7 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2011/10/15/2011-10-15-%25E5%2585%258D%25E8%25B4%25B9php%25E7%25A9%25BA%25E9%2597%25B4/</loc>
+    <loc>http://wuwenjie.tk/2011/10/21/2011-10-21-%25E7%25BE%258E%25E6%25A2%25A6%25E6%2598%25AF%25E5%25A4%259A%25E4%25B9%2588%25E7%259A%2584%25E6%2598%2593%25E7%25A2%258E/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
@@ -618,7 +625,7 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2011/10/21/2011-10-21-%25E7%25BE%258E%25E6%25A2%25A6%25E6%2598%25AF%25E5%25A4%259A%25E4%25B9%2588%25E7%259A%2584%25E6%2598%2593%25E7%25A2%258E/</loc>
+    <loc>http://wuwenjie.tk/2011/10/15/2011-10-15-%25E5%2585%258D%25E8%25B4%25B9php%25E7%25A9%25BA%25E9%2597%25B4/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
@@ -632,13 +639,6 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2011/10/29/2011-10-29-linux-world-map-small/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wuwenjie.tk/2011/11/06/2011-11-06-puppy-linux/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
@@ -646,49 +646,7 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2011/11/25/2011-11-25-ubuntu%25E8%25BD%25AF%25E4%25BB%25B6%25E4%25B8%25AD%25E5%25BF%2583%25E6%259C%2580%25E5%258F%2597%25E5%25A5%25BD%25E8%25AF%2584%25E7%259A%258420%25E6%25AC%25BE%25E8%25BD%25AF%25E4%25BB%25B6/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wuwenjie.tk/2011/11/26/2011-11-26-%25E4%25BD%25A0%25E6%259C%2580%25E5%25B8%25B8%25E7%2594%25A8%25E7%259A%2584-10-%25E6%259D%25A1%25E5%2591%25BD%25E4%25BB%25A4%25E6%2598%25AF%25E4%25BB%2580%25E4%25B9%2588%25EF%25BC%259F/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wuwenjie.tk/2011/12/03/2011-12-03-google-chrome-%25E6%2588%2590%25E4%25B8%25BA%25E5%2585%25A8%25E7%2590%2583%25E7%25AC%25AC%25E4%25BA%258C%25E6%25B5%2581%25E8%25A1%258C%25E6%25B5%258F%25E8%25A7%2588%25E5%2599%25A8/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wuwenjie.tk/2011/11/26/2011-11-26-workrave-%25E9%2598%25B2%25E6%25AD%25A2%25E8%2585%25B0%25E9%2585%25B8%25E8%2583%258C%25E7%2597%259B%25E8%2585%25BF%25E6%258A%25BD%25E7%25AD%258B/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wuwenjie.tk/2011/12/09/2011-12-09-%25E3%2580%2590%25E4%25B8%259C%25E9%25A3%258E%25E4%25BD%2595%25E5%25A4%2584%25E5%259C%25A8%25E4%25BA%25BA%25E9%2597%25B4%25E3%2580%2591/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wuwenjie.tk/2011/12/17/2011-12-17-firebug/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wuwenjie.tk/2011/12/18/2011-12-18-%25E5%25BC%25A0%25E4%25BF%25A1%25E5%2593%25B2-%25E9%259B%25A8%25E9%259C%2596%25E9%2593%2583/</loc>
+    <loc>http://wuwenjie.tk/2011/10/29/2011-10-29-linux-world-map-small/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
@@ -702,6 +660,48 @@
   </url>
   
   <url>
+    <loc>http://wuwenjie.tk/2011/11/26/2011-11-26-%25E4%25BD%25A0%25E6%259C%2580%25E5%25B8%25B8%25E7%2594%25A8%25E7%259A%2584-10-%25E6%259D%25A1%25E5%2591%25BD%25E4%25BB%25A4%25E6%2598%25AF%25E4%25BB%2580%25E4%25B9%2588%25EF%25BC%259F/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuwenjie.tk/2011/11/25/2011-11-25-ubuntu%25E8%25BD%25AF%25E4%25BB%25B6%25E4%25B8%25AD%25E5%25BF%2583%25E6%259C%2580%25E5%258F%2597%25E5%25A5%25BD%25E8%25AF%2584%25E7%259A%258420%25E6%25AC%25BE%25E8%25BD%25AF%25E4%25BB%25B6/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuwenjie.tk/2011/11/26/2011-11-26-workrave-%25E9%2598%25B2%25E6%25AD%25A2%25E8%2585%25B0%25E9%2585%25B8%25E8%2583%258C%25E7%2597%259B%25E8%2585%25BF%25E6%258A%25BD%25E7%25AD%258B/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuwenjie.tk/2011/12/03/2011-12-03-google-chrome-%25E6%2588%2590%25E4%25B8%25BA%25E5%2585%25A8%25E7%2590%2583%25E7%25AC%25AC%25E4%25BA%258C%25E6%25B5%2581%25E8%25A1%258C%25E6%25B5%258F%25E8%25A7%2588%25E5%2599%25A8/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuwenjie.tk/2011/12/09/2011-12-09-%25E3%2580%2590%25E4%25B8%259C%25E9%25A3%258E%25E4%25BD%2595%25E5%25A4%2584%25E5%259C%25A8%25E4%25BA%25BA%25E9%2597%25B4%25E3%2580%2591/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuwenjie.tk/2011/12/18/2011-12-18-%25E5%25BC%25A0%25E4%25BF%25A1%25E5%2593%25B2-%25E9%259B%25A8%25E9%259C%2596%25E9%2593%2583/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wuwenjie.tk/2011/12/25/2011-12-25-%25E4%25B8%258B%25E7%25A4%25BC%25E6%258B%259C%25E8%2580%2583%25E8%25AF%2595%25E5%2595%258A/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
@@ -709,7 +709,7 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2011/12/18/2011-12-18-%25E6%259C%25AC%25E7%25AB%2599%25E9%259D%25A9%25E6%2596%25B0%25E5%2588%25B0wordpress-3-3-sonny/</loc>
+    <loc>http://wuwenjie.tk/2011/12/17/2011-12-17-firebug/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
@@ -723,7 +723,28 @@
   </url>
   
   <url>
+    <loc>http://wuwenjie.tk/2011/12/18/2011-12-18-%25E6%259C%25AC%25E7%25AB%2599%25E9%259D%25A9%25E6%2596%25B0%25E5%2588%25B0wordpress-3-3-sonny/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wuwenjie.tk/2012/01/06/2012-01-06-get-linux-0-1%25E5%258F%2591%25E5%25B8%2583-%25E5%25B8%25AE%25E5%258A%25A9windows%25E7%2594%25A8%25E6%2588%25B7%25E8%25AE%25A4%25E8%25AF%2586linux/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuwenjie.tk/2012/01/11/2012-01-11-%25E5%25AF%258C%25E5%25A3%25AB%25E5%25B1%25B1%25E4%25B8%258B-%25EF%25BC%2588%25E5%25A4%25A9%25E5%25A4%25A9%25E5%259C%25A8%25E5%25AE%25B6%25EF%25BC%258C%25E6%2597%25A0%25E8%2581%258A%25E5%2595%258A%25EF%25BC%2589/</loc>
+    
+    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuwenjie.tk/2012/03/03/2012-03-03-Code-Rush/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
@@ -737,7 +758,7 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2012/03/03/2012-03-03-Code-Rush/</loc>
+    <loc>http://wuwenjie.tk/2012/04/30/2012-04-30-windows-wubi-installation-root-disk/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
@@ -758,13 +779,6 @@
   </url>
   
   <url>
-    <loc>http://wuwenjie.tk/2012/04/30/2012-04-30-windows-wubi-installation-root-disk/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://wuwenjie.tk/2012/06/18/2012-06-18-xhuloo1-3/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
@@ -773,13 +787,6 @@
   
   <url>
     <loc>http://wuwenjie.tk/2012/07/06/2012-07-06-xhuloo1_3_2/</loc>
-    
-    <lastmod>2013-06-01T12:13:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wuwenjie.tk/2012/01/11/2012-01-11-%25E5%25AF%258C%25E5%25A3%25AB%25E5%25B1%25B1%25E4%25B8%258B-%25EF%25BC%2588%25E5%25A4%25A9%25E5%25A4%25A9%25E5%259C%25A8%25E5%25AE%25B6%25EF%25BC%258C%25E6%2597%25A0%25E8%2581%258A%25E5%2595%258A%25EF%25BC%2589/</loc>
     
     <lastmod>2013-06-01T12:13:58.000Z</lastmod>
     
