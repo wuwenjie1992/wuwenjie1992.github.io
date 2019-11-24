@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wuwenjie.tk/"/>
-  <updated>2019-11-10T14:22:12.973Z</updated>
+  <updated>2019-11-24T19:52:22.119Z</updated>
   <id>http://wuwenjie.tk/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[转]-利用图神经网络GCN进行节点分类</title>
+    <link href="http://wuwenjie.tk/2019/11/24/2019-11-24-%E8%BD%AC-%E5%88%A9%E7%94%A8%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CGCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB/"/>
+    <id>http://wuwenjie.tk/2019/11/24/2019-11-24-转-利用图神经网络GCN进行节点分类/</id>
+    <published>2019-11-24T11:45:17.000Z</published>
+    <updated>2019-11-24T19:52:22.119Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>本文转自公众号<strong>极验</strong></li><li>作者：Graham Ganssle 编译整理：萝卜兔</li></ul><p>图是信息的最佳表示方式之一。在一个图中，有通过边（“关系”）连接起来的节点（“实体”）。例如，在你的社交网络大概是这个样子的：以你为中心，再连接上你的朋友们，他们又以不同的方式相互联系。在表格中表示这些信息并不直观，社交关系并不是像一排排规矩的摆在桌子上的东西，而是像下图这样的：</p><p><img src="/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-0.jpg" alt="利用GCN进行节点分类-0.jpg"><br>Facebook 社交网络；金色的边你的社交关系；灰色的边是你的朋友之间的关系。</p><a id="more"></a><h3 id="预测节点属性"><a href="#预测节点属性" class="headerlink" title="预测节点属性"></a>预测节点属性</h3><p>现在我们得到了社交网络的最佳表示，那么如何去更好的预测你朋友们的喜好呢？我们这里使用图卷积神经网络（Graph convolutional networks），GCN是一种新的深度学习架构，能够利用包含在数据以及数据之间关系中的信息。</p><p>来看一个例子，假设我们想要了解你的朋友们谁倾向于共和党派，谁倾向于民主党派。我们将在社交网络图上应用GCN，并将预测的“政治立场”这个节点属性分配给图中缺少标签的节点。</p><h3 id="GCN网络有两个输入"><a href="#GCN网络有两个输入" class="headerlink" title="GCN网络有两个输入"></a>GCN网络有两个输入</h3><ul><li>首先需要列出你每个朋友的特征，包括母校、邮政编码、所属团体等等信息，很显然，这些信息是学习一个人政治倾向的特征。</li><li>第二，GCN采用图结构的精简形式，这帮助GCN学习朋友之间的关系是如何影响他们的政治立场的。</li></ul><p>按理说，仅这两条信息就足以预测一个人的政治倾向了。传统的深度学习模型甚至不需要应用实体之间的关系来进行预测，它们只利用个人属性。但是通过在GCN中结合数据的属性以及结构，可以使预测更加精准和强大。</p><p><img src="/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-1.jpg" alt="利用GCN进行节点分类-1"><br>GCN的输入：Jane和很多共和党人有联系，但是她也有自己的一些属性，比如教育、地理位置等，那她到底是共和党派还是民主党派呢？</p><p>GCN的应用十分简单。它们是分层操作的，可以将它们堆叠在一起，达到想要的深度。在每一层的内部，有三个特点：</p><ul><li>第一 标准化的图结构；</li><li>第二 标准化的图结构乘以节点属性；</li><li>第三 我们将非线性函数应用于节点属性和权重；<br><img src="/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-2.jpg" alt="利用GCN进行节点分类-2"><br>一个图卷积层，敏锐的读者会注意到，由于核函数的平稳性，这是一个近似卷积算子</li></ul><p>在应用中，额外添加dropout层，激活函数采用Leaky ReLU，损失函数采用softmax loss，如下图所示：<br><img src="/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-3.jpg" alt="利用GCN进行节点分类-3"></p><p>一个使用中间dropout层的双层图卷积神经网络，我发现leaky ReLU函数能够有助于缓解梯度消失。<br>如下图，我们来看一部分使用Tensorflow实现GCN层的代码，了解一下该网络设计的简单性。<br><img src="/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-4.jpg" alt="利用GCN进行节点分类-4"><br>一个基于TensorFlow实现的图卷积神经网络，使用ADAM优化器，softmax交叉熵损失函数。绿色部分是图卷积层的实现。</p><h3 id="GCN的应用"><a href="#GCN的应用" class="headerlink" title="GCN的应用"></a>GCN的应用</h3><ul><li>政治倾向预测</li></ul><p>上面的例子太简单，无法证明该问题的复杂性。下面，我们看一个真正的Facebook网络，不同政治倾向的颜色不同。</p><p><img src="/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-5.jpg" alt="利用GCN进行节点分类-5"><br>一个基于社交网络，不同的颜色代表每个人不同的政治倾向，图卷积预测了10%的这些人的政治立场，其余的作为训练序列的一部分输入。</p><ul><li>交易欺诈检测</li></ul><p>记住，GCN不在乎每个节点的输入数据，或者节点之间的关系是什么样的。我们可以任意使用数据，比如企业之间的金融交易数据和企业自身的财务状况信息，便可以使用GCN来告诉我们哪些交易具有欺诈性。建立一个企业的超级节点图，我们可以利用GCN找出洗钱团伙。</p><p><img src="/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-6.jpg" alt="利用GCN进行节点分类-6"><br>一个交易的超级节点图。这些组织中有没有洗钱圈？利用GCN找出违法分子。</p><ul><li>信用风险评估<br>将GCN应用到银行客户信用风险评估，根据客户的特征以及风险阈值找出哪些客户是不能审批贷款的。还可以利用历史银行数据。</li></ul><p><img src="/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-7.jpg" alt="利用GCN进行节点分类-7"><br>10万节点银行客户数据集的子图。利用客户之间的关系以及每个客户的财务数据，我们可以评估哪些客户可以获得什么贷款的批准，并对照一些风险阈值进行验证。</p><p>利用数据的自然结构提高了机器学习的预测能力，因此认识到图的普遍性是非常重要的。每个企业每天都在处理很多数据，而这些数据非常适合用图结构来表示。在任何信息连接的情况下都会出现图相关的问题，任何有图的地方，背后都有惊人的价值等待被挖掘。</p><p><strong>参考链接：</strong><br><a href="https://www.experoinc.com/post/node-classification-by-graph-convolutional-network" target="_blank" rel="noopener">https://www.experoinc.com/post/node-classification-by-graph-convolutional-network</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;&lt;li&gt;本文转自公众号&lt;strong&gt;极验&lt;/strong&gt;&lt;/li&gt;&lt;li&gt;作者：Graham Ganssle 编译整理：萝卜兔&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;图是信息的最佳表示方式之一。在一个图中，有通过边（“关系”）连接起来的节点（“实体”）。例如，在你的社交网络大概是这个样子的：以你为中心，再连接上你的朋友们，他们又以不同的方式相互联系。在表格中表示这些信息并不直观，社交关系并不是像一排排规矩的摆在桌子上的东西，而是像下图这样的：&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/images/%E5%88%A9%E7%94%A8GCN%E8%BF%9B%E8%A1%8C%E8%8A%82%E7%82%B9%E5%88%86%E7%B1%BB-0.jpg&quot; alt=&quot;利用GCN进行节点分类-0.jpg&quot;&gt;&lt;br&gt;Facebook 社交网络；金色的边你的社交关系；灰色的边是你的朋友之间的关系。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="图神经网络GCN" scheme="http://wuwenjie.tk/categories/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CGCN/"/>
+    
+    
+      <category term="图神经网络GCN" scheme="http://wuwenjie.tk/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9CGCN/"/>
+    
+  </entry>
   
   <entry>
     <title>[转]-Getshell-文件上传绕过整理</title>
@@ -520,29 +543,6 @@
       <category term="Data mining" scheme="http://wuwenjie.tk/categories/Data-mining/"/>
     
       <category term="deep-learning" scheme="http://wuwenjie.tk/categories/Data-mining/deep-learning/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>nginx二级目录配置--交由php处理</title>
-    <link href="http://wuwenjie.tk/2015/07/31/2015-08-16-nginxer-ji-mu-lu-pei-zhi-jiao-you-phpchu-li/"/>
-    <id>http://wuwenjie.tk/2015/07/31/2015-08-16-nginxer-ji-mu-lu-pei-zhi-jiao-you-phpchu-li/</id>
-    <published>2015-07-31T14:36:00.000Z</published>
-    <updated>2015-08-16T15:26:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>###nginx？</p><ul><li>10年前，一款由俄罗斯程序员开发轻量级的代理服务器出现。</li><li>如今，<a href="https://zh.wikipedia.org/zh-cn/Nginx" target="_blank" rel="noopener">nginx</a>由于性能出色，应用广泛，受到了越来越多的关注。</li></ul><h3 id="nginx二级目录配置"><a href="#nginx二级目录配置" class="headerlink" title="nginx二级目录配置"></a>nginx二级目录配置</h3><ul><li><p>场景</p><ul><li>无域名</li><li>访问/,显示blog主页</li><li>访问/bbs（二级目录），显示php写的论坛主页</li></ul></li><li><p>ngnix配置文件及详解</p></li></ul><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line"># 监听80端口</span><br><span class="line">listen 80;</span><br><span class="line">server_name localhost;</span><br><span class="line"></span><br><span class="line"># pass the PHP scripts to FastCGI server listening on the php-fpm socket</span><br><span class="line"># 将PHP脚本交由监听php-fpm套接字的FastCGI服务器处理</span><br><span class="line"></span><br><span class="line"># 将请求地址 是以/bbs开始的，其中带有php字样的用以下方式处理</span><br><span class="line">location ~* /bbs/.*\.php(.*)$ &#123;</span><br><span class="line">include /etc/nginx/fastcgi_params;</span><br><span class="line"></span><br><span class="line"># 设置根目录地址，实际地址</span><br><span class="line"># 该目录下要有名为bbs的目录，将论坛系统放在目录下</span><br><span class="line">root /var/www;</span><br><span class="line"></span><br><span class="line">#交由php-fpm处理</span><br><span class="line">fastcgi_pass   unix:/var/run/php5-fpm.sock;</span><br><span class="line"></span><br><span class="line">fastcgi_index  index.php;</span><br><span class="line"></span><br><span class="line">#cgi程序的参数传递 真正执行php文件的地址</span><br><span class="line">fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># /bbs 访问设置</span><br><span class="line">location /bbs &#123;</span><br><span class="line">alias   /var/www/bbs;</span><br><span class="line">index   index.php index.html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 主页 反向代理设置</span><br><span class="line">location / &#123;</span><br><span class="line">proxy_set_header   X-Real-IP $remote_addr;</span><br><span class="line">proxy_set_header   Host      $http_host;</span><br><span class="line">#反向代理了本地的ghost blog</span><br><span class="line">proxy_pass         http://localhost:2368;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>###相关参考</p><ul><li><a href="http://support.ghost.org/basic-nginx-config/#configure-nginx" target="_blank" rel="noopener">Basic nginx config (self-hosted with custom domain)</a></li><li><a href="http://tengine.taobao.org/book/" target="_blank" rel="noopener">Nginx开发从入门到精通</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;###nginx？&lt;/p&gt;&lt;ul&gt;&lt;li&gt;10年前，一款由俄罗斯程序员开发轻量级的代理服务器出现。&lt;/li&gt;&lt;li&gt;如今，&lt;a href=&quot;https://zh.wikipedia.org/zh-cn/Nginx&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;nginx&lt;/a&gt;由于性能出色，应用广泛，受到了越来越多的关注。&lt;/li&gt;&lt;/ul&gt;&lt;h3 id=&quot;nginx二级目录配置&quot;&gt;&lt;a href=&quot;#nginx二级目录配置&quot; class=&quot;headerlink&quot; title=&quot;nginx二级目录配置&quot;&gt;&lt;/a&gt;nginx二级目录配置&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;场景&lt;/p&gt;&lt;ul&gt;&lt;li&gt;无域名&lt;/li&gt;&lt;li&gt;访问/,显示blog主页&lt;/li&gt;&lt;li&gt;访问/bbs（二级目录），显示php写的论坛主页&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;ngnix配置文件及详解&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="nginx" scheme="http://wuwenjie.tk/categories/nginx/"/>
-    
-      <category term="php" scheme="http://wuwenjie.tk/categories/nginx/php/"/>
     
     
   </entry>
